@@ -12,6 +12,6 @@
 	<h1 class="text-3xl font-bold">{title}</h1>
 	<svelte:fragment slot="trail"><LightSwitch /></svelte:fragment>
 </AppBar>
-<div class="container h-full p-2">
+<div class="container h-full p-8">
 	<slot />
 </div>
