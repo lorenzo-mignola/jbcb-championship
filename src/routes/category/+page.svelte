@@ -1,7 +1,7 @@
 <script>
-	export let data;
+  export let data;
 </script>
 
 <div>
-	{data.id}
+  {data.id}
 </div>

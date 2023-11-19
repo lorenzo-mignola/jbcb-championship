@@ -1,4 +1,4 @@
 export interface Athlete {
-	id: string;
-	name: string;
+  id: string;
+  name: string;
 }

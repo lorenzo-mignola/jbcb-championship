@@ -3,8 +3,8 @@ import { defineConfig } from 'vite';
 import { purgeCss } from 'vite-plugin-tailwind-purgecss';
 
 export default defineConfig({
-	plugins: [sveltekit(), purgeCss()],
-	test: {
-		include: ['**/*.test.ts']
-	}
+  plugins: [sveltekit(), purgeCss()],
+  test: {
+    include: ['**/*.test.ts']
+  }
 });
