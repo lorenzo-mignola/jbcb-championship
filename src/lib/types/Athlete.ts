@@ -1,5 +1,4 @@
 export interface Athlete {
+	id: string;
 	name: string;
-	order: number;
-	id?: string;
 }

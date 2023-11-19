@@ -1,17 +1,39 @@
 <script>
-	import { athletes } from './athletes';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { createCategory } from '$lib/db/methods';
+	import { CATEGORY_NAME } from '$lib/utils/constants';
+	import { athletes, resetAthletes } from './athletes';
+	import Athletes from './athletes.svelte';
+	import CategoryName from './category-name.svelte';
 	import NewAthlete from './new-athlete.svelte';
+
+	$: canCreate = () => {
+		const categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
+		return categoryName.length > 0 && $athletes.length > 0;
+	};
+
+	function handleCreate() {
+		const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
+		if (!categoryName) {
+			return;
+		}
+		const idNewCategory = createCategory(categoryName, $athletes);
+		resetAthletes();
+		goto(`/category?id=${idNewCategory}`);
+	}
 </script>
 
-<ul class="list">
-	{#each $athletes as athlete}
-		<li>
-			<span class="flex-auto">{athlete.name}</span>
-		</li>
-		<hr />
-	{/each}
-</ul>
+<CategoryName />
 
-<NewAthlete />
+<div class="my-7">
+	<Athletes />
+	<NewAthlete />
+</div>
 
-<button type="button" class="btn btn-xl variant-filled mx-auto w-full">Crea categoria</button>
+<button
+	type="button"
+	class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10"
+	disabled={!canCreate()}
+	on:click={handleCreate}>Crea categoria</button
+>
