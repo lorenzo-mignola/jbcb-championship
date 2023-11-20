@@ -12,5 +12,8 @@ export const createCategory = (name: string, athletes: Athlete[]) => {
 };
 
 export const getAllCategories = () => {
+  if (!db) {
+    return [];
+  }
   return db.data.categories;
 };

@@ -13,7 +13,12 @@
   {@html webManifestLink}
 </svelte:head>
 
-<AppBar slotTrail="place-content-end" background="bg-surface-100-800-token" class="sticky top-0">
+<AppBar
+  slotTrail="place-content-end"
+  background="bg-surface-200-700-token"
+  shadow="shadow-md"
+  class="sticky top-0"
+>
   <a href="/"><h1 class="text-3xl font-bold">{title}</h1></a>
   <svelte:fragment slot="trail"><LightSwitch /></svelte:fragment>
 </AppBar>
