@@ -3,4 +3,7 @@
   export let text: string;
 </script>
 
-<a class="block card card-hover p-4 bg-surface-200-700-token text-lg" href={link}>{text}</a>
+<a
+  class="block card card-hover bg-primary-500 dark:bg-primary-600 text-white text-xl p-8"
+  href={link}>{text}</a
+>
