@@ -2,3 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 @tailwind variants;
+
+@layer components {
+  .judoka-white {
+    @apply bg-gray-100 text-black dark:bg-gray-100 dark:text-black;
+  }
+
+  .judoka-blue {
+    @apply bg-blue-800 text-white dark:text-white dark:bg-blue-800;
+  }
+}
