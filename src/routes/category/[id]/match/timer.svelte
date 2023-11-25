@@ -1,8 +1,8 @@
 <script>
-  import { timer } from './timer';
+  import { getMin, getSec, timer } from './timer';
 
-  $: min = Math.floor($timer / 60);
-  $: sec = $timer - min * 60;
+  $: min = getMin($timer);
+  $: sec = getSec($timer);
 </script>
 
 <div class="text-timer w-full text-center p-4 text-5xl my-5 font-bold">

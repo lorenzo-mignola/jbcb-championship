@@ -3,6 +3,9 @@
 
   let name = '';
   function handleEnter() {
+    if (!name) {
+      return;
+    }
     addAthlete(name);
     name = '';
   }
@@ -13,6 +16,6 @@
     <label class="label">
       <input class="input" type="text" bind:value={name} placeholder="Nome judoka" />
     </label>
-    <button class="variant-filled-primary">Aggiungi</button>
+    <button class="variant-filled-primary" disabled={!name}>Aggiungi</button>
   </div>
 </form>

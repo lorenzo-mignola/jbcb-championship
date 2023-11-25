@@ -27,7 +27,7 @@
     outline: 0;
   }
   .play {
-    @apply bg-secondary-500 dark:bg-secondary-600;
+    @apply bg-primary-500 dark:bg-primary-600;
   }
   .stop {
     @apply bg-surface-500;

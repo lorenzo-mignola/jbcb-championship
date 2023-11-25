@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 
-const duration = 4 * 60;
+const duration = 4 * 60 * 10;
 export const timer = writable(duration);
 export const isPlaying = writable(false);
 
@@ -13,7 +13,7 @@ const play = () => {
     if (get(isPlaying)) {
       timer.update((time) => time - 1);
     }
-  }, 1000);
+  }, 100);
 };
 
 const stop = () => {
@@ -47,3 +47,6 @@ export const reset = () => {
     clearInterval(interval);
   }
 };
+
+export const getMin = (t: number) => Math.floor(t / (60 * 10));
+export const getSec = (t: number) => Math.floor((t - getMin(t) * (60 * 10)) / 10);

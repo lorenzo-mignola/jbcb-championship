@@ -5,15 +5,38 @@
 @tailwind variants;
 
 @layer components {
-  .base-judoka {
-    @apply my-2 rounded-md p-4 flex justify-between text-3xl font-semibold shadow-md;
-  }
   .judoka-white {
-    @apply base-judoka bg-gray-100 text-black dark:bg-gray-200 dark:text-black;
+    @apply bg-gray-100 text-black dark:bg-gray-200 dark:text-black;
   }
 
   .judoka-blue {
-    @apply base-judoka bg-blue-800 text-white dark:bg-blue-800 dark:text-white;
+    @apply bg-blue-800 text-white dark:bg-blue-800 dark:text-white;
+  }
+
+  .judoka-blue hr {
+    @apply my-2;
+    border-color: rgba(var(--color-surface-100), 0.3);
+  }
+
+  .judoka-blue button {
+    @apply ring-white dark:ring-white;
+  }
+
+  .judoka-white hr {
+    @apply my-2;
+    border-color: rgba(var(--color-surface-900), 0.3);
+  }
+
+  .base-judoka-card {
+    @apply my-2 rounded-md p-4 text-3xl font-semibold shadow-md;
+  }
+
+  .judoka-white-card {
+    @apply base-judoka-card judoka-white;
+  }
+
+  .judoka-blue-card {
+    @apply base-judoka-card judoka-blue;
   }
 }
 

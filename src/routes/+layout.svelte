@@ -17,7 +17,7 @@
   slotTrail="place-content-end"
   background="bg-surface-200-700-token"
   shadow="shadow-md"
-  class="sticky top-0"
+  class="sticky top-0 z-50"
 >
   <a href="/"><h1 class="text-3xl font-bold">{title}</h1></a>
   <svelte:fragment slot="trail"><LightSwitch /></svelte:fragment>

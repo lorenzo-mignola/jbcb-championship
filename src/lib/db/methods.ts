@@ -1,11 +1,15 @@
 import { nanoid } from 'nanoid';
-import type { Athlete } from '../types/Athlete';
+import type { Category } from '../types/Category';
 import { db } from './db';
 
-export const createCategory = (name: string, athletes: Athlete[]) => {
+export const createCategory = (
+  name: Category['name'],
+  athletes: Category['athletes'],
+  type: Category['type']
+) => {
   const id = nanoid();
   if (typeof localStorage !== 'undefined') {
-    db.data.categories.push({ name, athletes, id, rounds: [] });
+    db.data.categories.push({ name, athletes, id, rounds: [], type });
     db.write();
   }
   return id;

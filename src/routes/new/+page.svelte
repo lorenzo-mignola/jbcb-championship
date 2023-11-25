@@ -7,18 +7,20 @@
   import Athletes from './athletes.svelte';
   import CategoryName from './category-name.svelte';
   import NewAthlete from './new-athlete.svelte';
+  import CategoryType from './type/category-type.svelte';
+  import { type } from './type/type';
 
   $: canCreate = () => {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
-    return categoryName.length > 0 && $athletes.length > 0;
+    return [categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
   };
 
   function handleCreate() {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
-    if (!categoryName) {
+    if (!categoryName || !$type) {
       return;
     }
-    const idNewCategory = createCategory(categoryName, $athletes);
+    const idNewCategory = createCategory(categoryName, $athletes, $type);
     resetAthletes();
     goto(`/category/${idNewCategory}`);
   }
@@ -29,6 +31,7 @@
 <div class="my-7">
   <Athletes />
   <NewAthlete />
+  <CategoryType />
 </div>
 
 <button
