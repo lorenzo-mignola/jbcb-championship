@@ -1,6 +1,6 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-  import type { Category } from '../../lib/types/Category';
+  import type { Category } from '../../../lib/types/Category';
 
   export let category: Category;
 </script>

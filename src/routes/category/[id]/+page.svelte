@@ -1,7 +1,7 @@
 <script>
   import AthleteList from '$lib/components/AthleteList.svelte';
-  import Next from '../../icons/next.svelte';
-  import { getCategory } from '../../lib/db/methods';
+  import { getCategory } from '$lib/db/methods';
+  import Next from '../../../icons/next.svelte';
   import Loading from './loading.svelte';
   import Stats from './stats.svelte';
 
@@ -16,7 +16,7 @@
     <div class="flex justify-between">
       <h2 class="h2 font-bold mb-10">{category.name}</h2>
       <div>
-        <a href={`/category/match?id=${category.id}`}>
+        <a href={`/category/${category.id}/match`}>
           <button class="btn btn-lg variant-filled-primary"
             >Inizia <span class="ml-2"><Next /></span></button
           >
