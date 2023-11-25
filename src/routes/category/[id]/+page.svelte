@@ -1,12 +1,11 @@
 <script>
   import AthleteList from '$lib/components/AthleteList.svelte';
-  import { getCategory } from '$lib/db/methods';
   import Next from '../../../icons/next.svelte';
   import Loading from './loading.svelte';
   import Stats from './stats.svelte';
 
   export let data;
-  const category = getCategory(data.id);
+  const category = data.category;
 </script>
 
 <div>

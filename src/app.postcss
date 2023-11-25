@@ -4,11 +4,14 @@
 @tailwind variants;
 
 @layer components {
+  .base-judoka {
+    @apply my-2 rounded-md;
+  }
   .judoka-white {
-    @apply bg-gray-100 text-black dark:bg-gray-100 dark:text-black;
+    @apply base-judoka bg-gray-100 text-black dark:bg-gray-200 dark:text-black;
   }
 
   .judoka-blue {
-    @apply bg-blue-800 text-white dark:text-white dark:bg-blue-800;
+    @apply base-judoka bg-blue-800 text-white dark:bg-blue-800 dark:text-white;
   }
 }
