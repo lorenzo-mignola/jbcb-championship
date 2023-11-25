@@ -13,7 +13,6 @@
   }
 </script>
 
-<!-- svelte-ignore a11y-autofocus -->
 <label class="label">
   <span>Nome categoria</span>
   <input
@@ -23,6 +22,5 @@
     placeholder="Categoria"
     on:focusout={handleSetCategoryName}
     bind:value={name}
-    autofocus
   />
 </label>

@@ -1,22 +1,35 @@
 <script>
+  import { onDestroy } from 'svelte';
   import Play from '../../../../icons/play.svelte';
   import Stop from '../../../../icons/stop.svelte';
+  import { isPlaying, reset, togglePlay } from './timer';
 
-  let play = true;
+  onDestroy(() => reset());
 </script>
 
-<button class="card p-2 text-8xl w-full flex justify-center" on:click={() => (play = !play)}>
+<button
+  class="btn variant-filled p-4 text-8xl w-full flex justify-center text-white"
+  class:play={!$isPlaying}
+  class:stop={$isPlaying}
+  on:click={() => togglePlay()}
+>
   <div>
-    {#if play}
-      <Play />
-    {:else}
+    {#if $isPlaying}
       <Stop />
+    {:else}
+      <Play />
     {/if}
   </div>
 </button>
 
-<style>
+<style lang="postcss">
   button:focus {
     outline: 0;
+  }
+  .play {
+    @apply bg-secondary-500 dark:bg-secondary-600;
+  }
+  .stop {
+    @apply bg-surface-500;
   }
 </style>

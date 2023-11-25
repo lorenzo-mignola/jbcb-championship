@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Azeret+Mono:wght@600&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,7 +6,7 @@
 
 @layer components {
   .base-judoka {
-    @apply my-2 rounded-md;
+    @apply my-2 rounded-md p-4 flex justify-between text-3xl font-semibold shadow-md;
   }
   .judoka-white {
     @apply base-judoka bg-gray-100 text-black dark:bg-gray-200 dark:text-black;
@@ -14,4 +15,8 @@
   .judoka-blue {
     @apply base-judoka bg-blue-800 text-white dark:bg-blue-800 dark:text-white;
   }
+}
+
+.text-timer {
+  font-family: 'Azeret Mono', monospace;
 }
