@@ -9,7 +9,7 @@ export const createCategory = (
 ) => {
   const id = nanoid();
   if (typeof localStorage !== 'undefined') {
-    db.data.categories.push({ name, athletes, id, rounds: [], type });
+    db.data.categories.push({ name, athletes, id, matches: [], type });
     db.write();
   }
   return id;

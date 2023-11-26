@@ -1,10 +1,10 @@
 import type { Athlete } from './Athlete';
-import type { Round } from './Round';
+import type { Match } from './Match';
 
 export interface Category {
   id: string;
   name: string;
   type: 'pool' | 'double-pool' | 'brackets';
   athletes: Athlete[];
-  rounds: Round[];
+  matches: Match[];
 }

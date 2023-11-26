@@ -39,17 +39,17 @@
               </tr>
             </thead>
             <tbody>
-              {#each category.rounds as round (round.id)}
+              {#each category.matches as match (match.id)}
                 <tr>
-                  <td class="judoka-white">{round.white.name}</td>
-                  <td class="judoka-white">{round.white.ippon}</td>
-                  <td class="judoka-white">{round.white.wazari}</td>
-                  <td class="judoka-white">{round.white.shido}</td>
-                  <td class="judoka-blue">{round.blue.name}</td>
-                  <td class="judoka-blue">{round.blue.ippon}</td>
-                  <td class="judoka-blue">{round.blue.wazari}</td>
-                  <td class="judoka-blue">{round.blue.shido}</td>
-                  <td>{round.finalTime}</td>
+                  <td class="judoka-white">{match.white.name}</td>
+                  <td class="judoka-white">{match.white.ippon}</td>
+                  <td class="judoka-white">{match.white.wazari}</td>
+                  <td class="judoka-white">{match.white.shido}</td>
+                  <td class="judoka-blue">{match.blue.name}</td>
+                  <td class="judoka-blue">{match.blue.ippon}</td>
+                  <td class="judoka-blue">{match.blue.wazari}</td>
+                  <td class="judoka-blue">{match.blue.shido}</td>
+                  <td>{match.finalTime}</td>
                 </tr>
               {/each}
             </tbody>
