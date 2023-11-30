@@ -1,4 +1,4 @@
-import { nanoid } from 'nanoid';
+import { SinglePool } from '../models/categories/SinglePool';
 import type { Category } from '../types/Category';
 import { db } from './db';
 
@@ -7,12 +7,25 @@ export const createCategory = (
   athletes: Category['athletes'],
   type: Category['type']
 ) => {
-  const id = nanoid();
   if (typeof localStorage !== 'undefined') {
-    db.data.categories.push({ name, athletes, id, matches: [], type });
+    const category = generateCategory({ name, athletes, type });
+    db.data.categories.push(category);
     db.write();
+    return category.id;
   }
-  return id;
+};
+
+const generateCategory = ({
+  name,
+  athletes,
+  type
+}: Pick<Category, 'name' | 'athletes' | 'type'>) => {
+  switch (type) {
+    case 'pool':
+      return new SinglePool(name, athletes);
+    default:
+      throw new Error(`No type ${type} found`);
+  }
 };
 
 export const getAllCategories = () => {

@@ -40,16 +40,16 @@
             </thead>
             <tbody>
               {#each category.matches as match (match.id)}
-                <tr>
+                <tr class="row">
                   <td class="judoka-white">{match.white.name}</td>
                   <td class="judoka-white">{match.white.ippon}</td>
                   <td class="judoka-white">{match.white.wazari}</td>
                   <td class="judoka-white">{match.white.shido}</td>
-                  <td class="judoka-blue">{match.blue.name}</td>
                   <td class="judoka-blue">{match.blue.ippon}</td>
                   <td class="judoka-blue">{match.blue.wazari}</td>
                   <td class="judoka-blue">{match.blue.shido}</td>
-                  <td>{match.finalTime}</td>
+                  <td class="judoka-blue">{match.blue.name}</td>
+                  <td>{match.finalTime ?? '-'}</td>
                 </tr>
               {/each}
             </tbody>
@@ -59,3 +59,15 @@
     </AccordionItem>
   </Accordion>
 </div>
+
+<style>
+  .row:hover {
+    filter: brightness(0.95);
+  }
+  th.judoka-blue {
+    border-bottom: 1px solid;
+  }
+  td.judoka-blue {
+    border-bottom: 1px solid;
+  }
+</style>
