@@ -7,6 +7,7 @@ export class SinglePool implements Category {
   id: string;
   type: Category['type'];
   matches: Match[];
+  currentMatch?: string | undefined;
 
   constructor(
     public name: string,
@@ -15,6 +16,7 @@ export class SinglePool implements Category {
     this.type = 'pool';
     this.id = nanoid();
     this.matches = this.createMatches();
+    this.currentMatch = this.matches[0].id;
   }
 
   private createMatches(): Match[] {
@@ -40,5 +42,14 @@ export class SinglePool implements Category {
   private rotateArray(athletes: Athlete[]) {
     const [first, ...others] = athletes;
     return [...others, first];
+  }
+
+  public nextMatch() {
+    const indexCurrent = this.matches.findIndex((match) => match.id === this.currentMatch);
+    if (indexCurrent === this.matches.length) {
+      this.currentMatch = undefined;
+      return;
+    }
+    this.currentMatch = this.matches[indexCurrent + 1].id;
   }
 }

@@ -5,6 +5,7 @@
 
   export let data;
   const category = data.category;
+  const match = data.match;
 </script>
 
 <div class="text-xl">
@@ -15,8 +16,10 @@
   {/if}
 </div>
 
-<Judoka type="white" />
-<Judoka type="blue" />
+{#if match}
+  <Judoka type="white" athlete={match.white} />
+  <Judoka type="blue" athlete={match.blue} />
+{/if}
 
 <Timer />
 

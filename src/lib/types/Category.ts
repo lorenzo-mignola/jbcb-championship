@@ -7,4 +7,5 @@ export interface Category {
   type: 'pool' | 'double-pool' | 'brackets';
   athletes: Athlete[];
   matches: Match[];
+  currentMatch?: string;
 }
