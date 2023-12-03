@@ -1,6 +1,8 @@
 <script lang="ts">
   import Edit from '../../../../../../icons/edit.svelte';
+  import { oseakomiType } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
   import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
+  import { getOpponentType } from '../../../../../../lib/utils/judoka';
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
@@ -8,8 +10,6 @@
   export let setWinner: (type: JudokaType) => void;
   export let setDisqualification: (type: JudokaType) => void;
   export let end: boolean;
-
-  let oasekomi = false;
 
   $: points = () => {
     if (athlete.ippon) {
@@ -30,6 +30,9 @@
     }
   }
 
+  $: isOsaekomi = $oseakomiType === type;
+  $: disableButton = end || getOpponentType(type) === $oseakomiType;
+
   const ipponAction = () => {
     athlete.ippon = 10;
   };
@@ -39,7 +42,11 @@
   };
 
   const oasekomiAction = () => {
-    oasekomi = true;
+    if ($oseakomiType) {
+      oseakomiType.set(null);
+      return;
+    }
+    oseakomiType.set(type);
   };
 
   const shidoAction = () => {
@@ -65,12 +72,12 @@
   <hr class="divider" />
   <div class="flex justify-between items-center">
     <div>
-      <PointButton action={ipponAction} disabled={end}>✋ Ippon</PointButton>
-      <PointButton action={wazariAction} disabled={end}>🫳 Waza-ari</PointButton>
-      <PointButton action={oasekomiAction} disabled={end || oasekomi}
-        ><span class="rotate-180">🤚</span> Osaekomi</PointButton
+      <PointButton action={ipponAction} disabled={disableButton}>✋ Ippon</PointButton>
+      <PointButton action={wazariAction} disabled={disableButton}>🫳 Waza-ari</PointButton>
+      <PointButton action={shidoAction} disabled={disableButton}>👉 Shido</PointButton>
+      <PointButton action={oasekomiAction} disabled={disableButton} active={isOsaekomi}
+        ><span class="rotate-180">🤚</span> {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
       >
-      <PointButton action={shidoAction} disabled={end}>👉 Shido</PointButton>
     </div>
     {#if points() > 0 || athlete.shido > 0}
       <div>

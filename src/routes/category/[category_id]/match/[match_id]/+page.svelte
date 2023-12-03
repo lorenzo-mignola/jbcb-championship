@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { getOpponentType } from '../../../../../lib/utils/judoka';
   import Buttons from './buttons.svelte';
   import Judoka from './judoka/judoka.svelte';
   import Timer from './timer.svelte';
@@ -17,9 +18,11 @@
     if (!match) {
       return;
     }
-    const opposite = type === 'white' ? 'blue' : 'white';
-    match![opposite].ippon = 10;
-    match!.winner = opposite;
+    const opponent = getOpponentType(type);
+    if (opponent) {
+      match![opponent].ippon = 10;
+      match!.winner = opponent;
+    }
   }
 
   const athleteType = ['white', 'blue'] as const;
