@@ -2,7 +2,7 @@
   import { onDestroy } from 'svelte';
   import Play from '../../../../../icons/play.svelte';
   import Stop from '../../../../../icons/stop.svelte';
-  import { isPlaying, reset, togglePlay } from './timer';
+  import { isPlaying, reset, togglePlay } from './$timer';
 
   onDestroy(() => reset());
 </script>

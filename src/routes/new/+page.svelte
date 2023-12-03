@@ -3,7 +3,7 @@
   import { page } from '$app/stores';
   import { createCategory } from '$lib/db/methods';
   import { CATEGORY_NAME } from '$lib/utils/constants';
-  import { athletes, resetAthletes } from './athletes';
+  import { athletes, resetAthletes } from './$athletes';
   import Athletes from './athletes.svelte';
   import CategoryName from './category-name.svelte';
   import NewAthlete from './new-athlete.svelte';

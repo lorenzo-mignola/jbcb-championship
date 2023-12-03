@@ -1,11 +1,28 @@
-<script>
+<script lang="ts">
   import Buttons from './buttons.svelte';
   import Judoka from './judoka/judoka.svelte';
   import Timer from './timer.svelte';
 
   export let data;
-  const category = data.category;
-  const match = data.match;
+  $: ({ category, match } = data);
+
+  function setWinner(type: 'white' | 'blue') {
+    if (!match) {
+      return;
+    }
+    match!.winner = type;
+  }
+
+  function setDisqualification(type: 'white' | 'blue') {
+    if (!match) {
+      return;
+    }
+    const opposite = type === 'white' ? 'blue' : 'white';
+    match![opposite].ippon = 10;
+    match!.winner = opposite;
+  }
+
+  const athleteType = ['white', 'blue'] as const;
 </script>
 
 <div class="text-xl">
@@ -17,8 +34,15 @@
 </div>
 
 {#if match}
-  <Judoka type="white" athlete={match.white} />
-  <Judoka type="blue" athlete={match.blue} />
+  {#each athleteType as type}
+    <Judoka
+      {type}
+      athlete={match[type]}
+      end={Boolean(match.winner)}
+      {setWinner}
+      {setDisqualification}
+    />
+  {/each}
 {/if}
 
 <Timer />

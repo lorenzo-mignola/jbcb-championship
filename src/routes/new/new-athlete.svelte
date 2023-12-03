@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { addAthlete } from './athletes';
+  import { addAthlete } from './$athletes';
 
   let name = '';
   function handleEnter() {

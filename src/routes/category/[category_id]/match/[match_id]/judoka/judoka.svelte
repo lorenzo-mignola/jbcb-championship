@@ -1,10 +1,13 @@
 <script lang="ts">
   import Edit from '../../../../../../icons/edit.svelte';
-  import type { MatchJudoka } from '../../../../../../lib/types/Match';
+  import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
   export let athlete: MatchJudoka;
+  export let setWinner: (type: JudokaType) => void;
+  export let setDisqualification: (type: JudokaType) => void;
+  export let end: boolean;
 
   let oasekomi = false;
 
@@ -18,7 +21,14 @@
     return athlete.wazari;
   };
 
-  $: end = points() === 10 || athlete.shido === 3;
+  $: {
+    if (points() === 10 && !end) {
+      setWinner(type);
+    }
+    if (athlete.shido === 3 && !end) {
+      setDisqualification(type);
+    }
+  }
 
   const ipponAction = () => {
     athlete.ippon = 10;

@@ -1,5 +1,5 @@
 <script>
-  import { getMin, getSec, timer } from './timer';
+  import { getMin, getSec, timer } from './$timer';
 
   $: min = getMin($timer);
   $: sec = getSec($timer);
