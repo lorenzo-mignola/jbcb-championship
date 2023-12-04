@@ -1,5 +1,6 @@
 import { SinglePool } from '../models/categories/SinglePool';
 import type { Category } from '../types/Category';
+import type { Match } from '../types/Match';
 import { db } from './db';
 
 export const createCategory = (
@@ -37,3 +38,39 @@ export const getAllCategories = () => {
 
 export const getCategory = (id: string | null) =>
   db ? db.data.categories.find((category) => category.id === id) : undefined;
+
+export const saveMatch = (categoryId: string, matchUpdated: Match) => {
+  if (!db) {
+    return;
+  }
+  const category = db.data.categories.find((category) => category.id === categoryId);
+  if (!category) {
+    return;
+  }
+  const nextMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);
+  const categoryUpdated: Category = {
+    ...category,
+    currentMatch:
+      category.matches.length === nextMatch ? undefined : category.matches[nextMatch + 1].id,
+    matches: category?.matches.map((match) => {
+      if (match.id !== matchUpdated.id) {
+        return match;
+      }
+      return matchUpdated;
+    })
+  };
+  const categoriesUpdated = db.data.categories.map((category) => {
+    if (category.id !== categoryId) {
+      return category;
+    }
+    return categoryUpdated;
+  });
+  db.data.categories = categoriesUpdated;
+  db.write();
+  return categoryUpdated;
+};
+
+export const deleteAll = () => {
+  db.data.categories = [];
+  db.write();
+};

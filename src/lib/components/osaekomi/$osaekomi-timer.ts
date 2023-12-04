@@ -1,7 +1,7 @@
 import { get, writable } from 'svelte/store';
 import type { JudokaType } from '../../types/Match';
 
-export const timerOsaekomi = writable(0);
+export const timerOsaekomi = writable<number | null>(null);
 export const oseakomiType = writable<JudokaType | null>(null);
 export const setDurationOsaekomi = (seconds: number) => timerOsaekomi.set(seconds);
 const isPlaying = writable(false);
@@ -13,7 +13,7 @@ export const startOsaekomi = () => {
 
   interval = setInterval(() => {
     if (get(isPlaying)) {
-      timerOsaekomi.update((time) => time - 1);
+      timerOsaekomi.update((time) => (time ? time - 1 : 0));
     }
   }, 1000);
 };
@@ -29,7 +29,7 @@ oseakomiType.subscribe((type) => {
 });
 
 timerOsaekomi.subscribe((time) => {
-  if (time <= 0) {
+  if (time && time <= 0) {
     isPlaying.set(false);
   }
 });

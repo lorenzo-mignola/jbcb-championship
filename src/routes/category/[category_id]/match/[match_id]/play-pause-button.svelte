@@ -1,8 +1,10 @@
-<script>
+<script lang="ts">
   import { onDestroy } from 'svelte';
   import Play from '../../../../../icons/play.svelte';
   import Stop from '../../../../../icons/stop.svelte';
   import { isPlaying, reset, togglePlay } from './$timer';
+
+  export let disabled: boolean;
 
   onDestroy(() => reset());
 </script>
@@ -12,6 +14,7 @@
   class:play={!$isPlaying}
   class:stop={$isPlaying}
   on:click={() => togglePlay()}
+  {disabled}
 >
   <div>
     {#if $isPlaying}

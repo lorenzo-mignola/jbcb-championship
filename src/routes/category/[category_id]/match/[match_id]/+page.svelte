@@ -1,7 +1,9 @@
 <script lang="ts">
   import { getOpponentType } from '../../../../../lib/utils/judoka';
-  import Buttons from './buttons.svelte';
+  import { timer } from './$timer';
   import Judoka from './judoka/judoka.svelte';
+  import PlayPauseButton from './play-pause-button.svelte';
+  import SaveButton from './save-button.svelte';
   import Timer from './timer.svelte';
 
   export let data;
@@ -12,6 +14,7 @@
       return;
     }
     match!.winner = type;
+    match.finalTime = $timer;
   }
 
   function setDisqualification(type: 'white' | 'blue') {
@@ -50,4 +53,8 @@
 
 <Timer />
 
-<Buttons />
+<PlayPauseButton disabled={Boolean(match?.winner)} />
+
+{#if Boolean(match?.winner) && category?.id && match}
+  <SaveButton categoryId={category.id} {match} />
+{/if}

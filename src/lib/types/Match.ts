@@ -2,7 +2,7 @@ export interface Match {
   id: string;
   white: MatchJudoka;
   blue: MatchJudoka;
-  winner: JudokaType;
+  winner?: JudokaType;
   finalTime: number | null;
 }
 

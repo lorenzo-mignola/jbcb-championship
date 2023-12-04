@@ -1,5 +1,6 @@
 <script>
-  import { getAllCategories } from '$lib/db/methods';
+  import { goto } from '$app/navigation';
+  import { deleteAll, getAllCategories } from '$lib/db/methods';
   const categories = getAllCategories();
 </script>
 
@@ -13,4 +14,11 @@
   {:else}
     <h3 class="h3">Nessuna categoria creata</h3>
   {/each}
+  <button
+    class="btn variant-ringed mt-10"
+    on:click={() => {
+      deleteAll();
+      goto('/');
+    }}>Cancella tutto</button
+  >
 </div>

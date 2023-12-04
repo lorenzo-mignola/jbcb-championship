@@ -1,14 +1,8 @@
 <script>
   import { onDestroy, onMount } from 'svelte';
-  import {
-    setDurationOsaekomi,
-    startOsaekomi,
-    stopOsaekomi,
-    timerOsaekomi
-  } from './$osaekomi-timer';
+  import { oseakomiType, startOsaekomi, stopOsaekomi, timerOsaekomi } from './$osaekomi-timer';
 
   onMount(() => {
-    setDurationOsaekomi(20);
     startOsaekomi();
   });
 
@@ -17,7 +11,11 @@
   });
 </script>
 
-<div class="card variant-ringed p-2 m-2 text-center">
+<div
+  class="card p-2 m-2 text-center shadow-xl"
+  class:judoka-blue={$oseakomiType === 'blue'}
+  class:judoka-white={$oseakomiType === 'white'}
+>
   Osae-komi
   <p class="text-timer text-xl">{$timerOsaekomi}</p>
 </div>
