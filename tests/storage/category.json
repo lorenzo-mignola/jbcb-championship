@@ -1,0 +1,22 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:4173",
+      "localStorage": [
+        {
+          "name": "modeCurrent",
+          "value": "true"
+        },
+        {
+          "name": "modeOsPrefers",
+          "value": "true"
+        },
+        {
+          "name": "jbcb-championship",
+          "value": "{\"categories\":[{\"id\":\"SV2Zf2a4CC2kL8xdnvxRF\",\"type\":\"pool\",\"matches\":[{\"id\":\"8ofQx0ul8LhDDF6YABt26\",\"white\":{\"id\":\"yCv_CybfpVzoRpzhYqbqi\",\"name\":\"Primo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"BHLRFfj6qW43j2uK38fCP\",\"name\":\"Quarto\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null},{\"id\":\"9OzAlhRC04p8lv1KmiT_z\",\"white\":{\"id\":\"vsz2Plpvfz6tl5jwp7iwb\",\"name\":\"Secondo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"GiFaRUmdiUfrjVy7YpG36\",\"name\":\"Terzo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null},{\"id\":\"ObNEXFGrIy-L9MW8TH6BV\",\"white\":{\"id\":\"vsz2Plpvfz6tl5jwp7iwb\",\"name\":\"Secondo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"yCv_CybfpVzoRpzhYqbqi\",\"name\":\"Primo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null},{\"id\":\"Bw52jQX6vy3hktekvYP5_\",\"white\":{\"id\":\"GiFaRUmdiUfrjVy7YpG36\",\"name\":\"Terzo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"BHLRFfj6qW43j2uK38fCP\",\"name\":\"Quarto\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null},{\"id\":\"jkNH9nka9VKZWl6GCBjPc\",\"white\":{\"id\":\"GiFaRUmdiUfrjVy7YpG36\",\"name\":\"Terzo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"vsz2Plpvfz6tl5jwp7iwb\",\"name\":\"Secondo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null},{\"id\":\"7Dn_EQ1emyGRkq8KiLbm-\",\"white\":{\"id\":\"BHLRFfj6qW43j2uK38fCP\",\"name\":\"Quarto\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"blue\":{\"id\":\"yCv_CybfpVzoRpzhYqbqi\",\"name\":\"Primo\",\"wazari\":0,\"ippon\":0,\"shido\":0},\"finalTime\":null}],\"currentMatch\":\"8ofQx0ul8LhDDF6YABt26\",\"name\":\"Test categoria\",\"athletes\":[{\"name\":\"Primo\",\"id\":\"yCv_CybfpVzoRpzhYqbqi\"},{\"name\":\"Secondo\",\"id\":\"vsz2Plpvfz6tl5jwp7iwb\"},{\"name\":\"Terzo\",\"id\":\"GiFaRUmdiUfrjVy7YpG36\"},{\"name\":\"Quarto\",\"id\":\"BHLRFfj6qW43j2uK38fCP\"}]}]}"
+        }
+      ]
+    }
+  ]
+}

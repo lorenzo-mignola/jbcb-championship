@@ -35,8 +35,5 @@ export default defineConfig({
         ]
       }
     })
-  ],
-  test: {
-    include: ['**/*.test.ts']
-  }
+  ]
 });
