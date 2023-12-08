@@ -17,7 +17,7 @@
 
   $: points = () => {
     if (athlete.ippon) {
-      return athlete.ippon;
+      return 10;
     }
     if (athlete.wazari === 2) {
       return 10;
@@ -38,7 +38,7 @@
   $: disableButton = end || getOpponentType(type) === $oseakomiType;
 
   const ipponAction = () => {
-    athlete.ippon = 10;
+    athlete.ippon += 1;
     if ($isPlaying) {
       togglePlay();
     }

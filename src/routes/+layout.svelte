@@ -1,8 +1,9 @@
 <script lang="ts">
-  import { AppBar, LightSwitch } from '@skeletonlabs/skeleton';
+  import { AppBar, LightSwitch, Modal, initializeStores } from '@skeletonlabs/skeleton';
   import { pwaInfo } from 'virtual:pwa-info';
   import '../app.postcss';
 
+  initializeStores();
   $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '';
 
   const title = '🥋 JBCB Championship';
@@ -12,6 +13,8 @@
   <!-- eslint-disable-next-line svelte/no-at-html-tags -->
   {@html webManifestLink}
 </svelte:head>
+
+<Modal />
 
 <AppBar
   slotTrail="place-content-end"

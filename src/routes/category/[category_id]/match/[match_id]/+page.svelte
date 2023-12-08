@@ -23,7 +23,7 @@
     }
     const opponent = getOpponentType(type);
     if (opponent) {
-      match![opponent].ippon = 10;
+      match![opponent].ippon = 1;
       match!.winner = opponent;
     }
   }

@@ -1,6 +1,25 @@
-<script>
+<script lang="ts">
   import { goto } from '$app/navigation';
   import { deleteAll, getAllCategories } from '$lib/db/methods';
+  import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+
+  const modalStore = getModalStore();
+
+  const modal: ModalSettings = {
+    type: 'confirm',
+    title: 'Cancellare tutte le categorie?',
+    body: 'Procedendo tutti i dati inseriti verranno cancellati',
+    buttonTextConfirm: 'Cancella categorie',
+    buttonTextCancel: 'Annulla',
+    response: (confirmDelete: boolean) => {
+      if (!confirmDelete) {
+        return;
+      }
+      deleteAll();
+      goto('/');
+    }
+  };
+
   const categories = getAllCategories();
 </script>
 
@@ -14,11 +33,8 @@
   {:else}
     <h3 class="h3">Nessuna categoria creata</h3>
   {/each}
-  <button
-    class="btn variant-ringed mt-10"
-    on:click={() => {
-      deleteAll();
-      goto('/');
-    }}>Cancella tutto</button
+
+  <button class="btn variant-ringed mt-10" on:click={() => modalStore.trigger(modal)}
+    >Cancella tutto</button
   >
 </div>

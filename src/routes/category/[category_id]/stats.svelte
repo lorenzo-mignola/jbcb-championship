@@ -1,6 +1,7 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
   import type { Category } from '../../../lib/types/Category';
+  import { formatTime } from './match/[match_id]/$timer';
 
   export let category: Category;
 </script>
@@ -49,7 +50,7 @@
                   <td class="judoka-blue">{match.blue.wazari}</td>
                   <td class="judoka-blue">{match.blue.shido}</td>
                   <td class="judoka-blue">{match.blue.name}</td>
-                  <td>{match.finalTime ?? '-'}</td>
+                  <td>{match.finalTime !== null ? formatTime(match.finalTime) : '-'}</td>
                 </tr>
               {/each}
             </tbody>
@@ -69,5 +70,9 @@
   }
   td.judoka-blue {
     border-bottom: 1px solid;
+  }
+  td,
+  th {
+    text-align: center;
   }
 </style>
