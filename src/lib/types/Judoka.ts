@@ -1,4 +1,4 @@
-export interface Athlete {
+export interface Judoka {
   id: string;
   name: string;
 }

@@ -1,8 +1,8 @@
 import { nanoid } from 'nanoid';
 import { writable } from 'svelte/store';
-import type { Athlete } from '../../lib/types/Athlete';
+import type { Judoka } from '../../lib/types/Judoka';
 
-export const athletes = writable<Athlete[]>([]);
+export const athletes = writable<Judoka[]>([]);
 
 export const addAthlete = (name: string) =>
   athletes.update((old) => [...old, { name, id: nanoid() }]);

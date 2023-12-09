@@ -1,4 +1,4 @@
-import { SinglePool } from '../models/categories/SinglePool';
+import { createSinglePool } from '../models/categories/singlePool';
 import type { Category } from '../types/Category';
 import type { Match } from '../types/Match';
 import { db } from './db';
@@ -23,7 +23,7 @@ const generateCategory = ({
 }: Pick<Category, 'name' | 'athletes' | 'type'>) => {
   switch (type) {
     case 'pool':
-      return new SinglePool(name, athletes);
+      return createSinglePool(name, athletes);
     default:
       throw new Error(`No type ${type} found`);
   }
