@@ -7,9 +7,14 @@
   export let categoryId: string;
   const handleClick = () => {
     const categoryUpdated = saveMatch(categoryId, match);
-    if (categoryUpdated) {
-      goto(`/category/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`);
+    if (!categoryUpdated) {
+      return;
     }
+    if (categoryUpdated.currentMatch) {
+      goto(`/category/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`);
+      return;
+    }
+    goto(`/category/${categoryUpdated.id}`);
   };
 </script>
 

@@ -1,9 +1,11 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
   import type { Category } from '../../../lib/types/Category';
+  import { getRanking } from '../../../lib/utils/category';
   import { formatTime } from './match/[match_id]/$timer';
 
   export let category: Category;
+  const ranking = getRanking(category);
 </script>
 
 <div class="card p-2">
@@ -13,8 +15,14 @@
       <svelte:fragment slot="summary">Classifica</svelte:fragment>
       <svelte:fragment slot="content">
         <ul>
-          {#each category.athletes as athlete (athlete.id)}
-            <li>{athlete.name} 0</li>
+          {#each ranking as rankingAthlete}
+            <li class="flex justify-between">
+              <span
+                >#{rankingAthlete.rank}
+                {category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}</span
+              >
+              <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
+            </li>
             <hr />
           {/each}
         </ul>

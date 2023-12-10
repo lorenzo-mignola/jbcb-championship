@@ -1,0 +1,79 @@
+{
+  "id": "0SBR3i1ivPLOlW5CHGgy3",
+  "type": "pool",
+  "name": "Test",
+  "athletes": [
+    {
+      "name": "Secondo",
+      "id": "QGHoPIhp6kJX4UQl1AxaX"
+    },
+    {
+      "name": "Primo",
+      "id": "zspTr-9UcYWCASeuWWi50"
+    },
+    {
+      "name": "Terzo",
+      "id": "wiHhvaGexwR9R4ED3HcJI"
+    }
+  ],
+  "matches": [
+    {
+      "id": "3X_ODS2FyR_XME98XKD-w",
+      "white": {
+        "id": "zspTr-9UcYWCASeuWWi50",
+        "name": "Primo",
+        "wazari": 1,
+        "ippon": 1,
+        "shido": 0
+      },
+      "blue": {
+        "id": "QGHoPIhp6kJX4UQl1AxaX",
+        "name": "Secondo",
+        "wazari": 0,
+        "ippon": 0,
+        "shido": 0
+      },
+      "finalTime": 2349,
+      "winner": "white"
+    },
+    {
+      "id": "dKMmGqYCAxkC7Ql2tmSS1",
+      "white": {
+        "id": "QGHoPIhp6kJX4UQl1AxaX",
+        "name": "Secondo",
+        "wazari": 1,
+        "ippon": 1,
+        "shido": 0
+      },
+      "blue": {
+        "id": "wiHhvaGexwR9R4ED3HcJI",
+        "name": "Terzo",
+        "wazari": 0,
+        "ippon": 0,
+        "shido": 3
+      },
+      "finalTime": 2269,
+      "winner": "white"
+    },
+    {
+      "id": "NJhYXrS80hdBRFgdbZt_L",
+      "white": {
+        "id": "wiHhvaGexwR9R4ED3HcJI",
+        "name": "Terzo",
+        "wazari": 0,
+        "ippon": 0,
+        "shido": 0
+      },
+      "blue": {
+        "id": "zspTr-9UcYWCASeuWWi50",
+        "name": "Primo",
+        "wazari": 1,
+        "ippon": 0,
+        "shido": 1
+      },
+      "winner": "blue",
+      "finalTime": 0
+    }
+  ],
+  "currentMatch": "NJhYXrS80hdBRFgdbZt_L"
+}

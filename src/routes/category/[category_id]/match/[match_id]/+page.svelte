@@ -26,6 +26,7 @@
       match![opponent].ippon = 1;
       match!.winner = opponent;
     }
+    match.finalTime = $timer;
   }
 
   const athleteType = ['white', 'blue'] as const;

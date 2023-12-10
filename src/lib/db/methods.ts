@@ -47,24 +47,8 @@ export const saveMatch = (categoryId: string, matchUpdated: Match) => {
   if (!category) {
     return;
   }
-  const nextMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);
-  const categoryUpdated: Category = {
-    ...category,
-    currentMatch:
-      category.matches.length === nextMatch ? undefined : category.matches[nextMatch + 1].id,
-    matches: category?.matches.map((match) => {
-      if (match.id !== matchUpdated.id) {
-        return match;
-      }
-      return matchUpdated;
-    })
-  };
-  const categoriesUpdated = db.data.categories.map((category) => {
-    if (category.id !== categoryId) {
-      return category;
-    }
-    return categoryUpdated;
-  });
+  const categoryUpdated: Category = updateCategory(category, matchUpdated);
+  const categoriesUpdated = updateCategories(categoryId, categoryUpdated);
   db.data.categories = categoriesUpdated;
   db.write();
   return categoryUpdated;
@@ -74,3 +58,35 @@ export const deleteAll = () => {
   db.data.categories = [];
   db.write();
 };
+
+function updateCategories(categoryId: string, categoryUpdated: Category) {
+  return db.data.categories.map((category) => {
+    if (category.id !== categoryId) {
+      return category;
+    }
+    return categoryUpdated;
+  });
+}
+
+function updateCategory(category: Category, matchUpdated: Match) {
+  if (category.type === 'pool') {
+    return updateSinglePool(category, matchUpdated);
+  }
+  throw new Error(`Unknown category type ${category.type}`);
+}
+
+function updateSinglePool(category: Category, matchUpdated: Match) {
+  const nextMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);
+  const done = nextMatch === category.matches.length - 1;
+  const categoryUpdated: Category = {
+    ...category,
+    currentMatch: done ? undefined : category.matches[nextMatch + 1].id,
+    matches: category?.matches.map((match) => {
+      if (match.id !== matchUpdated.id) {
+        return match;
+      }
+      return matchUpdated;
+    })
+  };
+  return categoryUpdated;
+}
