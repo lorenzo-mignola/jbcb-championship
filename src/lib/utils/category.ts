@@ -1,10 +1,10 @@
-import type { Category } from '../types/Category';
+import type { Category, PoolCategory } from '../types/Category';
 import type { Judoka } from '../types/Judoka';
 import type { Match } from '../types/Match';
 
 export const getRanking = (category: Category) => {
   if (category.type === 'pool') {
-    return getRankingPool(category.matches, category.athletes);
+    return getRankingPool((category as PoolCategory).matches, category.athletes);
   }
   return [];
 };

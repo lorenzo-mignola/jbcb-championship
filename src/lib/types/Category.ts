@@ -1,13 +1,19 @@
 import type { Judoka } from './Judoka';
 import type { Match } from './Match';
 
+type CategoryType = 'pool' | 'double-pool' | 'brackets';
+
 export interface Category {
   id: string;
   name: string;
-  type: 'pool' | 'double-pool' | 'brackets';
+  type: CategoryType;
   athletes: Judoka[];
-  matches: Match[];
+  matches: (Match | null)[];
   currentMatch?: string;
+}
+
+export interface PoolCategory extends Category {
+  matches: Match[];
 }
 
 export interface BracketsCategory extends Category {
@@ -17,8 +23,8 @@ export interface BracketsCategory extends Category {
 export type Rounds = BracketRound[];
 
 interface BracketRound {
-  winner: Match[];
-  loser: Match[];
-  repechage: Match[];
+  winner: (Match | null)[];
+  loser: (Match | null)[];
+  repechage: (Match | null)[];
   round: number;
 }

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
   import type { Category } from '../../../lib/types/Category';
+  import type { Match } from '../../../lib/types/Match';
   import { getRanking } from '../../../lib/utils/category';
   import { formatTime } from './match/[match_id]/$timer';
 
   export let category: Category;
   const ranking = getRanking(category);
+  const matches = category.matches.filter((match): match is Match => match !== null);
 </script>
 
 <div class="card p-2">
@@ -48,7 +50,7 @@
               </tr>
             </thead>
             <tbody>
-              {#each category.matches as match (match.id)}
+              {#each matches as match (match.id)}
                 <tr class="row">
                   <td class="judoka-white">{match.white.name}</td>
                   <td class="judoka-white">{match.white.ippon}</td>

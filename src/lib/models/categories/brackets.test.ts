@@ -42,10 +42,43 @@ describe('createBrackets', () => {
     [athletes.slice(0, 4), 3],
     [athletes.slice(0, 8), 11],
     [athletes.slice(0, 16), 27],
-    [athletes.slice(0, 32), 59]
+    [athletes, 59]
   ])('should create brackets in match', (athleteSlice, totalMatches) => {
     const brackets = createBrackets('test', athleteSlice);
 
     expect(brackets.matches).toHaveLength(totalMatches);
   });
+
+  it.each([
+    [athletes.slice(0, 4), 2],
+    [athletes.slice(0, 8), 4],
+    [athletes.slice(0, 16), 8],
+    [athletes, 16]
+  ])('should create matches for the first round', (athleteSlice, nrFirstRoundMatch) => {
+    const brackets = createBrackets('test', athleteSlice);
+    const { matches } = brackets;
+    const firstRoundMatches = matches.slice(0, nrFirstRoundMatch);
+    const otherMatches = matches.slice(nrFirstRoundMatch);
+
+    expect(firstRoundMatches.every((match) => match !== null)).toBeTruthy();
+    expect(otherMatches.every((match) => match === null)).toBeTruthy();
+  });
+
+  it.each([[athletes.slice(0, 4)], [athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+    'should create matches for the first round with every athlete',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+      const { rounds } = brackets;
+      const firstRoundMatches = rounds[0];
+
+      const ids = firstRoundMatches.winner
+        .flatMap((athlete) => [athlete?.blue.id, athlete?.white.id])
+        .filter((id): id is string => Boolean(id));
+
+      const setIds = new Set(ids);
+      const athleteId = athleteSlice.map((athlete) => athlete.id);
+
+      expect(setIds.size).toBe(athleteId.length);
+    }
+  );
 });
