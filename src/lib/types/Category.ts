@@ -9,3 +9,16 @@ export interface Category {
   matches: Match[];
   currentMatch?: string;
 }
+
+export interface BracketsCategory extends Category {
+  rounds: Rounds;
+}
+
+export type Rounds = BracketRound[];
+
+interface BracketRound {
+  winner: Match[];
+  loser: Match[];
+  repechage: Match[];
+  round: number;
+}
