@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+  import Rank from '../../../lib/components/Rank.svelte';
   import type { Category } from '../../../lib/types/Category';
   import type { Match } from '../../../lib/types/Match';
   import { getRanking } from '../../../lib/utils/category';
@@ -18,11 +19,11 @@
       <svelte:fragment slot="content">
         <ul>
           {#each ranking as rankingAthlete}
-            <li class="flex justify-between">
-              <span
-                >#{rankingAthlete.rank}
-                {category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}</span
-              >
+            <li class="flex justify-between py-1">
+              <Rank
+                rank={rankingAthlete.rank}
+                name={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}
+              />
               <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
             </li>
             <hr />
