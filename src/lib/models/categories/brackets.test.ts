@@ -41,9 +41,15 @@ describe('createBrackets', () => {
   it.each([
     [athletes.slice(0, 4), 3],
     [athletes.slice(0, 8), 11],
+    [athletes.slice(0, 5), 11],
+    [athletes.slice(0, 7), 11],
     [athletes.slice(0, 16), 27],
-    [athletes, 59]
-  ])('should create brackets in match', (athleteSlice, totalMatches) => {
+    [athletes.slice(0, 10), 27],
+    [athletes.slice(0, 14), 27],
+    [athletes, 59],
+    [athletes.slice(0, 19), 59],
+    [athletes.slice(0, 24), 59]
+  ])('should create matches in brackets', (athleteSlice, totalMatches) => {
     const brackets = createBrackets('test', athleteSlice);
 
     expect(brackets.matches).toHaveLength(totalMatches);
@@ -64,23 +70,26 @@ describe('createBrackets', () => {
     expect(otherMatches.every((match) => !match.white && !match.blue)).toBeTruthy();
   });
 
-  it.each([[athletes.slice(0, 4)], [athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
-    'should create matches for the first round with every athlete',
-    (athleteSlice) => {
-      const brackets = createBrackets('test', athleteSlice);
-      const { rounds } = brackets;
-      const firstRoundMatches = rounds[0];
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 16)],
+    [athletes]
+  ])('should create matches for the first round with every athlete', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+    const { rounds } = brackets;
+    const firstRoundMatches = rounds[0];
 
-      const ids = firstRoundMatches.winner
-        .flatMap((match) => [match.blue?.id, match.white?.id])
-        .filter((id): id is string => Boolean(id));
+    const ids = firstRoundMatches.winner
+      .flatMap((match) => [match.blue?.id, match.white?.id])
+      .filter((id): id is string => Boolean(id));
 
-      const setIds = new Set(ids);
-      const athleteId = athleteSlice.map((athlete) => athlete.id);
+    const setIds = new Set(ids);
+    const athleteId = athleteSlice.map((athlete) => athlete.id);
 
-      expect(setIds.size).toBe(athleteId.length);
-    }
-  );
+    expect(setIds.size).toBe(athleteId.length);
+  });
 
   it.each([
     [athletes.slice(0, 5), 3],
