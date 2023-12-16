@@ -60,8 +60,8 @@ describe('createBrackets', () => {
     const firstRoundMatches = matches.slice(0, nrFirstRoundMatch);
     const otherMatches = matches.slice(nrFirstRoundMatch);
 
-    expect(firstRoundMatches.every((match) => match !== null)).toBeTruthy();
-    expect(otherMatches.every((match) => match === null)).toBeTruthy();
+    expect(firstRoundMatches.every((match) => match.white && match.blue)).toBeTruthy();
+    expect(otherMatches.every((match) => !match.white && !match.blue)).toBeTruthy();
   });
 
   it.each([[athletes.slice(0, 4)], [athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
@@ -72,7 +72,7 @@ describe('createBrackets', () => {
       const firstRoundMatches = rounds[0];
 
       const ids = firstRoundMatches.winner
-        .flatMap((athlete) => [athlete?.blue.id, athlete?.white.id])
+        .flatMap((match) => [match.blue?.id, match.white?.id])
         .filter((id): id is string => Boolean(id));
 
       const setIds = new Set(ids);
@@ -81,4 +81,26 @@ describe('createBrackets', () => {
       expect(setIds.size).toBe(athleteId.length);
     }
   );
+
+  it.each([
+    [athletes.slice(0, 5), 3],
+    [athletes.slice(0, 6), 2],
+    [athletes.slice(0, 7), 1],
+    [athletes.slice(0, 9), 7],
+    [athletes.slice(0, 11), 5],
+    [athletes.slice(0, 15), 1]
+  ])('should create brackets in with missing matches', (athleteSlice, missingMatch) => {
+    const brackets = createBrackets('test', athleteSlice);
+
+    const { rounds } = brackets;
+    const [firstRound] = rounds;
+    const missingRounds = firstRound.winner.filter(({ blue, white }) => {
+      if (!blue && !white) {
+        expect.fail("A match in first round can't be empty");
+      }
+      return !blue || !white;
+    });
+
+    expect(missingRounds).toHaveLength(missingMatch);
+  });
 });

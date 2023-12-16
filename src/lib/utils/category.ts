@@ -24,6 +24,9 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       return;
     }
     const winner = match[match.winner];
+    if (!winner) {
+      return;
+    }
     athleteMap[winner.id].matchPoint += 2;
     const evaluationPoint = winner.ippon === 1 ? 10 : 7;
     athleteMap[winner.id].evaluationPoint += evaluationPoint;

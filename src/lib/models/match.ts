@@ -10,9 +10,9 @@ const createMatchJudoka = (athlete: Judoka) => ({
   shido: 0
 });
 
-export const createMatch = (white: Judoka, blue: Judoka): Match => ({
+export const createMatch = (white?: Judoka, blue?: Judoka): Match => ({
   id: nanoid(),
-  white: createMatchJudoka(white),
-  blue: createMatchJudoka(blue),
+  white: white ? createMatchJudoka(white) : undefined,
+  blue: blue ? createMatchJudoka(blue) : undefined,
   finalTime: null
 });

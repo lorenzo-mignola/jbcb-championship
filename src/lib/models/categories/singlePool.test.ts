@@ -44,8 +44,8 @@ describe('SinglePool odds', () => {
     const pool = createSinglePool(name, athletes);
 
     const first = pool.matches[index];
-    expect(first?.white.id).toBe(whiteId);
-    expect(first?.blue.id).toBe(blueId);
+    expect(first.white?.id).toBe(whiteId);
+    expect(first.blue?.id).toBe(blueId);
   });
 
   it('should have 10 matchs', () => {
@@ -60,7 +60,7 @@ describe('SinglePool odds', () => {
     if (matches.some((match) => match === null)) {
       expect.fail();
     }
-    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white.id}-${blue.id}`);
+    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white?.id}-${blue?.id}`);
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });
@@ -105,8 +105,8 @@ describe('SinglePool even', () => {
     const pool = createSinglePool(name, athletes);
 
     const first = pool.matches[index];
-    expect(first?.white.id).toBe(whiteId);
-    expect(first?.blue.id).toBe(blueId);
+    expect(first.white?.id).toBe(whiteId);
+    expect(first.blue?.id).toBe(blueId);
   });
 
   it('should have 15 matchs', () => {
@@ -121,7 +121,7 @@ describe('SinglePool even', () => {
     if (matches.some((match) => match === null)) {
       expect.fail();
     }
-    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white.id}-${blue.id}`);
+    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white?.id}-${blue?.id}`);
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });

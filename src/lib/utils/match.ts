@@ -1,2 +1,2 @@
 export const getRandomElement = <T>(array: Array<T>) =>
-  array[Math.floor(Math.random() * array.length)];
+  array.length !== 0 ? array[Math.floor(Math.random() * array.length)] : undefined;

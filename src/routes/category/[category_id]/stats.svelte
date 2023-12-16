@@ -2,13 +2,11 @@
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
   import Rank from '../../../lib/components/Rank.svelte';
   import type { Category } from '../../../lib/types/Category';
-  import type { Match } from '../../../lib/types/Match';
   import { getRanking } from '../../../lib/utils/category';
   import { formatTime } from './match/[match_id]/$timer';
 
   export let category: Category;
   const ranking = getRanking(category);
-  const matches = category.matches.filter((match): match is Match => match !== null);
 </script>
 
 <div class="card p-2">
@@ -51,16 +49,16 @@
               </tr>
             </thead>
             <tbody>
-              {#each matches as match (match.id)}
+              {#each category.matches as match (match.id)}
                 <tr class="row">
-                  <td class="judoka-white">{match.white.name}</td>
-                  <td class="judoka-white">{match.white.ippon}</td>
-                  <td class="judoka-white">{match.white.wazari}</td>
-                  <td class="judoka-white">{match.white.shido}</td>
-                  <td class="judoka-blue">{match.blue.ippon}</td>
-                  <td class="judoka-blue">{match.blue.wazari}</td>
-                  <td class="judoka-blue">{match.blue.shido}</td>
-                  <td class="judoka-blue">{match.blue.name}</td>
+                  <td class="judoka-white">{match.white?.name ?? '-'}</td>
+                  <td class="judoka-white">{match.white?.ippon ?? ''}</td>
+                  <td class="judoka-white">{match.white?.wazari ?? ''}</td>
+                  <td class="judoka-white">{match.white?.shido ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.ippon ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.wazari ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.shido ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.name ?? ''}</td>
                   <td>{match.finalTime !== null ? formatTime(match.finalTime) : '-'}</td>
                 </tr>
               {/each}

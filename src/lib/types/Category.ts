@@ -8,7 +8,7 @@ export interface Category {
   name: string;
   type: CategoryType;
   athletes: Judoka[];
-  matches: (Match | null)[];
+  matches: Match[];
   currentMatch?: string;
 }
 
@@ -23,8 +23,8 @@ export interface BracketsCategory extends Category {
 export type Rounds = BracketRound[];
 
 interface BracketRound {
-  winner: (Match | null)[];
-  loser: (Match | null)[];
-  repechage: (Match | null)[];
+  winner: Match[];
+  loser: Match[];
+  repechage: Match[];
   round: number;
 }

@@ -22,8 +22,8 @@
       return;
     }
     const opponent = getOpponentType(type);
-    if (opponent) {
-      match![opponent].ippon = 1;
+    if (opponent && match[opponent]) {
+      match[opponent]!.ippon = 1;
       match!.winner = opponent;
     }
     match.finalTime = $timer;
