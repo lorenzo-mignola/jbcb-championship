@@ -12,9 +12,7 @@ export interface Category {
   currentMatch?: string;
 }
 
-export interface PoolCategory extends Category {
-  matches: Match[];
-}
+export interface PoolCategory extends Category {}
 
 export interface BracketsCategory extends Category {
   rounds: Rounds;
