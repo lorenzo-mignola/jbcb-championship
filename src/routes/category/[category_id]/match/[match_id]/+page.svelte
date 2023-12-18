@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getOpponentType } from '../../../../../lib/utils/judoka';
-  import { timer } from './$timer';
+  import { isPlaying, timer, togglePlay } from './$timer';
   import Judoka from './judoka/judoka.svelte';
   import PlayPauseButton from './play-pause-button.svelte';
   import SaveButton from './save-button.svelte';
@@ -15,6 +15,9 @@
     }
     match!.winner = type;
     match.finalTime = $timer;
+    if ($isPlaying) {
+      togglePlay();
+    }
   }
 
   function setDisqualification(type: 'white' | 'blue') {
@@ -27,6 +30,9 @@
       match!.winner = opponent;
     }
     match.finalTime = $timer;
+    if ($isPlaying) {
+      togglePlay();
+    }
   }
 
   const athleteType = ['white', 'blue'] as const;

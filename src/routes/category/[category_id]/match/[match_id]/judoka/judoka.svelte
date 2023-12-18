@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isPlaying, togglePlay } from '../$timer';
+  import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
@@ -42,9 +42,6 @@
       return;
     }
     athlete.ippon += 1;
-    if ($isPlaying) {
-      togglePlay();
-    }
   };
 
   const wazariAction = () => {
@@ -76,7 +73,6 @@
     }
     if (athlete.wazari === 1) {
       wazariAction();
-      togglePlay();
     } else {
       ipponAction();
     }

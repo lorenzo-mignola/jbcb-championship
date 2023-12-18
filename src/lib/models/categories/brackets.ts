@@ -67,6 +67,7 @@ const createRounds = (athletes: Judoka[]): Rounds => {
       : createWithCount();
     const isLastRound = round === winnerRounds;
     const isFirstOrLast = isFirstRound || isLastRound;
+
     const roundMatch = {
       round,
       winner: create(),
