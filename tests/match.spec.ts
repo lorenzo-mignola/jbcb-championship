@@ -17,6 +17,9 @@ test('should render the judoka name', async ({ page }) => {
     fail();
   }
   await page.goto(`/category/${category.id}/match/${category.currentMatch}`);
+  if (!category.matches[0] || !category.matches[0].white || !category.matches[0].blue) {
+    fail();
+  }
   await expect(page.getByText(category.matches[0].white.name)).toBeVisible();
   await expect(page.getByText(category.matches[0].blue.name)).toBeVisible();
 });

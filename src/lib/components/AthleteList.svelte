@@ -1,7 +1,7 @@
 <script lang="ts">
-  import type { Athlete } from '../types/Athlete';
+  import type { Judoka } from '../types/Judoka';
 
-  export let athletes: Athlete[];
+  export let athletes: Judoka[];
   export let iconAction: ((id: string) => void) | undefined = undefined;
 </script>
 

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { isPlaying, togglePlay } from '../$timer';
+  import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
@@ -10,26 +10,26 @@
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
-  export let athlete: MatchJudoka;
+  export let athlete: MatchJudoka | undefined;
   export let setWinner: (type: JudokaType) => void;
   export let setDisqualification: (type: JudokaType) => void;
   export let end: boolean;
 
   $: points = () => {
-    if (athlete.ippon) {
+    if (athlete?.ippon) {
       return 10;
     }
-    if (athlete.wazari === 2) {
+    if (athlete?.wazari === 2) {
       return 10;
     }
-    return athlete.wazari;
+    return athlete?.wazari || 0;
   };
 
   $: {
     if (points() === 10 && !end) {
       setWinner(type);
     }
-    if (athlete.shido === 3 && !end) {
+    if (athlete?.shido === 3 && !end) {
       setDisqualification(type);
     }
   }
@@ -38,13 +38,16 @@
   $: disableButton = end || getOpponentType(type) === $oseakomiType;
 
   const ipponAction = () => {
-    athlete.ippon += 1;
-    if ($isPlaying) {
-      togglePlay();
+    if (!athlete) {
+      return;
     }
+    athlete.ippon += 1;
   };
 
   const wazariAction = () => {
+    if (!athlete) {
+      return;
+    }
     athlete.wazari += 1;
   };
 
@@ -53,12 +56,15 @@
       oseakomiType.set(null);
       return;
     }
-    const osaekomiDuration = athlete.wazari === 1 ? 15 : 20;
+    const osaekomiDuration = athlete?.wazari === 1 ? 15 : 20;
     timerOsaekomi.set(osaekomiDuration);
     oseakomiType.set(type);
   };
 
   timerOsaekomi.subscribe((time) => {
+    if (!athlete) {
+      return;
+    }
     if ($oseakomiType !== type) {
       return;
     }
@@ -67,31 +73,35 @@
     }
     if (athlete.wazari === 1) {
       wazariAction();
-      togglePlay();
     } else {
       ipponAction();
     }
   });
 
   const shidoAction = () => {
+    if (!athlete) {
+      return;
+    }
     athlete.shido += 1;
   };
 </script>
 
 <div class:judoka-white-card={type === 'white'} class:judoka-blue-card={type === 'blue'}>
   <div class="flex justify-between">
-    <span>{athlete.name}</span>
-    <span>
-      {#if athlete.shido === 3}
-        <span class="mr-1">🟥</span>
-      {:else}
-        <!--  eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-        {#each { length: athlete.shido } as _}
-          <span class="mr-1">🟨</span>
-        {/each}
-      {/if}
-      <span class="points">{points()}</span>
-    </span>
+    <span>{athlete?.name ?? '-'}</span>
+    {#if athlete}
+      <span>
+        {#if athlete.shido === 3}
+          <span class="mr-1">🟥</span>
+        {:else}
+          <!--  eslint-disable-next-line @typescript-eslint/no-unused-vars -->
+          {#each { length: athlete.shido } as _}
+            <span class="mr-1">🟨</span>
+          {/each}
+        {/if}
+        <span class="points">{points()}</span>
+      </span>
+    {/if}
   </div>
   <hr class="divider" />
   <div class="flex justify-between items-center">
@@ -106,10 +116,12 @@
         ><span class="rotate-180">🤚</span> {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
       >
     </div>
-    {#if points() > 0 || athlete.shido > 0}
-      <div>
-        <button type="button" class="btn-icon variant-soft text-inherit"><Edit /></button>
-      </div>
+    {#if athlete}
+      {#if points() > 0 || athlete.shido > 0}
+        <div>
+          <button type="button" class="btn-icon variant-soft text-inherit"><Edit /></button>
+        </div>
+      {/if}
     {/if}
   </div>
 </div>

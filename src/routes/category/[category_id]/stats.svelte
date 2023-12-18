@@ -1,5 +1,6 @@
 <script lang="ts">
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+  import Rank from '../../../lib/components/Rank.svelte';
   import type { Category } from '../../../lib/types/Category';
   import { getRanking } from '../../../lib/utils/category';
   import { formatTime } from './match/[match_id]/$timer';
@@ -16,11 +17,11 @@
       <svelte:fragment slot="content">
         <ul>
           {#each ranking as rankingAthlete}
-            <li class="flex justify-between">
-              <span
-                >#{rankingAthlete.rank}
-                {category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}</span
-              >
+            <li class="flex justify-between py-1">
+              <Rank
+                rank={rankingAthlete.rank}
+                name={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}
+              />
               <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
             </li>
             <hr />
@@ -50,14 +51,14 @@
             <tbody>
               {#each category.matches as match (match.id)}
                 <tr class="row">
-                  <td class="judoka-white">{match.white.name}</td>
-                  <td class="judoka-white">{match.white.ippon}</td>
-                  <td class="judoka-white">{match.white.wazari}</td>
-                  <td class="judoka-white">{match.white.shido}</td>
-                  <td class="judoka-blue">{match.blue.ippon}</td>
-                  <td class="judoka-blue">{match.blue.wazari}</td>
-                  <td class="judoka-blue">{match.blue.shido}</td>
-                  <td class="judoka-blue">{match.blue.name}</td>
+                  <td class="judoka-white">{match.white?.name ?? '-'}</td>
+                  <td class="judoka-white">{match.white?.ippon ?? ''}</td>
+                  <td class="judoka-white">{match.white?.wazari ?? ''}</td>
+                  <td class="judoka-white">{match.white?.shido ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.ippon ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.wazari ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.shido ?? ''}</td>
+                  <td class="judoka-blue">{match.blue?.name ?? ''}</td>
                   <td>{match.finalTime !== null ? formatTime(match.finalTime) : '-'}</td>
                 </tr>
               {/each}
