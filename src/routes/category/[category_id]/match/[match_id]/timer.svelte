@@ -11,7 +11,7 @@
   {#if $oseakomiType}
     <OsaekomiTimer />
   {/if}
-  <div class="text-timer w-full text-center p-4 text-5xl my-5 font-bold">
+  <div class="text-timer w-full text-center p-4 text-4xl md:text-5xl my-5 font-bold">
     {String(min).padStart(2, '0')}:{String(sec).padStart(2, '0')}
   </div>
 </div>

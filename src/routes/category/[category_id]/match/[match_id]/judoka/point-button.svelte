@@ -6,7 +6,7 @@
 
 <button
   type="button"
-  class="btn btn-lg variant-ringed hover:filter-none hover:shadow-md"
+  class="btn btn-sm md:btn-lg variant-ringed hover:filter-none hover:shadow-md"
   {disabled}
   class:active
   on:click={action}><slot /></button

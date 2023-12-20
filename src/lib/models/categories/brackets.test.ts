@@ -112,4 +112,11 @@ describe('createBrackets', () => {
 
     expect(missingRounds).toHaveLength(missingMatch);
   });
+
+  it('should have a current match', () => {
+    const brackets = createBrackets('test', athletes.slice(0, 4));
+
+    expect(brackets.currentMatch).toBeDefined();
+    expect(brackets.currentMatch).toBeTruthy();
+  });
 });

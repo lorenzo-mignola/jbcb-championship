@@ -94,7 +94,7 @@ export const createBrackets = (name: string, athletes: Judoka[]): BracketsCatego
     athletes,
     matches,
     rounds,
-    currentMatch: ''
+    currentMatch: matches[0].id
   };
 };
 function pickAthlete(athletesNotPicket: (Judoka | undefined)[]) {

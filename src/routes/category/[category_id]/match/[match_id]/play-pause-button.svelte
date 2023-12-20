@@ -10,7 +10,7 @@
 </script>
 
 <button
-  class="btn variant-filled p-4 text-8xl w-full flex justify-center text-white"
+  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white"
   class:play={!$isPlaying}
   class:stop={$isPlaying}
   on:click={() => togglePlay()}

@@ -116,13 +116,15 @@
         ><span class="rotate-180">🤚</span> {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
       >
     </div>
-    {#if athlete}
-      {#if points() > 0 || athlete.shido > 0}
-        <div>
-          <button type="button" class="btn-icon variant-soft text-inherit"><Edit /></button>
-        </div>
+    <div>
+      {#if athlete}
+        {#if points() > 0 || athlete.shido > 0}
+          <button type="button" class="btn-icon btn-icon-sm md:btn-icon variant-soft text-inherit"
+            ><Edit /></button
+          >
+        {/if}
       {/if}
-    {/if}
+    </div>
   </div>
 </div>
 
