@@ -14,11 +14,13 @@ interface BaseCategory<T extends CategoryType> {
 
 export interface PoolCategory extends BaseCategory<'pool'> {}
 
+export interface DoublePoolCategory extends BaseCategory<'double-pool'> {}
+
 export interface BracketsCategory extends BaseCategory<'brackets'> {
   rounds: Rounds;
 }
 
-export type Category = PoolCategory | BracketsCategory;
+export type Category = PoolCategory | BracketsCategory | DoublePoolCategory;
 
 export type Rounds = BracketRound[];
 
