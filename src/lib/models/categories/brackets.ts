@@ -89,7 +89,7 @@ export const createBrackets = (name: string, athletes: Judoka[]): BracketsCatego
   const matches = getMatches(rounds);
   return {
     id: nanoid(),
-    type: 'pool',
+    type: 'brackets',
     name,
     athletes,
     matches,

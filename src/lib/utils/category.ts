@@ -1,10 +1,10 @@
-import type { Category, PoolCategory } from '../types/Category';
+import type { Category } from '../types/Category';
 import type { Judoka } from '../types/Judoka';
 import type { Match } from '../types/Match';
 
 export const getRanking = (category: Category) => {
   if (category.type === 'pool') {
-    return getRankingPool((category as PoolCategory).matches, category.athletes);
+    return getRankingPool(category.matches, category.athletes);
   }
   return [];
 };
@@ -42,3 +42,5 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
     })
     .map((athlete, index) => ({ ...athlete, rank: index + 1 }));
 };
+
+export const isByeMatch = ({ white, blue }: Match) => !white || !blue;

@@ -1,3 +1,4 @@
+import { createBrackets } from '../models/categories/brackets';
 import { createSinglePool } from '../models/categories/singlePool';
 import type { Category } from '../types/Category';
 import type { Match } from '../types/Match';
@@ -24,6 +25,8 @@ const generateCategory = ({
   switch (type) {
     case 'pool':
       return createSinglePool(name, athletes);
+    case 'brackets':
+      return createBrackets(name, athletes);
     default:
       throw new Error(`No type ${type} found`);
   }

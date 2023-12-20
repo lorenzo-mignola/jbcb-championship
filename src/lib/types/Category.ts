@@ -3,20 +3,22 @@ import type { Match } from './Match';
 
 type CategoryType = 'pool' | 'double-pool' | 'brackets';
 
-export interface Category {
+interface BaseCategory<T extends CategoryType> {
   id: string;
   name: string;
-  type: CategoryType;
   athletes: Judoka[];
   matches: Match[];
   currentMatch?: string;
+  type: T;
 }
 
-export interface PoolCategory extends Category {}
+export interface PoolCategory extends BaseCategory<'pool'> {}
 
-export interface BracketsCategory extends Category {
+export interface BracketsCategory extends BaseCategory<'brackets'> {
   rounds: Rounds;
 }
+
+export type Category = PoolCategory | BracketsCategory;
 
 export type Rounds = BracketRound[];
 

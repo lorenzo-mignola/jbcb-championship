@@ -2,7 +2,7 @@
   import AthleteList from '$lib/components/AthleteList.svelte';
   import Next from '../../../icons/next.svelte';
   import Loading from './loading.svelte';
-  import Stats from './stats.svelte';
+  import Stats from './stats/stats.svelte';
 
   export let data;
   const category = data.category;
