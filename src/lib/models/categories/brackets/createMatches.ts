@@ -14,13 +14,11 @@ const pickAthlete = (athletesNotPicket: (Judoka | undefined)[]) => {
 export const getMatches = (rounds: Rounds) =>
   rounds.flatMap(({ loser, winner, repechage }) => [loser, winner, repechage]).flat();
 
-export const createMatches =
-  (matchInRound: number) =>
-  (athletes?: (Judoka | undefined)[], byeAthletes?: (Judoka | undefined)[]) =>
-  () => {
+const getEvenOrOddMatches =
+  (matchInRound: number) => (athletes: (Judoka | undefined)[] | undefined) => {
     const matches: Match[] = [];
     let athletesNotPicket = athletes;
-    for (let index = 0; index < matchInRound; index++) {
+    for (let index = 0; index < matchInRound / 2; index++) {
       if (!athletes || !athletesNotPicket) {
         matches.push(createMatch());
         continue;
@@ -40,10 +38,34 @@ export const createMatches =
 
       matches.push(createMatch(white, blue));
     }
+    return {
+      matches,
+      athletesNotPicket
+    };
+  };
 
-    // add bye match
-    byeAthletes?.forEach((athlete) => {
-      matches.push(createMatch(athlete, undefined));
-    });
+export const createMatches =
+  (matchInRound: number) =>
+  (athletes?: (Judoka | undefined)[], byeAthletes?: (Judoka | undefined)[]) =>
+  () => {
+    const { matches: evenMatches, athletesNotPicket } = getEvenOrOddMatches(matchInRound)(athletes);
+    const { matches: oddMatches } = getEvenOrOddMatches(matchInRound)(athletesNotPicket);
+
+    const matches = [];
+    let byeNotPicked = byeAthletes ?? [];
+    for (let index = 0; index < matchInRound; index++) {
+      const even = index % 2 === 0;
+      const indexInArray = Math.floor(index / 2);
+      const athlete = even ? evenMatches[indexInArray] : oddMatches[indexInArray];
+      if (!athlete) {
+        const { athlete: byeAthlete, remain: byeRemain } = pickAthlete(byeNotPicked);
+        byeNotPicked = byeRemain;
+        matches.push(createMatch(byeAthlete, undefined));
+        continue;
+      }
+
+      matches.push(even ? evenMatches[indexInArray] : oddMatches[indexInArray]);
+    }
+
     return matches;
   };

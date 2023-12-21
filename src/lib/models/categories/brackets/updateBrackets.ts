@@ -29,7 +29,9 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   const nextRoundIndex = roundIndex + 1;
   const nextRound = brackets.rounds[nextRoundIndex];
   const nextRoundMatchesLength = nextRound.winner.length;
-  const nextMatchInRound = isOddRound ? nextRoundMatchesLength - 1 - matchIndex : 0 + matchIndex;
+  const nextMatchInRound = Math.floor(
+    (isOddRound ? nextRoundMatchesLength - 1 - matchIndex : 0 + matchIndex) / 2
+  );
   const isWhiteOrBlueNext = isOddRound ? 'white' : ('blue' as const);
   const winner = match[match.winner];
 

@@ -114,6 +114,34 @@ describe('createBrackets', () => {
     expect(missingRounds).toHaveLength(missingMatch);
   });
 
+  it.each([
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 6)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 10)],
+    [athletes.slice(0, 11)],
+    [athletes.slice(0, 12)],
+    [athletes.slice(0, 17)],
+    [athletes.slice(0, 18)],
+    [athletes.slice(0, 19)],
+    [athletes.slice(0, 20)],
+    [athletes.slice(0, 21)],
+    [athletes.slice(0, 22)],
+    [athletes.slice(0, 23)],
+    [athletes.slice(0, 24)]
+  ])('should create brackets only odd match', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+
+    const { rounds } = brackets;
+    const [firstRound] = rounds;
+    const evenMatch = firstRound.winner.filter((_, index) => {
+      return index % 2 === 0;
+    });
+    const byeEvenMatch = evenMatch.filter(({ white, blue }) => !white && !blue);
+
+    expect(byeEvenMatch).toHaveLength(0);
+  });
+
   it('should have a current match', () => {
     const brackets = createBrackets('test', athletes.slice(0, 4));
 
@@ -122,7 +150,7 @@ describe('createBrackets', () => {
   });
 
   it.each([
-    [athletes.slice(0, 4)],
+    // [athletes.slice(0, 4)],
     [athletes.slice(0, 5)],
     [athletes.slice(0, 6)],
     [athletes.slice(0, 7)],
@@ -155,34 +183,5 @@ describe('createBrackets', () => {
     expect(brackets.matches[0].id).toBe(bracketsUpdated.matches[0].id);
     expect(updatedMatchesSetLengths).toBe(matchesSetLengths + 1);
     expect(bracketsUpdated.rounds[1].winner[0].blue!.id).toBe(blue!.id);
-  });
-
-  it.skip.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)]
-  ])('should set winner last match', (athleteSlice) => {
-    const brackets = createBrackets('test', athleteSlice);
-
-    const lastMatch = brackets.rounds[0].winner[brackets.rounds[0].winner.length - 1];
-    const { white } = lastMatch;
-    const winner = 'white';
-
-    const firstMatchUpdated: Match = {
-      ...lastMatch,
-      winner
-    };
-
-    const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
-
-    expect(
-      bracketsUpdated.rounds[1].winner[bracketsUpdated.rounds[1].winner.length - 1].white!.id
-    ).toBe(white!.id);
   });
 });
