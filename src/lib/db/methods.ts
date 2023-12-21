@@ -1,5 +1,5 @@
-import { createBrackets } from '../models/categories/brackets';
-import { createSinglePool } from '../models/categories/singlePool';
+import { createBrackets } from '../models/categories/brackets/brackets';
+import { createSinglePool } from '../models/categories/singlePool/singlePool';
 import type { Category } from '../types/Category';
 import type { Match } from '../types/Match';
 import { db } from './db';

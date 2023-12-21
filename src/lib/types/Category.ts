@@ -28,5 +28,4 @@ interface BracketRound {
   winner: Match[];
   loser: Match[];
   repechage: Match[];
-  round: number;
 }

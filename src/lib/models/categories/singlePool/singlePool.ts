@@ -1,7 +1,7 @@
 import { nanoid } from 'nanoid';
-import type { Category } from '../../types/Category';
-import type { Judoka } from '../../types/Judoka';
-import { createMatch } from '../match';
+import type { Category } from '../../../types/Category';
+import type { Judoka } from '../../../types/Judoka';
+import { createMatch } from '../../match';
 
 const rotateArray = (athletes: Judoka[]) => {
   const [first, ...others] = athletes;

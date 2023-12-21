@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import type { Judoka } from '../../types/Judoka';
-import { createBrackets } from './brackets';
+import type { Judoka } from '../../../types/Judoka';
+import type { Match } from '../../../types/Match';
+import { createBrackets, updateBrackets } from './brackets';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },
@@ -118,5 +119,33 @@ describe('createBrackets', () => {
 
     expect(brackets.currentMatch).toBeDefined();
     expect(brackets.currentMatch).toBeTruthy();
+  });
+
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 6)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 11)],
+    [athletes.slice(0, 15)],
+    [athletes.slice(0, 16)]
+  ])('should set winner and loser first match', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+
+    const firstMatch = brackets.rounds[0].winner[0];
+    const { blue } = firstMatch;
+    const winner = 'blue';
+
+    const firstMatchUpdated: Match = {
+      ...firstMatch,
+      winner
+    };
+
+    const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+
+    expect(bracketsUpdated.rounds[0].winner[0].winner).toBe('blue');
+    expect(bracketsUpdated.rounds[1].winner[0].blue!.id).toBe(blue!.id);
   });
 });

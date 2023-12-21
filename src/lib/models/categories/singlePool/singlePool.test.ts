@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { Judoka } from '../../types/Judoka';
-import type { Match } from '../../types/Match';
+import type { Judoka } from '../../../types/Judoka';
+import type { Match } from '../../../types/Match';
 import { createSinglePool } from './singlePool';
 
 const name = 'single';
