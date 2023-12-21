@@ -184,4 +184,40 @@ describe('createBrackets', () => {
     expect(updatedMatchesSetLengths).toBe(matchesSetLengths + 1);
     expect(bracketsUpdated.rounds[1].winner[0].blue!.id).toBe(blue!.id);
   });
+
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 6)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 11)],
+    [athletes.slice(0, 15)],
+    [athletes.slice(0, 16)]
+  ])('should set winner first match', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+    const matchesSetLengths = brackets.matches.filter(
+      ({ white, blue }) => !!white || !!blue
+    ).length;
+
+    const firstMatch = brackets.rounds[0].winner[0];
+    const { white } = firstMatch;
+    const winner = 'white';
+
+    const firstMatchUpdated: Match = {
+      ...firstMatch,
+      winner
+    };
+
+    const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+    const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
+      ({ white, blue }) => !!white || !!blue
+    ).length;
+
+    expect(bracketsUpdated.rounds[0].winner[0].winner).toBe('white');
+    expect(brackets.matches[0].id).toBe(bracketsUpdated.matches[0].id);
+    expect(updatedMatchesSetLengths).toBe(matchesSetLengths + 1);
+    expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
+  });
 });
