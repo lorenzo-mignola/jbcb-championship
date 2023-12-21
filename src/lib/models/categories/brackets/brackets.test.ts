@@ -220,4 +220,34 @@ describe('createBrackets', () => {
     expect(updatedMatchesSetLengths).toBe(matchesSetLengths + 1);
     expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
   });
+
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 6)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 11)],
+    [athletes.slice(0, 15)],
+    [athletes.slice(0, 16)]
+  ])('should set winner last match', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+
+    const firstRound = brackets.rounds[0];
+    const lastMatch = firstRound.winner[firstRound.winner.length - 1];
+    const { white } = lastMatch;
+    const winner = 'white';
+
+    const lastMatchUpdated: Match = {
+      ...lastMatch,
+      winner
+    };
+
+    const bracketsUpdated = updateBrackets(brackets, lastMatchUpdated);
+    const secondRound = bracketsUpdated.rounds[1];
+    const lastMatchSecondRound = secondRound.winner[secondRound.winner.length - 1];
+
+    expect(lastMatchSecondRound.white!.id).toBe(white!.id);
+  });
 });
