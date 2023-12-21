@@ -1,5 +1,6 @@
 import type { BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
+import { getMatches } from './createMatches';
 
 export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   if (!match.winner) {
@@ -72,8 +73,11 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     return round;
   });
 
+  const matches = getMatches(roundsUpdated);
+
   return {
     ...brackets,
-    rounds: roundsUpdated
+    rounds: roundsUpdated,
+    matches
   };
 };
