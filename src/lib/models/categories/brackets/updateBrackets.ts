@@ -1,6 +1,14 @@
-import type { BracketsCategory } from '../../../types/Category';
+import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 import { getMatches } from './createMatches';
+
+const updateWinner = (round: BracketRound, matchUpdated: Match, indexMatch: number) =>
+  round.winner.map((match, index) => {
+    if (index !== indexMatch) {
+      return match;
+    }
+    return matchUpdated;
+  });
 
 export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   if (!match.winner) {
@@ -37,18 +45,15 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
 
   const nextRoundUpdated = {
     ...nextRound,
-    winner: nextRound.winner.map((match, index) => {
-      if (index !== nextMatchInRound) {
-        return match;
-      }
-      return {
+    winner: updateWinner(
+      nextRound,
+      {
         ...match,
         [isWhiteOrBlueNext]: winner
-      };
-    })
+      },
+      nextMatchInRound
+    )
   };
-
-  // nextRound.winner[nextMatchInRound][isWhiteOrBlueNext] = winner;
 
   const matchUpdated = {
     ...originalMatch,
@@ -57,12 +62,7 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
 
   const currentRoundUpdated = {
     ...round,
-    winner: round.winner.map((match, index) => {
-      if (index !== nextMatchInRound) {
-        return match;
-      }
-      return matchUpdated;
-    })
+    winner: updateWinner(round, matchUpdated, nextMatchInRound)
   };
 
   const roundsUpdated = brackets.rounds.map((round, index) => {

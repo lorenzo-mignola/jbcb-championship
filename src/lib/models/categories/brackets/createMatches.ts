@@ -48,8 +48,8 @@ export const createMatches =
   (matchInRound: number) =>
   (athletes?: (Judoka | undefined)[], byeAthletes?: (Judoka | undefined)[]) =>
   () => {
-    const { matches: evenMatches, athletesNotPicket } = getEvenOrOddMatches(matchInRound)(athletes);
-    const { matches: oddMatches } = getEvenOrOddMatches(matchInRound)(athletesNotPicket);
+    const { matches: oddMatches, athletesNotPicket } = getEvenOrOddMatches(matchInRound)(athletes);
+    const { matches: evenMatches } = getEvenOrOddMatches(matchInRound)(athletesNotPicket);
 
     const matches = [];
     let byeNotPicked = byeAthletes ?? [];
