@@ -1,13 +1,13 @@
 import type { BracketRound, BracketsCategory } from '../../../types/Category';
-import type { Match } from '../../../types/Match';
+import type { JudokaType, Match } from '../../../types/Match';
 import { getMatches } from './createMatches';
 
-const updateWinner = (round: BracketRound, matchUpdated: Match, indexMatch: number) =>
+const updateWinner = (round: BracketRound, matchUpdated: Partial<Match>, indexMatch: number) =>
   round.winner.map((match, index) => {
     if (index !== indexMatch) {
       return match;
     }
-    return matchUpdated;
+    return { ...match, ...matchUpdated };
   });
 
 export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
@@ -23,8 +23,6 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     return brackets;
   }
 
-  const isOddRound = roundIndex % 2 !== 0;
-
   const round = brackets.rounds[roundIndex];
   const matchIndex = round.winner.findIndex(({ id }) => id === match.id);
 
@@ -36,11 +34,14 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
 
   const nextRoundIndex = roundIndex + 1;
   const nextRound = brackets.rounds[nextRoundIndex];
-  const nextRoundMatchesLength = nextRound.winner.length;
-  const nextMatchInRound = Math.floor(
-    (isOddRound ? nextRoundMatchesLength - 1 - matchIndex : 0 + matchIndex) / 2
-  );
-  const isWhiteOrBlueNext = isOddRound ? 'white' : ('blue' as const);
+  const nextMatchInRound = Math.floor(matchIndex / 2);
+  // const isOddRound = roundIndex % 2 !== 0;
+  // const nextRoundMatchesLength = nextRound.winner.length;
+  // const loserNextMatchInRound = Math.floor(
+  //   (isOddRound ? nextRoundMatchesLength - 1 - matchIndex : 0 + matchIndex) / 2
+  // );
+  const isOddMatch = matchIndex % 2 !== 0;
+  const isWhiteOrBlueNext: JudokaType = isOddMatch ? 'blue' : 'white';
   const winner = match[match.winner];
 
   const nextRoundUpdated = {
@@ -48,7 +49,6 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     winner: updateWinner(
       nextRound,
       {
-        ...match,
         [isWhiteOrBlueNext]: winner
       },
       nextMatchInRound
