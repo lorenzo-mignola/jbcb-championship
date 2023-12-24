@@ -3,7 +3,7 @@ import type { BracketsCategory } from '../../../types/Category';
 import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
 import { getMatches } from './createMatches';
-import { getMatchIndex, getRoundByMatch } from './findRoundAndMatch';
+import { getMatchIndex, getRoundByMatch, isWhiteOrBlueNext } from './findRoundAndMatch';
 
 interface NextMatchCoordinate {
   match: number;
@@ -11,8 +11,7 @@ interface NextMatchCoordinate {
 }
 
 const getNextCoordinate = ({ round, match }: { round: number; match: number }) => {
-  const isOddMatch = match % 2 !== 0;
-  const whiteOrBlue = isOddMatch ? 'blue' : 'white';
+  const whiteOrBlue = isWhiteOrBlueNext(match);
 
   const winnerCoordinate: NextMatchCoordinate = {
     match: Math.floor(match / 2),

@@ -364,12 +364,59 @@ describe('updateLoserBrackets', () => {
         'loser'
       );
 
+      const repechageInMatches = bracketsUpdated.matches.find(
+        (match) => match.id === bracketsUpdated.rounds[1].repechage[0].id
+      );
+
       expect(loserMatch.white!.id).toBe(white!.id);
       expect(loserMatch.blue!.id).toBe(blue!.id);
+      expect(bracketsUpdated.rounds[1].loser[0].winner).toBe('white');
       expect(bracketsUpdated.rounds[1].repechage[0].blue!.id).toBe(white!.id);
+      expect(repechageInMatches?.blue?.id).toBe(white!.id);
+    }
+  );
+
+  it.each([[athletes.slice(0, 16)], [athletes]])(
+    'should send winner of repechage round in next round loser',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+
+      const firstMatchWhite = brackets.rounds[0].winner[0];
+      const firstMatchBlue = brackets.rounds[0].winner[1];
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+        ...firstMatchWhite,
+        winner: 'white'
+      });
+      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
+        ...firstMatchBlue,
+        winner: 'white'
+      });
+
+      const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
+      const bracketsUpdatedLoser = updateLoserBrackets(
+        bracketsUpdatedFirstBlue,
+        {
+          ...loserMatch,
+          winner: 'white'
+        },
+        'loser'
+      );
+
+      const repechageMatch = bracketsUpdatedLoser.rounds[1].repechage[0];
+      const { blue } = repechageMatch;
+      const bracketsUpdated = updateLoserBrackets(
+        bracketsUpdatedLoser,
+        {
+          ...repechageMatch,
+          winner: 'blue'
+        },
+        'repechage'
+      );
+
+      expect(bracketsUpdated.rounds[2].loser[0].white!.id).toBe(blue!.id);
     }
   );
 
   // TODO bye
-  // TODO repechage
+  // TODO gold, silver, bronze
 });

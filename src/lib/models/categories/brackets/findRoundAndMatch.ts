@@ -33,3 +33,8 @@ export const getMatchIndex = (
   }
   return matchIndex;
 };
+
+export const isWhiteOrBlueNext = (matchIndex: number) => {
+  const isOddMatch = matchIndex % 2 !== 0;
+  return isOddMatch ? 'blue' : 'white';
+};

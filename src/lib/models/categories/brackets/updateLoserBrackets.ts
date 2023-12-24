@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import type { BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 import { getMatches } from './createMatches';
-import { getMatchIndex, getRoundByMatch } from './findRoundAndMatch';
+import { getMatchIndex, getRoundByMatch, isWhiteOrBlueNext } from './findRoundAndMatch';
 
 export const updateLoserBrackets = (
   brackets: BracketsCategory,
@@ -29,22 +29,35 @@ export const updateLoserBrackets = (
 
   const nextMatchIndex = type === 'loser' ? matchIndex : Math.floor(matchIndex / 2);
 
-  if (type === 'loser') {
-    const currentRoundUpdated = produce(round, (currentRound) => {
+  const currentRoundUpdated = produce(round, (currentRound) => {
+    if (type === 'loser') {
       currentRound.repechage[nextMatchIndex].blue = winner;
-    });
+    }
+    currentRound.loser[matchIndex] = match;
+  });
 
-    const roundsUpdated = produce(brackets.rounds, (rounds) => {
-      rounds[roundIndex] = currentRoundUpdated;
-    });
+  const nextRoundIndex = roundIndex + 1;
+  const nextRoundUpdated = produce(brackets.rounds[nextRoundIndex], (nextRound) => {
+    if (type === 'loser') {
+      return;
+    }
+    const isLastRound = nextRoundIndex === brackets.rounds.length - 1;
+    if (!isLastRound) {
+      const whiteOrBlue = isWhiteOrBlueNext(matchIndex);
+      nextRound.loser[nextMatchIndex][whiteOrBlue] = winner;
+    }
+  });
 
-    const matches = getMatches(roundsUpdated);
+  const roundsUpdated = produce(brackets.rounds, (rounds) => {
+    rounds[roundIndex] = currentRoundUpdated;
+    rounds[roundIndex + 1] = nextRoundUpdated;
+  });
 
-    return {
-      ...brackets,
-      rounds: roundsUpdated,
-      matches
-    };
-  }
-  return brackets;
+  const matches = getMatches(roundsUpdated);
+
+  return {
+    ...brackets,
+    rounds: roundsUpdated,
+    matches
+  };
 };

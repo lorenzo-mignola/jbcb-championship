@@ -54,7 +54,6 @@ export const createRounds = (athletes: Judoka[]): Rounds => {
     const isFirstOrLast = isFirstRound || isLastRound;
 
     const roundMatch = {
-      round,
       winner: create(),
       loser: isFirstOrLast ? [] : create(),
       repechage: isFirstOrLast ? [] : create()
