@@ -4,6 +4,33 @@ import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
 import { getMatches } from './createMatches';
 
+interface NextMatchCoordinate {
+  match: number;
+  whiteOrBlue: JudokaType;
+}
+
+const getNextCoordinate = ({ round, match }: { round: number; match: number }) => {
+  const isOddMatch = match % 2 !== 0;
+  const whiteOrBlue = isOddMatch ? 'blue' : 'white';
+
+  const winnerCoordinate: NextMatchCoordinate = {
+    match: Math.floor(match / 2),
+    whiteOrBlue
+  };
+
+  // TODO handle first round
+  const loserCoordinate: NextMatchCoordinate = {
+    match: Math.floor(match / 2),
+    whiteOrBlue
+  };
+
+  return {
+    round: round + 1,
+    winner: winnerCoordinate,
+    loser: loserCoordinate
+  };
+};
+
 export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   if (!match.winner) {
     return brackets;
@@ -32,21 +59,24 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     round: roundIndex,
     match: matchIndex
   };
-  const isOddMatch = matchIndex % 2 !== 0;
-  const isWhiteOrBlueNext: JudokaType = isOddMatch ? 'blue' : 'white';
+  const nextCoordinate = getNextCoordinate(currentCoordinate);
 
   const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (round) => {
     round.winner[currentCoordinate.match] = match;
   });
 
-  const nextCoordinate = {
-    round: roundIndex + 1,
-    match: Math.floor(matchIndex / 2),
-    whiteOrBlue: isWhiteOrBlueNext
-  };
   const winner = match[match.winner];
+  const loser = match[loserType];
+  const isLastRound = nextCoordinate.round === brackets.rounds.length - 1;
   const nextRoundUpdated = produce(brackets.rounds[nextCoordinate.round], (round) => {
-    round.winner[nextCoordinate.match][nextCoordinate.whiteOrBlue] = winner;
+    // winner
+    round.winner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = winner;
+    if (isLastRound) {
+      return;
+    }
+    // TODO handle first round
+    // loser
+    round.loser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
   });
 
   const roundsUpdated = produce(brackets.rounds, (rounds) => {
