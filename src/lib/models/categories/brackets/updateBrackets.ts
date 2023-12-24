@@ -18,10 +18,9 @@ const getNextCoordinate = ({ round, match }: { round: number; match: number }) =
     whiteOrBlue
   };
 
-  // TODO handle first round
   const loserCoordinate: NextMatchCoordinate = {
     match: Math.floor(match / 2),
-    whiteOrBlue
+    whiteOrBlue: round === 0 ? whiteOrBlue : 'white'
   };
 
   return {
@@ -61,27 +60,37 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   };
   const nextCoordinate = getNextCoordinate(currentCoordinate);
 
+  const loser = match[loserType];
+  const winner = match[match.winner];
+
   const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (round) => {
     round.winner[currentCoordinate.match] = match;
+    if (currentCoordinate.round !== 0) {
+      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+    }
   });
 
-  const winner = match[match.winner];
-  const loser = match[loserType];
-  const isLastRound = nextCoordinate.round === brackets.rounds.length - 1;
-  const nextRoundUpdated = produce(brackets.rounds[nextCoordinate.round], (round) => {
-    // winner
-    round.winner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = winner;
-    if (isLastRound) {
-      return;
+  const nextRoundWinnerUpdated = produce(
+    brackets.rounds[nextCoordinate.round].winner,
+    (nextWinner) => {
+      nextWinner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = winner;
     }
-    // TODO handle first round
-    // loser
-    round.loser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
-  });
+  );
+
+  const isLastRound = nextCoordinate.round === brackets.rounds.length - 1;
+  const nextRoundLoserUpdated = produce(
+    brackets.rounds[nextCoordinate.round].loser,
+    (nextLoser) => {
+      if (!isLastRound) {
+        nextLoser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+      }
+    }
+  );
 
   const roundsUpdated = produce(brackets.rounds, (rounds) => {
     rounds[currentCoordinate.round] = currentRoundUpdated;
-    rounds[nextCoordinate.round] = nextRoundUpdated;
+    rounds[nextCoordinate.round].winner = nextRoundWinnerUpdated;
+    rounds[nextCoordinate.round].loser = nextRoundLoserUpdated;
   });
   // const isOddRound = roundIndex % 2 !== 0;
   // const nextRoundMatchesLength = nextRound.winner.length;

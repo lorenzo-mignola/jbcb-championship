@@ -297,4 +297,32 @@ describe('createBrackets', () => {
       expect(bracketsUpdated.rounds[1].loser[0].white!.id).toBe(white!.id);
     }
   );
+
+  it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+    'should set loser second match',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+
+      const firstMatchWhite = brackets.rounds[0].winner[0];
+      const firstMatchBlue = brackets.rounds[0].winner[1];
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+        ...firstMatchWhite,
+        winner: 'white'
+      });
+      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
+        ...firstMatchBlue,
+        winner: 'white'
+      });
+
+      const secondMatch = bracketsUpdatedFirstBlue.rounds[1].winner[0];
+      const { white, blue } = secondMatch;
+      const bracketsUpdated = updateBrackets(bracketsUpdatedFirstBlue, {
+        ...secondMatch,
+        winner: 'white'
+      });
+
+      expect(bracketsUpdated.rounds[2].winner[0].white!.id).toBe(white!.id);
+      expect(bracketsUpdated.rounds[1].repechage[0].white!.id).toBe(blue!.id);
+    }
+  );
 });
