@@ -3,6 +3,7 @@ import type { BracketsCategory } from '../../../types/Category';
 import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
 import { getMatches } from './createMatches';
+import { getMatchIndex, getRoundByMatch } from './findRoundAndMatch';
 
 interface NextMatchCoordinate {
   match: number;
@@ -39,18 +40,15 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     return brackets;
   }
 
-  const roundIndex = brackets.rounds.findIndex(({ winner }) =>
-    winner.some(({ id }) => id === match.id)
-  );
+  const { round, roundIndex } = getRoundByMatch(brackets.rounds, match, 'winner');
 
-  if (roundIndex === -1) {
+  if (round === null || roundIndex === null) {
     return brackets;
   }
 
-  const round = brackets.rounds[roundIndex];
-  const matchIndex = round.winner.findIndex(({ id }) => id === match.id);
+  const matchIndex = getMatchIndex(round, match, 'winner');
 
-  if (roundIndex === -1) {
+  if (matchIndex === null) {
     return brackets;
   }
 
@@ -92,11 +90,6 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     rounds[nextCoordinate.round].winner = nextRoundWinnerUpdated;
     rounds[nextCoordinate.round].loser = nextRoundLoserUpdated;
   });
-  // const isOddRound = roundIndex % 2 !== 0;
-  // const nextRoundMatchesLength = nextRound.winner.length;
-  // const loserNextMatchInRound = Math.floor(
-  //   (isOddRound ? nextRoundMatchesLength - 1 - matchIndex : 0 + matchIndex) / 2
-  // );
 
   const matches = getMatches(roundsUpdated);
 

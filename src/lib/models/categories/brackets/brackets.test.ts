@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Judoka } from '../../../types/Judoka';
 import type { Match } from '../../../types/Match';
 import { createBrackets, updateBrackets } from './brackets';
+import { updateLoserBrackets } from './updateLoserBrackets';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },
@@ -148,7 +149,8 @@ describe('createBrackets', () => {
     expect(brackets.currentMatch).toBeDefined();
     expect(brackets.currentMatch).toBeTruthy();
   });
-
+});
+describe('updateBrackets', () => {
   it.each([
     [athletes.slice(0, 4)],
     [athletes.slice(0, 5)],
@@ -321,8 +323,53 @@ describe('createBrackets', () => {
         winner: 'white'
       });
 
+      const repechageMatch = bracketsUpdated.rounds[1].repechage[0];
+      const repechageMatchInArray = bracketsUpdated.matches.find(
+        (match) => match.id === repechageMatch.id
+      );
+
       expect(bracketsUpdated.rounds[2].winner[0].white!.id).toBe(white!.id);
-      expect(bracketsUpdated.rounds[1].repechage[0].white!.id).toBe(blue!.id);
+      expect(repechageMatch.white!.id).toBe(blue!.id);
+      expect(repechageMatchInArray!.white!.id).toBe(blue!.id);
     }
   );
+});
+
+describe('updateLoserBrackets', () => {
+  it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+    'should send winner of loser round in repechage',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+
+      const firstMatchWhite = brackets.rounds[0].winner[0];
+      const firstMatchBlue = brackets.rounds[0].winner[1];
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+        ...firstMatchWhite,
+        winner: 'white'
+      });
+      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
+        ...firstMatchBlue,
+        winner: 'white'
+      });
+
+      const white = firstMatchWhite.blue;
+      const blue = firstMatchBlue.blue;
+      const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
+      const bracketsUpdated = updateLoserBrackets(
+        bracketsUpdatedFirstBlue,
+        {
+          ...loserMatch,
+          winner: 'white'
+        },
+        'loser'
+      );
+
+      expect(loserMatch.white!.id).toBe(white!.id);
+      expect(loserMatch.blue!.id).toBe(blue!.id);
+      expect(bracketsUpdated.rounds[1].repechage[0].blue!.id).toBe(white!.id);
+    }
+  );
+
+  // TODO bye
+  // TODO repechage
 });
