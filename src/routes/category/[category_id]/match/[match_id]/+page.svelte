@@ -1,5 +1,7 @@
 <script lang="ts">
+  import { onDestroy, onMount } from 'svelte';
   import { getOpponentType } from '../../../../../lib/utils/judoka';
+  import { match } from './$match';
   import { isPlaying, timer, togglePlay } from './$timer';
   import Judoka from './judoka/judoka.svelte';
   import PlayPauseButton from './play-pause-button.svelte';
@@ -7,29 +9,48 @@
   import Timer from './timer.svelte';
 
   export let data;
-  $: ({ category, match } = data);
+  $: ({ category, match: matchData } = data);
+
+  onMount(() => {
+    if (matchData) {
+      match.set(matchData);
+    }
+  });
+
+  onDestroy(() => {
+    match.set(undefined);
+  });
 
   function setWinner(type: 'white' | 'blue') {
-    if (!match) {
+    if (!$match) {
       return;
     }
-    match!.winner = type;
-    match.finalTime = $timer;
+    match.set({
+      ...$match,
+      winner: type,
+      finalTime: $timer
+    });
     if ($isPlaying) {
       togglePlay();
     }
   }
 
   function setDisqualification(type: 'white' | 'blue') {
-    if (!match) {
+    if (!$match) {
       return;
     }
     const opponent = getOpponentType(type);
-    if (opponent && match[opponent]) {
-      match[opponent]!.ippon = 1;
-      match!.winner = opponent;
+    if (opponent && $match[opponent]) {
+      match.set({
+        ...$match,
+        [opponent]: {
+          ...$match[opponent],
+          ippon: 1
+        },
+        winner: opponent,
+        finalTime: $timer
+      });
     }
-    match.finalTime = $timer;
     if ($isPlaying) {
       togglePlay();
     }
@@ -48,20 +69,14 @@
 
 {#if match}
   {#each athleteType as type}
-    <Judoka
-      {type}
-      athlete={match[type]}
-      end={Boolean(match.winner)}
-      {setWinner}
-      {setDisqualification}
-    />
+    <Judoka {type} {setWinner} {setDisqualification} />
   {/each}
 {/if}
 
 <Timer />
 
-<PlayPauseButton disabled={Boolean(match?.winner)} />
+<PlayPauseButton />
 
-{#if Boolean(match?.winner) && category?.id && match}
-  <SaveButton categoryId={category.id} {match} />
+{#if category?.id && match}
+  <SaveButton categoryId={category.id} />
 {/if}

@@ -1,19 +1,21 @@
 <script lang="ts">
+  import { match } from '../$match';
   import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
     timerOsaekomi
   } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
+  import type { JudokaType } from '../../../../../../lib/types/Match';
   import { getOpponentType } from '../../../../../../lib/utils/judoka';
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
-  export let athlete: MatchJudoka | undefined;
+  $: athlete = $match?.[type];
+  $: end = Boolean($match?.winner);
+
   export let setWinner: (type: JudokaType) => void;
   export let setDisqualification: (type: JudokaType) => void;
-  export let end: boolean;
 
   $: points = () => {
     if (athlete?.ippon) {

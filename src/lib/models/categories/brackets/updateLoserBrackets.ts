@@ -2,6 +2,7 @@ import { produce } from 'immer';
 import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
+import { resetAthlete } from './resetAthlete';
 
 export const updateLoserBrackets = (
   brackets: BracketsCategory,
@@ -25,7 +26,7 @@ export const updateLoserBrackets = (
 
   const currentRoundUpdated = produce(round, (currentRound) => {
     if (type === 'loser') {
-      currentRound.repechage[nextMatchIndex].blue = winner;
+      currentRound.repechage[nextMatchIndex].blue = resetAthlete(winner);
     }
     currentRound.loser[matchIndex] = match;
   });
@@ -38,7 +39,7 @@ export const updateLoserBrackets = (
     const isLastRound = nextRoundIndex === brackets.rounds.length - 1;
     if (!isLastRound) {
       const whiteOrBlue = isWhiteOrBlueNext(matchIndex);
-      nextRound.loser[nextMatchIndex][whiteOrBlue] = winner;
+      nextRound.loser[nextMatchIndex][whiteOrBlue] = resetAthlete(winner);
     }
   });
 

@@ -3,6 +3,7 @@ import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
+import { resetAthlete } from './resetAthlete';
 
 interface NextMatchCoordinate {
   match: number;
@@ -68,7 +69,7 @@ export const updateWinnerBrackets = (
   const nextRoundWinnerUpdated = produce(
     brackets.rounds[nextCoordinate.round].winner,
     (nextWinner) => {
-      nextWinner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = winner;
+      nextWinner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = resetAthlete(winner);
     }
   );
 

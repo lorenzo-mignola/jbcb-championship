@@ -2,9 +2,10 @@
   import { onDestroy } from 'svelte';
   import Play from '../../../../../icons/play.svelte';
   import Stop from '../../../../../icons/stop.svelte';
+  import { match } from './$match';
   import { isPlaying, reset, togglePlay } from './$timer';
 
-  export let disabled: boolean;
+  $: disabled = Boolean($match?.winner);
 
   onDestroy(() => reset());
 </script>
