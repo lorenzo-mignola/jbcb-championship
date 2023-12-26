@@ -24,9 +24,8 @@ export type Category = PoolCategory | BracketsCategory | DoublePoolCategory;
 
 export type Rounds = BracketRound[];
 
-interface BracketRound {
+export interface BracketRound {
   winner: Match[];
   loser: Match[];
   repechage: Match[];
-  round: number;
 }

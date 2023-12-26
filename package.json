@@ -47,6 +47,7 @@
   },
   "type": "module",
   "dependencies": {
+    "immer": "^10.0.3",
     "lowdb": "^6.1.1",
     "nanoid": "^5.0.4"
   }
