@@ -113,5 +113,8 @@
     "width",
     "zIndex"
   ],
-  "cSpell.words": ["ippon", "JBCB", "oasekomi", "Osae", "Osaekomi", "shido", "Waza", "wazari"]
+  "cSpell.words": ["ippon", "JBCB", "oasekomi", "Osae", "Osaekomi", "shido", "Waza", "wazari"],
+  "yaml.schemas": {
+    "https://json.schemastore.org/github-workflow.json": "file:///Users/lorenzo/code/jbcb-championship/.github/workflows/deploy.yml"
+  }
 }
