@@ -2,10 +2,11 @@ import type { BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 import { getMatches } from './createMatches';
 import { getMatchType, getRoundByMatch } from './findRoundAndMatch';
+import { getCurrentMatch } from './getCurrentMatch';
 import { updateLoserBrackets } from './updateLoserBrackets';
 import { updateWinnerBrackets } from './updateWinnerBrackets';
 
-export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
+export const updateBrackets = (brackets: BracketsCategory, match: Match): BracketsCategory => {
   const type = getMatchType(brackets, match);
   if (type === null) {
     return brackets;
@@ -25,9 +26,11 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
   }
 
   const matches = getMatches(rounds);
+  const currentMatch = getCurrentMatch(brackets.matches, match.id);
   return {
     ...brackets,
     rounds,
-    matches
+    matches,
+    currentMatch
   };
 };

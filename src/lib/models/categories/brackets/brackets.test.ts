@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import type { Judoka } from '../../../types/Judoka';
 import type { Match } from '../../../types/Match';
 import { createBrackets, updateBrackets } from './brackets';
+import { getCurrentMatch } from './getCurrentMatch';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },
@@ -453,6 +454,53 @@ describe('update bye', () => {
       expect(repechageMatch.blue!.id).toBe(loserMatch.blue!.id);
     }
   );
+});
+
+describe('currentMatch', () => {
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 16)],
+    [athletes.slice(0, 10)],
+    [athletes.slice(0, 14)],
+    [athletes],
+    [athletes.slice(0, 19)],
+    [athletes.slice(0, 24)]
+  ])('should update currentMatch', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+    const firstMatch = brackets.matches.find((match) => match.id === brackets.currentMatch);
+
+    if (!firstMatch) {
+      expect.fail("currentMatch can't be undefined");
+    }
+
+    const bracketsUpdated = updateBrackets(brackets, { ...firstMatch, winner: 'white' });
+
+    expect(bracketsUpdated.currentMatch).not.toBeUndefined();
+    expect(bracketsUpdated.currentMatch).toBe(brackets.matches[1].id);
+  });
+
+  it.each([
+    [athletes.slice(0, 4)],
+    [athletes.slice(0, 8)],
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 7)],
+    [athletes.slice(0, 16)],
+    [athletes.slice(0, 10)],
+    [athletes.slice(0, 14)],
+    [athletes],
+    [athletes.slice(0, 19)],
+    [athletes.slice(0, 24)]
+  ])('should not get currentMatch because is last', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice);
+    const lastMatch = brackets.matches[brackets.matches.length - 1];
+
+    const currentMatch = getCurrentMatch(brackets.matches, lastMatch.id);
+
+    expect(currentMatch).toBeUndefined();
+  });
 });
 // TODO bye
 // TODO gold, silver, bronze

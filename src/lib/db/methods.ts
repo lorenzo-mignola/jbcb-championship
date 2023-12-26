@@ -1,5 +1,6 @@
 import { createBrackets } from '../models/categories/brackets/brackets';
-import { createSinglePool } from '../models/categories/singlePool/singlePool';
+import { createSinglePool } from '../models/categories/singlePool/createSinglePool';
+import { updateSinglePool } from '../models/categories/singlePool/updateSinglePool';
 import type { Category } from '../types/Category';
 import type { Match } from '../types/Match';
 import { db } from './db';
@@ -76,20 +77,4 @@ function updateCategory(category: Category, matchUpdated: Match) {
     return updateSinglePool(category, matchUpdated);
   }
   throw new Error(`Unknown category type ${category.type}`);
-}
-
-function updateSinglePool(category: Category, matchUpdated: Match) {
-  const nextMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);
-  const done = nextMatch === category.matches.length - 1;
-  const categoryUpdated: Category = {
-    ...category,
-    currentMatch: done ? undefined : category.matches[nextMatch + 1].id,
-    matches: category.matches.map((match) => {
-      if (match.id !== matchUpdated.id) {
-        return match;
-      }
-      return matchUpdated;
-    })
-  };
-  return categoryUpdated;
 }
