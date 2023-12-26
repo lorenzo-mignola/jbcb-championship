@@ -454,6 +454,24 @@ describe('update bye', () => {
       expect(repechageMatch.blue!.id).toBe(loserMatch.blue!.id);
     }
   );
+
+  it('should handle bye match in loser even if no match', () => {
+    const brackets = createBrackets('test', athletes.slice(0, 5));
+
+    const firstMatch = brackets.rounds[0].winner[1];
+
+    const bracketsFirstMatchUpdated = updateBrackets(brackets, {
+      ...firstMatch,
+      winner: 'blue'
+    });
+
+    const loserMatch = bracketsFirstMatchUpdated.rounds[1].loser[1];
+
+    const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, loserMatch);
+
+    expect(bracketsUpdated.currentMatch).not.toBeUndefined();
+    expect(bracketsUpdated.currentMatch).toBe(brackets.rounds[1].winner[0].id);
+  });
 });
 
 describe('currentMatch', () => {
@@ -502,5 +520,3 @@ describe('currentMatch', () => {
     expect(currentMatch).toBeUndefined();
   });
 });
-// TODO bye
-// TODO gold, silver, bronze

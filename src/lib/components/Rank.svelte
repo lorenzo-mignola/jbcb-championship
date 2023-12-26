@@ -9,6 +9,7 @@
       case 2:
         return '🥈';
       case 3:
+      case 4:
         return '🥉';
 
       default:
