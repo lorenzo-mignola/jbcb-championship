@@ -404,5 +404,55 @@ describe('updateLoserBrackets', () => {
     }
   );
 });
+
+describe('update bye', () => {
+  it.each([[athletes.slice(0, 5)], [athletes.slice(0, 9)], [athletes.slice(0, 17)]])(
+    'should handle bye match in winner',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+
+      const firstMatch = brackets.rounds[0].winner[0];
+      const { white, blue } = firstMatch;
+      const winner = 'white';
+
+      const firstMatchUpdated: Match = {
+        ...firstMatch,
+        winner
+      };
+
+      expect(blue).toBeUndefined();
+
+      const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+
+      expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
+      expect(bracketsUpdated.rounds[1].loser[0].blue).toBeUndefined();
+    }
+  );
+
+  it.each([[athletes.slice(0, 5)], [athletes.slice(0, 9)], [athletes.slice(0, 17)]])(
+    'should handle bye match in loser',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice);
+
+      const firstMatch = brackets.rounds[0].winner[1];
+
+      const bracketsFirstMatchUpdated = updateBrackets(brackets, {
+        ...firstMatch,
+        winner: 'blue'
+      });
+
+      const loserMatch = bracketsFirstMatchUpdated.rounds[1].loser[0];
+
+      const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, {
+        ...loserMatch,
+        winner: 'blue'
+      });
+
+      const repechageMatch = bracketsUpdated.rounds[1].repechage[0];
+
+      expect(repechageMatch.blue!.id).toBe(loserMatch.blue!.id);
+    }
+  );
+});
 // TODO bye
 // TODO gold, silver, bronze

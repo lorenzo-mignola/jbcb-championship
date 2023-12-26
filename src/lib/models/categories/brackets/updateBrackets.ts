@@ -1,5 +1,6 @@
 import type { BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
+import { getMatches } from './createMatches';
 import { getMatchType, getRoundByMatch } from './findRoundAndMatch';
 import { updateLoserBrackets } from './updateLoserBrackets';
 import { updateWinnerBrackets } from './updateWinnerBrackets';
@@ -15,12 +16,18 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match) => {
     return brackets;
   }
 
+  let rounds = brackets.rounds;
   if (type === 'winner') {
-    return updateWinnerBrackets(brackets, round, roundIndex, match);
+    rounds = updateWinnerBrackets(brackets, round, roundIndex, match);
   }
   if (type === 'loser' || type === 'repechage') {
-    return updateLoserBrackets(brackets, round, roundIndex, match, type);
+    rounds = updateLoserBrackets(brackets, round, roundIndex, match, type);
   }
 
-  return brackets;
+  const matches = getMatches(rounds);
+  return {
+    ...brackets,
+    rounds,
+    matches
+  };
 };

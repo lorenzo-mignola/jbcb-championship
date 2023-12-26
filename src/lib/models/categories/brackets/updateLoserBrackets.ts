@@ -1,7 +1,6 @@
 import { produce } from 'immer';
 import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
-import { getMatches } from './createMatches';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
 
 export const updateLoserBrackets = (
@@ -12,12 +11,12 @@ export const updateLoserBrackets = (
   type: 'loser' | 'repechage'
 ) => {
   if (!match.winner) {
-    return brackets;
+    return brackets.rounds;
   }
   const matchIndex = getMatchIndex(round, match, type);
 
   if (matchIndex === null) {
-    return brackets;
+    return brackets.rounds;
   }
 
   const winner = match[match.winner!];
@@ -43,16 +42,8 @@ export const updateLoserBrackets = (
     }
   });
 
-  const roundsUpdated = produce(brackets.rounds, (rounds) => {
+  return produce(brackets.rounds, (rounds) => {
     rounds[roundIndex] = currentRoundUpdated;
     rounds[roundIndex + 1] = nextRoundUpdated;
   });
-
-  const matches = getMatches(roundsUpdated);
-
-  return {
-    ...brackets,
-    rounds: roundsUpdated,
-    matches
-  };
 };

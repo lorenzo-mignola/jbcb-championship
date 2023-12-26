@@ -2,7 +2,6 @@ import { produce } from 'immer';
 import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
-import { getMatches } from './createMatches';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
 
 interface NextMatchCoordinate {
@@ -37,17 +36,17 @@ export const updateWinnerBrackets = (
   match: Match
 ) => {
   if (!match.winner) {
-    return brackets;
+    return brackets.rounds;
   }
   const loserType = getOpponentType(match.winner);
   if (!loserType) {
-    return brackets;
+    return brackets.rounds;
   }
 
   const matchIndex = getMatchIndex(round, match, 'winner');
 
   if (matchIndex === null) {
-    return brackets;
+    return brackets.rounds;
   }
 
   const currentCoordinate = {
@@ -83,17 +82,9 @@ export const updateWinnerBrackets = (
     }
   );
 
-  const roundsUpdated = produce(brackets.rounds, (rounds) => {
+  return produce(brackets.rounds, (rounds) => {
     rounds[currentCoordinate.round] = currentRoundUpdated;
     rounds[nextCoordinate.round].winner = nextRoundWinnerUpdated;
     rounds[nextCoordinate.round].loser = nextRoundLoserUpdated;
   });
-
-  const matches = getMatches(roundsUpdated);
-
-  return {
-    ...brackets,
-    rounds: roundsUpdated,
-    matches
-  };
 };
