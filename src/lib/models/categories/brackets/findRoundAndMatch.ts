@@ -1,4 +1,4 @@
-import type { BracketRound, Rounds } from '../../../types/Category';
+import type { BracketRound, BracketsCategory, Rounds } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 
 export const getRoundByMatch = (
@@ -37,4 +37,20 @@ export const getMatchIndex = (
 export const isWhiteOrBlueNext = (matchIndex: number) => {
   const isOddMatch = matchIndex % 2 !== 0;
   return isOddMatch ? 'blue' : 'white';
+};
+
+export const getMatchType = (brackets: BracketsCategory, match: Match) => {
+  const winnerMatch = brackets.rounds.flatMap((round) => round.winner.map((m) => m.id));
+  if (winnerMatch.includes(match.id)) {
+    return 'winner';
+  }
+  const loserMatch = brackets.rounds.flatMap((round) => round.loser.map((m) => m.id));
+  if (loserMatch.includes(match.id)) {
+    return 'loser';
+  }
+  const repechageMatch = brackets.rounds.flatMap((round) => round.repechage.map((m) => m.id));
+  if (repechageMatch.includes(match.id)) {
+    return 'repechage';
+  }
+  return null;
 };

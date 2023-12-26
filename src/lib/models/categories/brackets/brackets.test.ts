@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest';
 import type { Judoka } from '../../../types/Judoka';
 import type { Match } from '../../../types/Match';
 import { createBrackets, updateBrackets } from './brackets';
-import { updateLoserBrackets } from './updateLoserBrackets';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },
@@ -355,14 +354,10 @@ describe('updateLoserBrackets', () => {
       const white = firstMatchWhite.blue;
       const blue = firstMatchBlue.blue;
       const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
-      const bracketsUpdated = updateLoserBrackets(
-        bracketsUpdatedFirstBlue,
-        {
-          ...loserMatch,
-          winner: 'white'
-        },
-        'loser'
-      );
+      const bracketsUpdated = updateBrackets(bracketsUpdatedFirstBlue, {
+        ...loserMatch,
+        winner: 'white'
+      });
 
       const repechageInMatches = bracketsUpdated.matches.find(
         (match) => match.id === bracketsUpdated.rounds[1].repechage[0].id
@@ -393,30 +388,21 @@ describe('updateLoserBrackets', () => {
       });
 
       const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
-      const bracketsUpdatedLoser = updateLoserBrackets(
-        bracketsUpdatedFirstBlue,
-        {
-          ...loserMatch,
-          winner: 'white'
-        },
-        'loser'
-      );
+      const bracketsUpdatedLoser = updateBrackets(bracketsUpdatedFirstBlue, {
+        ...loserMatch,
+        winner: 'white'
+      });
 
       const repechageMatch = bracketsUpdatedLoser.rounds[1].repechage[0];
       const { blue } = repechageMatch;
-      const bracketsUpdated = updateLoserBrackets(
-        bracketsUpdatedLoser,
-        {
-          ...repechageMatch,
-          winner: 'blue'
-        },
-        'repechage'
-      );
+      const bracketsUpdated = updateBrackets(bracketsUpdatedLoser, {
+        ...repechageMatch,
+        winner: 'blue'
+      });
 
       expect(bracketsUpdated.rounds[2].loser[0].white!.id).toBe(blue!.id);
     }
   );
-
-  // TODO bye
-  // TODO gold, silver, bronze
 });
+// TODO bye
+// TODO gold, silver, bronze
