@@ -206,7 +206,7 @@ describe('updateBrackets', () => {
     const firstMatch = brackets.rounds[0].winner[0];
     const { white } = firstMatch;
     if (!white) {
-      expect.fail("white can't be undefined")
+      expect.fail("white can't be undefined");
     }
     const winner = 'white';
 
@@ -216,7 +216,7 @@ describe('updateBrackets', () => {
         ...white,
         ippon: 1,
         wazari: 1,
-        shido: 1,
+        shido: 1
       },
       finalTime: 1,
       winner
@@ -337,7 +337,8 @@ describe('updateBrackets', () => {
         winner: 'white'
       });
 
-      const repechageMatch = bracketsUpdated.rounds[1].repechage[0];
+      const secondRoundUpdated = bracketsUpdated.rounds[1];
+      const repechageMatch = secondRoundUpdated.repechage[secondRoundUpdated.repechage.length - 1];
       const repechageMatchInArray = bracketsUpdated.matches.find(
         (match) => match.id === repechageMatch.id
       );
