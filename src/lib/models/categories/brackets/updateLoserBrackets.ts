@@ -28,7 +28,7 @@ export const updateLoserBrackets = (
     if (type === 'loser') {
       currentRound.repechage[nextMatchIndex].blue = resetAthlete(winner);
     }
-    currentRound.loser[matchIndex] = match;
+    currentRound[type][matchIndex] = match;
   });
 
   const nextRoundIndex = roundIndex + 1;

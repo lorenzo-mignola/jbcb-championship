@@ -417,6 +417,7 @@ describe('updateLoserBrackets', () => {
       });
 
       expect(bracketsUpdated.rounds[2].loser[0].white!.id).toBe(blue!.id);
+      expect(bracketsUpdated.rounds[1].loser[0].id).toBe(loserMatch.id);
     }
   );
 });
