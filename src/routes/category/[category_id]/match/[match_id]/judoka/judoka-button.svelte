@@ -1,15 +1,11 @@
 <script lang="ts">
-  import { ippon, shido, wazari } from '../$match';
-  import { isPlaying } from '../$timer';
-  import {
-    oseakomiType,
-    timerOsaekomi
-  } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
+  import { oseakomiType } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
+  import type { JudokaType } from '../../../../../../lib/types/Match';
   import { getOpponentType } from '../../../../../../lib/utils/judoka';
+  import { ippon, shido, wazari } from '../store/$match';
+  import { isPlaying } from '../store/$timer';
   import PointButton from './point-button.svelte';
 
-  export let athlete: MatchJudoka | undefined;
   export let type: JudokaType;
   export let end: boolean;
 
@@ -21,8 +17,6 @@
       oseakomiType.set(null);
       return;
     }
-    const osaekomiDuration = athlete?.wazari === 1 ? 15 : 20;
-    timerOsaekomi.set(osaekomiDuration);
     oseakomiType.set(type);
   };
 </script>

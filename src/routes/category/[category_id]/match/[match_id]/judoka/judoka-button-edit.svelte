@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { match, removeIppon, removeShido, removeWazari } from '../$match';
   import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
   import { getOpponentType } from '../../../../../../lib/utils/judoka';
+  import { match, removeIppon, removeShido, removeWazari } from '../store/$match';
   import PointButton from './point-button.svelte';
 
   export let athlete: MatchJudoka | undefined;

@@ -1,35 +1,16 @@
 <script lang="ts">
-  import { disqualification, ippon, match, wazari, winner } from '../$match';
   import Edit from '../../../../../../icons/edit.svelte';
-  import {
-    oseakomiType,
-    timerOsaekomi
-  } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
+  import { watchTimerOsaekomi } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
+  import { match } from '../store/$match';
+  import { bluePoints, whitePoints } from '../store/judokaPoints';
+  import { watchWinnerOrLoser } from '../store/winner-loser';
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
 
   export let type: 'white' | 'blue';
   $: athlete = $match?.[type];
 
-  $: points = () => {
-    if (athlete?.ippon) {
-      return 10;
-    }
-    if (athlete?.wazari === 2) {
-      return 10;
-    }
-    return athlete?.wazari || 0;
-  };
-
-  $: {
-    const end = Boolean($match?.winner);
-    if (points() === 10 && !end) {
-      winner(type);
-    }
-    if (athlete?.shido === 3 && !end) {
-      disqualification(type);
-    }
-  }
+  $: points = type === 'white' ? whitePoints : bluePoints;
 
   let edit = false;
 
@@ -37,22 +18,8 @@
     edit = !edit;
   };
 
-  timerOsaekomi.subscribe((time) => {
-    if (!athlete) {
-      return;
-    }
-    if ($oseakomiType !== type) {
-      return;
-    }
-    if (time === null || time > 0) {
-      return;
-    }
-    if (athlete.wazari === 1) {
-      wazari(type);
-    } else {
-      ippon(type);
-    }
-  });
+  watchTimerOsaekomi(type);
+  watchWinnerOrLoser(type);
 </script>
 
 <div class:judoka-white-card={type === 'white'} class:judoka-blue-card={type === 'blue'}>
@@ -68,7 +35,7 @@
             <span class="mr-1">🟨</span>
           {/each}
         {/if}
-        <span class="points">{points()}</span>
+        <span class="points">{$points}</span>
       </span>
     {/if}
   </div>
@@ -76,14 +43,14 @@
   <div class="flex justify-between items-center">
     <div>
       {#if !edit}
-        <JudokaButton {athlete} {type} end={Boolean($match?.winner)} />
+        <JudokaButton {type} end={Boolean($match?.winner)} />
       {:else}
         <JudokaButtonEdit {athlete} {type} {toggleEdit} />
       {/if}
     </div>
     <div>
       {#if athlete}
-        {#if points() > 0 || athlete.shido > 0}
+        {#if $points > 0 || athlete.shido > 0}
           <button
             type="button"
             class="btn-icon btn-icon-sm md:btn-icon text-inherit"

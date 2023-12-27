@@ -1,7 +1,7 @@
 <script>
   import { oseakomiType } from '$lib/components/osaekomi/$osaekomi-timer';
   import OsaekomiTimer from '../../../../../lib/components/osaekomi/osaekomi-timer.svelte';
-  import { getMin, getSec, timer } from './$timer';
+  import { getMin, getSec, timer } from './store/$timer';
 
   $: min = getMin($timer);
   $: sec = getSec($timer);
