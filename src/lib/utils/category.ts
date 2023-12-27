@@ -1,12 +1,66 @@
 import type { Category } from '../types/Category';
 import type { Judoka } from '../types/Judoka';
 import type { Match } from '../types/Match';
+import { getOpponentType } from './judoka';
 
-export const getRanking = (category: Category) => {
+interface RankingAthlete {
+  id?: string;
+  rank: number;
+  matchPoint?: number;
+  evaluationPoint?: number;
+}
+
+export const getRanking = (category: Category): RankingAthlete[] => {
   if (category.type === 'pool') {
     return getRankingPool(category.matches, category.athletes);
   }
+  if (category.type === 'brackets') {
+    return getRankingBrackets(category.matches);
+  }
   return [];
+};
+
+const getRankingBrackets = (matches: Match[]) => {
+  const lastMatchIndex = matches.length - 1;
+  const goldFinal = matches[lastMatchIndex];
+  const firstBronzeFinal = matches[lastMatchIndex - 1];
+  const secondBronzeFinal = matches[lastMatchIndex - 2];
+
+  const ranking = [];
+
+  if (goldFinal.winner) {
+    ranking.push({
+      rank: 1,
+      id: goldFinal[goldFinal.winner]?.id
+    });
+    ranking.push({
+      rank: 2,
+      id: goldFinal[getOpponentType(goldFinal.winner)!]?.id
+    });
+  }
+
+  if (firstBronzeFinal.winner) {
+    ranking.push({
+      rank: 3,
+      id: firstBronzeFinal[firstBronzeFinal.winner]?.id
+    });
+    ranking.push({
+      rank: 5,
+      id: firstBronzeFinal[getOpponentType(firstBronzeFinal.winner)!]?.id
+    });
+  }
+  if (secondBronzeFinal.winner) {
+    ranking.push({
+      rank: 3,
+      id: secondBronzeFinal[secondBronzeFinal.winner]?.id
+    });
+    ranking.push({
+      rank: 5,
+      id: secondBronzeFinal[getOpponentType(secondBronzeFinal.winner)!]?.id
+    });
+  }
+
+  return ranking.sort((a, b) => a.rank - b.rank);
 };
 
 const getRankingPool = (matches: Match[], athletes: Judoka[]) => {

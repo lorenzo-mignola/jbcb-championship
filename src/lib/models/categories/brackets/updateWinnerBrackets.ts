@@ -22,10 +22,16 @@ const getNextCoordinate = (
   };
 
   const isFirstRound = round === 0;
-  const loserCoordinate: NextMatchCoordinate = {
-    match: isFirstRound ? Math.floor(match / 2) : winnerMatches - 1 - match,
-    whiteOrBlue: isFirstRound ? whiteOrBlue : 'white'
-  };
+  const isOddRound = round % 2 !== 0;
+  const loserCoordinate: NextMatchCoordinate = isFirstRound
+    ? {
+        match: Math.floor(match / 2),
+        whiteOrBlue: whiteOrBlue
+      }
+    : {
+        match: isOddRound ? winnerMatches - 1 - match : match,
+        whiteOrBlue: 'white'
+      };
 
   return {
     round: round + 1,
@@ -74,7 +80,8 @@ export const updateWinnerBrackets = (
   const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (round) => {
     round.winner[currentCoordinate.match] = match;
     if (currentCoordinate.round !== 0) {
-      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
+        resetAthlete(loser);
     }
   });
 
@@ -90,7 +97,8 @@ export const updateWinnerBrackets = (
     brackets.rounds[nextCoordinate.round].loser,
     (nextLoser) => {
       if (currentCoordinate.round === 0 && brackets.rounds.length > 2) {
-        nextLoser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+        nextLoser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
+          resetAthlete(loser);
       }
     }
   );

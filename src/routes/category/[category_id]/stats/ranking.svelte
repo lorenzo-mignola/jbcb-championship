@@ -14,7 +14,9 @@
         rank={rankingAthlete.rank}
         name={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}
       />
-      <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
+      {#if rankingAthlete.matchPoint || rankingAthlete.evaluationPoint}
+        <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
+      {/if}
     </li>
     <hr />
   {/each}
