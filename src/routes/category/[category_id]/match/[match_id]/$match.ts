@@ -40,6 +40,10 @@ export const shido = (type: JudokaType) => {
 };
 
 export const winner = (type: JudokaType) => {
+  if (!get(match)) {
+    return;
+  }
+
   match.update((state) => {
     return produce(state, (state) => {
       if (!state?.[type]) {
@@ -55,6 +59,10 @@ export const winner = (type: JudokaType) => {
 };
 
 export const disqualification = (type: JudokaType) => {
+  if (!get(match)) {
+    return;
+  }
+
   const opponentType = getOpponentType(type);
   if (!opponentType) {
     return;

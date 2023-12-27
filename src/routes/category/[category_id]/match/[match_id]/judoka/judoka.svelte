@@ -1,21 +1,17 @@
 <script lang="ts">
-  import { ippon, match, shido, wazari } from '../$match';
+  import { disqualification, ippon, match, shido, wazari, winner } from '../$match';
   import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
     timerOsaekomi
   } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import type { JudokaType } from '../../../../../../lib/types/Match';
   import { getOpponentType } from '../../../../../../lib/utils/judoka';
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
   $: athlete = $match?.[type];
   $: end = Boolean($match?.winner);
-
-  export let setWinner: (type: JudokaType) => void;
-  export let setDisqualification: (type: JudokaType) => void;
 
   $: points = () => {
     if (athlete?.ippon) {
@@ -29,10 +25,10 @@
 
   $: {
     if (points() === 10 && !end) {
-      setWinner(type);
+      winner(type);
     }
     if (athlete?.shido === 3 && !end) {
-      setDisqualification(type);
+      disqualification(type);
     }
   }
 

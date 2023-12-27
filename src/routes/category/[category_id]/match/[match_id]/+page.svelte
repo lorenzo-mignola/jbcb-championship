@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import { disqualification, match, winner } from './$match';
+  import { match } from './$match';
   import Judoka from './judoka/judoka.svelte';
   import PlayPauseButton from './play-pause-button.svelte';
   import SaveButton from './save-button.svelte';
@@ -15,22 +15,6 @@
     match.set(undefined);
   });
 
-  // TODO move to component
-  function setWinner(type: 'white' | 'blue') {
-    if (!$match) {
-      return;
-    }
-    winner(type);
-  }
-
-  // TODO move to component
-  function setDisqualification(type: 'white' | 'blue') {
-    if (!$match) {
-      return;
-    }
-    disqualification(type);
-  }
-
   const athleteType = ['white', 'blue'] as const;
 </script>
 
@@ -44,7 +28,7 @@
 
 {#if match}
   {#each athleteType as type}
-    <Judoka {type} {setWinner} {setDisqualification} />
+    <Judoka {type} />
   {/each}
 {/if}
 
