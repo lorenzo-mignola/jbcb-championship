@@ -5,8 +5,8 @@
   import { getByeWinner } from '../../../../../lib/models/categories/brackets/autoUpdateNextMatch';
   import type { Match } from '../../../../../lib/types/Match';
   import { isByeMatch } from '../../../../../lib/utils/category';
-  import { match } from './$match';
-  import { reset } from './$timer';
+  import { match } from './store/$match';
+  import { reset } from './store/$timer';
 
   export let categoryId: string;
 

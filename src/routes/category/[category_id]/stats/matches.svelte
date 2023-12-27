@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Match } from '../../../../lib/types/Match';
   import { isByeMatch } from '../../../../lib/utils/category';
-  import { formatTime } from '../match/[match_id]/$timer';
+  import { formatTime } from '../match/[match_id]/store/$timer';
 
   export let matches: Match[];
 </script>

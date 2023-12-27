@@ -1,9 +1,9 @@
 import { get, writable } from 'svelte/store';
+import { wazari } from '../../../routes/category/[category_id]/match/[match_id]/store/$match';
 import type { JudokaType } from '../../types/Match';
 
-export const timerOsaekomi = writable<number | null>(null);
+export const timerOsaekomi = writable<number>(0);
 export const oseakomiType = writable<JudokaType | null>(null);
-export const setDurationOsaekomi = (seconds: number) => timerOsaekomi.set(seconds);
 const isPlaying = writable(false);
 
 let interval: NodeJS.Timeout | null = null;
@@ -13,7 +13,7 @@ export const startOsaekomi = () => {
 
   interval = setInterval(() => {
     if (get(isPlaying)) {
-      timerOsaekomi.update((time) => (time ? time - 1 : 0));
+      timerOsaekomi.update((time) => time + 1);
     }
   }, 1000);
 };
@@ -46,4 +46,15 @@ export const reset = () => {
   if (interval !== null) {
     clearInterval(interval);
   }
+};
+
+export const watchTimerOsaekomi = (type: JudokaType) => {
+  timerOsaekomi.subscribe((time) => {
+    if (get(oseakomiType) !== type) {
+      return;
+    }
+    if (time === 10 || time === 20) {
+      wazari(type);
+    }
+  });
 };

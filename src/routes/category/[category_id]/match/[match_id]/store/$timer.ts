@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import { oseakomiType } from '../../../../../lib/components/osaekomi/$osaekomi-timer';
+import { oseakomiType } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
 
 const duration = 4 * 60 * 10;
 export const timer = writable(duration);
@@ -17,7 +17,7 @@ const play = () => {
   }, 100);
 };
 
-const stop = () => {
+export const stop = () => {
   isPlaying.set(false);
 };
 
