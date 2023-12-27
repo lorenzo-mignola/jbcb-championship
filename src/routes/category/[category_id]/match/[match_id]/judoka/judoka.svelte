@@ -1,17 +1,15 @@
 <script lang="ts">
-  import { disqualification, ippon, match, shido, wazari, winner } from '../$match';
-  import { isPlaying } from '../$timer';
+  import { disqualification, ippon, match, wazari, winner } from '../$match';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
     timerOsaekomi
   } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import { getOpponentType } from '../../../../../../lib/utils/judoka';
-  import PointButton from './point-button.svelte';
+  import JudokaButtonEdit from './judoka-button-edit.svelte';
+  import JudokaButton from './judoka-button.svelte';
 
   export let type: 'white' | 'blue';
   $: athlete = $match?.[type];
-  $: end = Boolean($match?.winner);
 
   $: points = () => {
     if (athlete?.ippon) {
@@ -24,6 +22,7 @@
   };
 
   $: {
+    const end = Boolean($match?.winner);
     if (points() === 10 && !end) {
       winner(type);
     }
@@ -32,25 +31,10 @@
     }
   }
 
-  $: isOsaekomi = $oseakomiType === type;
-  $: disableButton = end || getOpponentType(type) === $oseakomiType;
+  let edit = false;
 
-  const ipponAction = () => {
-    ippon(type);
-  };
-
-  const wazariAction = () => {
-    wazari(type);
-  };
-
-  const oasekomiAction = () => {
-    if ($oseakomiType) {
-      oseakomiType.set(null);
-      return;
-    }
-    const osaekomiDuration = athlete?.wazari === 1 ? 15 : 20;
-    timerOsaekomi.set(osaekomiDuration);
-    oseakomiType.set(type);
+  const toggleEdit = () => {
+    edit = !edit;
   };
 
   timerOsaekomi.subscribe((time) => {
@@ -64,15 +48,11 @@
       return;
     }
     if (athlete.wazari === 1) {
-      wazariAction();
+      wazari(type);
     } else {
-      ipponAction();
+      ippon(type);
     }
   });
-
-  const shidoAction = () => {
-    shido(type);
-  };
 </script>
 
 <div class:judoka-white-card={type === 'white'} class:judoka-blue-card={type === 'blue'}>
@@ -95,21 +75,21 @@
   <hr class="divider" />
   <div class="flex justify-between items-center">
     <div>
-      <PointButton action={ipponAction} disabled={disableButton}>✋ Ippon</PointButton>
-      <PointButton action={wazariAction} disabled={disableButton}>🫳 Waza-ari</PointButton>
-      <PointButton action={shidoAction} disabled={disableButton}>👉 Shido</PointButton>
-      <PointButton
-        action={oasekomiAction}
-        disabled={disableButton || !$isPlaying}
-        active={isOsaekomi}
-        ><span class="rotate-180">🤚</span> {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
-      >
+      {#if !edit}
+        <JudokaButton {athlete} {type} end={Boolean($match?.winner)} />
+      {:else}
+        <JudokaButtonEdit {athlete} {type} {toggleEdit} />
+      {/if}
     </div>
     <div>
       {#if athlete}
         {#if points() > 0 || athlete.shido > 0}
-          <button type="button" class="btn-icon btn-icon-sm md:btn-icon variant-soft text-inherit"
-            ><Edit /></button
+          <button
+            type="button"
+            class="btn-icon btn-icon-sm md:btn-icon text-inherit"
+            class:variant-filled-primary={edit}
+            class:variant-ghost={!edit}
+            on:click={toggleEdit}><Edit /></button
           >
         {/if}
       {/if}

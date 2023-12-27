@@ -12,7 +12,21 @@ export const ippon = (type: JudokaType) => {
       if (!state?.[type]) {
         return;
       }
-      state[type]!.ippon = state[type]!.ippon + 1;
+      state[type]!.ippon += 1;
+    });
+  });
+};
+
+export const removeIppon = (type: JudokaType) => {
+  match.update((state) => {
+    return produce(state, (state) => {
+      if (!state?.[type]) {
+        return;
+      }
+      state[type]!.ippon -= 1;
+      if (state.winner) {
+        state.winner = undefined;
+      }
     });
   });
 };
@@ -23,7 +37,21 @@ export const wazari = (type: JudokaType) => {
       if (!state?.[type]) {
         return;
       }
-      state[type]!.wazari = state[type]!.wazari + 1;
+      state[type]!.wazari += 1;
+    });
+  });
+};
+
+export const removeWazari = (type: JudokaType) => {
+  match.update((state) => {
+    return produce(state, (state) => {
+      if (!state?.[type]) {
+        return;
+      }
+      state[type]!.wazari -= 1;
+      if (state.winner) {
+        state.winner = undefined;
+      }
     });
   });
 };
@@ -34,7 +62,18 @@ export const shido = (type: JudokaType) => {
       if (!state?.[type]) {
         return;
       }
-      state[type]!.shido = state[type]!.shido + 1;
+      state[type]!.shido += 1;
+    });
+  });
+};
+
+export const removeShido = (type: JudokaType) => {
+  match.update((state) => {
+    return produce(state, (state) => {
+      if (!state?.[type]) {
+        return;
+      }
+      state[type]!.shido -= 1;
     });
   });
 };

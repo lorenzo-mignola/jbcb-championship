@@ -1,6 +1,6 @@
 <script lang="ts">
   export let action: (() => void) | undefined;
-  export let disabled: boolean;
+  export let disabled: boolean | undefined = false;
   export let active: boolean | undefined = false;
 </script>
 
