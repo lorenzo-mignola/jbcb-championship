@@ -22,7 +22,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each matches.filter((match) => !isByeMatch(match)) as match (match.id)}
+      {#each matches.filter((match) => !isByeMatch(match)) as match}
         <tr class="row">
           <td class="judoka-white">{match.white?.name ?? '-'}</td>
           <td class="judoka-white">{match.white?.ippon ?? ''}</td>

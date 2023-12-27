@@ -6,6 +6,7 @@
   import type { Match } from '../../../../../lib/types/Match';
   import { isByeMatch } from '../../../../../lib/utils/category';
   import { match } from './$match';
+  import { reset } from './$timer';
 
   export let categoryId: string;
 
@@ -26,13 +27,12 @@
       return;
     }
     if (categoryUpdated.currentMatch) {
-      goto(`/category/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`, {
-        replaceState: true,
-        invalidateAll: true
-      });
+      goto(`/category/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`);
+      reset();
       return;
     }
-    goto(`/category/${categoryUpdated.id}`, { invalidateAll: true, replaceState: true });
+    reset();
+    goto(`/category/${categoryUpdated.id}`);
   };
 
   const handleClick = () => {

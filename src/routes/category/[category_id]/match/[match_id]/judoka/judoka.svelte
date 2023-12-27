@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { match } from '../$match';
+  import { ippon, match, shido, wazari } from '../$match';
   import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
@@ -40,17 +40,11 @@
   $: disableButton = end || getOpponentType(type) === $oseakomiType;
 
   const ipponAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.ippon += 1;
+    ippon(type);
   };
 
   const wazariAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.wazari += 1;
+    wazari(type);
   };
 
   const oasekomiAction = () => {
@@ -81,10 +75,7 @@
   });
 
   const shidoAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.shido += 1;
+    shido(type);
   };
 </script>
 
