@@ -58,11 +58,13 @@ export const saveMatch = (categoryId: string, matchUpdated: Match): Category | u
   db.write();
 
   if (category.type === 'brackets' && needSkipMatch(categoryUpdated)) {
-    const nextMatch = categoryUpdated.matches.find(match => match.id === categoryUpdated.currentMatch)!
+    const nextMatch = categoryUpdated.matches.find(
+      (match) => match.id === categoryUpdated.currentMatch
+    )!;
     const nextMatchByeWinner = getByeWinner(nextMatch);
-    return saveMatch(categoryUpdated.id, {...nextMatch, winner: nextMatchByeWinner});
+    return saveMatch(categoryUpdated.id, { ...nextMatch, winner: nextMatchByeWinner });
   }
-  
+
   return categoryUpdated;
 };
 
