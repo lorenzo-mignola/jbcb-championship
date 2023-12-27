@@ -3,13 +3,17 @@ import type { BracketRound, BracketsCategory } from '../../../types/Category';
 import type { JudokaType, Match } from '../../../types/Match';
 import { getOpponentType } from '../../../utils/judoka';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
+import { resetAthlete } from './resetAthlete';
 
 interface NextMatchCoordinate {
   match: number;
   whiteOrBlue: JudokaType;
 }
 
-const getNextCoordinate = ({ round, match }: { round: number; match: number }) => {
+const getNextCoordinate = (
+  { round, match }: { round: number; match: number },
+  winnerMatches: number
+) => {
   const whiteOrBlue = isWhiteOrBlueNext(match);
 
   const winnerCoordinate: NextMatchCoordinate = {
@@ -17,10 +21,17 @@ const getNextCoordinate = ({ round, match }: { round: number; match: number }) =
     whiteOrBlue
   };
 
-  const loserCoordinate: NextMatchCoordinate = {
-    match: Math.floor(match / 2),
-    whiteOrBlue: round === 0 ? whiteOrBlue : 'white'
-  };
+  const isFirstRound = round === 0;
+  const isOddRound = round % 2 !== 0;
+  const loserCoordinate: NextMatchCoordinate = isFirstRound
+    ? {
+        match: Math.floor(match / 2),
+        whiteOrBlue: whiteOrBlue
+      }
+    : {
+        match: isOddRound ? winnerMatches - 1 - match : match,
+        whiteOrBlue: 'white'
+      };
 
   return {
     round: round + 1,
@@ -53,31 +64,41 @@ export const updateWinnerBrackets = (
     round: roundIndex,
     match: matchIndex
   };
-  const nextCoordinate = getNextCoordinate(currentCoordinate);
+  const winnerMatches = round.winner.length;
+  const nextCoordinate = getNextCoordinate(currentCoordinate, winnerMatches);
 
   const loser = match[loserType];
   const winner = match[match.winner];
 
+  const isLastRound = nextCoordinate.round === brackets.rounds.length;
+  if (isLastRound) {
+    return produce(brackets.rounds, (rounds) => {
+      rounds[currentCoordinate.round].winner[currentCoordinate.match] = match;
+    });
+  }
+
   const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (round) => {
     round.winner[currentCoordinate.match] = match;
     if (currentCoordinate.round !== 0) {
-      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
+        resetAthlete(loser);
     }
   });
 
   const nextRoundWinnerUpdated = produce(
     brackets.rounds[nextCoordinate.round].winner,
     (nextWinner) => {
-      nextWinner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] = winner;
+      nextWinner[nextCoordinate.winner.match][nextCoordinate.winner.whiteOrBlue] =
+        resetAthlete(winner);
     }
   );
 
-  const isLastRound = nextCoordinate.round === brackets.rounds.length - 1;
   const nextRoundLoserUpdated = produce(
     brackets.rounds[nextCoordinate.round].loser,
     (nextLoser) => {
-      if (!isLastRound) {
-        nextLoser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] = loser;
+      if (currentCoordinate.round === 0 && brackets.rounds.length > 2) {
+        nextLoser[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
+          resetAthlete(loser);
       }
     }
   );

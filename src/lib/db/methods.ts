@@ -1,4 +1,5 @@
-import { createBrackets } from '../models/categories/brackets/brackets';
+import { getByeWinner, needSkipMatch } from '../models/categories/brackets/autoUpdateNextMatch';
+import { createBrackets, updateBrackets } from '../models/categories/brackets/brackets';
 import { createSinglePool } from '../models/categories/singlePool/createSinglePool';
 import { updateSinglePool } from '../models/categories/singlePool/updateSinglePool';
 import type { Category } from '../types/Category';
@@ -43,7 +44,7 @@ export const getAllCategories = () => {
 export const getCategory = (id: string | null) =>
   db ? db.data.categories.find((category) => category.id === id) : undefined;
 
-export const saveMatch = (categoryId: string, matchUpdated: Match) => {
+export const saveMatch = (categoryId: string, matchUpdated: Match): Category | undefined => {
   if (!db) {
     return;
   }
@@ -51,10 +52,17 @@ export const saveMatch = (categoryId: string, matchUpdated: Match) => {
   if (!category) {
     return;
   }
-  const categoryUpdated: Category = updateCategory(category, matchUpdated);
+  const categoryUpdated = updateCategory(category, matchUpdated);
   const categoriesUpdated = updateCategories(categoryId, categoryUpdated);
   db.data.categories = categoriesUpdated;
   db.write();
+
+  if (category.type === 'brackets' && needSkipMatch(categoryUpdated)) {
+    const nextMatch = categoryUpdated.matches.find(match => match.id === categoryUpdated.currentMatch)!
+    const nextMatchByeWinner = getByeWinner(nextMatch);
+    return saveMatch(categoryUpdated.id, {...nextMatch, winner: nextMatchByeWinner});
+  }
+  
   return categoryUpdated;
 };
 
@@ -75,6 +83,9 @@ function updateCategories(categoryId: string, categoryUpdated: Category) {
 function updateCategory(category: Category, matchUpdated: Match) {
   if (category.type === 'pool') {
     return updateSinglePool(category, matchUpdated);
+  }
+  if (category.type === 'brackets') {
+    return updateBrackets(category, matchUpdated);
   }
   throw new Error(`Unknown category type ${category.type}`);
 }

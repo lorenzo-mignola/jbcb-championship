@@ -1,39 +1,19 @@
 <script lang="ts">
-  import { getOpponentType } from '../../../../../lib/utils/judoka';
-  import { isPlaying, timer, togglePlay } from './$timer';
+  import { onDestroy } from 'svelte';
+  import { match } from './$match';
   import Judoka from './judoka/judoka.svelte';
   import PlayPauseButton from './play-pause-button.svelte';
   import SaveButton from './save-button.svelte';
   import Timer from './timer.svelte';
 
   export let data;
-  $: ({ category, match } = data);
+  $: ({ category, match: matchData } = data);
 
-  function setWinner(type: 'white' | 'blue') {
-    if (!match) {
-      return;
-    }
-    match!.winner = type;
-    match.finalTime = $timer;
-    if ($isPlaying) {
-      togglePlay();
-    }
-  }
+  $: match.set(matchData);
 
-  function setDisqualification(type: 'white' | 'blue') {
-    if (!match) {
-      return;
-    }
-    const opponent = getOpponentType(type);
-    if (opponent && match[opponent]) {
-      match[opponent]!.ippon = 1;
-      match!.winner = opponent;
-    }
-    match.finalTime = $timer;
-    if ($isPlaying) {
-      togglePlay();
-    }
-  }
+  onDestroy(() => {
+    match.set(undefined);
+  });
 
   const athleteType = ['white', 'blue'] as const;
 </script>
@@ -48,20 +28,14 @@
 
 {#if match}
   {#each athleteType as type}
-    <Judoka
-      {type}
-      athlete={match[type]}
-      end={Boolean(match.winner)}
-      {setWinner}
-      {setDisqualification}
-    />
+    <Judoka {type} />
   {/each}
 {/if}
 
 <Timer />
 
-<PlayPauseButton disabled={Boolean(match?.winner)} />
+<PlayPauseButton />
 
-{#if Boolean(match?.winner) && category?.id && match}
-  <SaveButton categoryId={category.id} {match} />
+{#if category?.id && match}
+  <SaveButton categoryId={category.id} />
 {/if}

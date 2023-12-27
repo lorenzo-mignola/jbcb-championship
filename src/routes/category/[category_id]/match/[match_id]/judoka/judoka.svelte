@@ -1,19 +1,17 @@
 <script lang="ts">
+  import { disqualification, ippon, match, shido, wazari, winner } from '../$match';
   import { isPlaying } from '../$timer';
   import Edit from '../../../../../../icons/edit.svelte';
   import {
     oseakomiType,
     timerOsaekomi
   } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import type { JudokaType, MatchJudoka } from '../../../../../../lib/types/Match';
   import { getOpponentType } from '../../../../../../lib/utils/judoka';
   import PointButton from './point-button.svelte';
 
   export let type: 'white' | 'blue';
-  export let athlete: MatchJudoka | undefined;
-  export let setWinner: (type: JudokaType) => void;
-  export let setDisqualification: (type: JudokaType) => void;
-  export let end: boolean;
+  $: athlete = $match?.[type];
+  $: end = Boolean($match?.winner);
 
   $: points = () => {
     if (athlete?.ippon) {
@@ -27,10 +25,10 @@
 
   $: {
     if (points() === 10 && !end) {
-      setWinner(type);
+      winner(type);
     }
     if (athlete?.shido === 3 && !end) {
-      setDisqualification(type);
+      disqualification(type);
     }
   }
 
@@ -38,17 +36,11 @@
   $: disableButton = end || getOpponentType(type) === $oseakomiType;
 
   const ipponAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.ippon += 1;
+    ippon(type);
   };
 
   const wazariAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.wazari += 1;
+    wazari(type);
   };
 
   const oasekomiAction = () => {
@@ -79,10 +71,7 @@
   });
 
   const shidoAction = () => {
-    if (!athlete) {
-      return;
-    }
-    athlete.shido += 1;
+    shido(type);
   };
 </script>
 
