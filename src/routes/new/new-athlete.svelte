@@ -1,6 +1,6 @@
 <script lang="ts">
   import { getSettings } from '../../lib/db/methods';
-  import { addAthlete } from './$athletes';
+  import { addAthlete } from '../../lib/store/$athletes';
 
   const clubs = getSettings()?.clubs || [];
 

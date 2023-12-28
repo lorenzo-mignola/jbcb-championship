@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import Judoka from './judoka/judoka.svelte';
-  import PlayPauseButton from './play-pause-button.svelte';
-  import SaveButton from './save-button.svelte';
-  import { match } from './store/$match';
+  import Judoka from '../../../../../lib/components/match/judoka/judoka.svelte';
+  import PlayPauseButton from '../../../../../lib/components/play-pause-button.svelte';
+  import SaveButton from '../../../../../lib/components/save-button.svelte';
+  import { match } from '../../../../../lib/store/$match';
   import Timer from './timer.svelte';
 
   export let data;

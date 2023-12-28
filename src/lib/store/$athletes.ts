@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 import { writable } from 'svelte/store';
-import type { Judoka } from '../../lib/types/Judoka';
+import type { Judoka } from '../types/Judoka';
 
 export const athletes = writable<Judoka[]>([]);
 

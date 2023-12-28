@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import { writable } from 'svelte/store';
-import type { JudokaType, Match } from '../../../../../../lib/types/Match';
+import type { JudokaType, Match } from '../types/Match';
 
 export const match = writable<Match | undefined>();
 

@@ -2,11 +2,11 @@
   import { goto } from '$app/navigation';
   import { saveMatch } from '$lib/db/methods';
   import { onMount } from 'svelte';
-  import { getByeWinner } from '../../../../../lib/models/categories/brackets/autoUpdateNextMatch';
-  import type { Match } from '../../../../../lib/types/Match';
-  import { isByeMatch } from '../../../../../lib/utils/category';
-  import { match } from './store/$match';
-  import { reset } from './store/$timer';
+  import { getByeWinner } from '../models/categories/brackets/autoUpdateNextMatch';
+  import { match } from '../store/$match';
+  import type { Match } from '../types/Match';
+  import { isByeMatch } from '../utils/category';
+  import { reset } from './osaekomi/$osaekomi-timer';
 
   export let categoryId: string;
 

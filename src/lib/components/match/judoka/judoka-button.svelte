@@ -1,9 +1,9 @@
 <script lang="ts">
-  import { oseakomiType } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import type { JudokaType } from '../../../../../../lib/types/Match';
-  import { getOpponentType } from '../../../../../../lib/utils/judoka';
-  import { ippon, shido, wazari } from '../store/$match';
-  import { isPlaying } from '../store/$timer';
+  import { ippon, shido, wazari } from '../../../store/$match';
+  import { isPlaying } from '../../../store/$timer';
+  import type { JudokaType } from '../../../types/Match';
+  import { getOpponentType } from '../../../utils/judoka';
+  import { oseakomiType } from '../../osaekomi/$osaekomi-timer';
   import PointButton from './point-button.svelte';
 
   export let type: JudokaType;

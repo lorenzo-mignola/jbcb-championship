@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import { wazari } from '../../../routes/category/[category_id]/match/[match_id]/store/$match';
+import { wazari } from '../../store/$match';
 import type { JudokaType } from '../../types/Match';
 
 export const timerOsaekomi = writable<number>(0);

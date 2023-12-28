@@ -1,9 +1,9 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
-  import Play from '../../../../../icons/play.svelte';
-  import Stop from '../../../../../icons/stop.svelte';
-  import { match } from './store/$match';
-  import { isPlaying, reset, togglePlay } from './store/$timer';
+  import Play from '../../icons/play.svelte';
+  import Stop from '../../icons/stop.svelte';
+  import { match } from '../store/$match';
+  import { isPlaying, reset, togglePlay } from '../store/$timer';
 
   $: disabled = Boolean($match?.winner);
 
