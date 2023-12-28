@@ -30,7 +30,7 @@
   {/if}
 </div>
 
-<a href="/categories" class="btn btn-sm variant-soft-surface mt-8">
+<a href="/categories" class="btn btn-sm variant-soft-surface mt-8 shadow-md">
   <span><Back /></span>
   <span>Tutte le categorie</span>
 </a>
