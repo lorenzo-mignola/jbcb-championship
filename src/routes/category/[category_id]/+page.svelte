@@ -1,6 +1,7 @@
 <script>
   import AthleteList from '$lib/components/athlete-list.svelte';
   import Stats from '$lib/components/category/stats/stats.svelte';
+  import Back from '../../../icons/back.svelte';
   import Next from '../../../icons/next.svelte';
   import Loading from './loading.svelte';
 
@@ -28,3 +29,8 @@
     <Stats {category} />
   {/if}
 </div>
+
+<a href="/categories" class="btn btn-sm variant-soft-surface mt-8">
+  <span><Back /></span>
+  <span>Tutte le categorie</span>
+</a>

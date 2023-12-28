@@ -25,7 +25,8 @@
   }
 </script>
 
-<h2 class="h2">Club</h2>
+<h2 class="h2 mb-8">Impostazioni</h2>
+<h3 class="h3">Club</h3>
 <form on:submit|preventDefault={handleAdd} class="my-2">
   <div class="input-group input-group-divider grid-cols-[1fr_auto]">
     <label class="label">

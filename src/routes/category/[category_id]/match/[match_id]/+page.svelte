@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
+  import Back from '../../../../../icons/back.svelte';
   import Judoka from '../../../../../lib/components/match/judoka/judoka.svelte';
   import PlayPauseButton from '../../../../../lib/components/play-pause-button.svelte';
   import SaveButton from '../../../../../lib/components/save-button.svelte';
@@ -39,3 +40,10 @@
 {#if category?.id && match}
   <SaveButton categoryId={category.id} />
 {/if}
+
+<footer class="py-14">
+  <a href={`/category/${category?.id}`} class="btn btn-sm variant-soft-surface">
+    <span><Back /></span>
+    <span>Visualizza categoria</span>
+  </a>
+</footer>

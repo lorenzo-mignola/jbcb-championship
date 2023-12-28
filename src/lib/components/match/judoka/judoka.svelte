@@ -54,8 +54,8 @@
           <button
             type="button"
             class="btn-icon btn-icon-sm md:btn-icon text-inherit"
-            class:variant-ghost-secondary={edit}
-            class:variant-ghost={!edit}
+            class:variant-filled-warning={edit}
+            class:variant-ringed-surface={!edit}
             on:click={toggleEdit}><Edit /></button
           >
         {/if}
