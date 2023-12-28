@@ -1,6 +1,6 @@
 <script lang="ts">
   import Delete from '../../icons/delete.svelte';
-  import AthleteList from '../../lib/components/AthleteList.svelte';
+  import AthleteList from '../../lib/components/athlete-list.svelte';
   import { athletes, removeAthlete } from './$athletes';
   const iconAction = (id: string) => removeAthlete(id);
 </script>

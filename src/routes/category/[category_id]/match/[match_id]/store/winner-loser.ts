@@ -71,10 +71,10 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
 
     const points = getPoints(athlete);
     if (points === 10) {
-      winner('white');
+      winner(type);
     }
     if (athlete?.shido === 3) {
-      disqualification('white');
+      disqualification(type);
     }
   });
 };

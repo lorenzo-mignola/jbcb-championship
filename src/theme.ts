@@ -8,8 +8,8 @@ export const theme: CustomThemeConfig = {
     '--theme-font-family-heading': `system-ui`,
     '--theme-font-color-base': '0 0 0',
     '--theme-font-color-dark': '255 255 255',
-    '--theme-rounded-base': '16px',
-    '--theme-rounded-container': '8px',
+    '--theme-rounded-base': '6px',
+    '--theme-rounded-container': '6px',
     '--theme-border-base': '2px',
     // =~= Theme On-X Colors =~=
     '--on-primary': '255 255 255',

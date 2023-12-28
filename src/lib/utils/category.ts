@@ -11,6 +11,10 @@ interface RankingAthlete {
 }
 
 export const getRanking = (category: Category): RankingAthlete[] => {
+  // category is not ended
+  if (category.currentMatch) {
+    return [];
+  }
   if (category.type === 'pool') {
     return getRankingPool(category.matches, category.athletes);
   }
@@ -82,7 +86,7 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       return;
     }
     athleteMap[winner.id].matchPoint += 2;
-    const evaluationPoint = winner.ippon === 1 ? 10 : 7;
+    const evaluationPoint = winner.ippon === 1 || winner.wazari === 2 ? 10 : 7;
     athleteMap[winner.id].evaluationPoint += evaluationPoint;
   });
 

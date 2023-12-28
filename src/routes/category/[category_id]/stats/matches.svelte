@@ -32,7 +32,7 @@
           <td class="judoka-blue">{match.blue?.wazari || ''}</td>
           <td class="judoka-blue">{match.blue?.shido || ''}</td>
           <td class="judoka-blue">{match.blue?.name ?? ''}</td>
-          <td>{match.finalTime !== null ? formatTime(match.finalTime) : '-'}</td>
+          <td>{match.finalTime !== null ? formatTime(4 * 60 * 10 - match.finalTime) : '-'}</td>
         </tr>
       {/each}
     </tbody>

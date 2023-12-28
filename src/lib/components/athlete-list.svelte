@@ -11,7 +11,12 @@
 <ul class="list my-2 mt-5">
   {#each athletes as athlete (athlete.id)}
     <li>
-      <span class="flex-auto">{athlete.name}</span>
+      <span class="flex flex-auto flex-col">
+        <span class="text-lg">{athlete.name}</span>
+        {#if athlete.club}
+          <span class="italic">{athlete.club}</span>
+        {/if}
+      </span>
       {#if iconAction !== undefined}
         <button
           type="button"

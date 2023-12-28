@@ -55,4 +55,5 @@ export const reset = () => {
 export const getMin = (t: number) => Math.floor(t / (60 * 10));
 export const getSec = (t: number) => Math.floor((t - getMin(t) * (60 * 10)) / 10);
 
-export const formatTime = (t: number) => `${getMin(t)}:${getSec(t)}`;
+export const formatTime = (t: number) =>
+  `${String(getMin(t)).padStart(2, '0')}:${String(getSec(t)).padStart(2, '0')}`;

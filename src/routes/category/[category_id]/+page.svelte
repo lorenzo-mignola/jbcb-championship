@@ -1,5 +1,5 @@
 <script>
-  import AthleteList from '$lib/components/AthleteList.svelte';
+  import AthleteList from '$lib/components/athlete-list.svelte';
   import Next from '../../../icons/next.svelte';
   import Loading from './loading.svelte';
   import Stats from './stats/stats.svelte';

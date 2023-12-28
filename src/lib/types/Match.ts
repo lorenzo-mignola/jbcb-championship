@@ -1,3 +1,5 @@
+import type { Judoka } from './Judoka';
+
 export interface Match {
   id: string;
   white?: MatchJudoka;
@@ -6,9 +8,7 @@ export interface Match {
   finalTime: number | null;
 }
 
-export interface MatchJudoka {
-  id: string;
-  name: string;
+export interface MatchJudoka extends Judoka {
   wazari: number;
   ippon: number;
   shido: number;
