@@ -1,6 +1,7 @@
 <script>
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import CategoryDuration from '$lib/components/new/type/category-duration.svelte';
   import CategoryType from '$lib/components/new/type/category-type.svelte';
   import { createCategory } from '$lib/db/methods';
   import { type } from '$lib/store/$type';
@@ -26,12 +27,15 @@
   }
 </script>
 
-<CategoryName />
+<div class="flex flex-col gap-4">
+  <CategoryName />
+  <CategoryDuration />
+  <CategoryType />
+</div>
 
 <div class="my-7">
   <Athletes />
   <NewAthlete />
-  <CategoryType />
 </div>
 
 <button

@@ -63,6 +63,9 @@ export const reset = () => {
 export const getMin = (t: number) => Math.floor(t / (60 * 10));
 export const getSec = (t: number) => Math.floor((t - getMin(t) * (60 * 10)) / 10);
 
+export const formatTimeString = (time: number) =>
+  `${String(getMin(time)).padStart(2, '0')}:${String(getSec(time)).padStart(2, '0')}`;
+
 export const formatTime =
   (categoryDuration: number) => (time: number | null, goldenScore: boolean | null) => {
     if (time === null) {
@@ -70,14 +73,9 @@ export const formatTime =
     }
 
     if (goldenScore) {
-      return `${String(getMin(time)).padStart(2, '0')}:${String(getSec(time)).padStart(
-        2,
-        '0'
-      )} (GS)`;
+      return `${formatTimeString(time)} (GS)`;
     }
 
     const notGoldenScoreTime = categoryDuration - time;
-    return `${String(getMin(notGoldenScoreTime)).padStart(2, '0')}:${String(
-      getSec(notGoldenScoreTime)
-    ).padStart(2, '0')}`;
+    return formatTimeString(notGoldenScoreTime);
   };
