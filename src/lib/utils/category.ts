@@ -10,7 +10,11 @@ interface RankingAthlete {
   evaluationPoint?: number;
 }
 
-export const getRanking = (category: Category): RankingAthlete[] => {
+export const getRanking = (category?: Category): RankingAthlete[] => {
+  if (!category) {
+    return [];
+  }
+
   // category is not ended
   if (category.currentMatch) {
     return [];
@@ -102,3 +106,18 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
 };
 
 export const isByeMatch = ({ white, blue }: Match) => !white || !blue;
+
+export const getRankingIcon = (rankValue: number) => {
+  switch (rankValue) {
+    case 1:
+      return '🥇';
+    case 2:
+      return '🥈';
+    case 3:
+    case 4:
+      return '🥉';
+
+    default:
+      return `#${rankValue}`;
+  }
+};

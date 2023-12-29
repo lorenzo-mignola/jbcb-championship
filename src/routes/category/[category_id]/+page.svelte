@@ -17,20 +17,22 @@
     <div class="flex justify-between mb-10">
       <h2 class="h2 font-bold">{category.name}</h2>
 
-      {#if category.currentMatch}
-        <div class="flex items-center gap-3">
-          <div>
-            <a href={`/print/${category.id}`} class="btn-icon btn-sm variant-soft-surface"
-              ><Print /></a
-            >
-          </div>
+      <div class="flex items-center gap-3">
+        <div>
+          <a
+            href={`/print/${category.id}`}
+            class="btn-icon btn-sm variant-soft-surface"
+            target="_blank"><Print /></a
+          >
+        </div>
+        {#if category.currentMatch}
           <a href={`/category/${category.id}/match/${category.currentMatch}`}>
             <button class="btn btn-lg variant-filled-primary"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >
           </a>
-        </div>
-      {/if}
+        {/if}
+      </div>
     </div>
     <AthleteList athletes={category.athletes}></AthleteList>
     <Stats {category} />

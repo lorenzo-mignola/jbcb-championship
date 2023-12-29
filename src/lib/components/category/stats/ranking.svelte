@@ -18,7 +18,7 @@
           name={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.name}
           club={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.club}
         />
-        {#if rankingAthlete.matchPoint || rankingAthlete.evaluationPoint}
+        {#if rankingAthlete.matchPoint !== undefined || rankingAthlete.evaluationPoint !== undefined}
           <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
         {/if}
       </li>

@@ -15,9 +15,7 @@ export const load: PageLoad = async ({ params }) => {
   }
 
   const match = category?.matches[matchIndex];
-  const nextMatch = category?.matches
-    .slice(matchIndex + 1)
-    .filter((match) => !isByeMatch(match))[0];
+  const nextMatch = category?.matches.slice(matchIndex + 1).find((match) => !isByeMatch(match));
 
   return {
     category,

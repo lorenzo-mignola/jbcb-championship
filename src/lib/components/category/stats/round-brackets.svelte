@@ -5,7 +5,7 @@
   export let matches: BracketMatch[];
 </script>
 
-<div class="w-52 md:w-64 mx-2 h-full flex flex-col justify-around">
+<div class="w-52 md:w-64 mx-2 h-full flex flex-col justify-around print:w-32 print:text-sm">
   {#each matches as match}
     <div
       class="border border-black dark:border-white border-l-0 h-20 flex flex-col justify-between my-2"
