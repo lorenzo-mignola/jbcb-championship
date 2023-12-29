@@ -6,6 +6,7 @@ export interface Match {
   blue?: MatchJudoka;
   winner?: JudokaType;
   finalTime: number | null;
+  goldenScore: boolean | null;
 }
 
 export interface MatchJudoka extends Judoka {

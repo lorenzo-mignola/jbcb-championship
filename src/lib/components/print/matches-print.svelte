@@ -4,6 +4,10 @@
   import MatchRow from './match-row.svelte';
 
   export let matches: Match[];
+
+  const categoryDuration = 4 * 60 * 10;
+  // TODO category duration
+  const formatWithDuration = formatTime(categoryDuration);
 </script>
 
 <table class="table table-hover">
@@ -20,9 +24,7 @@
     {#each matches as match, index}
       <tr>
         <MatchRow judoka={match.white} />
-        <td rowspan="2" class="time"
-          >{match.finalTime !== null ? formatTime(4 * 60 * 10 - match.finalTime) : '-'}</td
-        >
+        <td rowspan="2" class="time">{formatWithDuration(match.finalTime, match.goldenScore)}</td>
       </tr>
       <tr>
         <MatchRow judoka={match.blue} />

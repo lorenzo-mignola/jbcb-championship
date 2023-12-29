@@ -4,6 +4,10 @@
   import { formatTime } from '../../../store/$timer';
 
   export let matches: Match[];
+
+  const categoryDuration = 4 * 60 * 10;
+  // TODO category duration
+  const formatWithDuration = formatTime(categoryDuration);
 </script>
 
 <div class="table-container">
@@ -32,7 +36,7 @@
           <td class="judoka-blue">{match.blue?.wazari || ''}</td>
           <td class="judoka-blue">{match.blue?.shido || ''}</td>
           <td class="judoka-blue">{match.blue?.name ?? ''}</td>
-          <td>{match.finalTime !== null ? formatTime(4 * 60 * 10 - match.finalTime) : '-'}</td>
+          <td>{formatWithDuration(match.finalTime, match.goldenScore)}</td>
         </tr>
       {/each}
     </tbody>

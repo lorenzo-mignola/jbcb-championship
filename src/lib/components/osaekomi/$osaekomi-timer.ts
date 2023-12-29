@@ -22,9 +22,17 @@ export const stopOsaekomi = () => {
   isPlaying.set(false);
 };
 
+export const resetOsaekomi = () => {
+  isPlaying.set(false);
+  timerOsaekomi.set(0);
+  if (interval !== null) {
+    clearInterval(interval);
+  }
+};
+
 oseakomiType.subscribe((type) => {
   if (type === null) {
-    isPlaying.set(false);
+    resetOsaekomi();
   }
 });
 
@@ -39,14 +47,6 @@ isPlaying.subscribe((play) => {
     clearInterval(interval);
   }
 });
-
-export const reset = () => {
-  isPlaying.set(false);
-  timerOsaekomi.set(0);
-  if (interval !== null) {
-    clearInterval(interval);
-  }
-};
 
 export const watchTimerOsaekomi = (type: JudokaType) => {
   timerOsaekomi.subscribe((time) => {

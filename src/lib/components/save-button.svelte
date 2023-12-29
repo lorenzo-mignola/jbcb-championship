@@ -4,9 +4,9 @@
   import { onMount } from 'svelte';
   import { getByeWinner } from '../models/categories/brackets/autoUpdateNextMatch';
   import { match } from '../store/$match';
+  import { isGoldenScore, reset } from '../store/$timer';
   import type { Match } from '../types/Match';
   import { isByeMatch } from '../utils/category';
-  import { reset } from './osaekomi/$osaekomi-timer';
 
   export let categoryId: string;
 
@@ -39,7 +39,7 @@
     if (!$match) {
       return;
     }
-    save($match);
+    save({ ...$match, goldenScore: $isGoldenScore });
   };
 </script>
 
