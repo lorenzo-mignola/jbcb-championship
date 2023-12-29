@@ -22,7 +22,7 @@
   <section class="p-4">
     <label class="label">
       <span>Nome judoka</span>
-      <input class="input" type="text" bind:value={name} />
+      <input class="input" type="text" bind:value={name} placeholder="Nome" />
     </label>
     <label class="label my-2">
       <span>Club</span>
