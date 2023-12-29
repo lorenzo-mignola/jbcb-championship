@@ -1,9 +1,9 @@
 <script lang="ts">
-  import Edit from '../../../../../../icons/edit.svelte';
-  import { watchTimerOsaekomi } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-  import { match } from '../store/$match';
-  import { bluePoints, whitePoints } from '../store/judokaPoints';
-  import { watchWinnerOrLoser } from '../store/winner-loser';
+  import Edit from '../../../../icons/edit.svelte';
+  import { match } from '../../../store/$match';
+  import { bluePoints, whitePoints } from '../../../store/judokaPoints';
+  import { watchWinnerOrLoser } from '../../../store/winner-loser';
+  import { watchTimerOsaekomi } from '../../osaekomi/$osaekomi-timer';
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
 
@@ -54,8 +54,8 @@
           <button
             type="button"
             class="btn-icon btn-icon-sm md:btn-icon text-inherit"
-            class:variant-filled-primary={edit}
-            class:variant-ghost={!edit}
+            class:variant-filled-warning={edit}
+            class:variant-ringed-surface={!edit}
             on:click={toggleEdit}><Edit /></button
           >
         {/if}

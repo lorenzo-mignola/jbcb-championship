@@ -1,7 +1,7 @@
 <script lang="ts">
   import type { Match } from '../../../../lib/types/Match';
   import { isByeMatch } from '../../../../lib/utils/category';
-  import { formatTime } from '../match/[match_id]/store/$timer';
+  import { formatTime } from '../../../store/$timer';
 
   export let matches: Match[];
 </script>
@@ -32,7 +32,7 @@
           <td class="judoka-blue">{match.blue?.wazari || ''}</td>
           <td class="judoka-blue">{match.blue?.shido || ''}</td>
           <td class="judoka-blue">{match.blue?.name ?? ''}</td>
-          <td>{match.finalTime !== null ? formatTime(match.finalTime) : '-'}</td>
+          <td>{match.finalTime !== null ? formatTime(4 * 60 * 10 - match.finalTime) : '-'}</td>
         </tr>
       {/each}
     </tbody>

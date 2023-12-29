@@ -1,8 +1,8 @@
 import { produce } from 'immer';
 import { get } from 'svelte/store';
-import { stopOsaekomi } from '../../../../../../lib/components/osaekomi/$osaekomi-timer';
-import type { JudokaType } from '../../../../../../lib/types/Match';
-import { getOpponentType } from '../../../../../../lib/utils/judoka';
+import { stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import type { JudokaType } from '../types/Match';
+import { getOpponentType } from '../utils/judoka';
 import { match } from './$match';
 import { stop, timer } from './$timer';
 import { getPoints } from './judokaPoints';
@@ -71,10 +71,10 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
 
     const points = getPoints(athlete);
     if (points === 10) {
-      winner('white');
+      winner(type);
     }
     if (athlete?.shido === 3) {
-      disqualification('white');
+      disqualification(type);
     }
   });
 };

@@ -1,21 +1,41 @@
 <script lang="ts">
-  import { addAthlete } from './$athletes';
+  import { getSettings } from '../../lib/db/methods';
+  import { addAthlete } from '../../lib/store/$athletes';
+
+  const clubs = getSettings()?.clubs || [];
 
   let name = '';
+  let club = '';
+
   function handleEnter() {
     if (!name) {
       return;
     }
-    addAthlete(name);
+    addAthlete({ name, club });
     name = '';
   }
 </script>
 
-<form on:submit|preventDefault={handleEnter} class="my-2">
-  <div class="input-group input-group-divider grid-cols-[1fr_auto]">
+<form on:submit|preventDefault={handleEnter} class="my-2 card variant-soft-surface shadow-md">
+  <header class="card-header font-medium text-xl">Aggiungi judoka</header>
+
+  <section class="p-4">
     <label class="label">
-      <input class="input" type="text" bind:value={name} placeholder="Nome judoka" />
+      <span>Nome judoka</span>
+      <input class="input" type="text" bind:value={name} />
     </label>
-    <button class="variant-filled-primary" disabled={!name}>Aggiungi</button>
-  </div>
+    <label class="label my-2">
+      <span>Club</span>
+      <select class="select" bind:value={club}>
+        <option disabled value="">Seleziona club</option>
+        {#each clubs as clubOption}
+          <option value={clubOption}>{clubOption}</option>
+        {/each}
+      </select>
+    </label>
+  </section>
+
+  <footer class="card-footer flex flex-row-reverse">
+    <button type="submit" class="btn variant-filled-primary" disabled={!name}>Aggiungi</button>
+  </footer>
 </form>

@@ -1,5 +1,5 @@
 import { derived } from 'svelte/store';
-import type { MatchJudoka } from '../../../../../../lib/types/Match';
+import type { MatchJudoka } from '../types/Match';
 import { match } from './$match';
 
 export const getPoints = (athlete?: MatchJudoka) => {

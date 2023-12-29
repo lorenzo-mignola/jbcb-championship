@@ -8,10 +8,16 @@
 {#if athletes.length > 0}
   <h2 class="h2">Judoka</h2>
 {/if}
-<ul class="list my-2 mt-5">
+<ul class="list my-2">
   {#each athletes as athlete (athlete.id)}
+    <hr />
     <li>
-      <span class="flex-auto">{athlete.name}</span>
+      <span class="flex flex-auto flex-col">
+        <span class="text-lg">{athlete.name}</span>
+        {#if athlete.club}
+          <span class="italic">{athlete.club}</span>
+        {/if}
+      </span>
       {#if iconAction !== undefined}
         <button
           type="button"
@@ -20,10 +26,6 @@
         >
       {/if}
     </li>
-    <hr />
   {/each}
-  <div class="card p-4 variant-filled-secondary" data-popup="popupHover">
-    <p>Hover Content</p>
-    <div class="arrow variant-filled-secondary" />
-  </div>
+  <hr />
 </ul>

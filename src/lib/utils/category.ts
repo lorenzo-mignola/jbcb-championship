@@ -10,7 +10,15 @@ interface RankingAthlete {
   evaluationPoint?: number;
 }
 
-export const getRanking = (category: Category): RankingAthlete[] => {
+export const getRanking = (category?: Category): RankingAthlete[] => {
+  if (!category) {
+    return [];
+  }
+
+  // category is not ended
+  if (category.currentMatch) {
+    return [];
+  }
   if (category.type === 'pool') {
     return getRankingPool(category.matches, category.athletes);
   }
@@ -82,7 +90,7 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       return;
     }
     athleteMap[winner.id].matchPoint += 2;
-    const evaluationPoint = winner.ippon === 1 ? 10 : 7;
+    const evaluationPoint = winner.ippon === 1 || winner.wazari === 2 ? 10 : 7;
     athleteMap[winner.id].evaluationPoint += evaluationPoint;
   });
 
@@ -98,3 +106,18 @@ const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
 };
 
 export const isByeMatch = ({ white, blue }: Match) => !white || !blue;
+
+export const getRankingIcon = (rankValue: number) => {
+  switch (rankValue) {
+    case 1:
+      return '🥇';
+    case 2:
+      return '🥈';
+    case 3:
+    case 4:
+      return '🥉';
+
+    default:
+      return `#${rankValue}`;
+  }
+};

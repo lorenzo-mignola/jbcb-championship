@@ -1,14 +1,14 @@
 <script>
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
+  import CategoryType from '$lib/components/new/type/category-type.svelte';
   import { createCategory } from '$lib/db/methods';
+  import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
-  import { athletes, resetAthletes } from './$athletes';
+  import { athletes, resetAthletes } from '../../lib/store/$athletes';
   import Athletes from './athletes.svelte';
   import CategoryName from './category-name.svelte';
   import NewAthlete from './new-athlete.svelte';
-  import CategoryType from './type/category-type.svelte';
-  import { type } from './type/type';
 
   $: canCreate = () => {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';

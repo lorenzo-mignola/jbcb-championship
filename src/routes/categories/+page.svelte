@@ -2,6 +2,7 @@
   import { goto } from '$app/navigation';
   import { deleteAll, getAllCategories } from '$lib/db/methods';
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+  import Check from '../../icons/check.svelte';
 
   const modalStore = getModalStore();
 
@@ -26,9 +27,19 @@
 <div class="flex flex-col gap-3">
   {#each categories as category (category.id)}
     <a href={`/category/${category.id}`}>
-      <button type="button" class="btn variant-filled-primary w-full text-xl p-4"
-        >{category.name}</button
+      <button
+        type="button"
+        class="btn w-full text-xl p-4"
+        class:variant-filled-primary={category.currentMatch}
+        class:variant-ghost-primary={!category.currentMatch}
       >
+        {category.name}
+        {#if !category.currentMatch}
+          <span class="ml-2">
+            <Check />
+          </span>
+        {/if}
+      </button>
     </a>
   {:else}
     <h3 class="h3">Nessuna categoria creata</h3>

@@ -1,6 +1,6 @@
 <script lang="ts">
-  import type { Category } from '../../../lib/types/Category';
-  import { type, typeToLabel } from './type';
+  import { type, typeToLabel } from '../../../store/$type';
+  import type { Category } from '../../../types/Category';
 
   export let value: Category['type'];
 
