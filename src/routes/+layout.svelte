@@ -23,7 +23,7 @@
   class="sticky top-0 z-50 print:hidden"
 >
   <a href="/"><h1 class="text-xl md:text-3xl font-bold">{title}</h1></a>
-  <svelte:fragment slot="trail"><LightSwitch /></svelte:fragment>
+  <svelte:fragment slot="trail"><LightSwitch rounded="rounded-full" /></svelte:fragment>
 </AppBar>
 <div class="container h-full p-8 w-full mx-auto">
   <slot />
