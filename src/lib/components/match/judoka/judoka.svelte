@@ -54,7 +54,7 @@
           <button
             type="button"
             class="btn-icon btn-icon-sm md:btn-icon text-inherit"
-            class:variant-filled-warning={edit}
+            class:active={edit}
             class:variant-ringed-surface={!edit}
             on:click={toggleEdit}><Edit /></button
           >

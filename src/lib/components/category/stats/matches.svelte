@@ -27,15 +27,19 @@
     </thead>
     <tbody>
       {#each matches.filter((match) => !isByeMatch(match)) as match}
-        <tr class="row">
-          <td class="judoka-white">{match.white?.name ?? '-'}</td>
+        <tr class="row" data-match-id={match.id}>
+          <td class="judoka-white" class:font-bold={match.winner === 'white'}
+            >{match.white?.name ?? '-'}</td
+          >
           <td class="judoka-white">{match.white?.ippon || ''}</td>
           <td class="judoka-white">{match.white?.wazari || ''}</td>
           <td class="judoka-white">{match.white?.shido || ''}</td>
           <td class="judoka-blue">{match.blue?.ippon || ''}</td>
           <td class="judoka-blue">{match.blue?.wazari || ''}</td>
           <td class="judoka-blue">{match.blue?.shido || ''}</td>
-          <td class="judoka-blue">{match.blue?.name ?? ''}</td>
+          <td class="judoka-blue" class:font-bold={match.winner === 'blue'}
+            >{match.blue?.name ?? ''}</td
+          >
           <td>{formatWithDuration(match.finalTime, match.goldenScore)}</td>
         </tr>
       {/each}

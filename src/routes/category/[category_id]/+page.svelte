@@ -28,7 +28,7 @@
         </div>
         {#if category.currentMatch}
           <a href={`/category/${category.id}/match/${category.currentMatch}`}>
-            <button class="btn btn-lg variant-filled-primary"
+            <button class="btn btn-lg variant-filled-primary shadow-md"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >
           </a>
@@ -44,7 +44,7 @@
   {/if}
 </div>
 
-<a href="/categories" class="btn btn-sm variant-soft-surface mt-8 shadow-md">
+<a href="/categories" class="btn btn-sm variant-filled-secondary mt-8 shadow-md">
   <span><Back /></span>
   <span>Tutte le categorie</span>
 </a>

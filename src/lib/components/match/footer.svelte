@@ -8,14 +8,14 @@
 
 <footer class="py-14 flex justify-between items-center flex-col-reverse md:flex-row">
   <div>
-    <a href={`/category/${categoryId}`} class="btn btn-sm variant-soft-surface shadow-md">
+    <a href={`/category/${categoryId}`} class="btn btn-sm variant-filled-secondary shadow-md">
       <span><Back /></span>
       <span>Visualizza categoria</span>
     </a>
   </div>
 
   {#if nextMatch}
-    <div class="card variant-soft p-2 mb-4 md:mb-0 break-words shadow-md">
+    <div class="card variant-soft p-2 mb-4 md:mb-0 break-words">
       <p>Prossimo incontro</p>
       <p class="text-sm">
         <b>{nextMatch.white?.name}</b> - <b>{nextMatch?.blue?.name}</b>
