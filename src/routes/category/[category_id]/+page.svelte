@@ -21,7 +21,7 @@
       <div class="flex items-center gap-3 justify-end md:justify-between">
         <div>
           <a
-            href={`/print/${category.id}`}
+            href={`/category/${category.id}/print`}
             class="btn-icon btn-sm variant-soft-surface"
             target="_blank"><Print /></a
           >
