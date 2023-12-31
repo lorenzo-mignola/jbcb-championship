@@ -1,5 +1,5 @@
 <script>
-  import Settings from '../icons/settings.svelte';
+  import Settings from '$lib/icons/settings.svelte';
   import Card from './card.svelte';
 </script>
 

@@ -6,14 +6,14 @@
 </script>
 
 {#if athletes.length > 0}
-  <h2 class="h2">Judoka</h2>
+  <h2 class="h3">Judoka</h2>
 {/if}
 <ul class="list my-2">
   {#each athletes as athlete (athlete.id)}
     <hr />
     <li>
       <span class="flex flex-auto flex-col">
-        <span class="text-lg">{athlete.name}</span>
+        <span class="text-xl">{athlete.name}</span>
         {#if athlete.club}
           <span class="italic">{athlete.club}</span>
         {/if}

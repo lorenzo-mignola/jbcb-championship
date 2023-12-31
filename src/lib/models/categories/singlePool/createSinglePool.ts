@@ -28,7 +28,7 @@ const createMatches = (athletes: Judoka[]) => {
   return matches;
 };
 
-export const createSinglePool = (name: string, athletes: Judoka[]): Category => {
+export const createSinglePool = (name: string, athletes: Judoka[], duration: number): Category => {
   const matches = createMatches(athletes);
   return {
     id: nanoid(),
@@ -36,6 +36,7 @@ export const createSinglePool = (name: string, athletes: Judoka[]): Category => 
     name,
     athletes,
     matches,
-    currentMatch: matches[0].id
+    currentMatch: matches[0].id,
+    duration
   };
 };

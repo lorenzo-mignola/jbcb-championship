@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Delete from '../../icons/delete.svelte';
-  import { addClub, getSettings, removeClub } from '../../lib/db/methods.js';
+  import Delete from '$lib/icons/delete.svelte';
+  import { addClub, getSettings, removeClub } from '$lib/db/methods.js';
 
   export let data;
   const { settings } = data;

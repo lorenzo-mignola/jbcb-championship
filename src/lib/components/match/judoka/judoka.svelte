@@ -1,8 +1,8 @@
 <script lang="ts">
-  import Edit from '../../../../icons/edit.svelte';
-  import { match } from '../../../store/$match';
-  import { bluePoints, whitePoints } from '../../../store/judokaPoints';
-  import { watchWinnerOrLoser } from '../../../store/winner-loser';
+  import Edit from '$lib/icons/edit.svelte';
+  import { match } from '$lib/store/$match';
+  import { bluePoints, whitePoints } from '$lib/store/judokaPoints';
+  import { watchWinnerOrLoser } from '$lib/store/winner-loser';
   import { watchTimerOsaekomi } from '../../osaekomi/$osaekomi-timer';
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';

@@ -1,8 +1,9 @@
 import { get, writable } from 'svelte/store';
 import { oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
 
-const duration = 4 * 60 * 10;
-export const timer = writable(duration);
+const defaultDuration = 4 * 60 * 10;
+const duration = writable(defaultDuration);
+export const timer = writable(defaultDuration);
 export const isPlaying = writable(false);
 export const isGoldenScore = writable(false);
 
@@ -50,10 +51,14 @@ export const togglePlay = () => {
   play();
 };
 
+export const setDuration = (categoryDuration: number = defaultDuration) => {
+  duration.set(categoryDuration);
+};
+
 export const reset = () => {
   isPlaying.set(false);
   isGoldenScore.set(false);
-  timer.set(duration);
+  timer.set(get(duration) || defaultDuration);
   resetOsaekomi();
   if (interval !== null) {
     clearInterval(interval);

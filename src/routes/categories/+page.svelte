@@ -1,8 +1,8 @@
 <script lang="ts">
   import { goto } from '$app/navigation';
   import { deleteAll, getAllCategories } from '$lib/db/methods';
+  import Check from '$lib/icons/check.svelte';
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
-  import Check from '../../icons/check.svelte';
 
   const modalStore = getModalStore();
 

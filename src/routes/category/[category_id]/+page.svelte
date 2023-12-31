@@ -1,9 +1,10 @@
 <script>
   import AthleteList from '$lib/components/athlete-list.svelte';
   import Stats from '$lib/components/category/stats/stats.svelte';
-  import Back from '../../../icons/back.svelte';
-  import Next from '../../../icons/next.svelte';
-  import Print from '../../../icons/print.svelte';
+  import Back from '$lib/icons/back.svelte';
+  import Next from '$lib/icons/next.svelte';
+  import Print from '$lib/icons/print.svelte';
+  import { formatTimeString } from '$lib/store/$timer';
   import Loading from './loading.svelte';
 
   export let data;
@@ -35,6 +36,10 @@
       </div>
     </div>
     <AthleteList athletes={category.athletes}></AthleteList>
+    <div class="flex gap-2 my-2">
+      <p>Durata incontri:</p>
+      <span class="badge variant-ghost-surface">{formatTimeString(category.duration)}</span>
+    </div>
     <Stats {category} />
   {/if}
 </div>

@@ -4,6 +4,7 @@
   import CategoryDuration from '$lib/components/new/type/category-duration.svelte';
   import CategoryType from '$lib/components/new/type/category-type.svelte';
   import { createCategory } from '$lib/db/methods';
+  import { duration } from '$lib/store/$duration';
   import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
   import { athletes, resetAthletes } from '../../lib/store/$athletes';
@@ -21,7 +22,7 @@
     if (!categoryName || !$type) {
       return;
     }
-    const idNewCategory = createCategory(categoryName, $athletes, $type);
+    const idNewCategory = createCategory(categoryName, $athletes, $type, $duration);
     resetAthletes();
     goto(`/category/${idNewCategory}`);
   }

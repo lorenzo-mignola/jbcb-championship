@@ -41,7 +41,7 @@ describe('SinglePool odds', () => {
     ['5', '3', 8],
     ['1', '2', 9]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
 
     const first = pool.matches[index];
     expect(first.white?.id).toBe(whiteId);
@@ -49,13 +49,13 @@ describe('SinglePool odds', () => {
   });
 
   it('should have 10 matchs', () => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
 
     expect(pool.matches).toHaveLength(10);
   });
 
   it('should not have duplicate', () => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
     if (matches.some((match) => match === null)) {
       expect.fail();
@@ -102,7 +102,7 @@ describe('SinglePool even', () => {
     ['3', '6', 4],
     ['4', '5', 5]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
 
     const first = pool.matches[index];
     expect(first.white?.id).toBe(whiteId);
@@ -110,13 +110,13 @@ describe('SinglePool even', () => {
   });
 
   it('should have 15 matchs', () => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
 
     expect(pool.matches).toHaveLength(15);
   });
 
   it('should not have duplicate', () => {
-    const pool = createSinglePool(name, athletes);
+    const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
     if (matches.some((match) => match === null)) {
       expect.fail();

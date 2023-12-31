@@ -4,7 +4,11 @@ import type { Judoka } from '../../../types/Judoka';
 import { getMatches } from './createMatches';
 import { createRounds } from './createRounds';
 
-export const createBrackets = (name: string, athletes: Judoka[]): BracketsCategory => {
+export const createBrackets = (
+  name: string,
+  athletes: Judoka[],
+  duration: number
+): BracketsCategory => {
   const rounds = createRounds(athletes);
   const matches = getMatches(rounds);
   return {
@@ -14,6 +18,7 @@ export const createBrackets = (name: string, athletes: Judoka[]): BracketsCatego
     athletes,
     matches,
     rounds,
-    currentMatch: matches[0].id
+    currentMatch: matches[0].id,
+    duration
   };
 };

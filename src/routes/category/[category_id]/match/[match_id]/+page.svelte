@@ -1,16 +1,24 @@
 <script lang="ts">
+  import Footer from '$lib/components/match/footer.svelte';
+  import Judoka from '$lib/components/match/judoka/judoka.svelte';
+  import PlayPauseButton from '$lib/components/play-pause-button.svelte';
+  import SaveButton from '$lib/components/save-button.svelte';
+  import { match } from '$lib/store/$match';
+  import { setDuration, timer } from '$lib/store/$timer';
   import { onDestroy } from 'svelte';
-  import Footer from '../../../../../lib/components/match/footer.svelte';
-  import Judoka from '../../../../../lib/components/match/judoka/judoka.svelte';
-  import PlayPauseButton from '../../../../../lib/components/play-pause-button.svelte';
-  import SaveButton from '../../../../../lib/components/save-button.svelte';
-  import { match } from '../../../../../lib/store/$match';
   import Timer from './timer.svelte';
 
   export let data;
   $: ({ category, match: matchData, nextMatch } = data);
 
   $: match.set(matchData);
+
+  $: {
+    if (category?.duration) {
+      setDuration(category.duration);
+      timer.set(category.duration);
+    }
+  }
 
   onDestroy(() => {
     match.set(undefined);

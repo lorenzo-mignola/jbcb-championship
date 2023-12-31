@@ -9,10 +9,11 @@ import { db } from './db';
 export const createCategory = (
   name: Category['name'],
   athletes: Category['athletes'],
-  type: Category['type']
+  type: Category['type'],
+  duration: Category['duration']
 ) => {
   if (typeof localStorage !== 'undefined') {
-    const category = generateCategory({ name, athletes, type });
+    const category = generateCategory({ name, athletes, type, duration });
     db.data.categories.push(category);
     db.write();
     return category.id;
@@ -22,13 +23,14 @@ export const createCategory = (
 const generateCategory = ({
   name,
   athletes,
-  type
-}: Pick<Category, 'name' | 'athletes' | 'type'>) => {
+  type,
+  duration
+}: Pick<Category, 'name' | 'athletes' | 'type' | 'duration'>) => {
   switch (type) {
     case 'pool':
-      return createSinglePool(name, athletes);
+      return createSinglePool(name, athletes, duration);
     case 'brackets':
-      return createBrackets(name, athletes);
+      return createBrackets(name, athletes, duration);
     default:
       throw new Error(`No type ${type} found`);
   }

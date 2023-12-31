@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Back from '../../../icons/back.svelte';
+  import Back from '$lib/icons/back.svelte';
   import type { Match } from '../../types/Match';
 
   export let categoryId: string;

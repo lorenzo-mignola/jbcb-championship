@@ -9,6 +9,7 @@ interface BaseCategory<T extends CategoryType> {
   athletes: Judoka[];
   matches: Match[];
   currentMatch?: string;
+  duration: number;
   type: T;
 }
 

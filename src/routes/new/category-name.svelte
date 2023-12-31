@@ -14,7 +14,7 @@
 </script>
 
 <label class="label">
-  <span class="h2">Nome categoria</span>
+  <h2 class="h3">Nome categoria</h2>
   <input
     class="input"
     title="Nome categoria"
