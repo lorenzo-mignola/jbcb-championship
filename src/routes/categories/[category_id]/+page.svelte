@@ -21,13 +21,13 @@
       <div class="flex items-center gap-3 justify-end md:justify-between">
         <div>
           <a
-            href={`/category/${category.id}/print`}
+            href={`/categories/${category.id}/print`}
             class="btn-icon btn-sm variant-soft-surface"
             target="_blank"><Print /></a
           >
         </div>
         {#if category.currentMatch}
-          <a href={`/category/${category.id}/match/${category.currentMatch}`}>
+          <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
             <button class="btn btn-lg variant-filled-primary shadow-md"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >

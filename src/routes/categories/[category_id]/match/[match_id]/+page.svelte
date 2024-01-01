@@ -6,12 +6,14 @@
   import { match } from '$lib/store/$match';
   import { setDuration, timer } from '$lib/store/$timer';
   import { onDestroy } from 'svelte';
+  import { localStorageCategoryName } from '../../../../../lib/store/$localStorageMatch';
   import Timer from './timer.svelte';
 
   export let data;
   $: ({ category, match: matchData, nextMatch } = data);
 
   $: match.set(matchData);
+  $: localStorageCategoryName.set(category?.name || '');
 
   $: {
     if (category?.duration) {
