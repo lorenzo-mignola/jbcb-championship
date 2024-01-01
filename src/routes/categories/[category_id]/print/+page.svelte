@@ -2,9 +2,11 @@
   import { browser } from '$app/environment';
   import AthleteList from '$lib/components/athlete-list.svelte';
   import Brackets from '$lib/components/category/stats/brackets.svelte';
+  import RankingDoublePool from '$lib/components/category/stats/ranking-double-pool.svelte';
   import Ranking from '$lib/components/category/stats/ranking.svelte';
   import MatchesPrint from '$lib/components/print/matches-print.svelte';
   import Print from '$lib/icons/print.svelte';
+  import { mapFinalsToRounds } from '$lib/models/categories/doublePool/mapFinalsToRounds';
   import { formatTimeString } from '$lib/store/$timer';
   import { isByeMatch } from '$lib/utils/category';
   import { isMobile } from '$lib/utils/mobile.js';
@@ -40,6 +42,14 @@
 
     <h2 class="h3 mt-4">Classifica</h2>
     <Ranking {category} />
+
+    {#if category.type === 'double-pool'}
+      <h2 class="h3 mt-4">Classifica pool</h2>
+      <RankingDoublePool {category} />
+
+      <h2 class="h3 mt-4">Tabellone finale</h2>
+      <Brackets rounds={mapFinalsToRounds(category)} showRepechage={false} />
+    {/if}
 
     <h2 class="h3 mt-4">Incontri</h2>
     <MatchesPrint
