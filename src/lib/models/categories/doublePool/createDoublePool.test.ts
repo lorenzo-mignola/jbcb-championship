@@ -20,7 +20,7 @@ const athletes: Judoka[] = [
   { id: '13', name: '13' }
 ];
 
-describe.only('createDoublePool', () => {
+describe('createDoublePool', () => {
   it('should have "pools", "semifinals", "finalMatch"', () => {
     const doublePool = createDoublePool('test', athletes, 0);
 
