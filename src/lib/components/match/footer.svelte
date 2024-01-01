@@ -8,7 +8,7 @@
 
 <footer class="py-14 flex justify-between items-center flex-col-reverse md:flex-row">
   <div>
-    <a href={`/category/${categoryId}`} class="btn btn-sm variant-filled-secondary shadow-md">
+    <a href={`/categories/${categoryId}`} class="btn btn-sm variant-filled-secondary shadow-md">
       <span><Back /></span>
       <span>Visualizza categoria</span>
     </a>

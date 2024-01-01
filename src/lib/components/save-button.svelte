@@ -27,12 +27,12 @@
       return;
     }
     if (categoryUpdated.currentMatch) {
-      goto(`/category/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`);
+      goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated?.currentMatch}`);
       reset();
       return;
     }
     reset();
-    goto(`/category/${categoryUpdated.id}`);
+    goto(`/categories/${categoryUpdated.id}`);
   };
 
   const handleClick = () => {

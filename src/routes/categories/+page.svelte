@@ -26,7 +26,7 @@
 
 <div class="flex flex-col gap-3">
   {#each categories as category (category.id)}
-    <a href={`/category/${category.id}`}>
+    <a href={`/categories/${category.id}`}>
       <button
         type="button"
         class="btn w-full text-xl p-4"

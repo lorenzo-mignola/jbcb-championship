@@ -1,5 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import { localStorageTime } from './$localStorageMatch';
 
 const defaultDuration = 4 * 60 * 10;
 const duration = writable(defaultDuration);
@@ -84,3 +85,10 @@ export const formatTime =
     const notGoldenScoreTime = categoryDuration - time;
     return formatTimeString(notGoldenScoreTime);
   };
+
+timer.subscribe(($timer) => {
+  // update only every 100 ms
+  if ($timer % 10 === 0) {
+    localStorageTime.set($timer);
+  }
+});

@@ -1,6 +1,6 @@
 import { PUBLIC_AUTO_PRINT } from '$env/static/public';
 import { getCategory } from '$lib/db/methods';
-import type { PageLoad } from './[category_id]/$types';
+import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params }) => {
   const { category_id } = params;

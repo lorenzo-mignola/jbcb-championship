@@ -24,7 +24,7 @@
     }
     const idNewCategory = createCategory(categoryName, $athletes, $type, $duration);
     resetAthletes();
-    goto(`/category/${idNewCategory}`);
+    goto(`/categories/${idNewCategory}`);
   }
 </script>
 

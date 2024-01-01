@@ -1,7 +1,7 @@
 <script lang="ts">
   import { onDestroy } from 'svelte';
   import Play from '../icons/play.svelte';
-  import Stop from '../icons/stop.svelte';
+  import Stop from '../icons/pause.svelte';
   import { match } from '../store/$match';
   import { isPlaying, reset, togglePlay } from '../store/$timer';
 

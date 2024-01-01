@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { writable } from 'svelte/store';
 import type { JudokaType, Match } from '../types/Match';
+import { localStorageMatch, resetStorageMatch } from './$localStorageMatch';
 
 export const match = writable<Match | undefined>();
 
@@ -75,3 +76,5 @@ export const removeShido = (type: JudokaType) => {
     });
   });
 };
+
+match.subscribe(($match) => ($match ? localStorageMatch.set($match) : resetStorageMatch()));

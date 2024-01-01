@@ -21,7 +21,7 @@
       <svelte:fragment slot="lead">📣</svelte:fragment>
       <svelte:fragment slot="summary">Incontri</svelte:fragment>
       <svelte:fragment slot="content">
-        <Matches matches={category.matches} />
+        <Matches matches={category.matches} categoryDuration={category.duration} />
       </svelte:fragment>
     </AccordionItem>
     {#if category.type === 'brackets'}

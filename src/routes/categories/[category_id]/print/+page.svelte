@@ -42,7 +42,10 @@
     <Ranking {category} />
 
     <h2 class="h3 mt-4">Incontri</h2>
-    <MatchesPrint matches={category.matches.filter((match) => !isByeMatch(match))} />
+    <MatchesPrint
+      matches={category.matches.filter((match) => !isByeMatch(match))}
+      categoryDuration={category.duration}
+    />
 
     {#if category.type === 'brackets'}
       <h2 class="h3 mt-4">Tabellone</h2>

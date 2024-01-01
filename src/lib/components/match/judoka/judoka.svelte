@@ -6,6 +6,7 @@
   import { watchTimerOsaekomi } from '../../osaekomi/$osaekomi-timer';
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
+  import JudokaNameAndPoints from './judoka-name-and-points.svelte';
 
   export let type: 'white' | 'blue';
   $: athlete = $match?.[type];
@@ -23,22 +24,7 @@
 </script>
 
 <div class:judoka-white-card={type === 'white'} class:judoka-blue-card={type === 'blue'}>
-  <div class="flex justify-between">
-    <span>{athlete?.name ?? '-'}</span>
-    {#if athlete}
-      <span>
-        {#if athlete.shido === 3}
-          <span class="mr-1">🟥</span>
-        {:else}
-          <!--  eslint-disable-next-line @typescript-eslint/no-unused-vars -->
-          {#each { length: athlete.shido } as _}
-            <span class="mr-1">🟨</span>
-          {/each}
-        {/if}
-        <span class="points">{$points}</span>
-      </span>
-    {/if}
-  </div>
+  <JudokaNameAndPoints {athlete} points={$points} />
   <hr class="divider" />
   <div class="flex justify-between items-center">
     <div>
@@ -63,9 +49,3 @@
     </div>
   </div>
 </div>
-
-<style>
-  .points {
-    letter-spacing: 0.8rem;
-  }
-</style>
