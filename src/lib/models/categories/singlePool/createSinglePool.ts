@@ -1,5 +1,5 @@
 import { nanoid } from 'nanoid';
-import type { Category } from '../../../types/Category';
+import type { PoolCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import { createMatch } from '../../match';
 
@@ -8,7 +8,7 @@ const rotateArray = (athletes: Judoka[]) => {
   return [...others, first];
 };
 
-const createMatches = (athletes: Judoka[]) => {
+export const createMatchesPool = (athletes: Judoka[]) => {
   const athletesLength = athletes.length;
   const isOddPool = athletesLength % 2 !== 0;
   const matchPerRound = Math.floor(athletesLength / 2);
@@ -28,8 +28,12 @@ const createMatches = (athletes: Judoka[]) => {
   return matches;
 };
 
-export const createSinglePool = (name: string, athletes: Judoka[], duration: number): Category => {
-  const matches = createMatches(athletes);
+export const createSinglePool = (
+  name: string,
+  athletes: Judoka[],
+  duration: number
+): PoolCategory => {
+  const matches = createMatchesPool(athletes);
   return {
     id: nanoid(),
     type: 'pool',

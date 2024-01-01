@@ -46,5 +46,5 @@
 <button
   class="btn variant-filled-secondary mt-5 text-2xl w-full p-5"
   class:hidden={!$match?.winner}
-  on:click={handleClick}>Salva incontro</button
+  on:click={handleClick}>Termina incontro</button
 >

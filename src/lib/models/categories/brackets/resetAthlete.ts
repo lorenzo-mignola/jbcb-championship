@@ -1,6 +1,7 @@
+import type { Judoka } from '../../../types/Judoka';
 import type { MatchJudoka } from '../../../types/Match';
 
-export const resetAthlete = (athlete?: MatchJudoka) =>
+export const resetAthlete = (athlete?: MatchJudoka | Judoka): MatchJudoka | undefined =>
   athlete
     ? {
         ...athlete,

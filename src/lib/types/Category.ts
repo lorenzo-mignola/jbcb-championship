@@ -15,7 +15,16 @@ interface BaseCategory<T extends CategoryType> {
 
 export interface PoolCategory extends BaseCategory<'pool'> {}
 
-export interface DoublePoolCategory extends BaseCategory<'double-pool'> {}
+export interface DoublePoolCategory extends BaseCategory<'double-pool'> {
+  pools: {
+    A: Match[];
+    B: Match[];
+    aAthletes: Judoka[];
+    bAthletes: Judoka[];
+  };
+  semifinals: [Match, Match];
+  finalMatch: Match;
+}
 
 export interface BracketsCategory extends BaseCategory<'brackets'> {
   rounds: Rounds;
