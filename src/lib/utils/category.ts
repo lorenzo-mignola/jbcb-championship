@@ -71,7 +71,7 @@ const getRankingBrackets = (matches: Match[]) => {
   return ranking.sort((a, b) => a.rank - b.rank);
 };
 
-const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
+export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
   const athleteMap: Record<string, { matchPoint: number; evaluationPoint: number }> =
     athletes.reduce((map, athlete) => {
       const { id } = athlete;
@@ -120,4 +120,9 @@ export const getRankingIcon = (rankValue: number) => {
     default:
       return `#${rankValue}`;
   }
+};
+
+export const shuffleArray = <T>(originalArray: T[]) => {
+  const array: T[] = JSON.parse(JSON.stringify(originalArray));
+  return array.sort(() => Math.random() - 0.5);
 };
