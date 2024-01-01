@@ -1,5 +1,7 @@
 import { getByeWinner, needSkipMatch } from '../models/categories/brackets/autoUpdateNextMatch';
 import { createBrackets, updateBrackets } from '../models/categories/brackets/brackets';
+import { createDoublePool } from '../models/categories/doublePool/createDoublePool';
+import { updateDoublePool } from '../models/categories/doublePool/updateDoublePool';
 import { createSinglePool } from '../models/categories/singlePool/createSinglePool';
 import { updateSinglePool } from '../models/categories/singlePool/updateSinglePool';
 import type { Category } from '../types/Category';
@@ -31,6 +33,8 @@ const generateCategory = ({
       return createSinglePool(name, athletes, duration);
     case 'brackets':
       return createBrackets(name, athletes, duration);
+    case 'double-pool':
+      return createDoublePool(name, athletes, duration);
     default:
       throw new Error(`No type ${type} found`);
   }
@@ -130,5 +134,8 @@ function updateCategory(category: Category, matchUpdated: Match) {
   if (category.type === 'brackets') {
     return updateBrackets(category, matchUpdated);
   }
-  throw new Error(`Unknown category type ${category.type}`);
+  if (category.type === 'double-pool') {
+    return updateDoublePool(category, matchUpdated);
+  }
+  return category;
 }

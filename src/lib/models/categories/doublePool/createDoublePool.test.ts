@@ -54,6 +54,7 @@ describe.only('createDoublePool', () => {
     const { pools, currentMatch, matches } = poolUpdated;
 
     expect(matches[0].winner).toBe('white');
+    expect(poolUpdated.pools.A[0].winner).toBe('white');
     expect(currentMatch).toBe(pools.B[0].id);
   });
 
@@ -149,6 +150,7 @@ describe.only('createDoublePool', () => {
     );
 
     expect(poolUpdated.semifinals[1].winner).toBe('white');
+    expect(poolUpdated.currentMatch).toBe(poolUpdated.finalMatch.id);
   });
 
   it('should have final', () => {

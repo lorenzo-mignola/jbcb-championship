@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import type { DoublePoolCategory } from '../../../types/Category';
 import type { Match } from '../../../types/Match';
 import { getRankingPool } from '../../../utils/category';
@@ -6,6 +7,17 @@ import { resetAthlete } from '../brackets/resetAthlete';
 const isPoolMatch = (category: DoublePoolCategory, matchId: string) => {
   const { A, B } = category.pools;
   return A.some((match) => match.id === matchId) || B.some((match) => match.id === matchId);
+};
+
+const isPoolAorB = (category: DoublePoolCategory, matchId: string) => {
+  const { A, B } = category.pools;
+  if (A.some((match) => match.id === matchId)) {
+    return 'A';
+  }
+  if (B.some((match) => match.id === matchId)) {
+    return 'B';
+  }
+  throw new Error('No pool found');
 };
 
 const isSemiFinalMatch = (category: DoublePoolCategory, matchId: string) => {
@@ -47,9 +59,20 @@ function updatePoolMatch(category: DoublePoolCategory, matchUpdated: Match) {
   const currentMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);
   const nextMatch = category.matches[currentMatch + 1].id;
   const isNextMatchSemifinal = isSemiFinalMatch(category, nextMatch);
+  const poolUpdated = produce(category.pools, (pools) => {
+    pools[isPoolAorB(category, matchUpdated.id)] = pools[isPoolAorB(category, matchUpdated.id)].map(
+      (match) => {
+        if (match.id === matchUpdated.id) {
+          return matchUpdated;
+        }
+        return match;
+      }
+    );
+  });
   const categoryUpdated: DoublePoolCategory = {
     ...category,
     currentMatch: nextMatch,
+    pools: poolUpdated,
     matches: category.matches.map((match) => {
       if (match.id === matchUpdated.id) {
         return matchUpdated;

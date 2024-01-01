@@ -1,4 +1,4 @@
-import type { Category } from '../types/Category';
+import type { Category, DoublePoolCategory } from '../types/Category';
 import type { Judoka } from '../types/Judoka';
 import type { Match } from '../types/Match';
 import { getOpponentType } from './judoka';
@@ -10,22 +10,56 @@ interface RankingAthlete {
   evaluationPoint?: number;
 }
 
-export const getRanking = (category?: Category): RankingAthlete[] => {
-  if (!category) {
+const getRankingDoublePool = (
+  semifinals: DoublePoolCategory['semifinals'],
+  finalMatch: DoublePoolCategory['finalMatch']
+) => {
+  const winnerFinal = finalMatch.winner;
+  if (!winnerFinal) {
     return [];
+  }
+  const gold = finalMatch[winnerFinal];
+  const silver = finalMatch[getOpponentType(winnerFinal)!];
+  const [firstSemi, secondSemi] = semifinals;
+  const firstSemiLoser = getOpponentType(firstSemi?.winner ?? null);
+  const secondSemiLoser = getOpponentType(secondSemi?.winner ?? null);
+  if (!firstSemiLoser || !secondSemiLoser) {
+    return [];
+  }
+  const bronze1 = firstSemi[firstSemiLoser];
+  const bronze2 = secondSemi[secondSemiLoser];
+
+  const ranking = [];
+
+  if (gold) {
+    ranking.push({
+      rank: 1,
+      id: gold.id
+    });
   }
 
-  // category is not ended
-  if (category.currentMatch) {
-    return [];
+  if (silver) {
+    ranking.push({
+      rank: 2,
+      id: silver.id
+    });
   }
-  if (category.type === 'pool') {
-    return getRankingPool(category.matches, category.athletes);
+
+  if (bronze1) {
+    ranking.push({
+      rank: 3,
+      id: bronze1.id
+    });
   }
-  if (category.type === 'brackets') {
-    return getRankingBrackets(category.matches);
+
+  if (bronze2) {
+    ranking.push({
+      rank: 3,
+      id: bronze2.id
+    });
   }
-  return [];
+
+  return ranking.sort((a, b) => a.rank - b.rank);
 };
 
 const getRankingBrackets = (matches: Match[]) => {
@@ -125,4 +159,25 @@ export const getRankingIcon = (rankValue: number) => {
 export const shuffleArray = <T>(originalArray: T[]) => {
   const array: T[] = JSON.parse(JSON.stringify(originalArray));
   return array.sort(() => Math.random() - 0.5);
+};
+
+export const getRanking = (category?: Category): RankingAthlete[] => {
+  if (!category) {
+    return [];
+  }
+
+  // category is not ended
+  if (category.currentMatch) {
+    return [];
+  }
+  if (category.type === 'pool') {
+    return getRankingPool(category.matches, category.athletes);
+  }
+  if (category.type === 'double-pool') {
+    return getRankingDoublePool(category.semifinals, category.finalMatch);
+  }
+  if (category.type === 'brackets') {
+    return getRankingBrackets(category.matches);
+  }
+  return [];
 };
