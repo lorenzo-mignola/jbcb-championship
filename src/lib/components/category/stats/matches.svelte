@@ -4,9 +4,8 @@
   import { formatTime } from '../../../store/$timer';
 
   export let matches: Match[];
+  export let categoryDuration: number;
 
-  const categoryDuration = 4 * 60 * 10;
-  // TODO category duration
   const formatWithDuration = formatTime(categoryDuration);
 </script>
 

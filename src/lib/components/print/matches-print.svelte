@@ -4,9 +4,8 @@
   import MatchRow from './match-row.svelte';
 
   export let matches: Match[];
+  export let categoryDuration: number;
 
-  const categoryDuration = 4 * 60 * 10;
-  // TODO category duration
   const formatWithDuration = formatTime(categoryDuration);
 </script>
 
