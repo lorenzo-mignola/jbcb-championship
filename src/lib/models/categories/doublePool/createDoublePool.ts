@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import type { DoublePoolCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import type { Match } from '../../../types/Match';
@@ -52,14 +51,13 @@ export const createDoublePool = (
   name: string,
   athletes: Judoka[],
   duration: number
-): DoublePoolCategory => {
+): Omit<DoublePoolCategory, '_id'> => {
   const pools = createPools(athletes);
   const semifinals: DoublePoolCategory['semifinals'] = [createMatch(), createMatch()];
   const finalMatch = createMatch();
   const matches = getMatches(pools, semifinals, finalMatch);
 
   return {
-    id: nanoid(),
     type: 'double_pool',
     name,
     athletes,

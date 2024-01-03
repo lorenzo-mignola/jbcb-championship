@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import type { PoolCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import { createMatch } from '../../match';
@@ -32,10 +31,9 @@ export const createSinglePool = (
   name: string,
   athletes: Judoka[],
   duration: number
-): PoolCategory => {
+): Omit<PoolCategory, '_id'> => {
   const matches = createMatchesPool(athletes);
   return {
-    id: nanoid(),
     type: 'pool',
     name,
     athletes,

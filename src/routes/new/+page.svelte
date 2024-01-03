@@ -1,29 +1,31 @@
-<script>
+<script lang="ts">
+  import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
-  import { athletes } from '$lib/store/$athletes';
+  import { athletes, resetAthletes } from '$lib/store/$athletes';
   import { duration } from '$lib/store/$duration';
   import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
 
-  function handleCreate() {
+  async function handleCreate() {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
     if (!categoryName || !$type) {
       return;
     }
-    const data = new FormData();
-    data.append('name', 'TEST');
-    data.append('athletes', JSON.stringify($athletes));
-    data.append('type', $type);
-    data.append('duration', '' + $duration);
 
-    fetch('?/create', {
+    const res = await fetch('/api/categories', {
       method: 'POST',
-      body: data
+      body: JSON.stringify({
+        name: categoryName,
+        athletes: $athletes,
+        type: $type,
+        duration: $duration
+      })
     });
-    // const idNewCategory = createCategory(categoryName, $athletes, $type, $duration);
-    // resetAthletes();
-    // goto(`/categories/${idNewCategory}`);
+    const newCategoryId = await res.json();
+
+    resetAthletes();
+    goto(`/categories/${newCategoryId}`);
   }
 </script>
 

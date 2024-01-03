@@ -29,7 +29,7 @@
 </div>
 
 <button
-  type="button"
+  type="submit"
   class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10"
   disabled={!canClick()}
   on:click={handleClick}><slot name="label-button" /></button

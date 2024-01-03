@@ -1,4 +1,3 @@
-import { nanoid } from 'nanoid';
 import type { BracketsCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import { getMatches } from './createMatches';
@@ -8,11 +7,10 @@ export const createBrackets = (
   name: string,
   athletes: Judoka[],
   duration: number
-): BracketsCategory => {
+): Omit<BracketsCategory, '_id'> => {
   const rounds = createRounds(athletes);
   const matches = getMatches(rounds);
   return {
-    id: nanoid(),
     type: 'brackets',
     name,
     athletes,

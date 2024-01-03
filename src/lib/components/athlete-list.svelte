@@ -22,7 +22,7 @@
         <button
           type="button"
           class="btn-icon variant-filled-primary [&>*]:pointer-events-none text-white"
-          on:click={() => iconAction?.(athlete.id)}><slot name="icon" /></button
+          on:click|preventDefault={() => iconAction?.(athlete.id)}><slot name="icon" /></button
         >
       {/if}
     </li>

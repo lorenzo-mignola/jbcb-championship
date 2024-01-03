@@ -14,7 +14,7 @@
   };
 </script>
 
-<button on:click={setType} class:active={$type === value} class="w-full" {disabled}
+<button on:click|preventDefault={setType} class:active={$type === value} class="w-full" {disabled}
   >{typeToLabel[value]}</button
 >
 

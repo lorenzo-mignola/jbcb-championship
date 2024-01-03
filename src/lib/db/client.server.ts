@@ -10,9 +10,4 @@ export const client = new MongoClient(MONGODB_URI, {
   }
 });
 
-export const closeConnection = async () => {
-  await client.close();
-  console.log('Connection close');
-};
-
 export const db = client.db('jbcb-championship');

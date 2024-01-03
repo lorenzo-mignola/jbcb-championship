@@ -28,7 +28,7 @@
       <button
         type="button"
         class="btn-icon btn-icon-sm variant-soft-surface"
-        on:click={subtract}
+        on:click|preventDefault={subtract}
         disabled={$duration === min}><Subtract /></button
       >
     </span>
@@ -37,7 +37,7 @@
       <button
         type="button"
         class="btn-icon btn-icon-sm variant-soft-surface"
-        on:click={add}
+        on:click|preventDefault={add}
         disabled={$duration === max}><Add /></button
       >
     </span>

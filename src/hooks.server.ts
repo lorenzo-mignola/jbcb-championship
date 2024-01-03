@@ -1,4 +1,4 @@
-import { client, closeConnection } from '$lib/db/client.server';
+import { client } from '$lib/db/client.server';
 
 async function run() {
   try {
@@ -13,6 +13,3 @@ async function run() {
 }
 
 await run();
-
-process.on('exit', () => closeConnection());
-process.on('SIGINT', () => closeConnection());

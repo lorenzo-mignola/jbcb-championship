@@ -1,18 +1,25 @@
-import type { Judoka } from './Judoka';
+import { z } from 'zod';
+import { JudokaSchema } from './Judoka';
 
-export interface Match {
-  id: string;
-  white?: MatchJudoka;
-  blue?: MatchJudoka;
-  winner?: JudokaType;
-  finalTime: number | null;
-  goldenScore: boolean | null;
-}
+const JudokaTypeSchema = z.enum(['white', 'blue']);
 
-export interface MatchJudoka extends Judoka {
-  wazari: number;
-  ippon: number;
-  shido: number;
-}
+export type JudokaType = z.infer<typeof JudokaTypeSchema>;
 
-export type JudokaType = 'white' | 'blue';
+export const MatchJudokaSchema = JudokaSchema.extend({
+  wazari: z.number(),
+  ippon: z.number(),
+  shido: z.number()
+});
+
+export type MatchJudoka = z.infer<typeof MatchJudokaSchema>;
+
+export const MatchSchema = z.object({
+  id: z.string(),
+  white: MatchJudokaSchema.optional(),
+  blue: MatchJudokaSchema.optional(),
+  winner: JudokaTypeSchema,
+  finalTime: z.number().or(z.null()),
+  goldenScore: z.boolean().or(z.null())
+});
+
+export type Match = z.infer<typeof MatchSchema>;
