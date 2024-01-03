@@ -1,11 +1,29 @@
 <script lang="ts">
-  import Delete from '$lib/icons/delete.svelte';
   import { addClub, getSettings, removeClub } from '$lib/db/methods.js';
+  import Delete from '$lib/icons/delete.svelte';
+  import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 
   export let data;
   const { settings } = data;
   $: clubs = settings.clubs || [];
   let club = '';
+
+  const modalStore = getModalStore();
+
+  const modal: ModalSettings = {
+    type: 'confirm',
+    title: 'Cancellare i dati?',
+    body: 'Procedendo tutti i dati locali verranno cancellati',
+    buttonTextConfirm: 'Cancella dati',
+    buttonTextCancel: 'Annulla',
+    response: (confirmDelete: boolean) => {
+      if (!confirmDelete) {
+        return;
+      }
+      localStorage.clear();
+      window.location.reload();
+    }
+  };
 
   function handleAdd() {
     if (!club) {
@@ -49,3 +67,8 @@
     <hr />
   {/each}
 </ul>
+
+<h3 class="h3">Cancella dati</h3>
+<button class="btn variant-ringed mt-1 gap-2" on:click={() => modalStore.trigger(modal)}
+  ><Delete />Cancella tutto</button
+>
