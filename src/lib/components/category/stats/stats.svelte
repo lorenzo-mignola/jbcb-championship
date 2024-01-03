@@ -28,7 +28,7 @@
       </svelte:fragment>
     </AccordionItem>
 
-    {#if category.type === 'double-pool'}
+    {#if category.type === 'double_pool'}
       <AccordionItem>
         <svelte:fragment slot="lead">📈</svelte:fragment>
         <svelte:fragment slot="summary">Classifica pool</svelte:fragment>

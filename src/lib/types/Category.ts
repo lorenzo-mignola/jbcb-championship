@@ -1,7 +1,7 @@
 import type { Judoka } from './Judoka';
 import type { Match } from './Match';
 
-type CategoryType = 'pool' | 'double-pool' | 'brackets';
+type CategoryType = 'pool' | 'double_pool' | 'brackets';
 
 interface BaseCategory<T extends CategoryType> {
   id: string;
@@ -15,7 +15,7 @@ interface BaseCategory<T extends CategoryType> {
 
 export interface PoolCategory extends BaseCategory<'pool'> {}
 
-export interface DoublePoolCategory extends BaseCategory<'double-pool'> {
+export interface DoublePoolCategory extends BaseCategory<'double_pool'> {
   pools: {
     A: Match[];
     B: Match[];

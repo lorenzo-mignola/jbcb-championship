@@ -33,7 +33,7 @@ const generateCategory = ({
       return createSinglePool(name, athletes, duration);
     case 'brackets':
       return createBrackets(name, athletes, duration);
-    case 'double-pool':
+    case 'double_pool':
       return createDoublePool(name, athletes, duration);
     default:
       throw new Error(`No type ${type} found`);
@@ -134,7 +134,7 @@ function updateCategory(category: Category, matchUpdated: Match) {
   if (category.type === 'brackets') {
     return updateBrackets(category, matchUpdated);
   }
-  if (category.type === 'double-pool') {
+  if (category.type === 'double_pool') {
     return updateDoublePool(category, matchUpdated);
   }
   return category;

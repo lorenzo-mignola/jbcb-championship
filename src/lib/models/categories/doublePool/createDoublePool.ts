@@ -60,7 +60,7 @@ export const createDoublePool = (
 
   return {
     id: nanoid(),
-    type: 'double-pool',
+    type: 'double_pool',
     name,
     athletes,
     matches,

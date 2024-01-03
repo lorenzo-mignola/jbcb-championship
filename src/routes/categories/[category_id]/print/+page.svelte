@@ -43,7 +43,7 @@
     <h2 class="h3 mt-4">Classifica</h2>
     <Ranking {category} />
 
-    {#if category.type === 'double-pool'}
+    {#if category.type === 'double_pool'}
       <h2 class="h3 mt-4">Classifica pool</h2>
       <RankingDoublePool {category} />
 

@@ -173,7 +173,7 @@ export const getRanking = (category?: Category): RankingAthlete[] => {
   if (category.type === 'pool') {
     return getRankingPool(category.matches, category.athletes);
   }
-  if (category.type === 'double-pool') {
+  if (category.type === 'double_pool') {
     return getRankingDoublePool(category.semifinals, category.finalMatch);
   }
   if (category.type === 'brackets') {
