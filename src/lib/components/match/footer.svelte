@@ -15,7 +15,7 @@
   </div>
 
   {#if nextMatch}
-    <div class="card variant-soft p-2 mb-4 md:mb-0 break-words">
+    <div class="card variant-ringed p-2 mb-4 md:mb-0 break-words">
       <p>Prossimo incontro</p>
       <p class="text-sm">
         <b>{nextMatch.white?.name}</b> - <b>{nextMatch?.blue?.name}</b>
