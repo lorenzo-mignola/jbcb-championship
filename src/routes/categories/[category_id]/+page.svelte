@@ -20,7 +20,7 @@
     <div class="flex justify-between md:mb-10 flex-col-reverse md:flex-row gap-2 md:gap-0">
       <h2 class="h2 font-bold">{category.name}</h2>
 
-      <div class="flex items-center gap-3 justify-end md:justify-between">
+      <div class="flex items-center gap-1 md:gap-3 justify-end md:justify-between">
         <div>
           <button
             class="btn-icon btn-sm variant-soft-surface"

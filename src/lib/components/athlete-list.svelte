@@ -13,7 +13,7 @@
     <hr />
     <li>
       <span class="flex flex-auto flex-col">
-        <span class="text-xl">{athlete.name}</span>
+        <span class="text-lg">{athlete.name}</span>
         {#if athlete.club}
           <span class="italic">{athlete.club}</span>
         {/if}
