@@ -1,9 +1,11 @@
 <script>
+  import { invalidateAll } from '$app/navigation';
   import AthleteList from '$lib/components/athlete-list.svelte';
   import Stats from '$lib/components/category/stats/stats.svelte';
   import Back from '$lib/icons/back.svelte';
   import Next from '$lib/icons/next.svelte';
   import Print from '$lib/icons/print.svelte';
+  import Reload from '$lib/icons/reload.svelte';
   import { formatTimeString } from '$lib/store/$timer';
   import Loading from './loading.svelte';
 
@@ -20,9 +22,17 @@
 
       <div class="flex items-center gap-3 justify-end md:justify-between">
         <div>
+          <button
+            class="btn-icon btn-sm variant-soft-surface"
+            title="Aggiorna"
+            on:click={() => invalidateAll()}><Reload /></button
+          >
+        </div>
+        <div>
           <a
             href={`/categories/${category.id}/print`}
             class="btn-icon btn-sm variant-soft-surface"
+            title="Stampa"
             target="_blank"><Print /></a
           >
         </div>
