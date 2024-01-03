@@ -1,16 +1,17 @@
 <script>
-  import { invalidateAll } from '$app/navigation';
   import AthleteList from '$lib/components/athlete-list.svelte';
   import Stats from '$lib/components/category/stats/stats.svelte';
   import Back from '$lib/icons/back.svelte';
+  import Edit from '$lib/icons/edit.svelte';
   import Next from '$lib/icons/next.svelte';
   import Print from '$lib/icons/print.svelte';
-  import Reload from '$lib/icons/reload.svelte';
   import { formatTimeString } from '$lib/store/$timer';
+  import { CATEGORY_NAME } from '$lib/utils/constants';
   import Loading from './loading.svelte';
 
   export let data;
   const category = data.category;
+  const started = Boolean(category?.matches[0]?.winner);
 </script>
 
 <div>
@@ -21,24 +22,24 @@
       <h2 class="h2 font-bold">{category.name}</h2>
 
       <div class="flex items-center gap-1 md:gap-3 justify-end md:justify-between">
-        <div>
-          <button
-            class="btn-icon btn-sm variant-soft-surface"
-            title="Aggiorna"
-            on:click={() => invalidateAll()}><Reload /></button
-          >
-        </div>
-        <div>
+        {#if !started}
           <a
-            href={`/categories/${category.id}/print`}
+            href={`/categories/${category.id}/edit?${CATEGORY_NAME}=${category.name}`}
             class="btn-icon btn-sm variant-soft-surface"
-            title="Stampa"
-            target="_blank"><Print /></a
+            title="Modifica"><Edit /></a
           >
-        </div>
+        {/if}
+
+        <a
+          href={`/categories/${category.id}/print`}
+          class="btn-icon btn-sm variant-soft-surface"
+          title="Stampa"
+          target="_blank"><Print /></a
+        >
+
         {#if category.currentMatch}
           <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
-            <button class="btn btn-lg variant-filled-primary shadow-md"
+            <button class="btn md:btn-lg variant-filled-primary shadow-md"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >
           </a>

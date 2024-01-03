@@ -139,3 +139,28 @@ function updateCategory(category: Category, matchUpdated: Match) {
   }
   return category;
 }
+
+const removeCategory = (categoryId: string) => {
+  db.data.categories = db.data.categories.filter((category) => category.id !== categoryId);
+  db.write();
+};
+
+export const editCategory = (
+  categoryId: string,
+  categoryEdit: {
+    name: Category['name'];
+    athletes: Category['athletes'];
+    type: Category['type'];
+    duration: Category['duration'];
+  }
+) => {
+  const newId = createCategory(
+    categoryEdit.name,
+    categoryEdit.athletes,
+    categoryEdit.type,
+    categoryEdit.duration
+  );
+  removeCategory(categoryId);
+
+  return newId;
+};
