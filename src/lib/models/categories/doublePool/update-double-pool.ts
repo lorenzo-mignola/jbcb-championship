@@ -1,8 +1,8 @@
 import { produce } from 'immer';
-import type { DoublePoolCategory } from '../../../types/Category';
-import type { Match } from '../../../types/Match';
+import type { DoublePoolCategory } from '../../../types/category.type';
+import type { Match } from '../../../types/match.type';
 import { getRankingPool } from '../../../utils/category';
-import { resetAthlete } from '../brackets/resetAthlete';
+import { resetAthlete } from '../brackets/reset-athlete';
 
 const isPoolMatch = (category: DoublePoolCategory, matchId: string) => {
   const { A, B } = category.pools;
@@ -125,7 +125,9 @@ function updateSemiFinalMatch(category: DoublePoolCategory, matchUpdated: Match)
 
   const isLastSemifinal = currentMatch === category.matches.length - 2;
   if (isLastSemifinal) {
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- winner is setted
     const winnerFirstSemi = categoryUpdated.semifinals[0][categoryUpdated.semifinals[0].winner!];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- winner is setted
     const winnerSecondSemi = categoryUpdated.semifinals[1][categoryUpdated.semifinals[1].winner!];
     categoryUpdated.finalMatch.white = resetAthlete(winnerFirstSemi);
     categoryUpdated.finalMatch.blue = resetAthlete(winnerSecondSemi);

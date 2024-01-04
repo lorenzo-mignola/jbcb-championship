@@ -1,7 +1,7 @@
-<script lang="ts">
-  import type { Match } from '../../../../lib/types/Match';
-  import { isByeMatch } from '../../../../lib/utils/category';
+<script lang="ts" strictEvents>
   import { formatTime } from '../../../store/$timer';
+  import type { Match } from '../../../types/match.type';
+  import { isByeMatch } from '../../../utils/category';
 
   export let matches: Match[];
   export let categoryDuration: number;
@@ -25,7 +25,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each matches.filter((match) => !isByeMatch(match)) as match}
+      {#each matches.filter((match) => !isByeMatch(match)) as match (match.id)}
         <tr class="row" data-match-id={match.id}>
           <td class="judoka-white" class:font-bold={match.winner === 'white'}
             >{match.white?.name ?? '-'}</td

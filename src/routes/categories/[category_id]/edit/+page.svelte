@@ -1,4 +1,4 @@
-<script>
+<script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';

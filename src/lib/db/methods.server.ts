@@ -1,7 +1,7 @@
-import { createBrackets } from '../models/categories/brackets/createBrackets';
-import { createDoublePool } from '../models/categories/doublePool/createDoublePool';
-import { createSinglePool } from '../models/categories/singlePool/createSinglePool';
-import type { Category } from '../types/Category';
+import { createBrackets } from '../models/categories/brackets/create-brackets';
+import { createDoublePool } from '../models/categories/doublePool/create-double-pool';
+import { createSinglePool } from '../models/categories/singlePool/create-single-pool';
+import type { Category } from '../types/category.type';
 import { db } from './client.server';
 
 const generateCategory = ({
@@ -18,7 +18,7 @@ const generateCategory = ({
     case 'double_pool':
       return createDoublePool(name, athletes, duration);
     default:
-      throw new Error(`No type ${type} found`);
+      throw new Error(`No type found`);
   }
 };
 

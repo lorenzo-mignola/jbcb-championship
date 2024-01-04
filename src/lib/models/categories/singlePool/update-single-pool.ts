@@ -1,5 +1,5 @@
-import type { Category } from '../../../types/Category';
-import type { Match } from '../../../types/Match';
+import type { Category } from '../../../types/category.type';
+import type { Match } from '../../../types/match.type';
 
 export function updateSinglePool(category: Category, matchUpdated: Match) {
   const nextMatch = category.matches.findIndex((match) => match.id === matchUpdated.id);

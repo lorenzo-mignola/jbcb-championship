@@ -1,2 +1,2 @@
-export { updateBrackets } from './updateBrackets';
-export { createBrackets } from './createBrackets';
+export { createBrackets } from './create-brackets';
+export { updateBrackets } from './update-brackets';

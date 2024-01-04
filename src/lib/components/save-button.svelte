@@ -1,11 +1,11 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
   import { saveMatch } from '$lib/db/methods';
   import { onMount } from 'svelte';
-  import { getByeWinner } from '../models/categories/brackets/autoUpdateNextMatch';
+  import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
   import { match } from '../store/$match';
   import { reset } from '../store/$timer';
-  import type { Match } from '../types/Match';
+  import type { Match } from '../types/match.type';
   import { isByeMatch } from '../utils/category';
 
   export let categoryId: string;
@@ -27,7 +27,7 @@
       return;
     }
     if (categoryUpdated.currentMatch) {
-      goto(`/categories/${categoryUpdated._id}/match/${categoryUpdated?.currentMatch}`, {
+      goto(`/categories/${categoryUpdated._id}/match/${categoryUpdated.currentMatch}`, {
         invalidateAll: true
       });
       reset();
@@ -45,10 +45,13 @@
     }
     save($match);
   };
+
+  $: winner = $match?.winner;
 </script>
 
 <button
   class="btn variant-filled-secondary mt-5 text-2xl w-full p-5"
-  class:hidden={!$match?.winner}
-  on:click={handleClick}>Termina incontro</button
+  class:hidden={!winner}
+  type="button"
+  on:click|preventDefault={handleClick}>Termina incontro</button
 >

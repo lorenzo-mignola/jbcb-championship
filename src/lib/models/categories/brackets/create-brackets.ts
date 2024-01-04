@@ -1,7 +1,7 @@
-import type { BracketsCategory } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
-import { getMatches } from './createMatches';
-import { createRounds } from './createRounds';
+import type { BracketsCategory } from '../../../types/category.type';
+import type { Judoka } from '../../../types/judoka.type';
+import { getMatches } from './create-matches';
+import { createRounds } from './create-rounds';
 
 export const createBrackets = (
   name: string,

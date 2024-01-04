@@ -1,5 +1,5 @@
 import { localStorageStore } from '@skeletonlabs/skeleton';
-import type { Match } from '../types/Match';
+import type { Match } from '../types/match.type';
 
 const defaultMatch: Match = {
   id: '',

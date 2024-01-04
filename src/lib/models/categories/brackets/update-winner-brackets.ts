@@ -1,10 +1,10 @@
-import type { BracketsCategory } from '$lib/types/Category';
-import type { JudokaType, Match } from '$lib/types/Match';
-import type { BracketRound } from '$lib/types/Rounds';
+import type { BracketsCategory } from '$lib/types/category.type';
+import type { JudokaType, Match } from '$lib/types/match.type';
+import type { BracketRound } from '$lib/types/rounds.type';
 import { getOpponentType } from '$lib/utils/judoka';
 import { produce } from 'immer';
-import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
-import { resetAthlete } from './resetAthlete';
+import { getMatchIndex, isWhiteOrBlueNext } from './find-round-and-match';
+import { resetAthlete } from './reset-athlete';
 
 interface NextMatchCoordinate {
   match: number;
@@ -27,7 +27,7 @@ const getNextCoordinate = (
   const loserCoordinate: NextMatchCoordinate = isFirstRound
     ? {
         match: Math.floor(match / 2),
-        whiteOrBlue: whiteOrBlue
+        whiteOrBlue
       }
     : {
         match: isOddRound ? winnerMatches - 1 - match : match,
@@ -78,10 +78,10 @@ export const updateWinnerBrackets = (
     });
   }
 
-  const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (round) => {
-    round.winner[currentCoordinate.match] = match;
+  const currentRoundUpdated = produce(brackets.rounds[currentCoordinate.round], (roundToUpdate) => {
+    roundToUpdate.winner[currentCoordinate.match] = match;
     if (currentCoordinate.round !== 0) {
-      round.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
+      roundToUpdate.repechage[nextCoordinate.loser.match][nextCoordinate.loser.whiteOrBlue] =
         resetAthlete(loser);
     }
   });

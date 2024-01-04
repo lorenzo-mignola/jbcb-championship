@@ -7,4 +7,4 @@
   $: sec = getSec($timer);
 </script>
 
-<TimerView {min} {sec} oseakomiType={$oseakomiType} isGoldenScore={$isGoldenScore} />
+<TimerView isGoldenScore={$isGoldenScore} {min} oseakomiType={$oseakomiType} {sec} />

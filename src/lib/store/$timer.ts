@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 import { oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
-import { localStorageTime } from './$localStorageMatch';
+import { localStorageTime } from './$local-storage-match';
 
 const defaultDuration = 4 * 60 * 10;
 const duration = writable(defaultDuration);
@@ -28,21 +28,36 @@ export const stop = () => {
   isPlaying.set(false);
 };
 
-timer.subscribe((time) => {
-  if (time <= 0) {
-    isPlaying.set(false);
-    resetOsaekomi();
-  }
-});
+export const timerWatch = () => {
+  const unsubscribeOsaekomi = timer.subscribe(($timer) => {
+    if ($timer <= 0) {
+      isPlaying.set(false);
+      resetOsaekomi();
+    }
+  });
 
-isPlaying.subscribe((play) => {
-  if (!play && interval !== null) {
-    clearInterval(interval);
-  }
-  if (get(oseakomiType) !== null) {
-    oseakomiType.set(null);
-  }
-});
+  const unsubscribePlay = isPlaying.subscribe(($isPlaying) => {
+    if (!$isPlaying && interval !== null) {
+      clearInterval(interval);
+    }
+    if (get(oseakomiType) !== null) {
+      oseakomiType.set(null);
+    }
+  });
+
+  const unsubscribeStorage = timer.subscribe(($timer) => {
+    // update only every 100 ms
+    if ($timer % 10 === 0) {
+      localStorageTime.set($timer);
+    }
+  });
+
+  return () => {
+    unsubscribeOsaekomi();
+    unsubscribePlay();
+    unsubscribeStorage();
+  };
+};
 
 export const togglePlay = () => {
   if (get(isPlaying)) {
@@ -85,10 +100,3 @@ export const formatTime =
     const notGoldenScoreTime = categoryDuration - time;
     return formatTimeString(notGoldenScoreTime);
   };
-
-timer.subscribe(($timer) => {
-  // update only every 100 ms
-  if ($timer % 10 === 0) {
-    localStorageTime.set($timer);
-  }
-});

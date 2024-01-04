@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { getAllCategories } from '$lib/db/methods';
   import Check from '$lib/icons/check.svelte';
 
@@ -9,10 +9,10 @@
   {#each categories as category (category._id)}
     <a href={`/categories/${category._id}`}>
       <button
-        type="button"
         class="btn w-full text-xl p-4"
         class:variant-filled-primary={category.currentMatch}
         class:variant-ghost-primary={!category.currentMatch}
+        type="button"
       >
         {category.name}
         {#if !category.currentMatch}

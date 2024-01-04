@@ -1,4 +1,4 @@
-import type { Judoka } from '../../../types/Judoka';
+import type { Judoka } from '../../../types/judoka.type';
 
 export const removeAthlete =
   <T extends Judoka | undefined>(notPicket: T[]) =>

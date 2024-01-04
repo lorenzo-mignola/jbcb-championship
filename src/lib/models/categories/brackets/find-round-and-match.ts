@@ -1,6 +1,6 @@
-import type { BracketsCategory } from '$lib/types/Category';
-import type { Match } from '$lib/types/Match';
-import type { BracketRound, Rounds } from '$lib/types/Rounds';
+import type { BracketsCategory } from '$lib/types/category.type';
+import type { Match } from '$lib/types/match.type';
+import type { BracketRound, Rounds } from '$lib/types/rounds.type';
 
 export const getRoundByMatch = (
   rounds: Rounds,

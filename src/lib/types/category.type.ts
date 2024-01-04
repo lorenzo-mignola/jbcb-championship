@@ -1,8 +1,7 @@
-import { JudokaSchema } from './Judoka';
-import { MatchSchema } from './Match';
-
 import { z } from 'zod';
-import { RoundsSchema } from './Rounds';
+import { JudokaSchema } from './judoka.type';
+import { MatchSchema } from './match.type';
+import { RoundsSchema } from './rounds.type';
 
 const CategoryTypeSchema = z.enum(['pool', 'double_pool', 'brackets']);
 

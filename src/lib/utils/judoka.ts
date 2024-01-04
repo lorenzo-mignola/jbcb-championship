@@ -1,4 +1,4 @@
-import type { JudokaType } from '../types/Match';
+import type { JudokaType } from '../types/match.type';
 
 export const getOpponentType = (type: JudokaType | null) => {
   if (type === 'white') {

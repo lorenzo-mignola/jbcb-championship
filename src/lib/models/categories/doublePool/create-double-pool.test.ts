@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import type { DoublePoolCategory } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
-import { resetAthlete } from '../brackets/resetAthlete';
-import { createDoublePool } from './createDoublePool';
-import { updateDoublePool } from './updateDoublePool';
+import type { DoublePoolCategory } from '../../../types/category.type';
+import type { Judoka } from '../../../types/judoka.type';
+import { resetAthlete } from '../brackets/reset-athlete';
+import { createDoublePool } from './create-double-pool';
+import { updateDoublePool } from './update-double-pool';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },

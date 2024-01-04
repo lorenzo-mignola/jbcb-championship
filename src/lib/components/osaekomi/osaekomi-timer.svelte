@@ -20,7 +20,7 @@
   <p class="text-timer text-xl">{$timerOsaekomi}</p>
 </div>
 
-<style>
+<style lang="postcss">
   div {
     text-wrap: nowrap;
   }

@@ -1,5 +1,5 @@
-import type { DoublePoolCategory } from '$lib/types/Category';
-import type { Rounds } from '$lib/types/Rounds';
+import type { DoublePoolCategory } from '$lib/types/category.type';
+import type { Rounds } from '$lib/types/rounds.type';
 
 export const mapFinalsToRounds = (category: DoublePoolCategory): Rounds => {
   const firstRound = {

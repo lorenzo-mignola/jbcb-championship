@@ -24,29 +24,30 @@
       <div class="flex items-center gap-1 md:gap-3 justify-end md:justify-between">
         {#if !started}
           <a
-            href={`/categories/${category._id}/edit?${CATEGORY_NAME}=${category.name}`}
             class="btn-icon btn-sm variant-soft-surface"
+            href={`/categories/${category._id}/edit?${CATEGORY_NAME}=${category.name}`}
             title="Modifica"><Edit /></a
           >
         {/if}
 
         <a
-          href={`/categories/${category._id}/print`}
           class="btn-icon btn-sm variant-soft-surface"
-          title="Stampa"
-          target="_blank"><Print /></a
+          href={`/categories/${category._id}/print`}
+          rel="noopener noreferrer"
+          target="_blank"
+          title="Stampa"><Print /></a
         >
 
         {#if category.currentMatch}
           <a href={`/categories/${category._id}/match/${category.currentMatch}`}>
-            <button class="btn md:btn-lg variant-filled-primary shadow-md"
+            <button class="btn md:btn-lg variant-filled-primary shadow-md" type="button"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >
           </a>
         {/if}
       </div>
     </div>
-    <AthleteList athletes={category.athletes}></AthleteList>
+    <AthleteList athletes={category.athletes} iconAction={undefined}></AthleteList>
     <div class="flex gap-2 my-2">
       <p>Durata incontri:</p>
       <span class="badge variant-ghost-surface">{formatTimeString(category.duration)}</span>
@@ -55,7 +56,7 @@
   {/if}
 </div>
 
-<a href="/categories" class="btn btn-sm variant-filled-secondary mt-8 shadow-md">
+<a class="btn btn-sm variant-filled-secondary mt-8 shadow-md" href="/categories">
   <span><Back /></span>
   <span>Tutte le categorie</span>
 </a>

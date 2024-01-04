@@ -1,10 +1,10 @@
-import type { BracketsCategory } from '../../../types/Category';
-import type { Match } from '../../../types/Match';
-import { getMatches } from './createMatches';
-import { getMatchType, getRoundByMatch } from './findRoundAndMatch';
-import { getCurrentMatch } from './getCurrentMatch';
-import { updateLoserBrackets } from './updateLoserBrackets';
-import { updateWinnerBrackets } from './updateWinnerBrackets';
+import type { BracketsCategory } from '../../../types/category.type';
+import type { Match } from '../../../types/match.type';
+import { getMatches } from './create-matches';
+import { getMatchType, getRoundByMatch } from './find-round-and-match';
+import { getCurrentMatch } from './get-current-match';
+import { updateLoserBrackets } from './update-loser-brackets';
+import { updateWinnerBrackets } from './update-winner-brackets';
 
 export const updateBrackets = (brackets: BracketsCategory, match: Match): BracketsCategory => {
   const type = getMatchType(brackets, match);
@@ -13,7 +13,7 @@ export const updateBrackets = (brackets: BracketsCategory, match: Match): Bracke
   }
 
   const { round, roundIndex } = getRoundByMatch(brackets.rounds, match, type);
-  if (round === null || roundIndex === null) {
+  if (round === null) {
     return brackets;
   }
 

@@ -1,8 +1,13 @@
-<script lang="ts">
-  import type { Judoka } from '../types/Judoka';
+<script lang="ts" strictEvents>
+  import type { Judoka } from '../types/judoka.type';
+
+  interface $$Slots {
+    icon: Record<string, never>;
+  }
 
   export let athletes: Judoka[];
-  export let iconAction: ((id: string) => void) | undefined = undefined;
+  // eslint-disable-next-line no-unused-vars -- type declaration
+  export let iconAction: ((id: string) => void) | undefined;
 </script>
 
 {#if athletes.length > 0}
@@ -20,8 +25,8 @@
       </span>
       {#if iconAction !== undefined}
         <button
-          type="button"
           class="btn-icon variant-filled-primary [&>*]:pointer-events-none text-white"
+          type="button"
           on:click|preventDefault={() => iconAction?.(athlete.id)}><slot name="icon" /></button
         >
       {/if}

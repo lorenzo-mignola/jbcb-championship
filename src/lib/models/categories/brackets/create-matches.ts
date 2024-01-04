@@ -1,9 +1,9 @@
-import type { Judoka } from '$lib/types/Judoka';
-import type { Match } from '$lib/types/Match';
-import type { Rounds } from '$lib/types/Rounds';
+import type { Judoka } from '$lib/types/judoka.type';
+import type { Match } from '$lib/types/match.type';
+import type { Rounds } from '$lib/types/rounds.type';
 import { getRandomElement } from '$lib/utils/match';
 import { createMatch } from '../../match';
-import { removeAthlete } from './removeAthlete';
+import { removeAthlete } from './remove-athlete';
 
 const pickAthlete = (athletesNotPicket: (Judoka | undefined)[]) => {
   const athlete = getRandomElement(athletesNotPicket);
@@ -56,8 +56,9 @@ export const createMatches =
     for (let index = 0; index < matchInRound; index++) {
       const even = index % 2 === 0;
       const indexInArray = Math.floor(index / 2);
-      const athlete = even ? evenMatches[indexInArray] : oddMatches[indexInArray];
-      if (!athlete) {
+      const match = even ? evenMatches[indexInArray] : oddMatches[indexInArray];
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, svelte/@typescript-eslint/no-unnecessary-condition -- index can cause overflow
+      if (!match) {
         const { athlete: byeAthlete, remain: byeRemain } = pickAthlete(byeNotPicked);
         byeNotPicked = byeRemain;
         matches.push(createMatch(byeAthlete, undefined));

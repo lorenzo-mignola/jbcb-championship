@@ -1,3 +1,4 @@
+/* eslint-disable no-console -- used for debug */
 import { client } from '$lib/db/client.server';
 
 async function run() {

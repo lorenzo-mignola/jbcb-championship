@@ -2,7 +2,7 @@ import { getCategory } from '../../../../../lib/db/methods';
 import { isByeMatch } from '../../../../../lib/utils/category';
 import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ params }) => {
+export const load: PageLoad = ({ params }) => {
   const { category_id, match_id } = params;
   const category = getCategory(category_id);
 
@@ -15,7 +15,7 @@ export const load: PageLoad = async ({ params }) => {
   }
 
   const match = category?.matches[matchIndex];
-  const nextMatch = category?.matches.slice(matchIndex + 1).find((match) => !isByeMatch(match));
+  const nextMatch = category?.matches.slice(matchIndex + 1).find((m) => !isByeMatch(m));
 
   return {
     category,

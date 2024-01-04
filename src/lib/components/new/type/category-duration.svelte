@@ -3,6 +3,7 @@
   import Subtract from '$lib/icons/subtract.svelte';
   import { duration } from '$lib/store/$duration';
   import { formatTimeString } from '$lib/store/$timer';
+
   const step = 30 * 10;
   const min = 1 * 60 * 10;
   const max = 4 * 60 * 10;
@@ -23,22 +24,22 @@
 <div>
   <h2 class="h3">Durata incontro</h2>
   <div class="flex gap-3 items-center">
-    <input type="range" bind:value={$duration} {max} {min} {step} />
+    <input {max} {min} {step} type="range" bind:value={$duration} />
     <span>
       <button
-        type="button"
         class="btn-icon btn-icon-sm variant-soft-surface"
-        on:click|preventDefault={subtract}
-        disabled={$duration === min}><Subtract /></button
+        disabled={$duration === min}
+        type="button"
+        on:click|preventDefault={subtract}><Subtract /></button
       >
     </span>
     <p class="text-xl card variant-ringed-surface p-2">{formatTimeString($duration)}</p>
     <span>
       <button
-        type="button"
         class="btn-icon btn-icon-sm variant-soft-surface"
-        on:click|preventDefault={add}
-        disabled={$duration === max}><Add /></button
+        disabled={$duration === max}
+        type="button"
+        on:click|preventDefault={add}><Add /></button
       >
     </span>
   </div>

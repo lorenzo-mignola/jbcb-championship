@@ -1,9 +1,9 @@
-import type { DoublePoolCategory } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
-import type { Match } from '../../../types/Match';
+import type { DoublePoolCategory } from '../../../types/category.type';
+import type { Judoka } from '../../../types/judoka.type';
+import type { Match } from '../../../types/match.type';
 import { shuffleArray } from '../../../utils/category';
 import { createMatch } from '../../match';
-import { createMatchesPool } from '../singlePool/createSinglePool';
+import { createMatchesPool } from '../singlePool/create-single-pool';
 
 const createPools = (athletes: Judoka[]) => {
   const aAthletes: Judoka[] = [];
@@ -36,10 +36,12 @@ const getMatches = (
   const { A, B } = pools;
   for (let index = 0; index < Math.max(A.length, B.length); index++) {
     const aMatch = A[index];
+    // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- array overflow
     if (aMatch) {
       poolsMatch.push(aMatch);
     }
     const bMatch = B[index];
+    // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- array overflow
     if (bMatch) {
       poolsMatch.push(bMatch);
     }

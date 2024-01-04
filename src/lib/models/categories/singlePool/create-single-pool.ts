@@ -1,5 +1,5 @@
-import type { PoolCategory } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
+import type { PoolCategory } from '../../../types/category.type';
+import type { Judoka } from '../../../types/judoka.type';
 import { createMatch } from '../../match';
 
 const rotateArray = (athletes: Judoka[]) => {
@@ -13,7 +13,7 @@ export const createMatchesPool = (athletes: Judoka[]) => {
   const matchPerRound = Math.floor(athletesLength / 2);
   const rounds = athletesLength - (isOddPool ? 0 : 1);
   const matches = [];
-  let athletesInRound = JSON.parse(JSON.stringify(athletes));
+  let athletesInRound = JSON.parse(JSON.stringify(athletes)) as Judoka[];
   for (let round = 0; round < rounds; round++) {
     const last = athletesLength - (isOddPool ? 2 : 1);
     for (let matchInRound = 0; matchInRound < matchPerRound; matchInRound++) {

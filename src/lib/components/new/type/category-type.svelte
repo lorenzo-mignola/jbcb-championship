@@ -1,6 +1,8 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { athletes } from '../../../store/$athletes';
   import CategoryTypeButton from './category-type-button.svelte';
+
+  $: athletesCount = $athletes.length;
 </script>
 
 <div>
@@ -8,6 +10,6 @@
   <div class="btn-group variant-filled w-full mt-3">
     <CategoryTypeButton value="pool" />
     <CategoryTypeButton value="double_pool" />
-    <CategoryTypeButton value="brackets" disabled={$athletes.length < 6} />
+    <CategoryTypeButton disabled={athletesCount < 6} value="brackets" />
   </div>
 </div>

@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { formatTime } from '../../store/$timer';
-  import type { Match } from '../../types/Match';
+  import type { Match } from '../../types/match.type';
   import MatchRow from './match-row.svelte';
 
   export let matches: Match[];
@@ -20,10 +20,10 @@
     </tr>
   </thead>
   <tbody>
-    {#each matches as match, index}
+    {#each matches as match, index (match.id)}
       <tr>
         <MatchRow judoka={match.white} />
-        <td rowspan="2" class="time">{formatWithDuration(match.finalTime, match.goldenScore)}</td>
+        <td class="time" rowspan="2">{formatWithDuration(match.finalTime, match.goldenScore)}</td>
       </tr>
       <tr>
         <MatchRow judoka={match.blue} />
@@ -35,7 +35,7 @@
   </tbody>
 </table>
 
-<style>
+<style lang="postcss">
   .time {
     vertical-align: middle;
   }

@@ -1,5 +1,5 @@
-<script lang="ts">
-  import type { JudokaType } from '../../types/Match';
+<script lang="ts" strictEvents>
+  import type { JudokaType } from '../../types/match.type';
   import OsaekomiTimer from '../osaekomi/osaekomi-timer.svelte';
 
   export let oseakomiType: JudokaType | null;

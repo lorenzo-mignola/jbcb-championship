@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   export let link: string;
   export let text: string;
 </script>

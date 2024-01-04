@@ -1,10 +1,10 @@
 import { nanoid } from 'nanoid';
 import { writable } from 'svelte/store';
-import type { Judoka } from '../types/Judoka';
+import type { Judoka } from '../types/judoka.type';
 
 export const athletes = writable<Judoka[]>([]);
 
-export const addAthlete = (newAthlete: { name: string; club?: string }) =>
+export const addAthlete = (newAthlete: { name: string; club?: string }) => {
   athletes.update((old) => [
     ...old,
     {
@@ -12,8 +12,12 @@ export const addAthlete = (newAthlete: { name: string; club?: string }) =>
       ...newAthlete
     }
   ]);
+};
 
-export const removeAthlete = (id: string) =>
+export const removeAthlete = (id: string) => {
   athletes.update((old) => old.filter((athlete) => athlete.id !== id));
+};
 
-export const resetAthletes = () => athletes.set([]);
+export const resetAthletes = () => {
+  athletes.set([]);
+};

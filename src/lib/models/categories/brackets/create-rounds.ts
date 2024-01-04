@@ -1,8 +1,8 @@
-import type { Judoka } from '$lib/types/Judoka';
-import type { Rounds } from '$lib/types/Rounds';
+import type { Judoka } from '$lib/types/judoka.type';
+import type { Rounds } from '$lib/types/rounds.type';
 import { getRandomElement } from '$lib/utils/match';
-import { createMatches } from './createMatches';
-import { removeAthlete } from './removeAthlete';
+import { createMatches } from './create-matches';
+import { removeAthlete } from './remove-athlete';
 
 const getCountsAndFirstRound = (athletes: Judoka[]) => {
   const athletesCount = athletes.length;

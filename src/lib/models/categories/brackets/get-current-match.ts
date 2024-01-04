@@ -1,4 +1,4 @@
-import type { Match } from '../../../types/Match';
+import type { Match } from '../../../types/match.type';
 
 export const getCurrentMatch = (matches: Match[], currentMatchId: string) => {
   const currentIndex = matches.findIndex((match) => match.id === currentMatchId);

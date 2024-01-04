@@ -1,9 +1,8 @@
 import { produce } from 'immer';
 import { writable } from 'svelte/store';
-import type { JudokaType, Match } from '../types/Match';
-import { localStorageMatch, resetStorageMatch } from './$localStorageMatch';
+import type { JudokaType, Match } from '../types/match.type';
 
-export const match = writable<Match | undefined>();
+export const match = writable<Match | undefined>(undefined);
 
 export const ippon = (type: JudokaType) => {
   match.update(($match) => {
@@ -11,6 +10,7 @@ export const ippon = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.ippon += 1;
     });
   });
@@ -22,6 +22,7 @@ export const removeIppon = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.ippon -= 1;
       if ($matchState.winner) {
         $matchState.winner = undefined;
@@ -36,6 +37,7 @@ export const wazari = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.wazari += 1;
     });
   });
@@ -47,6 +49,7 @@ export const removeWazari = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.wazari -= 1;
       if ($matchState.winner) {
         $matchState.winner = undefined;
@@ -61,6 +64,7 @@ export const shido = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.shido += 1;
     });
   });
@@ -72,9 +76,8 @@ export const removeShido = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[type]!.shido -= 1;
     });
   });
 };
-
-match.subscribe(($match) => ($match ? localStorageMatch.set($match) : resetStorageMatch()));

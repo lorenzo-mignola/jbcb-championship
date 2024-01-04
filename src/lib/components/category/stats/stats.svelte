@@ -1,7 +1,7 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
-  import type { Category } from '../../../../lib/types/Category';
-  import { mapFinalsToRounds } from '../../../models/categories/doublePool/mapFinalsToRounds';
+  import { mapFinalsToRounds } from '../../../models/categories/doublePool/map-finals-to-rounds';
+  import type { Category } from '../../../types/category.type';
   import Brackets from './brackets.svelte';
   import Matches from './matches.svelte';
   import RankingDoublePool from './ranking-double-pool.svelte';
@@ -24,7 +24,7 @@
       <svelte:fragment slot="lead">📣</svelte:fragment>
       <svelte:fragment slot="summary">Incontri</svelte:fragment>
       <svelte:fragment slot="content">
-        <Matches matches={category.matches} categoryDuration={category.duration} />
+        <Matches categoryDuration={category.duration} matches={category.matches} />
       </svelte:fragment>
     </AccordionItem>
 

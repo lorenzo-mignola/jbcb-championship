@@ -1,9 +1,9 @@
-import type { BracketsCategory } from '$lib/types/Category';
-import type { Match } from '$lib/types/Match';
-import type { BracketRound } from '$lib/types/Rounds';
+import type { BracketsCategory } from '$lib/types/category.type';
+import type { Match } from '$lib/types/match.type';
+import type { BracketRound } from '$lib/types/rounds.type';
 import { produce } from 'immer';
-import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
-import { resetAthlete } from './resetAthlete';
+import { getMatchIndex, isWhiteOrBlueNext } from './find-round-and-match';
+import { resetAthlete } from './reset-athlete';
 
 export const updateLoserBrackets = (
   brackets: BracketsCategory,
@@ -21,7 +21,7 @@ export const updateLoserBrackets = (
     return brackets.rounds;
   }
 
-  const winner = match[match.winner!];
+  const winner = match[match.winner];
 
   const nextMatchIndex = type === 'loser' ? matchIndex : Math.floor(matchIndex / 2);
 

@@ -1,7 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import type { Judoka } from '../../../types/Judoka';
-import type { Match } from '../../../types/Match';
-import { createSinglePool } from './createSinglePool';
+import type { Judoka } from '../../../types/judoka.type';
+import { createSinglePool } from './create-single-pool';
 
 const name = 'single';
 
@@ -57,10 +56,7 @@ describe('SinglePool odds', () => {
   it('should not have duplicate', () => {
     const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
-    if (matches.some((match) => match === null)) {
-      expect.fail();
-    }
-    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white?.id}-${blue?.id}`);
+    const onlyId = matches.map(({ white, blue }) => `${white?.id}-${blue?.id}`);
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });
@@ -118,10 +114,7 @@ describe('SinglePool even', () => {
   it('should not have duplicate', () => {
     const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
-    if (matches.some((match) => match === null)) {
-      expect.fail();
-    }
-    const onlyId = (matches as Match[]).map(({ white, blue }) => `${white?.id}-${blue?.id}`);
+    const onlyId = matches.map(({ white, blue }) => `${white?.id}-${blue?.id}`);
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });

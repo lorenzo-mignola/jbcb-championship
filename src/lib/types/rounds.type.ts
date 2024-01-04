@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { MatchSchema } from './Match';
+import { MatchSchema } from './match.type';
 
 const BracketRoundSchema = z.object({
   winner: z.array(MatchSchema),

@@ -1,6 +1,6 @@
-import type { PoolCategory } from '$lib/types/Category';
-import type { Judoka } from '$lib/types/Judoka';
-import type { Match } from '$lib/types/Match';
+import type { PoolCategory } from '$lib/types/category.type';
+import type { Judoka } from '$lib/types/judoka.type';
+import type { Match } from '$lib/types/match.type';
 
 export const poolToCategory = (
   pool: Match[],
@@ -9,7 +9,7 @@ export const poolToCategory = (
 ): PoolCategory => {
   return {
     _id: '',
-    name: name,
+    name,
     duration: 0,
     type: 'pool',
     matches: pool,

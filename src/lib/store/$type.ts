@@ -1,5 +1,5 @@
 import { writable } from 'svelte/store';
-import type { Category } from '../types/Category';
+import type { Category } from '../types/category.type';
 
 export const type = writable<Category['type'] | null>(null);
 

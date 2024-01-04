@@ -1,6 +1,6 @@
-import type { Category, DoublePoolCategory } from '../types/Category';
-import type { Judoka } from '../types/Judoka';
-import type { Match } from '../types/Match';
+import type { Category, DoublePoolCategory } from '../types/category.type';
+import type { Judoka } from '../types/judoka.type';
+import type { Match } from '../types/match.type';
 import { getOpponentType } from './judoka';
 
 interface RankingAthlete {
@@ -19,10 +19,11 @@ const getRankingDoublePool = (
     return [];
   }
   const gold = finalMatch[winnerFinal];
+  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
   const silver = finalMatch[getOpponentType(winnerFinal)!];
   const [firstSemi, secondSemi] = semifinals;
-  const firstSemiLoser = getOpponentType(firstSemi?.winner ?? null);
-  const secondSemiLoser = getOpponentType(secondSemi?.winner ?? null);
+  const firstSemiLoser = getOpponentType(firstSemi.winner ?? null);
+  const secondSemiLoser = getOpponentType(secondSemi.winner ?? null);
   if (!firstSemiLoser || !secondSemiLoser) {
     return [];
   }
@@ -77,6 +78,7 @@ const getRankingBrackets = (matches: Match[]) => {
     });
     ranking.push({
       rank: 2,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
       id: goldFinal[getOpponentType(goldFinal.winner)!]?.id
     });
   }
@@ -88,6 +90,7 @@ const getRankingBrackets = (matches: Match[]) => {
     });
     ranking.push({
       rank: 5,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
       id: firstBronzeFinal[getOpponentType(firstBronzeFinal.winner)!]?.id
     });
   }
@@ -98,6 +101,7 @@ const getRankingBrackets = (matches: Match[]) => {
     });
     ranking.push({
       rank: 5,
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
       id: secondBronzeFinal[getOpponentType(secondBronzeFinal.winner)!]?.id
     });
   }
@@ -157,7 +161,7 @@ export const getRankingIcon = (rankValue: number) => {
 };
 
 export const shuffleArray = <T>(originalArray: T[]) => {
-  const array: T[] = JSON.parse(JSON.stringify(originalArray));
+  const array = JSON.parse(JSON.stringify(originalArray)) as T[];
   return array.sort(() => Math.random() - 0.5);
 };
 
@@ -176,6 +180,7 @@ export const getRanking = (category?: Category): RankingAthlete[] => {
   if (category.type === 'double_pool') {
     return getRankingDoublePool(category.semifinals, category.finalMatch);
   }
+  // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- used as switch case
   if (category.type === 'brackets') {
     return getRankingBrackets(category.matches);
   }

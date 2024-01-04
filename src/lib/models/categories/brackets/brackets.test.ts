@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion -- test fail if is null*/
 import { describe, expect, it } from 'vitest';
-import type { BracketsCategory } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
-import type { Match } from '../../../types/Match';
+import type { BracketsCategory } from '../../../types/category.type';
+import type { Judoka } from '../../../types/judoka.type';
+import type { Match } from '../../../types/match.type';
 import { createBrackets, updateBrackets } from './brackets';
-import { getCurrentMatch } from './getCurrentMatch';
+import { getCurrentMatch } from './get-current-match';
 
 const athletes: Judoka[] = [
   { id: '1', name: '1' },
@@ -165,11 +166,11 @@ describe('updateBrackets', () => {
   ])('should set winner second match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
-      ({ white, blue }) => !!white || !!blue
+      ({ white, blue }) => Boolean(white) || Boolean(blue)
     ).length;
 
     const firstMatch = brackets.rounds[0].winner[1];
-    const { blue } = firstMatch;
+    const { blue: blueFirst } = firstMatch;
     const winner = 'blue';
 
     const secondMatchUpdated: Match = {
@@ -179,13 +180,13 @@ describe('updateBrackets', () => {
 
     const bracketsUpdated = updateBrackets(brackets as BracketsCategory, secondMatchUpdated);
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
-      ({ white, blue }) => !!white || !!blue
+      ({ white, blue }) => Boolean(white) || Boolean(blue)
     ).length;
 
     expect(bracketsUpdated.rounds[0].winner[1].winner).toBe('blue');
     expect(brackets.matches[1].id).toBe(bracketsUpdated.matches[1].id);
     expect(updatedMatchesSetLengths).toBeGreaterThan(matchesSetLengths);
-    expect(bracketsUpdated.rounds[1].winner[0].blue!.id).toBe(blue!.id);
+    expect(bracketsUpdated.rounds[1].winner[0].blue!.id).toBe(blueFirst!.id);
   });
 
   it.each([
@@ -201,12 +202,12 @@ describe('updateBrackets', () => {
   ])('should set winner first match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
-      ({ white, blue }) => !!white || !!blue
+      ({ white, blue }) => Boolean(white) || Boolean(blue)
     ).length;
 
     const firstMatch = brackets.rounds[0].winner[0];
-    const { white } = firstMatch;
-    if (!white) {
+    const { white: whiteFirst } = firstMatch;
+    if (!whiteFirst) {
       expect.fail("white can't be undefined");
     }
     const winner = 'white';
@@ -214,7 +215,7 @@ describe('updateBrackets', () => {
     const firstMatchUpdated: Match = {
       ...firstMatch,
       white: {
-        ...white,
+        ...whiteFirst,
         ippon: 1,
         wazari: 1,
         shido: 1
@@ -225,13 +226,13 @@ describe('updateBrackets', () => {
 
     const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
-      ({ white, blue }) => !!white || !!blue
+      ({ white, blue }) => Boolean(white) || Boolean(blue)
     ).length;
 
     expect(bracketsUpdated.rounds[0].winner[0].winner).toBe('white');
     expect(brackets.matches[0].id).toBe(bracketsUpdated.matches[0].id);
     expect(updatedMatchesSetLengths).toBeGreaterThan(matchesSetLengths);
-    expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
+    expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(whiteFirst.id);
     expect(bracketsUpdated.rounds[1].winner[0].white!.ippon).toBe(0);
     expect(bracketsUpdated.rounds[1].winner[0].white!.wazari).toBe(0);
     expect(bracketsUpdated.rounds[1].winner[0].white!.shido).toBe(0);

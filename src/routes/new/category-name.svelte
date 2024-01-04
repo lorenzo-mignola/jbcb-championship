@@ -1,7 +1,7 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
+  import { CATEGORY_NAME } from '../../lib/utils/constants';
   import { goto } from '$app/navigation';
   import { page } from '$app/stores';
-  import { CATEGORY_NAME } from '../../lib/utils/constants';
 
   const categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
 
@@ -17,9 +17,9 @@
   <h2 class="h3">Nome categoria</h2>
   <input
     class="input"
+    placeholder="Categoria"
     title="Nome categoria"
     type="text"
-    placeholder="Categoria"
     on:focusout={handleSetCategoryName}
     bind:value={name}
   />

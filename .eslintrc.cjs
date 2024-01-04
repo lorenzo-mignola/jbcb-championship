@@ -1,14 +1,29 @@
+const { rules } = require('eslint-config-prettier');
+const { resolve } = require('node:path');
+
+const project = resolve(__dirname, 'tsconfig.json');
+
 module.exports = {
   root: true,
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:svelte/recommended',
+    require.resolve('@vercel/style-guide/eslint/browser'),
+    require.resolve('@vercel/style-guide/eslint/node'),
+    require.resolve('@vercel/style-guide/eslint/typescript'),
+    'plugin:svelte/all',
+    'plugin:svelte/prettier',
     'prettier'
   ],
   parser: '@typescript-eslint/parser',
   plugins: ['@typescript-eslint'],
+  settings: {
+    'import/resolver': {
+      typescript: {
+        project
+      }
+    }
+  },
   parserOptions: {
+    project,
     sourceType: 'module',
     ecmaVersion: 2020,
     extraFileExtensions: ['.svelte']
@@ -24,7 +39,27 @@ module.exports = {
       parser: 'svelte-eslint-parser',
       parserOptions: {
         parser: '@typescript-eslint/parser'
+      },
+      rules: {
+        'import/no-mutable-exports': 'off',
+        'import/no-unresolved': [2, { ignore: ['.app/', 'virtual:pwa-info'] }],
+        'no-unused-vars': ['error', { varsIgnorePattern: '..Slots' }]
       }
     }
-  ]
+  ],
+  rules: {
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'import/order': 'off',
+    'svelte/block-lang': [
+      'error',
+      {
+        enforceScriptPresent: false,
+        enforceStylePresent: false,
+        script: ['ts', null], // a list of languages or null to signify no language specified
+        style: ['postcss'] // same as for script, a single value can be used instead of an array.
+      }
+    ],
+    'svelte/no-unused-class-name': 'off',
+    camelcase: ['error', { allow: ['category_id', 'match_id', 'double_pool'] }]
+  }
 };

@@ -1,5 +1,4 @@
-/* eslint-disable no-useless-escape */
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+/* eslint-disable  -- copied from internet */
 // @ts-nocheck
 
 export const isMobile = () => {
