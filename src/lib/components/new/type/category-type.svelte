@@ -9,7 +9,7 @@
   <h2 class="h3">Tipo di categoria</h2>
   <div class="btn-group variant-filled w-full mt-3">
     <CategoryTypeButton value="pool" />
-    <CategoryTypeButton value="double_pool" />
+    <CategoryTypeButton disabled={athletesCount < 4} value="double_pool" />
     <CategoryTypeButton disabled={athletesCount < 6} value="brackets" />
   </div>
 </div>

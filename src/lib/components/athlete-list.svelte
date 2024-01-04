@@ -32,5 +32,8 @@
       {/if}
     </li>
   {/each}
-  <hr />
+
+  {#if athletes.length > 0}
+    <hr />
+  {/if}
 </ul>

@@ -3,7 +3,7 @@ import { createCategory } from '../../../lib/db/methods.server';
 import { CategoryBaseSchema } from '../../../lib/types/category.type';
 import type { RequestHandler } from './$types';
 
-const schema = CategoryBaseSchema.pick({
+const schemaCreate = CategoryBaseSchema.pick({
   name: true,
   athletes: true,
   type: true,
@@ -13,6 +13,6 @@ const schema = CategoryBaseSchema.pick({
 export const POST: RequestHandler = async ({ request }) => {
   const category = (await request.json()) as unknown;
 
-  const id = await createCategory(schema.parse(category));
-  return json(id.toString());
+  const id = await createCategory(schemaCreate.parse(category));
+  return json(id);
 };

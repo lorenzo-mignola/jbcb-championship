@@ -1,6 +1,6 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
-  import { saveMatch } from '$lib/db/methods';
+  import axios from 'redaxios';
   import { onMount } from 'svelte';
   import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
   import { match } from '../store/$match';
@@ -21,8 +21,12 @@
     }
   });
 
-  const save = (matchToUpdate: Match) => {
-    const categoryUpdated = saveMatch(categoryId, matchToUpdate);
+  const save = async (matchToUpdate: Match) => {
+    const { data: categoryUpdated } = await axios.patch(
+      `/api/categories/${categoryId}/match`,
+      matchToUpdate
+    );
+
     if (!categoryUpdated) {
       return;
     }

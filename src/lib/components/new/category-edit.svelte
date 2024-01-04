@@ -14,7 +14,7 @@
   }
 
   export let handleClick: () => void;
-  const categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
+  $: categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
 
   $: canClick = [categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
 </script>
@@ -22,13 +22,14 @@
 <div class="flex flex-col gap-4">
   <CategoryName />
   <CategoryDuration />
-  <CategoryType />
 </div>
 
 <div class="my-7">
   <Athletes />
   <NewAthlete />
 </div>
+
+<CategoryType />
 
 <button
   class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10"

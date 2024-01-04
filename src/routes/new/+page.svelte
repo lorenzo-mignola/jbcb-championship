@@ -1,11 +1,12 @@
 <script lang="ts" strictEvents>
+  import { goto } from '$app/navigation';
+  import { page } from '$app/stores';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
   import { athletes, resetAthletes } from '$lib/store/$athletes';
   import { duration } from '$lib/store/$duration';
   import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
-  import { page } from '$app/stores';
-  import { goto } from '$app/navigation';
+  import axios from 'redaxios';
 
   async function handleCreate() {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
@@ -13,16 +14,12 @@
       return;
     }
 
-    const res = await fetch('/api/categories', {
-      method: 'POST',
-      body: JSON.stringify({
-        name: categoryName,
-        athletes: $athletes,
-        type: $type,
-        duration: $duration
-      })
+    const { data: newCategoryId } = await axios.post<string>('/api/categories', {
+      name: categoryName,
+      athletes: $athletes,
+      type: $type,
+      duration: $duration
     });
-    const newCategoryId = await res.json();
 
     resetAthletes();
     goto(`/categories/${newCategoryId}`);

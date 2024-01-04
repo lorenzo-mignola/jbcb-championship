@@ -1,12 +1,11 @@
 <script lang="ts" strictEvents>
-  import { getAllCategories } from '$lib/db/methods';
   import Check from '$lib/icons/check.svelte';
 
-  const categories = getAllCategories();
+  export let data;
 </script>
 
 <div class="flex flex-col gap-3">
-  {#each categories as category (category._id)}
+  {#each data.categories as category (category._id)}
     <a href={`/categories/${category._id}`}>
       <button
         class="btn w-full text-xl p-4"
