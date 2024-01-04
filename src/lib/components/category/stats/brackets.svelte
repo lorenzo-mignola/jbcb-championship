@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Rounds } from '../../../../lib/types/Category';
+  import type { Rounds } from '$lib/types/Rounds';
   import RoundBrackets from './round-brackets.svelte';
 
   export let rounds: Rounds;

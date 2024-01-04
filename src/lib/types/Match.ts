@@ -17,7 +17,7 @@ export const MatchSchema = z.object({
   id: z.string(),
   white: MatchJudokaSchema.optional(),
   blue: MatchJudokaSchema.optional(),
-  winner: JudokaTypeSchema,
+  winner: JudokaTypeSchema.optional(),
   finalTime: z.number().or(z.null()),
   goldenScore: z.boolean().or(z.null())
 });

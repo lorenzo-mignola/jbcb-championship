@@ -47,10 +47,10 @@
 
 <PlayPauseButton />
 
-{#if category?.id && match}
-  <SaveButton categoryId={category.id} />
+{#if category?._id && match}
+  <SaveButton categoryId={category._id} />
 {/if}
 
-{#if category?.id}
-  <Footer categoryId={category.id} {nextMatch} />
+{#if category?._id}
+  <Footer categoryId={category._id} {nextMatch} />
 {/if}

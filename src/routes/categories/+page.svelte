@@ -6,8 +6,8 @@
 </script>
 
 <div class="flex flex-col gap-3">
-  {#each categories as category (category.id)}
-    <a href={`/categories/${category.id}`}>
+  {#each categories as category (category._id)}
+    <a href={`/categories/${category._id}`}>
       <button
         type="button"
         class="btn w-full text-xl p-4"

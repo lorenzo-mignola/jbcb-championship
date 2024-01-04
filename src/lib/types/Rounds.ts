@@ -9,4 +9,5 @@ const BracketRoundSchema = z.object({
 
 export const RoundsSchema = z.array(BracketRoundSchema);
 
-export type Rounds = z.infer<typeof BracketRoundSchema>[];
+export type BracketRound = z.infer<typeof BracketRoundSchema>;
+export type Rounds = BracketRound[];

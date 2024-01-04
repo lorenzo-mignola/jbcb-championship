@@ -1,7 +1,8 @@
+import type { BracketsCategory } from '$lib/types/Category';
+import type { JudokaType, Match } from '$lib/types/Match';
+import type { BracketRound } from '$lib/types/Rounds';
+import { getOpponentType } from '$lib/utils/judoka';
 import { produce } from 'immer';
-import type { BracketRound, BracketsCategory } from '../../../types/Category';
-import type { JudokaType, Match } from '../../../types/Match';
-import { getOpponentType } from '../../../utils/judoka';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
 import { resetAthlete } from './resetAthlete';
 

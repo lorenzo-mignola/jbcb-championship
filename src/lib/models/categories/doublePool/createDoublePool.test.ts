@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { DoublePoolCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import { resetAthlete } from '../brackets/resetAthlete';
 import { createDoublePool } from './createDoublePool';
@@ -50,7 +51,10 @@ describe('createDoublePool', () => {
   it('should update category', () => {
     const doublePool = createDoublePool('test', athletes, 0);
 
-    const poolUpdated = updateDoublePool(doublePool, { ...doublePool.matches[0], winner: 'white' });
+    const poolUpdated = updateDoublePool(doublePool as DoublePoolCategory, {
+      ...doublePool.matches[0],
+      winner: 'white'
+    });
     const { pools, currentMatch, matches } = poolUpdated;
 
     expect(matches[0].winner).toBe('white');
@@ -67,7 +71,7 @@ describe('createDoublePool', () => {
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
-      { ...doublePool, currentMatch: lastMatchPool.id },
+      { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
       {
         ...lastMatchPool,
         winner: 'white'
@@ -88,7 +92,7 @@ describe('createDoublePool', () => {
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
-      { ...doublePool, currentMatch: lastMatchPool.id },
+      { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
       {
         ...lastMatchPool,
         winner: 'white'
@@ -123,7 +127,7 @@ describe('createDoublePool', () => {
     }
 
     const poolUpdated = updateDoublePool(
-      { ...doublePool, currentMatch: firstSemifinal.id },
+      { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
         winner: 'white'
@@ -142,7 +146,7 @@ describe('createDoublePool', () => {
     }
 
     const poolUpdated = updateDoublePool(
-      { ...doublePool, currentMatch: secondSemifinal.id },
+      { ...doublePool, currentMatch: secondSemifinal.id } as DoublePoolCategory,
       {
         ...secondSemifinal,
         winner: 'white'
@@ -162,7 +166,7 @@ describe('createDoublePool', () => {
     }
 
     const poolUpdatedFirstSemi = updateDoublePool(
-      { ...doublePool, currentMatch: firstSemifinal.id },
+      { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
         white: resetAthlete({
@@ -211,7 +215,7 @@ describe('createDoublePool', () => {
     }
 
     const poolUpdatedFirstSemi = updateDoublePool(
-      { ...doublePool, currentMatch: firstSemifinal.id },
+      { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
         white: resetAthlete({

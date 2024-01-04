@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { BracketsCategory } from '../../../types/Category';
 import type { Judoka } from '../../../types/Judoka';
 import type { Match } from '../../../types/Match';
 import { createBrackets, updateBrackets } from './brackets';
@@ -176,7 +177,7 @@ describe('updateBrackets', () => {
       winner
     };
 
-    const bracketsUpdated = updateBrackets(brackets, secondMatchUpdated);
+    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, secondMatchUpdated);
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
       ({ white, blue }) => !!white || !!blue
     ).length;
@@ -222,7 +223,7 @@ describe('updateBrackets', () => {
       winner
     };
 
-    const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
       ({ white, blue }) => !!white || !!blue
     ).length;
@@ -261,7 +262,7 @@ describe('updateBrackets', () => {
       winner
     };
 
-    const bracketsUpdated = updateBrackets(brackets, lastMatchUpdated);
+    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, lastMatchUpdated);
     const secondRound = bracketsUpdated.rounds[1];
     const lastMatchSecondRound = secondRound.winner[secondRound.winner.length - 1];
 
@@ -281,7 +282,10 @@ describe('updateBrackets', () => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
     const firstMatch = brackets.rounds[0].winner[0];
-    const bracketsUpdatedFirst = updateBrackets(brackets, { ...firstMatch, winner: 'white' });
+    const bracketsUpdatedFirst = updateBrackets(brackets as BracketsCategory, {
+      ...firstMatch,
+      winner: 'white'
+    });
 
     const secondMatch = bracketsUpdatedFirst.rounds[1].winner[0];
     const { white } = secondMatch;
@@ -308,7 +312,7 @@ describe('updateBrackets', () => {
         winner
       };
 
-      const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+      const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
 
       expect(bracketsUpdated.rounds[1].loser[0].white!.id).toBe(white!.id);
     }
@@ -321,7 +325,7 @@ describe('updateBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
         ...firstMatchWhite,
         winner: 'white'
       });
@@ -358,7 +362,7 @@ describe('updateLoserBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
         ...firstMatchWhite,
         winner: 'white'
       });
@@ -394,7 +398,7 @@ describe('updateLoserBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets, {
+      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
         ...firstMatchWhite,
         winner: 'white'
       });
@@ -439,7 +443,7 @@ describe('update bye', () => {
 
       expect(blue).toBeUndefined();
 
-      const bracketsUpdated = updateBrackets(brackets, firstMatchUpdated);
+      const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
 
       expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
       expect(bracketsUpdated.rounds[1].loser[0].blue).toBeUndefined();
@@ -453,7 +457,7 @@ describe('update bye', () => {
 
       const firstMatch = brackets.rounds[0].winner[1];
 
-      const bracketsFirstMatchUpdated = updateBrackets(brackets, {
+      const bracketsFirstMatchUpdated = updateBrackets(brackets as BracketsCategory, {
         ...firstMatch,
         winner: 'blue'
       });
@@ -476,7 +480,7 @@ describe('update bye', () => {
 
     const firstMatch = brackets.rounds[0].winner[1];
 
-    const bracketsFirstMatchUpdated = updateBrackets(brackets, {
+    const bracketsFirstMatchUpdated = updateBrackets(brackets as BracketsCategory, {
       ...firstMatch,
       winner: 'blue'
     });
@@ -510,7 +514,10 @@ describe('currentMatch', () => {
       expect.fail("currentMatch can't be undefined");
     }
 
-    const bracketsUpdated = updateBrackets(brackets, { ...firstMatch, winner: 'white' });
+    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, {
+      ...firstMatch,
+      winner: 'white'
+    });
 
     expect(bracketsUpdated.currentMatch).not.toBeUndefined();
     expect(bracketsUpdated.currentMatch).toBe(brackets.matches[1].id);

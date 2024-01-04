@@ -24,21 +24,21 @@
       <div class="flex items-center gap-1 md:gap-3 justify-end md:justify-between">
         {#if !started}
           <a
-            href={`/categories/${category.id}/edit?${CATEGORY_NAME}=${category.name}`}
+            href={`/categories/${category._id}/edit?${CATEGORY_NAME}=${category.name}`}
             class="btn-icon btn-sm variant-soft-surface"
             title="Modifica"><Edit /></a
           >
         {/if}
 
         <a
-          href={`/categories/${category.id}/print`}
+          href={`/categories/${category._id}/print`}
           class="btn-icon btn-sm variant-soft-surface"
           title="Stampa"
           target="_blank"><Print /></a
         >
 
         {#if category.currentMatch}
-          <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
+          <a href={`/categories/${category._id}/match/${category.currentMatch}`}>
             <button class="btn md:btn-lg variant-filled-primary shadow-md"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >

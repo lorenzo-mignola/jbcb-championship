@@ -25,7 +25,7 @@
     if (!categoryName || !$type || !category) {
       return;
     }
-    const idNewCategory = editCategory(category.id, {
+    const idNewCategory = editCategory(category._id, {
       name: categoryName,
       athletes: $athletes,
       type: $type,

@@ -24,7 +24,7 @@ export type PoolCategory = z.infer<typeof PoolCategorySchema>;
 
 const BracketsCategorySchema = CategoryBaseSchema.extend({
   type: z.literal(CategoryTypeSchema.enum.brackets),
-  rounds: z.array(RoundsSchema)
+  rounds: RoundsSchema
 });
 
 export type BracketsCategory = z.infer<typeof BracketsCategorySchema>;

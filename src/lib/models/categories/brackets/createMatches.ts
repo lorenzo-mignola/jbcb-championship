@@ -1,7 +1,7 @@
-import type { Rounds } from '../../../types/Category';
-import type { Judoka } from '../../../types/Judoka';
-import type { Match } from '../../../types/Match';
-import { getRandomElement } from '../../../utils/match';
+import type { Judoka } from '$lib/types/Judoka';
+import type { Match } from '$lib/types/Match';
+import type { Rounds } from '$lib/types/Rounds';
+import { getRandomElement } from '$lib/utils/match';
 import { createMatch } from '../../match';
 import { removeAthlete } from './removeAthlete';
 

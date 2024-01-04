@@ -7,7 +7,7 @@ test('should render the category name', async ({ page }) => {
   if (!category) {
     fail();
   }
-  await page.goto(`/categories/${category.id}/match/${category.currentMatch}`);
+  await page.goto(`/categories/${category._id}/match/${category.currentMatch}`);
   await expect(page.getByText('Test categoria')).toBeVisible();
 });
 
@@ -16,7 +16,7 @@ test('should render the judoka name', async ({ page }) => {
   if (!category) {
     fail();
   }
-  await page.goto(`/categories/${category.id}/match/${category.currentMatch}`);
+  await page.goto(`/categories/${category._id}/match/${category.currentMatch}`);
   if (!category.matches[0] || !category.matches[0].white || !category.matches[0].blue) {
     fail();
   }

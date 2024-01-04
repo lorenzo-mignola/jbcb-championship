@@ -1,3 +1,4 @@
+import { nanoid } from 'nanoid';
 import { getByeWinner, needSkipMatch } from '../models/categories/brackets/autoUpdateNextMatch';
 import { createBrackets, updateBrackets } from '../models/categories/brackets/brackets';
 import { createDoublePool } from '../models/categories/doublePool/createDoublePool';
@@ -16,9 +17,10 @@ export const createCategory = (
 ) => {
   if (typeof localStorage !== 'undefined') {
     const category = generateCategory({ name, athletes, type, duration });
-    db.data.categories.push(category);
+    const _id = nanoid();
+    db.data.categories.push({ ...category, _id });
     db.write();
-    return category.id;
+    return _id;
   }
 };
 
@@ -87,13 +89,13 @@ export const removeClub = (clubToRemove: string) => {
 };
 
 export const getCategory = (id: string | null) =>
-  db ? db.data.categories.find((category) => category.id === id) : undefined;
+  db ? db.data.categories.find((category) => category._id === id) : undefined;
 
 export const saveMatch = (categoryId: string, matchUpdated: Match): Category | undefined => {
   if (!db) {
     return;
   }
-  const category = db.data.categories.find((category) => category.id === categoryId);
+  const category = db.data.categories.find((category) => category._id === categoryId);
   if (!category) {
     return;
   }
@@ -107,7 +109,7 @@ export const saveMatch = (categoryId: string, matchUpdated: Match): Category | u
       (match) => match.id === categoryUpdated.currentMatch
     )!;
     const nextMatchByeWinner = getByeWinner(nextMatch);
-    return saveMatch(categoryUpdated.id, { ...nextMatch, winner: nextMatchByeWinner });
+    return saveMatch(categoryUpdated._id, { ...nextMatch, winner: nextMatchByeWinner });
   }
 
   return categoryUpdated;
@@ -120,7 +122,7 @@ export const deleteAll = () => {
 
 function updateCategories(categoryId: string, categoryUpdated: Category) {
   return db.data.categories.map((category) => {
-    if (category.id !== categoryId) {
+    if (category._id !== categoryId) {
       return category;
     }
     return categoryUpdated;
@@ -141,7 +143,7 @@ function updateCategory(category: Category, matchUpdated: Match) {
 }
 
 const removeCategory = (categoryId: string) => {
-  db.data.categories = db.data.categories.filter((category) => category.id !== categoryId);
+  db.data.categories = db.data.categories.filter((category) => category._id !== categoryId);
   db.write();
 };
 

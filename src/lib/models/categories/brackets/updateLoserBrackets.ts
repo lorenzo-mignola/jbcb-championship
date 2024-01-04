@@ -1,6 +1,7 @@
+import type { BracketsCategory } from '$lib/types/Category';
+import type { Match } from '$lib/types/Match';
+import type { BracketRound } from '$lib/types/Rounds';
 import { produce } from 'immer';
-import type { BracketRound, BracketsCategory } from '../../../types/Category';
-import type { Match } from '../../../types/Match';
 import { getMatchIndex, isWhiteOrBlueNext } from './findRoundAndMatch';
 import { resetAthlete } from './resetAthlete';
 
