@@ -1,8 +1,6 @@
 <script lang="ts" strictEvents>
-  import { getSettings } from '../../lib/db/methods';
   import { addAthlete } from '../../lib/store/$athletes';
-
-  const clubs = getSettings().clubs || [];
+  import { clubs } from '../../lib/store/$settings';
 
   let name = '';
   let club = '';
@@ -28,7 +26,7 @@
       <span>Club</span>
       <select class="select" bind:value={club}>
         <option disabled value="">Seleziona club</option>
-        {#each clubs as clubOption (clubOption)}
+        {#each $clubs as clubOption (clubOption)}
           <option value={clubOption}>{clubOption}</option>
         {/each}
       </select>

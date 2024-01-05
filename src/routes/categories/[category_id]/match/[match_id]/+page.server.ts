@@ -1,8 +1,20 @@
-import { getCategory } from '$lib/db/methods.server';
+import { getCategory } from '$lib/db/methods';
+import type { Category } from '../../../../../lib/types/category.type';
+import type { Match } from '../../../../../lib/types/match.type';
 import { isByeMatch } from '../../../../../lib/utils/category';
 import type { PageServerLoad } from './$types';
 
-export const load: PageServerLoad = async ({ params }) => {
+type Output =
+  | {
+      category: undefined;
+    }
+  | {
+      category: Pick<Category, 'name' | 'duration'> & { _id: string };
+      match: Match;
+      nextMatch: Match | undefined;
+    };
+
+export const load: PageServerLoad = async ({ params }): Promise<Output> => {
   const { category_id, match_id } = params;
   const category = await getCategory(category_id);
 
@@ -16,7 +28,7 @@ export const load: PageServerLoad = async ({ params }) => {
 
   if (matchIndex === -1) {
     return {
-      category
+      category: undefined
     };
   }
 
@@ -24,7 +36,11 @@ export const load: PageServerLoad = async ({ params }) => {
   const nextMatch = category.matches.slice(matchIndex + 1).find((m) => !isByeMatch(m));
 
   return {
-    category,
+    category: {
+      _id: category._id.toString(),
+      name: category.name,
+      duration: category.duration
+    },
     match,
     nextMatch
   };

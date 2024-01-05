@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { createCategory } from '../../../lib/db/methods.server';
+import { createCategory } from '../../../lib/db/methods';
 import { CategoryBaseSchema } from '../../../lib/types/category.type';
 import type { RequestHandler } from './$types';
 

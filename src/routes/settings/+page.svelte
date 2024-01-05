@@ -1,10 +1,8 @@
 <script lang="ts" strictEvents>
-  import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
-  import { addClub, getSettings, removeClub } from '$lib/db/methods.js';
   import Delete from '$lib/icons/delete.svelte';
+  import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+  import { addClub, clubs, removeClub } from '../../lib/store/$settings';
 
-  export let data;
-  let clubs = data.settings.clubs || [];
   let club = '';
 
   const modalStore = getModalStore();
@@ -29,7 +27,6 @@
       return;
     }
     addClub(club);
-    clubs = getSettings().clubs || [];
     club = '';
   }
 
@@ -38,7 +35,6 @@
       return;
     }
     removeClub(clubToRemove);
-    clubs = getSettings().clubs || [];
   }
 </script>
 
@@ -59,7 +55,7 @@
 </form>
 
 <ul class="my-6">
-  {#each clubs as club (club)}
+  {#each $clubs as club (club)}
     <li class="p-2 flex justify-between">
       {club}
       <button

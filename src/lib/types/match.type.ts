@@ -9,7 +9,7 @@ export const MatchJudokaSchema = JudokaSchema.extend({
   wazari: z.number(),
   ippon: z.number(),
   shido: z.number()
-});
+}).or(z.null());
 
 export type MatchJudoka = z.infer<typeof MatchJudokaSchema>;
 

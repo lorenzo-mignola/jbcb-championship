@@ -52,7 +52,6 @@
   "type": "module",
   "dependencies": {
     "immer": "^10.0.3",
-    "lowdb": "^6.1.1",
     "mongodb": "^6.3.0",
     "nanoid": "^5.0.4",
     "redaxios": "^0.5.1"
