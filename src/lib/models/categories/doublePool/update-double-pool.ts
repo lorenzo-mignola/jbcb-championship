@@ -131,6 +131,12 @@ function updateSemiFinalMatch(category: DoublePoolCategory, matchUpdated: Match)
     const winnerSecondSemi = categoryUpdated.semifinals[1][categoryUpdated.semifinals[1].winner!];
     categoryUpdated.finalMatch.white = resetAthlete(winnerFirstSemi);
     categoryUpdated.finalMatch.blue = resetAthlete(winnerSecondSemi);
+    categoryUpdated.matches = categoryUpdated.matches.map((match) => {
+      if (match.id !== categoryUpdated.finalMatch.id) {
+        return match;
+      }
+      return categoryUpdated.finalMatch;
+    });
   }
   return categoryUpdated;
 }

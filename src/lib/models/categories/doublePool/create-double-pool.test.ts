@@ -203,7 +203,7 @@ describe('createDoublePool', () => {
     expect(poolUpdated.finalMatch.white).toBeDefined();
     expect(poolUpdated.matches.at(-1)?.white).toBeDefined();
     expect(poolUpdated.finalMatch.blue).toBeDefined();
-    expect(poolUpdated.matches.at(-2)?.white).toBeDefined();
+    expect(poolUpdated.matches.at(-1)?.blue).toBeDefined();
   });
 
   it('should update final', () => {
