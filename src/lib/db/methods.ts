@@ -91,7 +91,8 @@ function updateCategory(category: Category, matchUpdated: Match) {
 
 export const saveMatch = async (
   categoryId: string,
-  matchUpdated: Match
+  matchUpdated: Match,
+  loop?: number
 ): Promise<Category | undefined> => {
   const category = await getCategory(categoryId);
   if (!category) {
@@ -104,13 +105,19 @@ export const saveMatch = async (
   const _id = new ObjectId(id);
   await db.collection<Category>('categories').updateOne({ _id }, { $set: { ...categoryToUpdate } });
 
-  if (category.type === 'brackets' && needSkipMatch(categoryUpdated)) {
+  const currentLoop = loop !== undefined ? loop - 1 : categoryUpdated.matches.length;
+
+  if (category.type === 'brackets' && needSkipMatch(categoryUpdated) && currentLoop >= 0) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
     const nextMatch = categoryUpdated.matches.find(
       (match) => match.id === categoryUpdated.currentMatch
     )!;
     const nextMatchByeWinner = getByeWinner(nextMatch);
-    return saveMatch(categoryUpdated._id.toString(), { ...nextMatch, winner: nextMatchByeWinner });
+    return saveMatch(
+      categoryUpdated._id.toString(),
+      { ...nextMatch, winner: nextMatchByeWinner },
+      currentLoop
+    );
   }
 
   return categoryUpdated;

@@ -12,10 +12,10 @@
       class="border border-black dark:border-white border-l-0 h-20 flex flex-col justify-between my-2"
       class:mb-16={match.offset}
     >
-      <div class="mt-1 px-3 text-end" class:font-black={match.winner === 'white'}>
+      <div class="mt-1 px-3 text-end" class:font-extrabold={match.winner === 'white'}>
         {match.white?.name ?? ''}
       </div>
-      <div class="mb-1 px-3 text-end" class:font-black={match.winner === 'blue'}>
+      <div class="mb-1 px-3 text-end" class:font-extrabold={match.winner === 'blue'}>
         {match.blue?.name ?? ''}
       </div>
     </div>
