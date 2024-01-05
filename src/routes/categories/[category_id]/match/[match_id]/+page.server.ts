@@ -12,6 +12,7 @@ type Output =
       category: Pick<Category, 'name' | 'duration'> & { _id: string };
       match: Match;
       nextMatch: Match | undefined;
+      isMedalMatch: boolean;
     };
 
 export const load: PageServerLoad = async ({ params }): Promise<Output> => {
@@ -32,6 +33,7 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
     };
   }
 
+  const isMedalMatch = category.type !== 'pool' ? category.matches.length - matchIndex <= 3 : false;
   const match = category.matches[matchIndex];
   const nextMatch = category.matches.slice(matchIndex + 1).find((m) => !isByeMatch(m));
 
@@ -42,6 +44,7 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
       duration: category.duration
     },
     match,
-    nextMatch
+    nextMatch,
+    isMedalMatch
   };
 };

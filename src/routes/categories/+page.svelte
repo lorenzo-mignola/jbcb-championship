@@ -8,7 +8,7 @@
   {#each data.categories as category (category._id)}
     <a href={`/categories/${category._id}`}>
       <button
-        class="btn w-full text-xl p-4"
+        class="btn card card-hover w-full text-xl p-4"
         class:variant-filled-primary={category.currentMatch}
         class:variant-ghost-primary={!category.currentMatch}
         type="button"
