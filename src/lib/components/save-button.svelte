@@ -57,5 +57,7 @@
   class="btn variant-filled-secondary mt-5 text-2xl w-full p-5"
   class:hidden={!winner}
   type="button"
-  on:click|preventDefault={handleClick}>Termina incontro</button
+  on:click|preventDefault={handleClick}
+>
+  Termina incontro</button
 >

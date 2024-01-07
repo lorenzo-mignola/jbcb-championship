@@ -11,7 +11,7 @@
 </script>
 
 <button
-  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white"
+  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white dark:text-gray-100"
   class:play={!$isPlaying}
   class:stop={$isPlaying}
   {disabled}
@@ -35,6 +35,6 @@
     @apply bg-primary-500 dark:bg-primary-600;
   }
   .stop {
-    @apply bg-surface-500;
+    @apply bg-surface-600 dark:bg-surface-500;
   }
 </style>
