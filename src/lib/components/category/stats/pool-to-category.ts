@@ -8,7 +8,7 @@ export const poolToCategory = (
   name: string
 ): PoolCategory => {
   return {
-    _id: '',
+    id: '',
     name,
     duration: 0,
     type: 'pool',

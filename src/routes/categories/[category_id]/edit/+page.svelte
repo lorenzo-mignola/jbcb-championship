@@ -26,7 +26,7 @@
       return;
     }
 
-    const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category._id}`, {
+    const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category.id}`, {
       name: categoryName,
       athletes: $athletes,
       type: $type,

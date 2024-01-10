@@ -9,7 +9,7 @@ type Output =
       category: undefined;
     }
   | {
-      category: Pick<Category, 'name' | 'duration'> & { _id: string };
+      category: Pick<Category, 'name' | 'duration'> & { id: string };
       match: Match;
       nextMatch: Match | undefined;
       isMedalMatch: boolean;
@@ -39,7 +39,7 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
 
   return {
     category: {
-      _id: category._id.toString(),
+      id: category.id.toString(),
       name: category.name,
       duration: category.duration
     },

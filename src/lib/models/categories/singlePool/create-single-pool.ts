@@ -31,7 +31,7 @@ export const createSinglePool = (
   name: string,
   athletes: Judoka[],
   duration: number
-): Omit<PoolCategory, '_id'> => {
+): Omit<PoolCategory, 'id'> => {
   const matches = createMatchesPool(athletes);
   return {
     type: 'pool',

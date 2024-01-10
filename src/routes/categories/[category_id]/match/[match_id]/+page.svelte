@@ -52,12 +52,12 @@
 
 <PlayPauseButton />
 
-{#if category?._id && match}
-  <SaveButton categoryId={category._id} />
+{#if category?.id && match}
+  <SaveButton categoryId={category.id} />
 {/if}
 
-{#if category?._id}
-  <Footer categoryId={category._id} {nextMatch} />
+{#if category?.id}
+  <Footer categoryId={category.id} {nextMatch} />
 {/if}
 
 <style lang="postcss">

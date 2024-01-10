@@ -25,21 +25,21 @@
         {#if !started}
           <a
             class="btn-icon btn-sm variant-soft-surface"
-            href={`/categories/${category._id}/edit?${CATEGORY_NAME}=${category.name}`}
+            href={`/categories/${category.id}/edit?${CATEGORY_NAME}=${category.name}`}
             title="Modifica"><Edit /></a
           >
         {/if}
 
         <a
           class="btn-icon btn-sm variant-soft-surface"
-          href={`/categories/${category._id}/print`}
+          href={`/categories/${category.id}/print`}
           rel="noopener noreferrer"
           target="_blank"
           title="Stampa"><Print /></a
         >
 
         {#if category.currentMatch}
-          <a href={`/categories/${category._id}/match/${category.currentMatch}`}>
+          <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
             <button class="btn md:btn-lg variant-filled-primary shadow-md" type="button"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >

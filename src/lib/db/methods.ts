@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 import { getByeWinner, needSkipMatch } from '../models/categories/brackets/auto-update-next-match';
 import { createBrackets } from '../models/categories/brackets/create-brackets';
 import { updateBrackets } from '../models/categories/brackets/update-brackets';
@@ -6,14 +5,9 @@ import { createDoublePool } from '../models/categories/doublePool/create-double-
 import { updateDoublePool } from '../models/categories/doublePool/update-double-pool';
 import { createSinglePool } from '../models/categories/singlePool/create-single-pool';
 import { updateSinglePool } from '../models/categories/singlePool/update-single-pool';
-import type { Category } from '../types/category.type';
+import { type Category } from '../types/category.type';
 import type { Match } from '../types/match.type';
-import { db } from './mongo';
-
-const toSerializable = (category: Category) => ({
-  ...category,
-  _id: category._id.toString()
-});
+import { CATEGORIES_COLLECTION, categoriesCollection, db } from './firebase';
 
 const generateCategory = ({
   name,
@@ -39,30 +33,30 @@ export const createCategory = async ({
   type,
   duration
 }: Pick<Category, 'name' | 'athletes' | 'type' | 'duration'>) => {
-  const newCategory = await db
-    .collection('categories')
-    .insertOne(generateCategory({ name, athletes, type, duration }));
-  return newCategory.insertedId.toString();
+  const doc = await db
+    .collection(CATEGORIES_COLLECTION)
+    .add(generateCategory({ name, athletes, type, duration }));
+  return doc.id;
 };
 
-export const getCategory = async (id: string) => {
-  const _id = new ObjectId(id);
-  const category = await db.collection<Category>('categories').findOne({ _id });
-  if (!category) {
+export const getCategory = async (id: string): Promise<Category | undefined> => {
+  const category = await categoriesCollection.doc(id).get();
+  if (!category.exists) {
     return undefined;
   }
-  return toSerializable(category);
+  return { id: category.id, ...category.data() } as Category;
 };
 
-export const getAllCategories = async () => {
-  const categories = await db.collection<Category>('categories').find().toArray();
-  return categories.map(toSerializable);
+export const getAllCategories = async (): Promise<Category[]> => {
+  const categories = await categoriesCollection.get();
+  if (categories.empty) {
+    return [];
+  }
+  return categories.docs.map((category) => ({ id: category.id, ...category.data() }) as Category);
 };
 
 const removeCategory = (id: string) => {
-  const _id = new ObjectId(id);
-
-  return db.collection<Category>('categories').deleteOne({ _id });
+  return categoriesCollection.doc(id).delete();
 };
 
 export const editCategory = async (
@@ -101,9 +95,8 @@ export const saveMatch = async (
 
   const categoryUpdated = updateCategory(category, matchUpdated);
 
-  const { _id: id, ...categoryToUpdate } = categoryUpdated;
-  const _id = new ObjectId(id);
-  await db.collection<Category>('categories').updateOne({ _id }, { $set: { ...categoryToUpdate } });
+  const { id, ...categoryToUpdate } = categoryUpdated;
+  await categoriesCollection.doc(id).update({ ...categoryToUpdate });
 
   const currentLoop = loop !== undefined ? loop - 1 : categoryUpdated.matches.length;
 
@@ -113,11 +106,7 @@ export const saveMatch = async (
       (match) => match.id === categoryUpdated.currentMatch
     )!;
     const nextMatchByeWinner = getByeWinner(nextMatch);
-    return saveMatch(
-      categoryUpdated._id.toString(),
-      { ...nextMatch, winner: nextMatchByeWinner },
-      currentLoop
-    );
+    return saveMatch(categoryUpdated.id, { ...nextMatch, winner: nextMatchByeWinner }, currentLoop);
   }
 
   return categoryUpdated;

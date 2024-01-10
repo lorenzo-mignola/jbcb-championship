@@ -31,14 +31,14 @@
       return;
     }
     if (categoryUpdated.currentMatch) {
-      goto(`/categories/${categoryUpdated._id}/match/${categoryUpdated.currentMatch}`, {
+      goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
         invalidateAll: true
       });
       reset();
       return;
     }
     reset();
-    goto(`/categories/${categoryUpdated._id}`, {
+    goto(`/categories/${categoryUpdated.id}`, {
       invalidateAll: true
     });
   };

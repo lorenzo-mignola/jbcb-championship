@@ -1,4 +1,3 @@
-import { ObjectId } from 'mongodb';
 import { z } from 'zod';
 import { JudokaSchema } from './judoka.type';
 import { MatchSchema } from './match.type';
@@ -7,7 +6,7 @@ import { RoundsSchema } from './rounds.type';
 const CategoryTypeSchema = z.enum(['pool', 'double_pool', 'brackets']);
 
 export const CategoryBaseSchema = z.object({
-  _id: z.instanceof(ObjectId).or(z.string()),
+  id: z.string(),
   name: z.string(),
   athletes: z.array(JudokaSchema),
   matches: z.array(MatchSchema),
