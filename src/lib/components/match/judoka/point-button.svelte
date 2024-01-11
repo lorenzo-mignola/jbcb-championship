@@ -9,7 +9,7 @@
 </script>
 
 <button
-  class="btn mb-1 md:mb-0 md:btn-lg variant-ringed hover:filter-none hover:shadow-md"
+  class="btn mb-1 md:mb-0 md:btn-lg variant-ringed hover:filter-none hover:shadow-md gap-1"
   class:active
   {disabled}
   type="button"
