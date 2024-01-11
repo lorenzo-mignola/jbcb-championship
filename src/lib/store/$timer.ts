@@ -1,5 +1,5 @@
 import { get, writable } from 'svelte/store';
-import { oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import { isExtraTime, oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
 import { localStorageTime } from './$local-storage-match';
 
 const defaultDuration = 4 * 60 * 10;
@@ -29,19 +29,16 @@ export const stop = () => {
 };
 
 export const timerWatch = () => {
-  const unsubscribeOsaekomi = timer.subscribe(($timer) => {
+  const unsubscribeTimer = timer.subscribe(($timer) => {
     if ($timer <= 0) {
       isPlaying.set(false);
-      resetOsaekomi();
+      isExtraTime.set(Boolean(get(oseakomiType)));
     }
   });
 
   const unsubscribePlay = isPlaying.subscribe(($isPlaying) => {
     if (!$isPlaying && interval !== null) {
       clearInterval(interval);
-    }
-    if (get(oseakomiType) !== null) {
-      oseakomiType.set(null);
     }
   });
 
@@ -53,7 +50,7 @@ export const timerWatch = () => {
   });
 
   return () => {
-    unsubscribeOsaekomi();
+    unsubscribeTimer();
     unsubscribePlay();
     unsubscribeStorage();
   };

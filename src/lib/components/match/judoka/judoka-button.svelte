@@ -7,7 +7,7 @@
   import { isPlaying } from '../../../store/$timer';
   import type { JudokaType } from '../../../types/match.type';
   import { getOpponentType } from '../../../utils/judoka';
-  import { oseakomiType } from '../../osaekomi/$osaekomi-timer';
+  import { isExtraTime, oseakomiType } from '../../osaekomi/$osaekomi-timer';
   import PointButton from './point-button.svelte';
 
   export let type: JudokaType;
@@ -15,6 +15,7 @@
 
   $: isOsaekomi = $oseakomiType === type;
   $: disableButton = end || getOpponentType(type) === $oseakomiType;
+  $: disableOsaekomi = (disableButton || !$isPlaying) && !$isExtraTime;
 
   const oasekomiAction = () => {
     if ($oseakomiType) {
@@ -31,7 +32,7 @@
 <PointButton action={() => shido(type)} disabled={disableButton}
   ><IndexPointing /> Shido</PointButton
 >
-<PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableButton || !$isPlaying}
+<PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}
   ><span class="rotate-180"><HandRaisedBack /></span>
   {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
 >

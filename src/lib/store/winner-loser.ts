@@ -1,11 +1,11 @@
 import { produce } from 'immer';
 import { get } from 'svelte/store';
-import { stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import { isExtraTime, stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
 import type { JudokaType, Match } from '../types/match.type';
 import { getOpponentType } from '../utils/judoka';
 import { localStorageMatch, resetStorageMatch } from './$local-storage-match';
 import { match } from './$match';
-import { isGoldenScore, stop, timer } from './$timer';
+import { isGoldenScore, reset, stop, timer } from './$timer';
 import { getPoints } from './judoka-points';
 
 const stopTimers = () => {
@@ -79,8 +79,11 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
     }
 
     const $isGoldenScore = get(isGoldenScore);
-    if ($isGoldenScore && isWinnerByWazari($match, type)) {
+    const $isExtraTime = get(isExtraTime);
+    const isOverTimer = $isExtraTime || $isGoldenScore;
+    if (isOverTimer && isWinnerByWazari($match, type)) {
       winner(type);
+      reset();
       return;
     }
 

@@ -4,8 +4,9 @@
   import Play from '../icons/play.svelte';
   import { match } from '../store/$match';
   import { isPlaying, reset, togglePlay } from '../store/$timer';
+  import { isExtraTime } from './osaekomi/$osaekomi-timer';
 
-  $: disabled = Boolean($match?.winner);
+  $: disabled = Boolean($match?.winner) || $isExtraTime;
 
   onDestroy(() => reset());
 </script>

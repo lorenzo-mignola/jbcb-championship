@@ -5,6 +5,7 @@ import type { JudokaType } from '../../types/match.type';
 export const timerOsaekomi = writable<number>(0);
 export const oseakomiType = writable<JudokaType | null>(null);
 const isPlaying = writable(false);
+export const isExtraTime = writable(false);
 
 let interval: NodeJS.Timeout | null = null;
 
@@ -24,6 +25,8 @@ export const stopOsaekomi = () => {
 
 export const resetOsaekomi = () => {
   isPlaying.set(false);
+  isExtraTime.set(false);
+  oseakomiType.set(null);
   timerOsaekomi.set(0);
   if (interval !== null) {
     clearInterval(interval);
