@@ -13,15 +13,16 @@ const generateCategory = ({
   name,
   athletes,
   type,
-  duration
-}: Pick<Category, 'name' | 'athletes' | 'type' | 'duration'>) => {
+  duration,
+  tournament
+}: Pick<Category, 'name' | 'athletes' | 'type' | 'duration' | 'tournament'>) => {
   switch (type) {
     case 'pool':
-      return createSinglePool(name, athletes, duration);
+      return createSinglePool(name, athletes, duration, tournament);
     case 'brackets':
-      return createBrackets(name, athletes, duration);
+      return createBrackets(name, athletes, duration, tournament);
     case 'double_pool':
-      return createDoublePool(name, athletes, duration);
+      return createDoublePool(name, athletes, duration, tournament);
     default:
       throw new Error(`No type found`);
   }
@@ -31,11 +32,12 @@ export const createCategory = async ({
   name,
   athletes,
   type,
-  duration
-}: Pick<Category, 'name' | 'athletes' | 'type' | 'duration'>) => {
+  duration,
+  tournament
+}: Pick<Category, 'name' | 'athletes' | 'type' | 'duration' | 'tournament'>) => {
   const doc = await db
     .collection(CATEGORIES_COLLECTION)
-    .add(generateCategory({ name, athletes, type, duration }));
+    .add(generateCategory({ name, athletes, type, duration, tournament }));
   return doc.id;
 };
 
@@ -61,7 +63,7 @@ const removeCategory = (id: string) => {
 
 export const editCategory = async (
   categoryId: string,
-  categoryEdit: Pick<Category, 'name' | 'athletes' | 'type' | 'duration'>
+  categoryEdit: Pick<Category, 'name' | 'athletes' | 'type' | 'duration' | 'tournament'>
 ) => {
   const newId = await createCategory(categoryEdit);
   await removeCategory(categoryId);

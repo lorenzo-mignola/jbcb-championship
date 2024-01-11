@@ -30,12 +30,14 @@ export const createMatchesPool = (athletes: Judoka[]) => {
 export const createSinglePool = (
   name: string,
   athletes: Judoka[],
-  duration: number
+  duration: number,
+  tournament?: string
 ): Omit<PoolCategory, 'id'> => {
   const matches = createMatchesPool(athletes);
   return {
     type: 'pool',
     name,
+    tournament,
     athletes,
     matches,
     currentMatch: matches[0].id,

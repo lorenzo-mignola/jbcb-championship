@@ -7,7 +7,8 @@ const schemaPatch = CategoryBaseSchema.pick({
   name: true,
   athletes: true,
   type: true,
-  duration: true
+  duration: true,
+  tournament: true
 });
 
 export const PATCH: RequestHandler = async ({ request, params }) => {

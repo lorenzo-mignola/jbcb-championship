@@ -2,6 +2,7 @@
   import Delete from '$lib/icons/delete.svelte';
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
   import { addClub, clubs, removeClub } from '../../lib/store/$settings';
+  import { tournament } from '../../lib/store/$tournament';
 
   let club = '';
 
@@ -40,7 +41,7 @@
 
 <h2 class="h2 mb-8">Impostazioni</h2>
 <h3 class="h3">Club</h3>
-<form class="my-2" on:submit|preventDefault={handleAdd}>
+<form class="my-2 mb-4" on:submit|preventDefault={handleAdd}>
   <div class="input-group input-group-divider grid-cols-[1fr_auto]">
     <label class="label">
       <input class="input" placeholder="Nome club" type="text" bind:value={club} />
@@ -53,6 +54,11 @@
     >
   </div>
 </form>
+
+<label class="label">
+  <h3 class="h3">Torneo</h3>
+  <input class="input" placeholder="ID torneo" type="text" bind:value={$tournament} />
+</label>
 
 <ul class="my-6">
   {#each $clubs as club (club)}

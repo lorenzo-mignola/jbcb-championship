@@ -6,13 +6,15 @@ import { createRounds } from './create-rounds';
 export const createBrackets = (
   name: string,
   athletes: Judoka[],
-  duration: number
+  duration: number,
+  tournament?: string
 ): Omit<BracketsCategory, 'id'> => {
   const rounds = createRounds(athletes);
   const matches = getMatches(rounds);
   return {
     type: 'brackets',
     name,
+    tournament,
     athletes,
     matches,
     rounds,

@@ -7,7 +7,8 @@ const schemaCreate = CategoryBaseSchema.pick({
   name: true,
   athletes: true,
   type: true,
-  duration: true
+  duration: true,
+  tournament: true
 });
 
 export const POST: RequestHandler = async ({ request }) => {

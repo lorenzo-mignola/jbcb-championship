@@ -4,6 +4,7 @@
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
   import { athletes, resetAthletes } from '$lib/store/$athletes';
   import { duration } from '$lib/store/$duration';
+  import { tournament } from '$lib/store/$tournament';
   import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
   import axios from 'redaxios';
@@ -30,7 +31,8 @@
       name: categoryName,
       athletes: $athletes,
       type: $type,
-      duration: $duration
+      duration: $duration,
+      tournament: $tournament
     });
 
     resetAthletes();

@@ -7,6 +7,7 @@
   import { type } from '$lib/store/$type';
   import { CATEGORY_NAME } from '$lib/utils/constants';
   import axios from 'redaxios';
+  import { tournament } from '../../lib/store/$tournament';
 
   async function handleCreate() {
     const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
@@ -18,7 +19,8 @@
       name: categoryName,
       athletes: $athletes,
       type: $type,
-      duration: $duration
+      duration: $duration,
+      tournament: $tournament
     });
 
     resetAthletes();

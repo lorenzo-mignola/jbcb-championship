@@ -52,7 +52,8 @@ const getMatches = (
 export const createDoublePool = (
   name: string,
   athletes: Judoka[],
-  duration: number
+  duration: number,
+  tournament?: string
 ): Omit<DoublePoolCategory, 'id'> => {
   const pools = createPools(athletes);
   const semifinals: DoublePoolCategory['semifinals'] = [createMatch(), createMatch()];
@@ -62,6 +63,7 @@ export const createDoublePool = (
   return {
     type: 'double_pool',
     name,
+    tournament,
     athletes,
     matches,
     currentMatch: matches[0].id,
