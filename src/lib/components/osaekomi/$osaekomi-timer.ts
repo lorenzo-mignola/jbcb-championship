@@ -21,6 +21,9 @@ export const startOsaekomi = () => {
 
 export const stopOsaekomi = () => {
   isPlaying.set(false);
+  if (interval !== null) {
+    clearInterval(interval);
+  }
 };
 
 export const resetOsaekomi = () => {

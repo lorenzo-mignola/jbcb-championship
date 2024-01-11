@@ -1,5 +1,10 @@
 import { get, writable } from 'svelte/store';
-import { isExtraTime, oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import {
+  isExtraTime,
+  oseakomiType,
+  resetOsaekomi,
+  startOsaekomi
+} from '../components/osaekomi/$osaekomi-timer';
 import { localStorageTime } from './$local-storage-match';
 
 const defaultDuration = 4 * 60 * 10;
@@ -16,6 +21,11 @@ const play = () => {
   }
   isPlaying.set(true);
 
+  // resume osakeomi if is stopped
+  if (get(oseakomiType)) {
+    startOsaekomi();
+  }
+
   interval = setInterval(() => {
     if (get(isPlaying)) {
       const ascOrDesc = get(isGoldenScore) ? 1 : -1;
@@ -26,6 +36,9 @@ const play = () => {
 
 export const stop = () => {
   isPlaying.set(false);
+  if (!get(isExtraTime)) {
+    resetOsaekomi();
+  }
 };
 
 export const timerWatch = () => {
