@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite dev",
+    "dev:emulator": "export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 && vite dev",
     "build": "vite build",
     "preview": "vite preview",
     "test": "npm run test:integration && npm run test:unit -- --watch=false",
@@ -14,7 +15,8 @@
     "test:integration": "playwright test",
     "test:unit": "vitest",
     "deploy": "vercel",
-    "deploy:prod": "vercel --prod"
+    "deploy:prod": "vercel --prod",
+    "firestore": "firebase emulators:start"
   },
   "devDependencies": {
     "@playwright/test": "^1.40.1",
