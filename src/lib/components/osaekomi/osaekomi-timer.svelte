@@ -29,7 +29,7 @@
 
 {#if $isPlaying}
   <button
-    class="btn-icon btn-icon-sm variant-ghost-surface"
+    class="btn-icon md:btn-icon-sm variant-ghost-surface"
     type="button"
     on:click|preventDefault={stopTimers}
   >
