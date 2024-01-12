@@ -13,6 +13,7 @@ export const poolToCategory = (
     duration: 0,
     type: 'pool',
     matches: pool,
-    athletes: poolAthletes
+    athletes: poolAthletes,
+    tournament: ''
   };
 };
