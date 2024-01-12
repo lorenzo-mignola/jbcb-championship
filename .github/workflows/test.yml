@@ -11,7 +11,9 @@ on:
 
 env:
   PUBLIC_AUTO_PRINT: false
-  MONGODB_URI: mongodb://user:password@localhost:27017/
+  FIREBASE_CLIENT_EMAIL: ""
+  FIREBASE_PRIVATE_KEY: ""
+  FIREBASE_PROJECT_ID: ""
 
 jobs:
   build:
