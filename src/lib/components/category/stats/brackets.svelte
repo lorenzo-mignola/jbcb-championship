@@ -1,5 +1,5 @@
-<script lang="ts">
-  import type { Rounds } from '../../../../lib/types/Category';
+<script lang="ts" strictEvents>
+  import type { Rounds } from '$lib/types/rounds.type';
   import RoundBrackets from './round-brackets.svelte';
 
   export let rounds: Rounds;
@@ -16,7 +16,7 @@
 
 <div class="flex overflow-auto">
   <!-- winner -->
-  {#each winnerRounds as matches}
+  {#each winnerRounds as matches, index (index)}
     <div class="flex flex-col justify-center">
       <RoundBrackets {matches} />
     </div>
@@ -28,7 +28,7 @@
   <p class="font-bold mt-3 ml-4">Ripescaggio</p>
   <div class="flex overflow-auto">
     <!-- loserRounds -->
-    {#each loserRounds as matches}
+    {#each loserRounds as matches, index (index)}
       <div class="flex flex-col justify-center">
         <RoundBrackets {matches} />
       </div>

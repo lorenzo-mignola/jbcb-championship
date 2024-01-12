@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
-import type { Judoka } from '../types/Judoka';
-import type { Match } from '../types/Match';
+import type { Judoka } from '../types/judoka.type';
+import type { Match } from '../types/match.type';
 
 const createMatchJudoka = (athlete: Judoka) => ({
   id: athlete.id,

@@ -1,11 +1,12 @@
 import { produce } from 'immer';
 import { get } from 'svelte/store';
-import { stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
-import type { JudokaType, Match } from '../types/Match';
+import { isExtraTime, stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
+import type { JudokaType, Match } from '../types/match.type';
 import { getOpponentType } from '../utils/judoka';
+import { localStorageMatch, resetStorageMatch } from './$local-storage-match';
 import { match } from './$match';
-import { isGoldenScore, stop, timer } from './$timer';
-import { getPoints } from './judokaPoints';
+import { isGoldenScore, reset, stop, timer } from './$timer';
+import { getPoints } from './judoka-points';
 
 const stopTimers = () => {
   stop();
@@ -50,6 +51,7 @@ const disqualification = (type: JudokaType) => {
       if (!$matchState?.[opponentType]) {
         return;
       }
+      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
       $matchState[opponentType]!.ippon = 1;
       $matchState.winner = opponentType;
       $matchState.finalTime = get(timer);
@@ -60,11 +62,11 @@ const disqualification = (type: JudokaType) => {
 };
 
 export const watchWinnerOrLoser = (type: JudokaType) => {
-  match.subscribe(($match) => {
+  const matchUnsubscribe = match.subscribe(($match) => {
     if (!$match) {
       return;
     }
-    if ($match?.winner) {
+    if ($match.winner) {
       return;
     }
 
@@ -77,18 +79,20 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
     }
 
     const $isGoldenScore = get(isGoldenScore);
-    if ($isGoldenScore && isWinnerByWazari($match, type)) {
+    const $isExtraTime = get(isExtraTime);
+    const isOverTimer = $isExtraTime || $isGoldenScore;
+    if (isOverTimer && isWinnerByWazari($match, type)) {
       winner(type);
+      reset();
       return;
     }
 
     if (athlete?.shido === 3) {
       disqualification(type);
-      return;
     }
   });
 
-  timer.subscribe(($timer) => {
+  const timerUnsubscribe = timer.subscribe(($timer) => {
     if ($timer > 0) {
       return;
     }
@@ -100,9 +104,23 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
       winner(type);
     }
   });
+
+  const unsubscribeMatchStorage = match.subscribe(($match) => {
+    $match ? localStorageMatch.set($match) : resetStorageMatch();
+  });
+
+  return () => {
+    timerUnsubscribe();
+    matchUnsubscribe();
+    unsubscribeMatchStorage();
+  };
 };
-function isWinnerByWazari(match: Match, type: JudokaType) {
-  const wazari = match[type]?.wazari || 0;
-  const wazariOpponent = match[getOpponentType(type)!]?.wazari || 0;
+function isWinnerByWazari(matchUpdated: Match, type: JudokaType) {
+  const wazari = matchUpdated[type]?.wazari || 0;
+  const opponentType = getOpponentType(type);
+  if (!opponentType) {
+    return false;
+  }
+  const wazariOpponent = matchUpdated[opponentType]?.wazari || 0;
   return wazari !== wazariOpponent && wazari >= 1;
 }

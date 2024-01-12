@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import Back from '$lib/icons/back.svelte';
-  import type { Match } from '../../types/Match';
+  import type { Match } from '../../types/match.type';
 
   export let categoryId: string;
   export let nextMatch: Match | undefined;
@@ -8,7 +8,7 @@
 
 <footer class="py-14 flex justify-between items-center flex-col-reverse md:flex-row">
   <div>
-    <a href={`/categories/${categoryId}`} class="btn btn-sm variant-filled-secondary shadow-md">
+    <a class="btn btn-sm variant-filled-secondary shadow-md" href={`/categories/${categoryId}`}>
       <span><Back /></span>
       <span>Visualizza categoria</span>
     </a>

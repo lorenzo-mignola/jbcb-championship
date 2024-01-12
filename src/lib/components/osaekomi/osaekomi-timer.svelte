@@ -1,4 +1,6 @@
 <script>
+  import Pause from '$lib/icons/pause.svelte';
+  import { isPlaying } from '$lib/store/$timer';
   import { onDestroy, onMount } from 'svelte';
   import { oseakomiType, startOsaekomi, stopOsaekomi, timerOsaekomi } from './$osaekomi-timer';
 
@@ -9,6 +11,11 @@
   onDestroy(() => {
     stopOsaekomi();
   });
+
+  const stopTimers = () => {
+    isPlaying.set(false);
+    stopOsaekomi();
+  };
 </script>
 
 <div
@@ -20,7 +27,17 @@
   <p class="text-timer text-xl">{$timerOsaekomi}</p>
 </div>
 
-<style>
+{#if $isPlaying}
+  <button
+    class="btn-icon md:btn-icon-sm variant-ghost-surface"
+    type="button"
+    on:click|preventDefault={stopTimers}
+  >
+    <Pause />
+  </button>
+{/if}
+
+<style lang="postcss">
   div {
     text-wrap: nowrap;
   }

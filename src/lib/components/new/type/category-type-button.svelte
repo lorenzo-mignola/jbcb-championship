@@ -1,6 +1,6 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { type, typeToLabel } from '../../../store/$type';
-  import type { Category } from '../../../types/Category';
+  import type { Category } from '../../../types/category.type';
 
   export let value: Category['type'];
   export let disabled: boolean | undefined = false;
@@ -14,8 +14,12 @@
   };
 </script>
 
-<button on:click={setType} class:active={$type === value} class="w-full" {disabled}
-  >{typeToLabel[value]}</button
+<button
+  class="w-full"
+  class:active={$type === value}
+  {disabled}
+  type="button"
+  on:click|preventDefault={setType}>{typeToLabel[value]}</button
 >
 
 <style lang="postcss">

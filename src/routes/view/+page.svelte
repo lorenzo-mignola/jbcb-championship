@@ -1,45 +1,26 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import {
     localStorageCategoryName,
     localStorageMatch,
     localStorageTime
-  } from '$lib/store/$localStorageMatch';
+  } from '$lib/store/$local-storage-match';
   import JudokaNameAndPoints from '../../lib/components/match/judoka/judoka-name-and-points.svelte';
   import TimerView from '../../lib/components/match/timer-view.svelte';
   import { getMin, getSec } from '../../lib/store/$timer';
-  import { getPoints } from '../../lib/store/judokaPoints';
-  import type { MatchJudoka } from '../../lib/types/Match';
+  import { getPoints } from '../../lib/store/judoka-points';
 
-  let white: MatchJudoka | undefined = undefined;
-  let blue: MatchJudoka | undefined = undefined;
-  let categoryName = '';
-  let whitePoints = 0;
-  let bluePoints = 0;
-  let min = 0;
-  let sec = 0;
+  $: white = $localStorageMatch.white;
+  $: blue = $localStorageMatch.blue;
+  $: whitePoints = white ? getPoints(white) : 0;
+  $: bluePoints = blue ? getPoints(blue) : 0;
 
-  localStorageMatch.subscribe(($match) => {
-    if (!$match) {
-      return;
-    }
-    white = $match.white;
-    whitePoints = white ? getPoints(white) : 0;
-    bluePoints = blue ? getPoints(blue) : 0;
-    blue = $match.blue;
-  });
-
-  localStorageCategoryName.subscribe(($categoryName) => {
-    categoryName = $categoryName;
-  });
-  localStorageTime.subscribe(($time) => {
-    min = getMin($time);
-    sec = getSec($time);
-  });
+  $: min = getMin($localStorageTime);
+  $: sec = getSec($localStorageTime);
 </script>
 
 <div class="view-container">
   <div>
-    <h1 class="text-5xl mb-10">{categoryName}</h1>
+    <h1 class="text-5xl mb-10">{$localStorageCategoryName}</h1>
   </div>
   <div class="judoka-white-card text-7xl">
     <JudokaNameAndPoints athlete={white} points={whitePoints} />
@@ -47,7 +28,7 @@
   <div class="judoka-blue-card text-7xl">
     <JudokaNameAndPoints athlete={blue} points={bluePoints} />
   </div>
-  <TimerView {min} {sec} isGoldenScore={false} oseakomiType={null} />
+  <TimerView isGoldenScore={false} {min} oseakomiType={null} {sec} />
 </div>
 
 <style lang="postcss">

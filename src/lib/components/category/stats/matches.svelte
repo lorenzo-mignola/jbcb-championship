@@ -1,7 +1,7 @@
-<script lang="ts">
-  import type { Match } from '../../../../lib/types/Match';
-  import { isByeMatch } from '../../../../lib/utils/category';
+<script lang="ts" strictEvents>
   import { formatTime } from '../../../store/$timer';
+  import type { Match } from '../../../types/match.type';
+  import { isByeMatch } from '../../../utils/category';
 
   export let matches: Match[];
   export let categoryDuration: number;
@@ -10,24 +10,24 @@
 </script>
 
 <div class="table-container">
-  <table class="table table-hover text-center">
+  <table class="table table-hover">
     <thead>
-      <tr>
-        <th class="judoka-white text-center">Nome</th>
-        <th class="judoka-white text-center">Ippon</th>
-        <th class="judoka-white text-center">Waza-ari</th>
-        <th class="judoka-white text-center">Shido</th>
-        <th class="judoka-blue text-center">Ippon</th>
-        <th class="judoka-blue text-center">Waza-ari</th>
-        <th class="judoka-blue text-center">Shido</th>
-        <th class="judoka-blue text-center">Nome</th>
+      <tr class="">
+        <th class="judoka-white">Nome</th>
+        <th class="judoka-white">Ippon</th>
+        <th class="judoka-white">Waza-ari</th>
+        <th class="judoka-white">Shido</th>
+        <th class="judoka-blue">Ippon</th>
+        <th class="judoka-blue">Waza-ari</th>
+        <th class="judoka-blue">Shido</th>
+        <th class="judoka-blue">Nome</th>
         <th class="text-center">Tempo</th>
       </tr>
     </thead>
     <tbody>
-      {#each matches.filter((match) => !isByeMatch(match)) as match}
-        <tr class="row" data-match-id={match.id}>
-          <td class="judoka-white" class:font-bold={match.winner === 'white'}
+      {#each matches.filter((match) => !isByeMatch(match)) as match (match.id)}
+        <tr class="row hover:brightness-95" data-match-id={match.id}>
+          <td class="judoka-white" class:font-extrabold={match.winner === 'white'}
             >{match.white?.name ?? '-'}</td
           >
           <td class="judoka-white">{match.white?.ippon || ''}</td>
@@ -36,12 +36,26 @@
           <td class="judoka-blue">{match.blue?.ippon || ''}</td>
           <td class="judoka-blue">{match.blue?.wazari || ''}</td>
           <td class="judoka-blue">{match.blue?.shido || ''}</td>
-          <td class="judoka-blue" class:font-bold={match.winner === 'blue'}
+          <td class="judoka-blue" class:font-extrabold={match.winner === 'blue'}
             >{match.blue?.name ?? ''}</td
           >
-          <td>{formatWithDuration(match.finalTime, match.goldenScore)}</td>
+          <td class="bg-surface-200">{formatWithDuration(match.finalTime, match.goldenScore)}</td>
         </tr>
       {/each}
     </tbody>
   </table>
 </div>
+
+<style lang="postcss">
+  th,
+  tr {
+    @apply text-center;
+  }
+  th {
+    @apply !font-medium;
+  }
+
+  .judoka-blue {
+    @apply border-b border-gray-300;
+  }
+</style>

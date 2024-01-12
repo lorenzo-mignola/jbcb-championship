@@ -1,21 +1,23 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { onDestroy } from 'svelte';
-  import Play from '../icons/play.svelte';
   import Stop from '../icons/pause.svelte';
+  import Play from '../icons/play.svelte';
   import { match } from '../store/$match';
   import { isPlaying, reset, togglePlay } from '../store/$timer';
+  import { isExtraTime } from './osaekomi/$osaekomi-timer';
 
-  $: disabled = Boolean($match?.winner);
+  $: disabled = Boolean($match?.winner) || $isExtraTime;
 
   onDestroy(() => reset());
 </script>
 
 <button
-  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white"
+  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white dark:text-gray-100"
   class:play={!$isPlaying}
   class:stop={$isPlaying}
-  on:click={() => togglePlay()}
   {disabled}
+  type="button"
+  on:click|preventDefault={() => togglePlay()}
 >
   <div>
     {#if $isPlaying}
@@ -34,6 +36,6 @@
     @apply bg-primary-500 dark:bg-primary-600;
   }
   .stop {
-    @apply bg-surface-500;
+    @apply bg-surface-600 dark:bg-surface-500;
   }
 </style>

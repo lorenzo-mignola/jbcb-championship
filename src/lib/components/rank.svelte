@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { getRankingIcon } from '../utils/category';
 
   export let rank: number;

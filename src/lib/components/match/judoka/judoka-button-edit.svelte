@@ -1,42 +1,43 @@
-<script lang="ts">
+<script lang="ts" strictEvents>
   import { match, removeIppon, removeShido, removeWazari } from '../../../store/$match';
-  import type { JudokaType, MatchJudoka } from '../../../types/Match';
+  import type { JudokaType, MatchJudoka } from '../../../types/match.type';
   import { getOpponentType } from '../../../utils/judoka';
   import PointButton from './point-button.svelte';
 
   export let athlete: MatchJudoka | undefined;
   export let type: JudokaType;
   export let toggleEdit: () => void;
+  $: winner = $match?.winner;
 </script>
 
 {#if athlete?.ippon}
   <PointButton
-    active
     action={() => {
       removeIppon(type);
       toggleEdit();
-    }}>🚫 Ippon</PointButton
+    }}
+    active>🚫 Ippon</PointButton
   >
 {/if}
 {#if athlete?.wazari}
   <PointButton
-    active
     action={() => {
       removeWazari(type);
       toggleEdit();
-    }}>🚫 Waza-ari</PointButton
+    }}
+    active>🚫 Waza-ari</PointButton
   >
 {/if}
 {#if athlete?.shido}
   <PointButton
-    active
     action={() => {
       removeShido(type);
       toggleEdit();
       const opponentType = getOpponentType(type);
-      if ($match?.winner && opponentType) {
+      if (winner && opponentType) {
         removeIppon(opponentType);
       }
-    }}>🚫 Shido</PointButton
+    }}
+    active>🚫 Shido</PointButton
   >
 {/if}

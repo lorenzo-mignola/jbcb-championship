@@ -1,6 +1,6 @@
-<script lang="ts">
-  import type { DoublePoolCategory } from '../../../../lib/types/Category';
-  import { poolToCategory } from './poolToCategory';
+<script lang="ts" strictEvents>
+  import type { DoublePoolCategory } from '../../../types/category.type';
+  import { poolToCategory } from './pool-to-category';
   import Ranking from './ranking.svelte';
 
   export let category: DoublePoolCategory;

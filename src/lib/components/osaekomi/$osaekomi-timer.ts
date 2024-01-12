@@ -1,10 +1,11 @@
 import { get, writable } from 'svelte/store';
 import { wazari } from '../../store/$match';
-import type { JudokaType } from '../../types/Match';
+import type { JudokaType } from '../../types/match.type';
 
 export const timerOsaekomi = writable<number>(0);
 export const oseakomiType = writable<JudokaType | null>(null);
 const isPlaying = writable(false);
+export const isExtraTime = writable(false);
 
 let interval: NodeJS.Timeout | null = null;
 
@@ -20,36 +21,23 @@ export const startOsaekomi = () => {
 
 export const stopOsaekomi = () => {
   isPlaying.set(false);
+  if (interval !== null) {
+    clearInterval(interval);
+  }
 };
 
 export const resetOsaekomi = () => {
   isPlaying.set(false);
+  isExtraTime.set(false);
+  oseakomiType.set(null);
   timerOsaekomi.set(0);
   if (interval !== null) {
     clearInterval(interval);
   }
 };
 
-oseakomiType.subscribe((type) => {
-  if (type === null) {
-    resetOsaekomi();
-  }
-});
-
-timerOsaekomi.subscribe((time) => {
-  if (time && time <= 0) {
-    isPlaying.set(false);
-  }
-});
-
-isPlaying.subscribe((play) => {
-  if (!play && interval !== null) {
-    clearInterval(interval);
-  }
-});
-
 export const watchTimerOsaekomi = (type: JudokaType) => {
-  timerOsaekomi.subscribe((time) => {
+  const unsubscribeWinner = timerOsaekomi.subscribe((time) => {
     if (get(oseakomiType) !== type) {
       return;
     }
@@ -57,4 +45,29 @@ export const watchTimerOsaekomi = (type: JudokaType) => {
       wazari(type);
     }
   });
+
+  const unsubscribeType = oseakomiType.subscribe(($oseakomiType) => {
+    if ($oseakomiType === null) {
+      resetOsaekomi();
+    }
+  });
+
+  const unsubscribeTimer = timerOsaekomi.subscribe((time) => {
+    if (time && time <= 0) {
+      isPlaying.set(false);
+    }
+  });
+
+  const unsubscribePlay = isPlaying.subscribe((play) => {
+    if (!play && interval !== null) {
+      clearInterval(interval);
+    }
+  });
+
+  return () => {
+    unsubscribeTimer();
+    unsubscribeWinner();
+    unsubscribeType();
+    unsubscribePlay();
+  };
 };

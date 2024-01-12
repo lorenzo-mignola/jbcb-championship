@@ -1,6 +1,11 @@
 import { get, writable } from 'svelte/store';
-import { oseakomiType, resetOsaekomi } from '../components/osaekomi/$osaekomi-timer';
-import { localStorageTime } from './$localStorageMatch';
+import {
+  isExtraTime,
+  oseakomiType,
+  resetOsaekomi,
+  startOsaekomi
+} from '../components/osaekomi/$osaekomi-timer';
+import { localStorageTime } from './$local-storage-match';
 
 const defaultDuration = 4 * 60 * 10;
 const duration = writable(defaultDuration);
@@ -16,6 +21,11 @@ const play = () => {
   }
   isPlaying.set(true);
 
+  // resume osakeomi if is stopped
+  if (get(oseakomiType)) {
+    startOsaekomi();
+  }
+
   interval = setInterval(() => {
     if (get(isPlaying)) {
       const ascOrDesc = get(isGoldenScore) ? 1 : -1;
@@ -26,23 +36,38 @@ const play = () => {
 
 export const stop = () => {
   isPlaying.set(false);
-};
-
-timer.subscribe((time) => {
-  if (time <= 0) {
-    isPlaying.set(false);
+  if (!get(isExtraTime)) {
     resetOsaekomi();
   }
-});
+};
 
-isPlaying.subscribe((play) => {
-  if (!play && interval !== null) {
-    clearInterval(interval);
-  }
-  if (get(oseakomiType) !== null) {
-    oseakomiType.set(null);
-  }
-});
+export const timerWatch = () => {
+  const unsubscribeTimer = timer.subscribe(($timer) => {
+    if ($timer <= 0) {
+      isPlaying.set(false);
+      isExtraTime.set(Boolean(get(oseakomiType)));
+    }
+  });
+
+  const unsubscribePlay = isPlaying.subscribe(($isPlaying) => {
+    if (!$isPlaying && interval !== null) {
+      clearInterval(interval);
+    }
+  });
+
+  const unsubscribeStorage = timer.subscribe(($timer) => {
+    // update only every 100 ms
+    if ($timer % 10 === 0) {
+      localStorageTime.set($timer);
+    }
+  });
+
+  return () => {
+    unsubscribeTimer();
+    unsubscribePlay();
+    unsubscribeStorage();
+  };
+};
 
 export const togglePlay = () => {
   if (get(isPlaying)) {
@@ -85,10 +110,3 @@ export const formatTime =
     const notGoldenScoreTime = categoryDuration - time;
     return formatTimeString(notGoldenScoreTime);
   };
-
-timer.subscribe(($timer) => {
-  // update only every 100 ms
-  if ($timer % 10 === 0) {
-    localStorageTime.set($timer);
-  }
-});

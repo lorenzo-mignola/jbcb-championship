@@ -1,10 +1,10 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 20 20" {...$$props}
-  ><rect width="6" height="16" x="3" y="2" fill="currentColor" rx="1" /><rect
-    width="6"
+<svg height="1em" viewBox="0 0 20 20" width="1em" xmlns="http://www.w3.org/2000/svg" {...$$props}
+  ><rect fill="currentColor" height="16" rx="1" width="6" x="3" y="2" /><rect
+    fill="currentColor"
     height="16"
+    rx="1"
+    width="6"
     x="11"
     y="2"
-    fill="currentColor"
-    rx="1"
   /></svg
 >
