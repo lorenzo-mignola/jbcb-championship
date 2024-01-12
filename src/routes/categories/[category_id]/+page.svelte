@@ -6,6 +6,7 @@
   import Next from '$lib/icons/next.svelte';
   import Print from '$lib/icons/print.svelte';
   import { formatTimeString } from '$lib/store/$timer';
+  import { tournament } from '$lib/store/$tournament';
   import { CATEGORY_NAME } from '$lib/utils/constants';
   import Loading from './loading.svelte';
 
@@ -56,7 +57,10 @@
   {/if}
 </div>
 
-<a class="btn btn-sm variant-filled-secondary mt-8 shadow-md" href="/categories">
+<a
+  class="btn btn-sm variant-filled-secondary mt-8 shadow-md"
+  href={`/categories?tournament=${$tournament}`}
+>
   <span><Back /></span>
   <span>Tutte le categorie</span>
 </a>

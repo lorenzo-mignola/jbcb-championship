@@ -7,7 +7,7 @@ export const createBrackets = (
   name: string,
   athletes: Judoka[],
   duration: number,
-  tournament?: string
+  tournament: string
 ): Omit<BracketsCategory, 'id'> => {
   const rounds = createRounds(athletes);
   const matches = getMatches(rounds);

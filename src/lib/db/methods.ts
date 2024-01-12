@@ -49,8 +49,8 @@ export const getCategory = async (id: string): Promise<Category | undefined> => 
   return { id: category.id, ...category.data() } as Category;
 };
 
-export const getAllCategories = async (): Promise<Category[]> => {
-  const categories = await categoriesCollection.get();
+export const getAllCategories = async (tournament: string): Promise<Category[]> => {
+  const categories = await categoriesCollection.where('tournament', '==', tournament).get();
   if (categories.empty) {
     return [];
   }

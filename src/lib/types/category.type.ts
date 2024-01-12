@@ -13,7 +13,7 @@ export const CategoryBaseSchema = z.object({
   currentMatch: z.string().optional(),
   duration: z.coerce.number(),
   type: CategoryTypeSchema,
-  tournament: z.string().optional()
+  tournament: z.string().default('')
 });
 
 const PoolCategorySchema = CategoryBaseSchema.extend({
