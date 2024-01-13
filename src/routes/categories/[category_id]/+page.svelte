@@ -7,7 +7,6 @@
   import Print from '$lib/icons/print.svelte';
   import { formatTimeString } from '$lib/store/$timer';
   import { tournament } from '$lib/store/$tournament';
-  import { CATEGORY_NAME } from '$lib/utils/constants';
   import Loading from './loading.svelte';
 
   export let data;
@@ -26,7 +25,7 @@
         {#if !started}
           <a
             class="btn-icon btn-sm variant-soft-surface"
-            href={`/categories/${category.id}/edit?${CATEGORY_NAME}=${category.name}`}
+            href={`/categories/${category.id}/edit`}
             title="Modifica"><Edit /></a
           >
         {/if}

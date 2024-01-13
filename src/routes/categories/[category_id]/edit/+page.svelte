@@ -1,12 +1,11 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
   import { athletes, resetAthletes } from '$lib/store/$athletes';
+  import { categoryName } from '$lib/store/$category-name';
   import { duration } from '$lib/store/$duration';
   import { tournament } from '$lib/store/$tournament';
   import { type } from '$lib/store/$type';
-  import { CATEGORY_NAME } from '$lib/utils/constants';
   import axios from 'redaxios';
   import { onMount } from 'svelte';
   import { initializeCategory } from './initialize-category';
@@ -22,13 +21,12 @@
   });
 
   async function handleEdit() {
-    const categoryName = $page.url.searchParams.get(CATEGORY_NAME);
-    if (!categoryName || !$type || !category) {
+    if (!$categoryName || !$type || !category) {
       return;
     }
 
     const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category.id}`, {
-      name: categoryName,
+      name: $categoryName,
       athletes: $athletes,
       type: $type,
       duration: $duration,

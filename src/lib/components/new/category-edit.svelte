@@ -1,11 +1,10 @@
 <script lang="ts" strictEvents>
-  import { page } from '$app/stores';
   import Athletes from '../../../routes/new/athletes.svelte';
   import CategoryName from '../../../routes/new/category-name.svelte';
   import NewAthlete from '../../../routes/new/new-athlete.svelte';
   import { athletes } from '../../store/$athletes';
+  import { categoryName } from '../../store/$category-name';
   import { type } from '../../store/$type';
-  import { CATEGORY_NAME } from '../../utils/constants';
   import CategoryDuration from './type/category-duration.svelte';
   import CategoryType from './type/category-type.svelte';
 
@@ -14,9 +13,8 @@
   }
 
   export let handleClick: () => void;
-  $: categoryName = $page.url.searchParams.get(CATEGORY_NAME) ?? '';
 
-  $: canClick = [categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
+  $: canClick = [$categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
 </script>
 
 <div class="flex flex-col gap-4">
