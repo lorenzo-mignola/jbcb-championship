@@ -8,14 +8,10 @@ const defaultMatch: Match = {
 };
 
 export const localStorageMatch = localStorageStore<Match>('jbcb-championship-match', defaultMatch);
-
 export const localStorageCategoryName = localStorageStore('jbcb-championship-category-name', '');
-
 export const localStorageTime = localStorageStore('jbcb-championship-time', 0);
-
 export const localStorageOsaekomi = localStorageStore('jbcb-championship-osaekomi', 0);
 export const localStorageGoldenScore = localStorageStore('jbcb-championship-golden-score', false);
-
 export const localStorageOsaekomiType = localStorageStore<JudokaType | ''>(
   'jbcb-championship-osaekomi-type',
   ''

@@ -1,4 +1,4 @@
-import { get, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 import {
   isExtraTime,
   oseakomiType,
@@ -55,8 +55,9 @@ export const timerWatch = () => {
     }
   });
 
-  const unsubscribeStorage = timer.subscribe(($timer) => {
-    localStorageTime.set($timer);
+  // update only 1 each seconds
+  const unsubscribeStorage = derived(timer, ($timer) => getSec($timer), 0).subscribe(() => {
+    localStorageTime.set(get(timer));
   });
 
   const unsubscribeGoldenScore = isGoldenScore.subscribe(($isGoldenScore) => {
