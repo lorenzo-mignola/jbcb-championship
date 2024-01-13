@@ -1,4 +1,5 @@
 import { get, writable } from 'svelte/store';
+import { localStorageOsaekomi, localStorageOsaekomiType } from '../../store/$local-storage-match';
 import { wazari } from '../../store/$match';
 import type { JudokaType } from '../../types/match.type';
 
@@ -49,13 +50,20 @@ export const watchTimerOsaekomi = (type: JudokaType) => {
   const unsubscribeType = oseakomiType.subscribe(($oseakomiType) => {
     if ($oseakomiType === null) {
       resetOsaekomi();
+      localStorageOsaekomiType.set('');
+      return;
     }
+    localStorageOsaekomiType.set($oseakomiType);
   });
 
   const unsubscribeTimer = timerOsaekomi.subscribe((time) => {
     if (time && time <= 0) {
       isPlaying.set(false);
     }
+  });
+
+  const unsubscribeStorageTime = timerOsaekomi.subscribe(($time) => {
+    localStorageOsaekomi.set($time);
   });
 
   const unsubscribePlay = isPlaying.subscribe((play) => {
@@ -69,5 +77,6 @@ export const watchTimerOsaekomi = (type: JudokaType) => {
     unsubscribeWinner();
     unsubscribeType();
     unsubscribePlay();
+    unsubscribeStorageTime();
   };
 };

@@ -1,15 +1,20 @@
-<script>
+<script lang="ts" strictEvents>
   import Pause from '$lib/icons/pause.svelte';
   import { isPlaying } from '$lib/store/$timer';
   import { onDestroy, onMount } from 'svelte';
-  import { oseakomiType, startOsaekomi, stopOsaekomi, timerOsaekomi } from './$osaekomi-timer';
+  import type { JudokaType } from '../../types/match.type';
+  import { resetOsaekomi, startOsaekomi, stopOsaekomi } from './$osaekomi-timer';
+
+  export let view: boolean;
+  export let timer: number;
+  export let type: JudokaType | null;
 
   onMount(() => {
     startOsaekomi();
   });
 
   onDestroy(() => {
-    stopOsaekomi();
+    resetOsaekomi();
   });
 
   const stopTimers = () => {
@@ -19,17 +24,19 @@
 </script>
 
 <div
-  class="card p-2 m-2 text-center shadow-xl"
-  class:judoka-blue={$oseakomiType === 'blue'}
-  class:judoka-white={$oseakomiType === 'white'}
+  class="card p-2 my-2 text-center shadow-md"
+  class:judoka-blue={type === 'blue'}
+  class:judoka-white={type === 'white'}
 >
-  Osae-komi
-  <p class="text-timer text-xl">{$timerOsaekomi}</p>
+  {#if !view}
+    Osae-komi
+  {/if}
+  <p class="text-timer text-xl" class:view>{timer}</p>
 </div>
 
 {#if $isPlaying}
   <button
-    class="btn-icon md:btn-icon-sm variant-ghost-surface"
+    class="btn-icon md:btn-icon-sm variant-ghost-surface mx-2"
     type="button"
     on:click|preventDefault={stopTimers}
   >
@@ -40,5 +47,8 @@
 <style lang="postcss">
   div {
     text-wrap: nowrap;
+  }
+  .view {
+    @apply text-4xl p-3;
   }
 </style>

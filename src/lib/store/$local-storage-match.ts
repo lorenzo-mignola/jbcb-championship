@@ -1,5 +1,5 @@
 import { localStorageStore } from '@skeletonlabs/skeleton';
-import type { Match } from '../types/match.type';
+import type { JudokaType, Match } from '../types/match.type';
 
 const defaultMatch: Match = {
   id: '',
@@ -13,8 +13,19 @@ export const localStorageCategoryName = localStorageStore('jbcb-championship-cat
 
 export const localStorageTime = localStorageStore('jbcb-championship-time', 0);
 
+export const localStorageOsaekomi = localStorageStore('jbcb-championship-osaekomi', 0);
+export const localStorageGoldenScore = localStorageStore('jbcb-championship-golden-score', false);
+
+export const localStorageOsaekomiType = localStorageStore<JudokaType | ''>(
+  'jbcb-championship-osaekomi-type',
+  ''
+);
+
 export const resetStorageMatch = () => {
   localStorageMatch.set(defaultMatch);
   localStorageCategoryName.set('');
   localStorageTime.set(0);
+  localStorageOsaekomi.set(0);
+  localStorageOsaekomiType.set('');
+  localStorageGoldenScore.set(false);
 };
