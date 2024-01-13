@@ -1,7 +1,10 @@
 <script lang="ts" strictEvents>
   import {
     localStorageCategoryName,
+    localStorageGoldenScore,
     localStorageMatch,
+    localStorageOsaekomi,
+    localStorageOsaekomiType,
     localStorageTime
   } from '$lib/store/$local-storage-match';
   import JudokaNameAndPoints from '../../lib/components/match/judoka/judoka-name-and-points.svelte';
@@ -20,7 +23,13 @@
 
 <div class="view-container">
   <div>
-    <h1 class="text-5xl mb-10">{$localStorageCategoryName}</h1>
+    <h1 class="text-5xl mb-10">
+      {#if $localStorageCategoryName}
+        {$localStorageCategoryName}
+      {:else}
+        &nbsp;
+      {/if}
+    </h1>
   </div>
   <div class="judoka-white-card text-7xl">
     <JudokaNameAndPoints athlete={white} points={whitePoints} />
@@ -28,7 +37,14 @@
   <div class="judoka-blue-card text-7xl">
     <JudokaNameAndPoints athlete={blue} points={bluePoints} />
   </div>
-  <TimerView isGoldenScore={false} {min} oseakomiType={null} {sec} />
+  <TimerView
+    isGoldenScore={$localStorageGoldenScore}
+    {min}
+    oseakomiType={$localStorageOsaekomiType || null}
+    {sec}
+    timer={$localStorageOsaekomi}
+    view={true}
+  />
 </div>
 
 <style lang="postcss">

@@ -1,11 +1,11 @@
-import { get, writable } from 'svelte/store';
+import { derived, get, writable } from 'svelte/store';
 import {
   isExtraTime,
   oseakomiType,
   resetOsaekomi,
   startOsaekomi
 } from '../components/osaekomi/$osaekomi-timer';
-import { localStorageTime } from './$local-storage-match';
+import { localStorageGoldenScore, localStorageTime } from './$local-storage-match';
 
 const defaultDuration = 4 * 60 * 10;
 const duration = writable(defaultDuration);
@@ -55,17 +55,20 @@ export const timerWatch = () => {
     }
   });
 
-  const unsubscribeStorage = timer.subscribe(($timer) => {
-    // update only every 100 ms
-    if ($timer % 10 === 0) {
-      localStorageTime.set($timer);
-    }
+  // update only 1 each seconds
+  const unsubscribeStorage = derived(timer, ($timer) => getSec($timer), 0).subscribe(() => {
+    localStorageTime.set(get(timer));
+  });
+
+  const unsubscribeGoldenScore = isGoldenScore.subscribe(($isGoldenScore) => {
+    localStorageGoldenScore.set($isGoldenScore);
   });
 
   return () => {
     unsubscribeTimer();
     unsubscribePlay();
     unsubscribeStorage();
+    unsubscribeGoldenScore();
   };
 };
 

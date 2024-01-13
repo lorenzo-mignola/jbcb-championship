@@ -5,7 +5,7 @@
 </script>
 
 <div class="home-container">
-  <Card link="/new?category-name=" text="✨ Crea categoria ✨" />
+  <Card link="/new" text="✨ Crea categoria ✨" />
   <Card link={`/categories?tournament=${$tournament}`} text="💪 Visualizza categorie 💪" />
   <a class="btn variant-ringed-primary settings" href="/settings">
     <span><Settings /></span>
