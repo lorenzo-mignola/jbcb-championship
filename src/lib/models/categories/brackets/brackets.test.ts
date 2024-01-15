@@ -541,6 +541,6 @@ describe('currentMatch', () => {
 
     const currentMatch = getCurrentMatch(brackets.matches, lastMatch.id);
 
-    expect(currentMatch).toBeUndefined();
+    expect(currentMatch).toBeNull();
   });
 });

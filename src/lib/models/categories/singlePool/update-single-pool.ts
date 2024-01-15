@@ -6,7 +6,7 @@ export function updateSinglePool(category: Category, matchUpdated: Match) {
   const done = nextMatch === category.matches.length - 1;
   const categoryUpdated: Category = {
     ...category,
-    currentMatch: done ? undefined : category.matches[nextMatch + 1].id,
+    currentMatch: done ? null : category.matches[nextMatch + 1].id,
     matches: category.matches.map((match) => {
       if (match.id !== matchUpdated.id) {
         return match;

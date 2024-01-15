@@ -14,6 +14,7 @@ export const poolToCategory = (
     type: 'pool',
     matches: pool,
     athletes: poolAthletes,
-    tournament: ''
+    tournament: '',
+    currentMatch: null
   };
 };

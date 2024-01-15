@@ -10,7 +10,7 @@ export const CategoryBaseSchema = z.object({
   name: z.string(),
   athletes: z.array(JudokaSchema),
   matches: z.array(MatchSchema),
-  currentMatch: z.string().optional(),
+  currentMatch: z.string().or(z.null()),
   duration: z.coerce.number(),
   type: CategoryTypeSchema,
   tournament: z.string().default('')

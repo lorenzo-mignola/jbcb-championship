@@ -256,6 +256,6 @@ describe('createDoublePool', () => {
 
     expect(poolUpdated.finalMatch.winner).toBe('white');
     expect(poolUpdated.matches.at(-1)?.winner).toBe('white');
-    expect(poolUpdated.currentMatch).toBeUndefined();
+    expect(poolUpdated.currentMatch).toBeNull();
   });
 });

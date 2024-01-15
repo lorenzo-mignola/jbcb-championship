@@ -144,7 +144,7 @@ function updateSemiFinalMatch(category: DoublePoolCategory, matchUpdated: Match)
 function updateFinalMatch(category: DoublePoolCategory, matchUpdated: Match) {
   const categoryUpdated: DoublePoolCategory = {
     ...category,
-    currentMatch: undefined,
+    currentMatch: null,
     finalMatch: matchUpdated,
     matches: category.matches.map((match) => {
       if (match.id !== matchUpdated.id) {
