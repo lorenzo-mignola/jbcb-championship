@@ -3,11 +3,13 @@
     localStorageCategoryName,
     localStorageGoldenScore,
     localStorageMatch,
+    localStorageNextMatch,
     localStorageOsaekomi,
     localStorageOsaekomiType,
     localStorageTime
   } from '$lib/store/$local-storage-match';
   import JudokaNameAndPoints from '../../lib/components/match/judoka/judoka-name-and-points.svelte';
+  import NextMatch from '../../lib/components/match/next-match.svelte';
   import TimerView from '../../lib/components/match/timer-view.svelte';
   import { getMin, getSec } from '../../lib/store/$timer';
   import { getPoints } from '../../lib/store/judoka-points';
@@ -45,6 +47,9 @@
     timer={$localStorageOsaekomi}
     view={true}
   />
+  <div class="flex justify-end">
+    <NextMatch nextMatch={$localStorageNextMatch} view={true} />
+  </div>
 </div>
 
 <style lang="postcss">
