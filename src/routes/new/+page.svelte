@@ -8,6 +8,11 @@
   import axios from 'redaxios';
   import { tournament } from '../../lib/store/$tournament';
 
+  const reset = () => {
+    resetAthletes();
+    categoryName.set('');
+  };
+
   async function handleCreate() {
     if (!$categoryName || !$type) {
       return;
@@ -21,7 +26,7 @@
       tournament: $tournament
     });
 
-    resetAthletes();
+    reset();
     goto(`/categories/${newCategoryId}`);
   }
 </script>
