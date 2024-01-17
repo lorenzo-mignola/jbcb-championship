@@ -34,7 +34,7 @@
       removeShido(type);
       toggleEdit();
       const opponentType = getOpponentType(type);
-      if (winner && opponentType) {
+      if (winner === opponentType) {
         removeIppon(opponentType);
       }
     }}

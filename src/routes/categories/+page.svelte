@@ -6,7 +6,11 @@
 
 <div class="flex flex-col gap-3">
   {#each data.categories as category (category.id)}
-    <a href={`/categories/${category.id}`}>
+    <a
+      data-sveltekit-preload-code="hover"
+      data-sveltekit-preload-data="tap"
+      href={`/categories/${category.id}`}
+    >
       <button
         class="btn card card-hover w-full text-xl p-4"
         class:variant-filled-primary={category.currentMatch}

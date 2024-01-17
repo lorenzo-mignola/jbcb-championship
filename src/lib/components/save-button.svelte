@@ -7,8 +7,10 @@
   import { reset } from '../store/$timer';
   import type { Match } from '../types/match.type';
   import { isByeMatch } from '../utils/category';
+  import LoadingSpinner from './loading-spinner.svelte';
 
   export let categoryId: string;
+  let loading = false;
 
   onMount(() => {
     if (!$match) {
@@ -22,25 +24,29 @@
   });
 
   const save = async (matchToUpdate: Match) => {
+    loading = true;
     const { data: categoryUpdated } = await axios.patch(
       `/api/categories/${categoryId}/match`,
       matchToUpdate
     );
 
     if (!categoryUpdated) {
+      loading = false;
       return;
     }
     if (categoryUpdated.currentMatch) {
+      reset();
       goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
         invalidateAll: true
       });
-      reset();
+      loading = false;
       return;
     }
     reset();
     goto(`/categories/${categoryUpdated.id}`, {
       invalidateAll: true
     });
+    loading = false;
   };
 
   const handleClick = () => {
@@ -54,10 +60,14 @@
 </script>
 
 <button
-  class="btn variant-filled-secondary mt-5 text-2xl w-full p-5"
+  class="btn variant-filled-secondary text-2xl w-full mt-5 p-5 flex items-end"
   class:hidden={!winner}
+  disabled={loading}
   type="button"
   on:click|preventDefault={handleClick}
 >
-  Termina incontro</button
->
+  <span class="ml-2"> Termina incontro </span>
+  {#if loading}
+    <LoadingSpinner />
+  {/if}
+</button>
