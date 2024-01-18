@@ -1,6 +1,7 @@
 <script lang="ts" strictEvents>
   import Back from '$lib/icons/back.svelte';
   import type { Match } from '../../types/match.type';
+  import NextMatch from './next-match.svelte';
 
   export let categoryId: string;
   export let nextMatch: Match | undefined;
@@ -13,13 +14,5 @@
       <span>Visualizza categoria</span>
     </a>
   </div>
-
-  {#if nextMatch}
-    <div class="card variant-ringed p-2 mb-4 md:mb-0 break-words">
-      <p>Prossimo incontro</p>
-      <p class="text-sm">
-        <b>{nextMatch.white?.name}</b> - <b>{nextMatch?.blue?.name}</b>
-      </p>
-    </div>
-  {/if}
+  <NextMatch {nextMatch} />
 </footer>

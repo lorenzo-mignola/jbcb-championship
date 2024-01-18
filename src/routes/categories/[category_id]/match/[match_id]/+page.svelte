@@ -4,7 +4,7 @@
   import Timer from '$lib/components/match/timer.svelte';
   import PlayPauseButton from '$lib/components/play-pause-button.svelte';
   import SaveButton from '$lib/components/save-button.svelte';
-  import { localStorageCategoryName } from '$lib/store/$local-storage-match';
+  import { localStorageCategoryName, localStorageNextMatch } from '$lib/store/$local-storage-match';
   import { match } from '$lib/store/$match';
   import { setDuration, timer } from '$lib/store/$timer';
   import { onDestroy } from 'svelte';
@@ -14,6 +14,20 @@
 
   $: match.set(matchData);
   $: localStorageCategoryName.set(category?.name || '');
+  $: localStorageNextMatch.update(() => {
+    if (!nextMatch) {
+      return {
+        id: '',
+        finalTime: null,
+        goldenScore: null
+      };
+    }
+    return {
+      id: nextMatch.id,
+      white: nextMatch.white,
+      blue: nextMatch.blue
+    };
+  });
 
   $: if (category?.duration) {
     setDuration(category.duration);

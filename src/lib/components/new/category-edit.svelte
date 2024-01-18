@@ -5,6 +5,7 @@
   import { athletes } from '../../store/$athletes';
   import { categoryName } from '../../store/$category-name';
   import { type } from '../../store/$type';
+  import LoadingSpinner from '../loading-spinner.svelte';
   import CategoryDuration from './type/category-duration.svelte';
   import CategoryType from './type/category-type.svelte';
 
@@ -15,6 +16,7 @@
   export let handleClick: () => void;
 
   $: canClick = [$categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
+  let loading = false;
 </script>
 
 <div class="flex flex-col gap-4">
@@ -30,8 +32,15 @@
 <CategoryType />
 
 <button
-  class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10"
-  disabled={!canClick}
+  class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10 mb-1 flex items-end"
+  disabled={!canClick || loading}
   type="submit"
-  on:click={handleClick}><slot name="label-button" /></button
->
+  on:click={() => {
+    loading = true;
+    handleClick();
+  }}
+  ><slot name="label-button" />
+  {#if loading}
+    <LoadingSpinner />
+  {/if}
+</button>

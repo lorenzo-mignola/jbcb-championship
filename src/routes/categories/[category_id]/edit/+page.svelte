@@ -7,7 +7,7 @@
   import { tournament } from '$lib/store/$tournament';
   import { type } from '$lib/store/$type';
   import axios from 'redaxios';
-  import { onMount } from 'svelte';
+  import { onDestroy, onMount } from 'svelte';
   import { initializeCategory } from './initialize-category';
 
   export let data;
@@ -19,6 +19,11 @@
     }
     initializeCategory(category);
   });
+
+  const reset = () => {
+    resetAthletes();
+    categoryName.set('');
+  };
 
   async function handleEdit() {
     if (!$categoryName || !$type || !category) {
@@ -33,9 +38,13 @@
       tournament: $tournament
     });
 
-    resetAthletes();
+    reset();
     goto(`/categories/${idNewCategory}`);
   }
+
+  onDestroy(() => {
+    reset();
+  });
 </script>
 
 <CategoryEdit handleClick={handleEdit}>
