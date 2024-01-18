@@ -14,9 +14,13 @@
 
   $: match.set(matchData);
   $: localStorageCategoryName.set(category?.name || '');
-  $: localStorageNextMatch.update(($currentNext) => {
+  $: localStorageNextMatch.update(() => {
     if (!nextMatch) {
-      return $currentNext;
+      return {
+        id: '',
+        finalTime: null,
+        goldenScore: null
+      };
     }
     return {
       id: nextMatch.id,

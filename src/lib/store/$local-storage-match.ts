@@ -25,6 +25,7 @@ export const localStorageOsaekomiType = localStorageStore<JudokaType | ''>(
 
 export const resetStorageMatch = () => {
   localStorageMatch.set(defaultMatch);
+  localStorageNextMatch.set(defaultMatch);
   localStorageCategoryName.set('');
   localStorageTime.set(0);
   localStorageOsaekomi.set(0);
