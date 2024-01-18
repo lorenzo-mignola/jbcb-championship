@@ -1,7 +1,7 @@
 <script lang="ts" strictEvents>
+  import { isByeMatch } from '../../../models/ranking/category';
   import { formatTime } from '../../../store/$timer';
   import type { Match } from '../../../types/match.type';
-  import { isByeMatch } from '../../../utils/category';
 
   export let matches: Match[];
   export let categoryDuration: number;
@@ -39,7 +39,9 @@
           <td class="judoka-blue" class:font-extrabold={match.winner === 'blue'}
             >{match.blue?.name ?? ''}</td
           >
-          <td class="bg-surface-200">{formatWithDuration(match.finalTime, match.goldenScore)}</td>
+          <td class="bg-surface-200 dark:bg-surface-700 text-black dark:text-white"
+            >{formatWithDuration(match.finalTime, match.goldenScore)}</td
+          >
         </tr>
       {/each}
     </tbody>

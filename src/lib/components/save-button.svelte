@@ -3,10 +3,10 @@
   import axios from 'redaxios';
   import { onMount } from 'svelte';
   import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
+  import { isByeMatch } from '../models/ranking/category';
   import { match } from '../store/$match';
   import { reset } from '../store/$timer';
   import type { Match } from '../types/match.type';
-  import { isByeMatch } from '../utils/category';
   import LoadingSpinner from './loading-spinner.svelte';
 
   export let categoryId: string;

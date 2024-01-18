@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
-import poolCategoryMock from '../../../tests/mock/pool-category.json';
-import type { PoolCategory } from '../types/category.type';
+import poolCategoryMock from '../../../../tests/mock/pool-category.json';
+import type { PoolCategory } from '../../types/category.type';
 import { getRanking } from './category';
 
 const idPrimo = 'zspTr-9UcYWCASeuWWi50';

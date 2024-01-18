@@ -1,9 +1,9 @@
-import type { Category, DoublePoolCategory } from '../types/category.type';
-import type { Judoka } from '../types/judoka.type';
-import type { Match } from '../types/match.type';
-import { getOpponentType } from './judoka';
+import type { Category, DoublePoolCategory } from '../../types/category.type';
+import type { Judoka } from '../../types/judoka.type';
+import type { Match } from '../../types/match.type';
+import { getOpponentType } from '../../utils/judoka';
 
-interface RankingAthlete {
+export interface RankingAthlete {
   id?: string;
   rank: number;
   matchPoint?: number;
