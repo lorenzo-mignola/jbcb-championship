@@ -15,7 +15,8 @@
     "test:coverage": "vitest --coverage",
     "deploy": "vercel",
     "deploy:prod": "vercel --prod",
-    "firestore": "firebase emulators:start"
+    "firestore": "firebase emulators:start --import ./data --export-on-exit ./data",
+    "firestore:export": "firebase emulators:export ./data"
   },
   "devDependencies": {
     "@skeletonlabs/skeleton": "2.5.0",

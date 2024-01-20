@@ -57,6 +57,23 @@ export const getAllCategories = async (tournament: string): Promise<Category[]> 
   return categories.docs.map((category) => ({ id: category.id, ...category.data() }) as Category);
 };
 
+export const getAllEndedCategories = async (tournament: string): Promise<Category[]> => {
+  if (!tournament) {
+    return [];
+  }
+
+  const categories = await categoriesCollection
+    .where('tournament', '==', tournament)
+    .where('currentMatch', '==', null)
+    .get();
+
+  if (categories.empty) {
+    return [];
+  }
+
+  return categories.docs.map((category) => ({ id: category.id, ...category.data() }) as Category);
+};
+
 const removeCategory = (id: string) => {
   return categoriesCollection.doc(id).delete();
 };
