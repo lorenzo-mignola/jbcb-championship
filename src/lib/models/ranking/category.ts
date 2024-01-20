@@ -10,7 +10,7 @@ export interface RankingAthlete {
   evaluationPoint?: number;
 }
 
-const getRankingDoublePool = (
+export const getRankingDoublePool = (
   semifinals: DoublePoolCategory['semifinals'],
   finalMatch: DoublePoolCategory['finalMatch']
 ) => {
@@ -63,8 +63,11 @@ const getRankingDoublePool = (
   return ranking.sort((a, b) => a.rank - b.rank);
 };
 
-const getRankingBrackets = (matches: Match[]) => {
+export const getRankingBrackets = (matches: Match[]) => {
   const lastMatchIndex = matches.length - 1;
+  if (lastMatchIndex < 0) {
+    return [];
+  }
   const goldFinal = matches[lastMatchIndex];
   const firstBronzeFinal = matches[lastMatchIndex - 1];
   const secondBronzeFinal = matches[lastMatchIndex - 2];
@@ -174,6 +177,7 @@ export const getRanking = (category?: Category): RankingAthlete[] => {
   if (category.currentMatch) {
     return [];
   }
+
   if (category.type === 'pool') {
     return getRankingPool(category.matches, category.athletes);
   }
