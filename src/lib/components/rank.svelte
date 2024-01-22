@@ -1,5 +1,5 @@
 <script lang="ts" strictEvents>
-  import { getRankingIcon } from '../utils/category';
+  import { getRankingIcon } from '../models/ranking/category';
 
   export let rank: number;
   export let name: string | undefined = '-';

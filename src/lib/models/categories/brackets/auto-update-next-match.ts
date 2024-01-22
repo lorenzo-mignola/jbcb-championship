@@ -1,6 +1,6 @@
 import type { Category } from '../../../types/category.type';
 import type { Match } from '../../../types/match.type';
-import { isByeMatch } from '../../../utils/category';
+import { isByeMatch } from '../../ranking/category';
 
 export const needSkipMatch = (category: Category) => {
   if (!category.currentMatch) {

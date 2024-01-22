@@ -1,0 +1,514 @@
+{
+  "id": "rN22YmYXtGrAlGepV1un",
+  "duration": 2400,
+  "name": "2 KO",
+  "athletes": [
+    {
+      "name": "a",
+      "club": "Club 2",
+      "id": "SzJAd73o_aMwWnHKtQ-Hg"
+    },
+    {
+      "name": "b",
+      "club": "Club 2",
+      "id": "pC86HJ4_DypStfWhMH-3w"
+    },
+    {
+      "name": "c",
+      "club": "Club 2",
+      "id": "NgWpB9yyB3skVFBVxC8zh"
+    },
+    {
+      "name": "d",
+      "club": "Club 1",
+      "id": "UqOlxZ48ZKVHUzOutlzwf"
+    },
+    {
+      "name": "e",
+      "club": "Club 1",
+      "id": "U4XtqYZrsa9bG6rDLOkdk"
+    },
+    {
+      "name": "f",
+      "club": "Club 3",
+      "id": "bfSvpbCSxmRkPwS2JOf0i"
+    },
+    {
+      "name": "g",
+      "club": "Club 3",
+      "id": "x4JLNFS78kIeNv5Qb3kb7"
+    },
+    {
+      "name": "h",
+      "club": "Club 3",
+      "id": "MwhUkAR3KuBS0jTXUHwSP"
+    }
+  ],
+  "tournament": "",
+  "type": "brackets",
+  "currentMatch": null,
+  "matches": [
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "c",
+        "wazari": 0,
+        "shido": 0,
+        "id": "NgWpB9yyB3skVFBVxC8zh"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "h",
+        "wazari": 0,
+        "shido": 0,
+        "id": "MwhUkAR3KuBS0jTXUHwSP"
+      },
+      "id": "MyFQESBFDiirZSjex56Mp",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "f",
+        "wazari": 0,
+        "shido": 0,
+        "id": "bfSvpbCSxmRkPwS2JOf0i"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "e",
+        "wazari": 0,
+        "shido": 0,
+        "id": "U4XtqYZrsa9bG6rDLOkdk"
+      },
+      "id": "ebwJp9MIS5sB3ZpSE2ksP",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "b",
+        "wazari": 0,
+        "shido": 0,
+        "id": "pC86HJ4_DypStfWhMH-3w"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "d",
+        "wazari": 0,
+        "shido": 0,
+        "id": "UqOlxZ48ZKVHUzOutlzwf"
+      },
+      "id": "3xsyJsqmKvGZfpa68Buxn",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "g",
+        "wazari": 0,
+        "shido": 0,
+        "id": "x4JLNFS78kIeNv5Qb3kb7"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "a",
+        "wazari": 0,
+        "shido": 0,
+        "id": "SzJAd73o_aMwWnHKtQ-Hg"
+      },
+      "id": "TwyFKjFA3LESxBaltCAoD",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "h",
+        "wazari": 0,
+        "shido": 0,
+        "id": "MwhUkAR3KuBS0jTXUHwSP"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "f",
+        "wazari": 0,
+        "shido": 0,
+        "id": "bfSvpbCSxmRkPwS2JOf0i"
+      },
+      "id": "E-HhRdPUUl9GnlcNzGdHL",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "d",
+        "wazari": 0,
+        "shido": 0,
+        "id": "UqOlxZ48ZKVHUzOutlzwf"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "g",
+        "wazari": 0,
+        "shido": 0,
+        "id": "x4JLNFS78kIeNv5Qb3kb7"
+      },
+      "id": "Omsur2kdlEl_02l1DMapU",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "c",
+        "wazari": 0,
+        "shido": 0,
+        "id": "NgWpB9yyB3skVFBVxC8zh"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "e",
+        "wazari": 0,
+        "shido": 0,
+        "id": "U4XtqYZrsa9bG6rDLOkdk"
+      },
+      "id": "i21QM8u1buOkcc0RynNbO",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "b",
+        "wazari": 0,
+        "shido": 0,
+        "id": "pC86HJ4_DypStfWhMH-3w"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "a",
+        "wazari": 0,
+        "shido": 0,
+        "id": "SzJAd73o_aMwWnHKtQ-Hg"
+      },
+      "id": "tGmMGCcQtNoCnL7jO_npq",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "b",
+        "wazari": 0,
+        "shido": 0,
+        "id": "pC86HJ4_DypStfWhMH-3w"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "h",
+        "wazari": 0,
+        "shido": 0,
+        "id": "MwhUkAR3KuBS0jTXUHwSP"
+      },
+      "id": "wssrXL2Ktwjvix_ZKsBEc",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "e",
+        "wazari": 0,
+        "shido": 0,
+        "id": "U4XtqYZrsa9bG6rDLOkdk"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "g",
+        "wazari": 0,
+        "shido": 0,
+        "id": "x4JLNFS78kIeNv5Qb3kb7"
+      },
+      "id": "I4fiHe_i1uzjafTT8Uuyh",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "c",
+        "wazari": 0,
+        "shido": 0,
+        "id": "NgWpB9yyB3skVFBVxC8zh"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "a",
+        "wazari": 0,
+        "shido": 0,
+        "id": "SzJAd73o_aMwWnHKtQ-Hg"
+      },
+      "id": "OZLFq7xqUHt5LQyroy2ke",
+      "finalTime": 2400
+    }
+  ],
+  "rounds": [
+    {
+      "winner": [
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "c",
+            "wazari": 0,
+            "shido": 0,
+            "id": "NgWpB9yyB3skVFBVxC8zh"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "h",
+            "wazari": 0,
+            "shido": 0,
+            "id": "MwhUkAR3KuBS0jTXUHwSP"
+          },
+          "id": "MyFQESBFDiirZSjex56Mp",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "blue",
+          "white": {
+            "ippon": 0,
+            "name": "f",
+            "wazari": 0,
+            "shido": 0,
+            "id": "bfSvpbCSxmRkPwS2JOf0i"
+          },
+          "blue": {
+            "ippon": 1,
+            "name": "e",
+            "wazari": 0,
+            "shido": 0,
+            "id": "U4XtqYZrsa9bG6rDLOkdk"
+          },
+          "id": "ebwJp9MIS5sB3ZpSE2ksP",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "b",
+            "wazari": 0,
+            "shido": 0,
+            "id": "pC86HJ4_DypStfWhMH-3w"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "d",
+            "wazari": 0,
+            "shido": 0,
+            "id": "UqOlxZ48ZKVHUzOutlzwf"
+          },
+          "id": "3xsyJsqmKvGZfpa68Buxn",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "blue",
+          "white": {
+            "ippon": 0,
+            "name": "g",
+            "wazari": 0,
+            "shido": 0,
+            "id": "x4JLNFS78kIeNv5Qb3kb7"
+          },
+          "blue": {
+            "ippon": 1,
+            "name": "a",
+            "wazari": 0,
+            "shido": 0,
+            "id": "SzJAd73o_aMwWnHKtQ-Hg"
+          },
+          "id": "TwyFKjFA3LESxBaltCAoD",
+          "finalTime": 2400
+        }
+      ],
+      "repechage": [],
+      "loser": []
+    },
+    {
+      "winner": [
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "c",
+            "wazari": 0,
+            "shido": 0,
+            "id": "NgWpB9yyB3skVFBVxC8zh"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "e",
+            "wazari": 0,
+            "shido": 0,
+            "id": "U4XtqYZrsa9bG6rDLOkdk"
+          },
+          "id": "i21QM8u1buOkcc0RynNbO",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "blue",
+          "white": {
+            "ippon": 0,
+            "name": "b",
+            "wazari": 0,
+            "shido": 0,
+            "id": "pC86HJ4_DypStfWhMH-3w"
+          },
+          "blue": {
+            "ippon": 1,
+            "name": "a",
+            "wazari": 0,
+            "shido": 0,
+            "id": "SzJAd73o_aMwWnHKtQ-Hg"
+          },
+          "id": "tGmMGCcQtNoCnL7jO_npq",
+          "finalTime": 2400
+        }
+      ],
+      "repechage": [
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "b",
+            "wazari": 0,
+            "shido": 0,
+            "id": "pC86HJ4_DypStfWhMH-3w"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "h",
+            "wazari": 0,
+            "shido": 0,
+            "id": "MwhUkAR3KuBS0jTXUHwSP"
+          },
+          "id": "wssrXL2Ktwjvix_ZKsBEc",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "blue",
+          "white": {
+            "ippon": 0,
+            "name": "e",
+            "wazari": 0,
+            "shido": 0,
+            "id": "U4XtqYZrsa9bG6rDLOkdk"
+          },
+          "blue": {
+            "ippon": 1,
+            "name": "g",
+            "wazari": 0,
+            "shido": 0,
+            "id": "x4JLNFS78kIeNv5Qb3kb7"
+          },
+          "id": "I4fiHe_i1uzjafTT8Uuyh",
+          "finalTime": 2400
+        }
+      ],
+      "loser": [
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "h",
+            "wazari": 0,
+            "shido": 0,
+            "id": "MwhUkAR3KuBS0jTXUHwSP"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "f",
+            "wazari": 0,
+            "shido": 0,
+            "id": "bfSvpbCSxmRkPwS2JOf0i"
+          },
+          "id": "E-HhRdPUUl9GnlcNzGdHL",
+          "finalTime": 2400
+        },
+        {
+          "goldenScore": false,
+          "winner": "blue",
+          "white": {
+            "ippon": 0,
+            "name": "d",
+            "wazari": 0,
+            "shido": 0,
+            "id": "UqOlxZ48ZKVHUzOutlzwf"
+          },
+          "blue": {
+            "ippon": 1,
+            "name": "g",
+            "wazari": 0,
+            "shido": 0,
+            "id": "x4JLNFS78kIeNv5Qb3kb7"
+          },
+          "id": "Omsur2kdlEl_02l1DMapU",
+          "finalTime": 2400
+        }
+      ]
+    },
+    {
+      "winner": [
+        {
+          "goldenScore": false,
+          "winner": "white",
+          "white": {
+            "ippon": 1,
+            "name": "c",
+            "wazari": 0,
+            "shido": 0,
+            "id": "NgWpB9yyB3skVFBVxC8zh"
+          },
+          "blue": {
+            "ippon": 0,
+            "name": "a",
+            "wazari": 0,
+            "shido": 0,
+            "id": "SzJAd73o_aMwWnHKtQ-Hg"
+          },
+          "id": "OZLFq7xqUHt5LQyroy2ke",
+          "finalTime": 2400
+        }
+      ],
+      "repechage": [],
+      "loser": []
+    }
+  ]
+}

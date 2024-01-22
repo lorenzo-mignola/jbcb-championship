@@ -6,10 +6,10 @@
   import Ranking from '$lib/components/category/stats/ranking.svelte';
   import MatchesPrint from '$lib/components/print/matches-print.svelte';
   import Print from '$lib/icons/print.svelte';
-  import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds.js';
+  import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds';
+  import { isByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/store/$timer';
-  import { isByeMatch } from '$lib/utils/category';
-  import { isMobile } from '$lib/utils/mobile.js';
+  import { isMobile } from '$lib/utils/mobile';
   import { onMount } from 'svelte';
 
   export let data;

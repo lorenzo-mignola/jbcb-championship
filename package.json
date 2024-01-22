@@ -7,14 +7,16 @@
     "dev:emulator": "export FIRESTORE_EMULATOR_HOST=127.0.0.1:8080 && vite dev",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "npm run test:unit -- --watch=false",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "prettier --check . && eslint .",
-    "test:unit": "vitest",
+    "test": "npm run test:watch -- --watch=false",
+    "test:watch": "vitest",
+    "test:coverage": "vitest --coverage",
     "deploy": "vercel",
     "deploy:prod": "vercel --prod",
-    "firestore": "firebase emulators:start"
+    "firestore": "firebase emulators:start --import ./data --export-on-exit ./data",
+    "firestore:export": "firebase emulators:export ./data"
   },
   "devDependencies": {
     "@skeletonlabs/skeleton": "2.5.0",
@@ -25,6 +27,7 @@
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "0.5.10",
     "@types/node": "20.9.1",
+    "@types/ramda": "^0.29.9",
     "@typescript-eslint/eslint-plugin": "^6.16.0",
     "@typescript-eslint/parser": "^6.16.0",
     "@vercel/style-guide": "^5.1.0",
@@ -53,6 +56,7 @@
     "firebase-admin": "^12.0.0",
     "immer": "^10.0.3",
     "nanoid": "^5.0.4",
+    "ramda": "^0.29.1",
     "redaxios": "^0.5.1"
   }
 }

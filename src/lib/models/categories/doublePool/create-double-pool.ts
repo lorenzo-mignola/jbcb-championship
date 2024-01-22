@@ -1,8 +1,8 @@
 import type { DoublePoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';
-import { shuffleArray } from '../../../utils/category';
 import { createMatch } from '../../match';
+import { shuffleArray } from '../../ranking/category';
 import { createMatchesPool } from '../singlePool/create-single-pool';
 
 const createPools = (athletes: Judoka[]) => {

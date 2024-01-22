@@ -1,7 +1,7 @@
 import { getCategory } from '$lib/db/methods';
+import { isByeMatch } from '../../../../../lib/models/ranking/category';
 import type { Category } from '../../../../../lib/types/category.type';
 import type { Match } from '../../../../../lib/types/match.type';
-import { isByeMatch } from '../../../../../lib/utils/category';
 import type { PageServerLoad } from './$types';
 
 type Output =
