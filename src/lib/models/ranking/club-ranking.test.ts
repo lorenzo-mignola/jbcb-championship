@@ -5,7 +5,7 @@ import { describe, expect, it } from 'vitest';
 import type { Category } from '../../types/category.type';
 import { getClubRaking } from './club-ranking';
 
-describe.only('getClubRaking', () => {
+describe('getClubRaking', () => {
   it('should return an array with clubs', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
