@@ -5,7 +5,7 @@
 </script>
 
 <a
-  class="card text-xl p-8 flex items-center justify-center bg-primary-500 dark:bg-primary-600 text-white"
+  class="card text-xl xl:text-2xl p-8 flex items-center justify-center bg-primary-500 dark:bg-primary-600 text-white"
   class:disabled
   class:enabled={!disabled}
   href={!disabled ? link : '/'}>{text}</a
