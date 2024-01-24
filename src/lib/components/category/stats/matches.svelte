@@ -7,6 +7,18 @@
   export let categoryDuration: number;
 
   const formatWithDuration = formatTime(categoryDuration);
+
+  function openMatch(
+    event: MouseEvent & {
+      currentTarget: EventTarget & HTMLTableRowElement;
+    },
+    matchId: string
+  ) {
+    if (!event.altKey) {
+      return;
+    }
+    window.open(`${window.location.pathname}/match/${matchId}`, '_blank');
+  }
 </script>
 
 <div class="table-container">
@@ -26,7 +38,11 @@
     </thead>
     <tbody>
       {#each matches.filter((match) => !isByeMatch(match)) as match (match.id)}
-        <tr class="row hover:brightness-95" data-match-id={match.id}>
+        <tr
+          class="row hover:brightness-95"
+          data-match-id={match.id}
+          on:click|stopImmediatePropagation={(event) => openMatch(event, match.id)}
+        >
           <td class="judoka-white" class:font-extrabold={match.winner === 'white'}
             >{match.white?.name ?? '-'}</td
           >
