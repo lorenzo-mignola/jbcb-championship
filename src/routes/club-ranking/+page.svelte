@@ -1,9 +1,14 @@
 <script lang="ts" strictEvents>
+  import PrintButton from '$lib/components/print-button.svelte';
+
   export let data;
   $: ranking = data.ranking;
 </script>
 
-<h2 class="h2">Classifica per club</h2>
+<div class="flex justify-between">
+  <h2 class="h2">Classifica per club</h2>
+  <PrintButton />
+</div>
 
 <div class="table-container mt-5">
   <table class="table table-hover text-center">

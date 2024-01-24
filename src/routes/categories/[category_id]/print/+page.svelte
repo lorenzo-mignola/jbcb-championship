@@ -4,8 +4,8 @@
   import Brackets from '$lib/components/category/stats/brackets.svelte';
   import RankingDoublePool from '$lib/components/category/stats/ranking-double-pool.svelte';
   import Ranking from '$lib/components/category/stats/ranking.svelte';
+  import PrintButton from '$lib/components/print-button.svelte';
   import MatchesPrint from '$lib/components/print/matches-print.svelte';
-  import Print from '$lib/icons/print.svelte';
   import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds';
   import { isByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/store/$timer';
@@ -22,11 +22,8 @@
   });
 </script>
 
-<div class="print:hidden mb-10">
-  <button class="btn variant-filled" type="button" on:click={() => window.print()}>
-    <span><Print /></span>
-    <span>Stampa</span>
-  </button>
+<div class="mb-10 print:hidden">
+  <PrintButton />
 </div>
 
 {#if category}
