@@ -8,11 +8,12 @@
 <div class="table-container mt-5">
   <table class="table table-hover text-center">
     <thead>
-      <tr class="text-xl">
+      <tr>
         <th class="w-3/4">Club</th>
-        <th class="text-center">🥇</th>
-        <th class="text-center">🥈</th>
-        <th class="text-center">🥉</th>
+        <th class="text-center text-xl">🥇</th>
+        <th class="text-center text-xl">🥈</th>
+        <th class="text-center text-xl">🥉</th>
+        <th class="text-center">Tot</th>
       </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
           <td>{clubRanking.gold}</td>
           <td>{clubRanking.silver}</td>
           <td>{clubRanking.bronze}</td>
+          <td>{clubRanking.gold + clubRanking.silver + clubRanking.bronze}</td>
         </tr>
       {/each}
     </tbody>
