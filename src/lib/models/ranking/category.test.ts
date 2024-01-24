@@ -4,6 +4,7 @@ import type { Match } from '$lib/types/match.type';
 import brackets from '$tests/mock/2ko.json';
 import doublePool from '$tests/mock/double-pool.json';
 import poolCategoryMock from '$tests/mock/pool-category.json';
+import singleEven from '$tests/mock/single-pool-even.json';
 import single from '$tests/mock/single-pool.json';
 import { describe, expect, it } from 'vitest';
 import {
@@ -80,7 +81,7 @@ describe('getRankingPool', () => {
         id: '5UAhk7jAVQ9mKSLFD7jKT',
         matchPoint: 6,
         evaluationPoint: 30,
-        rank: 2
+        rank: 1
       },
       {
         id: 'sXGiWm4aJ-JaIA69Xy7mT',
@@ -98,7 +99,33 @@ describe('getRankingPool', () => {
         id: '6E6iZxhoFK3KQGL1n5sxx',
         matchPoint: 2,
         evaluationPoint: 10,
-        rank: 5
+        rank: 4
+      }
+    ]);
+  });
+
+  it('should return an array of rankings with all golds', () => {
+    const athletes = singleEven.athletes;
+    const matches = singleEven.matches as Match[];
+    const actual = getRankingPool(matches, athletes);
+    expect(actual).toStrictEqual([
+      {
+        id: 'lCcFKdl28NW643hzVRJqV',
+        matchPoint: 2,
+        evaluationPoint: 10,
+        rank: 1
+      },
+      {
+        id: 'rbBY-dGntsroZWQsCnI-W',
+        matchPoint: 2,
+        evaluationPoint: 10,
+        rank: 1
+      },
+      {
+        id: 'XVmaPYhIA88IyU_SvOPJ1',
+        matchPoint: 2,
+        evaluationPoint: 10,
+        rank: 1
       }
     ]);
   });

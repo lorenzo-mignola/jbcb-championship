@@ -37,7 +37,8 @@ const getWhiteAndBlueSemifinal = (category: DoublePoolCategory, index: 0 | 1) =>
   const loserPoolAthletes = category.pools[index === 0 ? 'bAthletes' : 'aAthletes'];
   const whiteId = getRankingPool(winnerPool, winnerPoolAthletes).find((rank) => rank.rank === 1)
     ?.id;
-  const blueId = getRankingPool(loserPool, loserPoolAthletes).find((rank) => rank.rank === 2)?.id;
+  const blueId = getRankingPool(loserPool, loserPoolAthletes, false).find((rank) => rank.rank === 2)
+    ?.id;
   return {
     white: resetAthlete(category.athletes.find((athlete) => athlete.id === whiteId)),
     blue: resetAthlete(category.athletes.find((athlete) => athlete.id === blueId))

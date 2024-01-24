@@ -1,0 +1,39 @@
+{
+  "id": "o7PhhpvrWjYoZFbJIdp7",
+  "duration": 2400,
+  "name": "Pari",
+  "athletes": [
+    { "name": "a", "club": "", "id": "lCcFKdl28NW643hzVRJqV" },
+    { "name": "b", "club": "", "id": "rbBY-dGntsroZWQsCnI-W" },
+    { "name": "c", "club": "", "id": "XVmaPYhIA88IyU_SvOPJ1" }
+  ],
+  "tournament": "a",
+  "type": "pool",
+  "currentMatch": null,
+  "matches": [
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": { "ippon": 1, "name": "a", "wazari": 0, "shido": 0, "id": "lCcFKdl28NW643hzVRJqV" },
+      "blue": { "ippon": 0, "name": "b", "wazari": 0, "shido": 0, "id": "rbBY-dGntsroZWQsCnI-W" },
+      "id": "B16irQawbrSKCe4ZvjWrO",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": { "ippon": 1, "name": "b", "wazari": 0, "shido": 0, "id": "rbBY-dGntsroZWQsCnI-W" },
+      "blue": { "ippon": 0, "name": "c", "wazari": 0, "shido": 0, "id": "XVmaPYhIA88IyU_SvOPJ1" },
+      "id": "TPqedHE4fCbFDksqgigcu",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": { "ippon": 1, "name": "c", "wazari": 0, "shido": 0, "id": "XVmaPYhIA88IyU_SvOPJ1" },
+      "blue": { "ippon": 0, "name": "a", "wazari": 0, "shido": 0, "id": "lCcFKdl28NW643hzVRJqV" },
+      "id": "9q482QDN0va46LYGoaLtP",
+      "finalTime": 2400
+    }
+  ]
+}

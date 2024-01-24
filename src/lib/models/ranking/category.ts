@@ -112,7 +112,7 @@ export const getRankingBrackets = (matches: Match[]) => {
   return ranking.sort((a, b) => a.rank - b.rank);
 };
 
-export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
+export const getRankingPool = (matches: Match[], athletes: Judoka[], evenPosition = true) => {
   const athleteMap: Record<string, { matchPoint: number; evaluationPoint: number }> =
     athletes.reduce((map, athlete) => {
       const { id } = athlete;
@@ -143,7 +143,23 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       }
       return b.matchPoint - a.matchPoint;
     })
-    .map((athlete, index) => ({ ...athlete, rank: index + 1 }));
+    .map((athlete, index) => ({ ...athlete, rank: index + 1 }))
+    .reduce<Required<RankingAthlete>[]>((ranking, rank) => {
+      if (!evenPosition) {
+        return [...ranking, rank];
+      }
+      if (rank.rank > 5) {
+        return [...ranking, rank];
+      }
+
+      const evenResult = ranking.find(
+        (r) => r.evaluationPoint === rank.evaluationPoint && r.matchPoint === rank.matchPoint
+      );
+      if (!evenResult) {
+        return [...ranking, rank];
+      }
+      return [...ranking, { ...rank, rank: evenResult.rank }];
+    }, []);
 };
 
 export const isByeMatch = ({ white, blue }: Match) => !white || !blue;

@@ -41,9 +41,9 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club1 = rank.find((r) => r.name === 'Club 3');
+    const club3 = rank.find((r) => r.name === 'Club 3');
 
-    expect(club1?.silver).toBe(2);
+    expect(club3?.silver).toBe(1);
   });
 
   it('should sum ranking bronze for Club 2', () => {
@@ -52,7 +52,7 @@ describe('getClubRaking', () => {
 
     const club1 = rank.find((r) => r.name === 'Club 1');
 
-    expect(club1?.bronze).toBe(2);
+    expect(club1?.bronze).toBe(3);
   });
 
   it('should sort club', () => {
@@ -60,7 +60,7 @@ describe('getClubRaking', () => {
     const rank = getClubRaking(categories);
 
     expect(rank[0].name).toBe('Club 2');
-    expect(rank[1].name).toBe('Club 1');
-    expect(rank[2].name).toBe('Club 3');
+    expect(rank[1].name).toBe('Club 3');
+    expect(rank[2].name).toBe('Club 1');
   });
 });
