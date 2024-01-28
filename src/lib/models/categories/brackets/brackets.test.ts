@@ -544,3 +544,16 @@ describe('currentMatch', () => {
     expect(currentMatch).toBeNull();
   });
 });
+
+describe('repechage', () => {
+  it('should have a props to show when is repechage match', () => {
+    const brackets = createBrackets('test', athletes, 0);
+    const secondRoundLoser = brackets.rounds[1].loser[0];
+    const secondRoundWinner = brackets.rounds[1].winner[0];
+    const secondRoundRepechage = brackets.rounds[1].repechage[0];
+
+    expect(secondRoundLoser.isRepechage).toBe(true);
+    expect(secondRoundRepechage.isRepechage).toBe(true);
+    expect(secondRoundWinner.isRepechage).toBeUndefined();
+  });
+});

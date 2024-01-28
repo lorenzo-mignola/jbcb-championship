@@ -55,8 +55,8 @@ export const createRounds = (athletes: Judoka[]): Rounds => {
 
     const roundMatch = {
       winner: create(),
-      loser: isFirstOrLast ? [] : create(),
-      repechage: isFirstOrLast ? [] : create()
+      loser: isFirstOrLast ? [] : create().map((match) => ({ ...match, isRepechage: true })),
+      repechage: isFirstOrLast ? [] : create().map((match) => ({ ...match, isRepechage: true }))
     };
     rounds.push(roundMatch);
     winnerAthletesCount /= 2;

@@ -3,6 +3,7 @@
     localStorageCategoryName,
     localStorageGoldenScore,
     localStorageMatch,
+    localStorageMatchType,
     localStorageNextMatch,
     localStorageOsaekomi,
     localStorageOsaekomiType,
@@ -24,14 +25,25 @@
 </script>
 
 <div class="view-container">
-  <div>
-    <h1 class="text-5xl mb-10">
+  <div class="flex justify-between mb-10 items-center">
+    <h1 class="text-5xl">
       {#if $localStorageCategoryName}
         {$localStorageCategoryName}
       {:else}
         &nbsp;
       {/if}
     </h1>
+    <div class="text-xl">
+      {#if $localStorageMatchType === 'medal'}
+        <span
+          class="text-4xl badge border-4 border-warning-600 shadow-warning-600 shadow-md"
+          title="Incontro valido per l'assegnazione delle medaglie">🏅</span
+        >
+      {/if}
+      {#if $localStorageMatchType === 'repechage'}
+        <span class="italic"> Ripescaggio </span>
+      {/if}
+    </div>
   </div>
   <div class="judoka-white-card text-7xl">
     <JudokaNameAndPoints athlete={white} points={whitePoints} />

@@ -1,3 +1,4 @@
+import { complement } from 'ramda';
 import type { Category, DoublePoolCategory } from '../../types/category.type';
 import type { Judoka } from '../../types/judoka.type';
 import type { Match } from '../../types/match.type';
@@ -163,6 +164,8 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[], evenPositio
 };
 
 export const isByeMatch = ({ white, blue }: Match) => !white || !blue;
+
+export const isNotByeMatch = complement(isByeMatch);
 
 export const getRankingIcon = (rankValue: number) => {
   switch (rankValue) {

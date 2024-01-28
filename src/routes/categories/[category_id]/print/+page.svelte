@@ -7,7 +7,7 @@
   import PrintButton from '$lib/components/print-button.svelte';
   import MatchesPrint from '$lib/components/print/matches-print.svelte';
   import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds';
-  import { isByeMatch } from '$lib/models/ranking/category';
+  import { isNotByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/store/$timer';
   import { isMobile } from '$lib/utils/mobile';
   import { onMount } from 'svelte';
@@ -51,7 +51,7 @@
     <h2 class="h3 mt-4">Incontri</h2>
     <MatchesPrint
       categoryDuration={category.duration}
-      matches={category.matches.filter((match) => !isByeMatch(match))}
+      matches={category.matches.filter(isNotByeMatch)}
     />
 
     {#if category.type === 'brackets'}

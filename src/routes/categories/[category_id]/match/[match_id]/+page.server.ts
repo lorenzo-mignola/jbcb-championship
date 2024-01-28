@@ -1,5 +1,5 @@
 import { getCategory } from '$lib/db/methods';
-import { isByeMatch } from '../../../../../lib/models/ranking/category';
+import { isNotByeMatch } from '../../../../../lib/models/ranking/category';
 import type { Category } from '../../../../../lib/types/category.type';
 import type { Match } from '../../../../../lib/types/match.type';
 import type { PageServerLoad } from './$types';
@@ -35,7 +35,7 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
 
   const isMedalMatch = category.type !== 'pool' ? category.matches.length - matchIndex <= 3 : false;
   const match = category.matches[matchIndex];
-  const nextMatch = category.matches.slice(matchIndex + 1).find((m) => !isByeMatch(m));
+  const nextMatch = category.matches.slice(matchIndex + 1).find(isNotByeMatch);
 
   return {
     category: {

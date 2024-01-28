@@ -19,7 +19,8 @@ export const MatchSchema = z.object({
   blue: MatchJudokaSchema.optional(),
   winner: JudokaTypeSchema.optional(),
   finalTime: z.number().or(z.null()),
-  goldenScore: z.boolean().or(z.null())
+  goldenScore: z.boolean().or(z.null()),
+  isRepechage: z.boolean().optional()
 });
 
 export type Match = z.infer<typeof MatchSchema>;

@@ -1,5 +1,5 @@
 <script lang="ts" strictEvents>
-  import { isByeMatch } from '../../../models/ranking/category';
+  import { isNotByeMatch } from '../../../models/ranking/category';
   import { formatTime } from '../../../store/$timer';
   import type { Match } from '../../../types/match.type';
 
@@ -37,7 +37,7 @@
       </tr>
     </thead>
     <tbody>
-      {#each matches.filter((match) => !isByeMatch(match)) as match (match.id)}
+      {#each matches.filter(isNotByeMatch) as match (match.id)}
         <tr
           class="row hover:brightness-95"
           data-match-id={match.id}

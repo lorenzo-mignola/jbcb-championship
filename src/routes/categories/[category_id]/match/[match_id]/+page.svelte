@@ -4,7 +4,12 @@
   import Timer from '$lib/components/match/timer.svelte';
   import PlayPauseButton from '$lib/components/play-pause-button.svelte';
   import SaveButton from '$lib/components/save-button.svelte';
-  import { localStorageCategoryName, localStorageNextMatch } from '$lib/store/$local-storage-match';
+  import {
+    getMatchType,
+    localStorageCategoryName,
+    localStorageMatchType,
+    localStorageNextMatch
+  } from '$lib/store/$local-storage-match';
   import { match } from '$lib/store/$match';
   import { setDuration, timer } from '$lib/store/$timer';
   import { onDestroy } from 'svelte';
@@ -13,6 +18,8 @@
   $: ({ category, match: matchData, nextMatch, isMedalMatch } = data);
 
   $: match.set(matchData);
+  $: isRepechage = $match?.isRepechage || false;
+  $: localStorageMatchType.set(getMatchType(isMedalMatch, isRepechage));
   $: localStorageCategoryName.set(category?.name || '');
   $: localStorageNextMatch.update(() => {
     if (!nextMatch) {
@@ -41,7 +48,7 @@
   const athleteType = ['white', 'blue'] as const;
 </script>
 
-<div class="text-xl flex items-center gap-3 justify-between">
+<div class="text-xl flex items-center gap-3 justify-between h-16 max-h-16">
   {#if category?.name}
     {category.name}
   {:else}
@@ -50,9 +57,12 @@
 
   {#if isMedalMatch}
     <span
-      class="badge text-2xl md:text-4xl border-4 border-warning-600 shadow-warning-600 shadow-md pulse"
+      class="badge text-2xl md:text-3xl border-4 border-warning-600 shadow-warning-600 shadow-md pulse"
       title="Incontro valido per l'assegnazione delle medaglie">🏅</span
     >
+  {/if}
+  {#if isRepechage && !isMedalMatch}
+    <span class="text-base text-gray-700 dark:text-gray-300 italic">Ripescaggio</span>
   {/if}
 </div>
 
