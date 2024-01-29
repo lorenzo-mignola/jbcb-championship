@@ -56,7 +56,23 @@ describe('SinglePool odds', () => {
   it('should not have duplicate', () => {
     const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
-    const onlyId = matches.map(({ white, blue }) => `${white?.id}-${blue?.id}`);
+    const onlyId = matches
+      .map(({ white, blue }) =>
+        [white?.id, blue?.id].filter((a): a is string => Boolean(a)).toSorted()
+      )
+      .map(([a, b]) => `${a}-${b}`);
+    const set = new Set(onlyId);
+    expect(set.size).toBe(matches.length);
+  });
+
+  it('should not have duplicate with 4 athletes', () => {
+    const pool = createSinglePool(name, athletes.slice(0, 4), 0);
+    const { matches } = pool;
+    const onlyId = matches
+      .map(({ white, blue }) =>
+        [white?.id, blue?.id].filter((a): a is string => Boolean(a)).toSorted()
+      )
+      .map(([a, b]) => `${a}-${b}`);
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });

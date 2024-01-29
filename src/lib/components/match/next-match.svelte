@@ -17,7 +17,7 @@
     </p>
   </div>
 {:else}
-  <div class="bg-red-400" class:spacer={!view} class:spacerView={view}>&nbsp;</div>
+  <div class:spacer={!view} class:spacerView={view}>&nbsp;</div>
 {/if}
 
 <style lang="postcss">

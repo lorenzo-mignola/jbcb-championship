@@ -1,21 +1,25 @@
 import type { PoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import { createMatch } from '../../match';
+import { isNotByeMatch } from '../../ranking/category';
 
-const rotateArray = (athletes: Judoka[]) => {
+const rotateArray = (athletes: (Judoka | undefined)[]) => {
   const [first, ...others] = athletes;
   return [...others, first];
 };
 
 export const createMatchesPool = (athletes: Judoka[]) => {
-  const athletesLength = athletes.length;
-  const isOddPool = athletesLength % 2 !== 0;
+  const isEvenPool = athletes.length % 2 === 0;
+  const athletesLength = athletes.length + (isEvenPool ? 1 : 0);
   const matchPerRound = Math.floor(athletesLength / 2);
-  const rounds = athletesLength - (isOddPool ? 0 : 1);
   const matches = [];
-  let athletesInRound = JSON.parse(JSON.stringify(athletes)) as Judoka[];
-  for (let round = 0; round < rounds; round++) {
-    const last = athletesLength - (isOddPool ? 2 : 1);
+  let athletesInRound = JSON.parse(JSON.stringify(athletes)) as (Judoka | undefined)[];
+  if (isEvenPool) {
+    // add bye match
+    athletesInRound.push(undefined);
+  }
+  for (let round = 0; round < athletesLength; round++) {
+    const last = athletesLength - 2;
     for (let matchInRound = 0; matchInRound < matchPerRound; matchInRound++) {
       const white = athletesInRound[matchInRound];
       const blue = athletesInRound[last - matchInRound];
@@ -24,7 +28,7 @@ export const createMatchesPool = (athletes: Judoka[]) => {
     }
     athletesInRound = rotateArray(athletesInRound);
   }
-  return matches;
+  return matches.filter(isNotByeMatch);
 };
 
 export const createSinglePool = (
