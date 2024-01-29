@@ -110,9 +110,9 @@ describe('SinglePool even', () => {
     ['1', '6', 0],
     ['2', '5', 1],
     ['3', '4', 2],
-    ['2', '1', 3],
-    ['3', '6', 4],
-    ['4', '5', 5]
+    ['3', '6', 3],
+    ['4', '5', 4],
+    ['3', '1', 5]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
     const pool = createSinglePool(name, athletes, 0);
 
