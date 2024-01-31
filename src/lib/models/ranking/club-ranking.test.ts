@@ -28,16 +28,16 @@ describe('getClubRaking', () => {
     expect(club1).toHaveProperty('bronze');
   });
 
-  it('should sum ranking gold for Club 1', () => {
+  it('should sum ranking gold for Club 2', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club1 = rank.find((r) => r.name === 'Club 1');
+    const club1 = rank.find((r) => r.name === 'Club 2');
 
-    expect(club1?.gold).toBe(1);
+    expect(club1?.gold).toBe(2);
   });
 
-  it.skip('should sum ranking silver for Club 3', () => {
+  it('should sum ranking silver for Club 3', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
@@ -46,16 +46,16 @@ describe('getClubRaking', () => {
     expect(club3?.silver).toBe(1);
   });
 
-  it.skip('should sum ranking bronze for Club 2', () => {
+  it('should sum ranking bronze for Club 1', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
     const club1 = rank.find((r) => r.name === 'Club 1');
 
-    expect(club1?.bronze).toBe(3);
+    expect(club1?.bronze).toBe(2);
   });
 
-  it.skip('should sort club', () => {
+  it('should sort club', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 

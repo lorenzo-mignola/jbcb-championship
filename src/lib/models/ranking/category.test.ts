@@ -109,9 +109,10 @@ describe.only('getRankingPool', () => {
     const athletes = singleEven.athletes;
     const matches = singleEven.matches as Match[];
     const actual = getRankingPool(matches, athletes);
+
     expect(actual).toStrictEqual([
       {
-        id: 'lCcFKdl28NW643hzVRJqV',
+        id: 'XVmaPYhIA88IyU_SvOPJ1',
         matchPoint: 2,
         evaluationPoint: 10,
         rank: 1
@@ -123,7 +124,7 @@ describe.only('getRankingPool', () => {
         rank: 2
       },
       {
-        id: 'XVmaPYhIA88IyU_SvOPJ1',
+        id: 'lCcFKdl28NW643hzVRJqV',
         matchPoint: 2,
         evaluationPoint: 10,
         rank: 3

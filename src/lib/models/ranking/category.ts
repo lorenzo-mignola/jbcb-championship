@@ -175,11 +175,26 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       return b.matchPoint - a.matchPoint;
     });
 
-  const sortByDirectOrTime = (a: RankingWithEven, b: RankingWithEven) => {
-    if (a.opponentWin.includes(b.id) && b.opponentWin.includes(a.id)) {
-      return a.remainingTimeInWin < b.remainingTimeInWin ? 1 : -1;
+  const sortByDirect = (a: RankingWithEven, b: RankingWithEven) => {
+    const aIsWinnerDirect = a.opponentWin.includes(b.id);
+    if (aIsWinnerDirect) {
+      return -1;
     }
-    return a.opponentWin.includes(b.id) ? -1 : 1;
+    const bIsWinnerDirect = a.opponentWin.includes(b.id);
+    if (bIsWinnerDirect) {
+      return 1;
+    }
+
+    return 0;
+  };
+
+  const sortByDirectOrTime = (a: RankingWithEven, b: RankingWithEven) => {
+    // if (false) {
+    //   return a.remainingTimeInWin < b.remainingTimeInWin ? 1 : -1;
+    // }
+    // return a.opponentWin.includes(b.id) ? 1 : -1;
+    // return ascend(prop<RankingAthlete>(''));
+    return sortByDirect(a, b);
   };
 
   const sorted = sortWith<RankingWithEven>([
