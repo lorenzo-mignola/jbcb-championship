@@ -6,6 +6,7 @@ import doublePool from '$tests/mock/double-pool.json';
 import poolCategoryMock from '$tests/mock/pool-category.json';
 import singleEven from '$tests/mock/single-pool-even.json';
 import singleEven2 from '$tests/mock/single-pool-even2.json';
+import singleEven3 from '$tests/mock/single-pool-even3.json';
 import single from '$tests/mock/single-pool.json';
 import { describe, expect, it } from 'vitest';
 import {
@@ -132,7 +133,7 @@ describe.only('getRankingPool', () => {
     ]);
   });
 
-  it('should handle even results', () => {
+  it('should handle even results with 4', () => {
     const athletes = singleEven2.athletes;
     const matches = singleEven2.matches as Match[];
     const actual = getRankingPool(matches, athletes);
@@ -160,6 +161,39 @@ describe.only('getRankingPool', () => {
         id: 'MNG87YuJ6iUQ2gLqOPooJ',
         matchPoint: 2,
         evaluationPoint: 10,
+        rank: 4
+      }
+    ]);
+  });
+
+  it('should handle even results with 4 and circle', () => {
+    const athletes = singleEven3.athletes;
+    const matches = singleEven3.matches as Match[];
+    const actual = getRankingPool(matches, athletes);
+
+    expect(actual).toStrictEqual([
+      {
+        id: 'pi7AiKepq9nLHklzZY2Kg',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 1
+      },
+      {
+        id: 'tVk2gi6ErZFDxRhW1Z8tz',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 2
+      },
+      {
+        id: 'KfgxCgUpviSxSDFq66PKF',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 3
+      },
+      {
+        id: 'GtBM0Ichd5pECjxKZPz_6',
+        matchPoint: 0,
+        evaluationPoint: 0,
         rank: 4
       }
     ]);
