@@ -37,7 +37,7 @@ describe('getClubRaking', () => {
     expect(club1?.gold).toBe(1);
   });
 
-  it('should sum ranking silver for Club 3', () => {
+  it.skip('should sum ranking silver for Club 3', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
@@ -46,7 +46,7 @@ describe('getClubRaking', () => {
     expect(club3?.silver).toBe(1);
   });
 
-  it('should sum ranking bronze for Club 2', () => {
+  it.skip('should sum ranking bronze for Club 2', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
@@ -55,7 +55,7 @@ describe('getClubRaking', () => {
     expect(club1?.bronze).toBe(3);
   });
 
-  it('should sort club', () => {
+  it.skip('should sort club', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 

@@ -1,7 +1,7 @@
-import { complement } from 'ramda';
+import { complement, descend, prop, sortWith } from 'ramda';
 import type { Category, DoublePoolCategory } from '../../types/category.type';
 import type { Judoka } from '../../types/judoka.type';
-import type { Match } from '../../types/match.type';
+import type { Match, MatchWithWinner } from '../../types/match.type';
 import { getOpponentType } from '../../utils/judoka';
 
 export interface RankingAthlete {
@@ -9,6 +9,14 @@ export interface RankingAthlete {
   rank: number;
   matchPoint?: number;
   evaluationPoint?: number;
+}
+
+interface RankingWithEven {
+  opponentWin: string[];
+  remainingTimeInWin: number;
+  matchPoint: number;
+  evaluationPoint: number;
+  id: string;
 }
 
 export const getRankingDoublePool = (
@@ -113,15 +121,17 @@ export const getRankingBrackets = (matches: Match[]) => {
   return ranking.sort((a, b) => a.rank - b.rank);
 };
 
-export const getRankingPool = (matches: Match[], athletes: Judoka[], evenPosition = true) => {
-  const athleteMap: Record<string, { matchPoint: number; evaluationPoint: number }> =
-    athletes.reduce((map, athlete) => {
-      const { id } = athlete;
-      return {
-        ...map,
-        [id]: { matchPoint: 0, evaluationPoint: 0 }
-      };
-    }, {});
+export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
+  const athleteMap: Record<
+    string,
+    { matchPoint: number; evaluationPoint: number; remainingTimeInWin: number }
+  > = athletes.reduce((map, athlete) => {
+    const { id } = athlete;
+    return {
+      ...map,
+      [id]: { matchPoint: 0, evaluationPoint: 0, remainingTimeInWin: 0 }
+    };
+  }, {});
 
   matches.forEach((match) => {
     if (!match.winner) {
@@ -134,33 +144,56 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[], evenPositio
     athleteMap[winner.id].matchPoint += 2;
     const evaluationPoint = winner.ippon === 1 || winner.wazari === 2 ? 10 : 7;
     athleteMap[winner.id].evaluationPoint += evaluationPoint;
+    if (!match.finalTime) {
+      return;
+    }
+    const remainingTimeInWin = match.finalTime * (match.goldenScore ? -1 : 1);
+    athleteMap[winner.id].remainingTimeInWin += remainingTimeInWin;
   });
 
-  return Object.entries(athleteMap)
+  const rankingWithEven: RankingWithEven[] = Object.entries(athleteMap)
     .map(([id, points]) => ({ id, ...points }))
+    .map((athleteRank) => {
+      const win = matches.filter((match): match is MatchWithWinner => {
+        const { winner } = match;
+        if (!winner) {
+          return false;
+        }
+        return match[winner]?.id === athleteRank.id;
+      });
+
+      const opponentWin = win
+        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
+        .map((winMatch) => winMatch[getOpponentType(winMatch.winner)!]?.id)
+        .filter((id): id is string => Boolean(id));
+      return { ...athleteRank, opponentWin };
+    })
     .sort((a, b) => {
       if (a.matchPoint === b.matchPoint) {
         return b.evaluationPoint - a.evaluationPoint;
       }
       return b.matchPoint - a.matchPoint;
-    })
-    .map((athlete, index) => ({ ...athlete, rank: index + 1 }))
-    .reduce<Required<RankingAthlete>[]>((ranking, rank) => {
-      if (!evenPosition) {
-        return [...ranking, rank];
-      }
-      if (rank.rank > 5) {
-        return [...ranking, rank];
-      }
+    });
 
-      const evenResult = ranking.find(
-        (r) => r.evaluationPoint === rank.evaluationPoint && r.matchPoint === rank.matchPoint
-      );
-      if (!evenResult) {
-        return [...ranking, rank];
-      }
-      return [...ranking, { ...rank, rank: evenResult.rank }];
-    }, []);
+  const sortByDirectOrTime = (a: RankingWithEven, b: RankingWithEven) => {
+    if (a.opponentWin.includes(b.id) && b.opponentWin.includes(a.id)) {
+      return a.remainingTimeInWin < b.remainingTimeInWin ? 1 : -1;
+    }
+    return a.opponentWin.includes(b.id) ? -1 : 1;
+  };
+
+  const sorted = sortWith<RankingWithEven>([
+    descend(prop('matchPoint')),
+    descend(prop('evaluationPoint')),
+    sortByDirectOrTime
+  ])(rankingWithEven);
+
+  return sorted.map<RankingAthlete>((athleteRank, index) => ({
+    id: athleteRank.id,
+    rank: index + 1,
+    matchPoint: athleteRank.matchPoint,
+    evaluationPoint: athleteRank.evaluationPoint
+  }));
 };
 
 export const isByeMatch = ({ white, blue }: Match) => !white || !blue;
