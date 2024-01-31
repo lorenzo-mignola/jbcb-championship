@@ -44,3 +44,10 @@ const DoublePoolCategorySchema = CategoryBaseSchema.extend({
 export type DoublePoolCategory = z.infer<typeof DoublePoolCategorySchema>;
 
 export type Category = PoolCategory | BracketsCategory | DoublePoolCategory;
+
+export interface RankingAthlete {
+  id?: string;
+  rank: number;
+  matchPoint?: number;
+  evaluationPoint?: number;
+}
