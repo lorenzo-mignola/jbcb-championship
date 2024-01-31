@@ -24,3 +24,5 @@ export const MatchSchema = z.object({
 });
 
 export type Match = z.infer<typeof MatchSchema>;
+
+export type MatchWithWinner = Match & { winner: JudokaType };

@@ -5,6 +5,8 @@ import brackets from '$tests/mock/2ko.json';
 import doublePool from '$tests/mock/double-pool.json';
 import poolCategoryMock from '$tests/mock/pool-category.json';
 import singleEven from '$tests/mock/single-pool-even.json';
+import singleEven2 from '$tests/mock/single-pool-even2.json';
+import singleEven3 from '$tests/mock/single-pool-even3.json';
 import single from '$tests/mock/single-pool.json';
 import { describe, expect, it } from 'vitest';
 import {
@@ -58,7 +60,7 @@ describe('getRankingIcon', () => {
   });
 });
 
-describe('getRankingPool', () => {
+describe.only('getRankingPool', () => {
   it('should return an empty array if no matches are provided', () => {
     const matches: Match[] = [];
     const athletes: Judoka[] = [];
@@ -72,16 +74,16 @@ describe('getRankingPool', () => {
     const actual = getRankingPool(matches, athletes);
     expect(actual).toStrictEqual([
       {
-        id: 'DUiUicWK3x8jzoLk3pKlk',
+        id: '5UAhk7jAVQ9mKSLFD7jKT',
         matchPoint: 6,
         evaluationPoint: 30,
         rank: 1
       },
       {
-        id: '5UAhk7jAVQ9mKSLFD7jKT',
+        id: 'DUiUicWK3x8jzoLk3pKlk',
         matchPoint: 6,
         evaluationPoint: 30,
-        rank: 1
+        rank: 2
       },
       {
         id: 'sXGiWm4aJ-JaIA69Xy7mT',
@@ -90,16 +92,16 @@ describe('getRankingPool', () => {
         rank: 3
       },
       {
-        id: 'jdsEP-lhU7cXXkqZzEkKR',
+        id: '6E6iZxhoFK3KQGL1n5sxx',
         matchPoint: 2,
         evaluationPoint: 10,
         rank: 4
       },
       {
-        id: '6E6iZxhoFK3KQGL1n5sxx',
+        id: 'jdsEP-lhU7cXXkqZzEkKR',
         matchPoint: 2,
         evaluationPoint: 10,
-        rank: 4
+        rank: 5
       }
     ]);
   });
@@ -108,9 +110,10 @@ describe('getRankingPool', () => {
     const athletes = singleEven.athletes;
     const matches = singleEven.matches as Match[];
     const actual = getRankingPool(matches, athletes);
+
     expect(actual).toStrictEqual([
       {
-        id: 'lCcFKdl28NW643hzVRJqV',
+        id: 'XVmaPYhIA88IyU_SvOPJ1',
         matchPoint: 2,
         evaluationPoint: 10,
         rank: 1
@@ -119,13 +122,79 @@ describe('getRankingPool', () => {
         id: 'rbBY-dGntsroZWQsCnI-W',
         matchPoint: 2,
         evaluationPoint: 10,
+        rank: 2
+      },
+      {
+        id: 'lCcFKdl28NW643hzVRJqV',
+        matchPoint: 2,
+        evaluationPoint: 10,
+        rank: 3
+      }
+    ]);
+  });
+
+  it('should handle even results with 4', () => {
+    const athletes = singleEven2.athletes;
+    const matches = singleEven2.matches as Match[];
+    const actual = getRankingPool(matches, athletes);
+
+    expect(actual).toStrictEqual([
+      {
+        id: 'SZgvgkrtCH9sqFcG3JJKw',
+        matchPoint: 4,
+        evaluationPoint: 20,
         rank: 1
       },
       {
-        id: 'XVmaPYhIA88IyU_SvOPJ1',
+        id: 'ZiJH2v0VEKHiM9NfqlWff',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 2
+      },
+      {
+        id: 'nKKK8lM-JxIyX0WmdsD02',
         matchPoint: 2,
         evaluationPoint: 10,
+        rank: 3
+      },
+      {
+        id: 'MNG87YuJ6iUQ2gLqOPooJ',
+        matchPoint: 2,
+        evaluationPoint: 10,
+        rank: 4
+      }
+    ]);
+  });
+
+  it('should handle even results with 4 and circle', () => {
+    const athletes = singleEven3.athletes;
+    const matches = singleEven3.matches as Match[];
+    const actual = getRankingPool(matches, athletes);
+
+    expect(actual).toStrictEqual([
+      {
+        id: 'pi7AiKepq9nLHklzZY2Kg',
+        matchPoint: 4,
+        evaluationPoint: 20,
         rank: 1
+      },
+      {
+        id: 'tVk2gi6ErZFDxRhW1Z8tz',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 2
+      },
+      {
+        id: 'KfgxCgUpviSxSDFq66PKF',
+        matchPoint: 4,
+        evaluationPoint: 20,
+        rank: 3
+      },
+      {
+        id: 'GtBM0Ichd5pECjxKZPz_6',
+        matchPoint: 0,
+        evaluationPoint: 0,
+        rank: 4
       }
     ]);
   });

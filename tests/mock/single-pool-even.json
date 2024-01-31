@@ -17,7 +17,7 @@
       "white": { "ippon": 1, "name": "a", "wazari": 0, "shido": 0, "id": "lCcFKdl28NW643hzVRJqV" },
       "blue": { "ippon": 0, "name": "b", "wazari": 0, "shido": 0, "id": "rbBY-dGntsroZWQsCnI-W" },
       "id": "B16irQawbrSKCe4ZvjWrO",
-      "finalTime": 2400
+      "finalTime": 0
     },
     {
       "goldenScore": false,
@@ -25,7 +25,7 @@
       "white": { "ippon": 1, "name": "b", "wazari": 0, "shido": 0, "id": "rbBY-dGntsroZWQsCnI-W" },
       "blue": { "ippon": 0, "name": "c", "wazari": 0, "shido": 0, "id": "XVmaPYhIA88IyU_SvOPJ1" },
       "id": "TPqedHE4fCbFDksqgigcu",
-      "finalTime": 2400
+      "finalTime": 400
     },
     {
       "goldenScore": false,
@@ -33,7 +33,7 @@
       "white": { "ippon": 1, "name": "c", "wazari": 0, "shido": 0, "id": "XVmaPYhIA88IyU_SvOPJ1" },
       "blue": { "ippon": 0, "name": "a", "wazari": 0, "shido": 0, "id": "lCcFKdl28NW643hzVRJqV" },
       "id": "9q482QDN0va46LYGoaLtP",
-      "finalTime": 2400
+      "finalTime": 1000
     }
   ]
 }
