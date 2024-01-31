@@ -60,7 +60,7 @@ describe('getRankingIcon', () => {
   });
 });
 
-describe.only('getRankingPool', () => {
+describe('getRankingPool', () => {
   it('should return an empty array if no matches are provided', () => {
     const matches: Match[] = [];
     const athletes: Judoka[] = [];
