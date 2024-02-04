@@ -17,14 +17,11 @@
     </p>
   </div>
 {:else}
-  <div class:spacer={!view} class:spacerView={view}>&nbsp;</div>
+  <div class:spacerView={view}>&nbsp;</div>
 {/if}
 
 <style lang="postcss">
   .spacerView {
     @apply h-[72px];
-  }
-  .spacer {
-    @apply h-[60px];
   }
 </style>
