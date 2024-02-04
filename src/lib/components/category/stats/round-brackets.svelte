@@ -4,6 +4,8 @@
   type BracketMatch = Match & { offset?: boolean };
 
   export let matches: BracketMatch[];
+  export let goldMatch = false;
+  export let bronzeMatch = false;
 </script>
 
 <div class="w-52 md:w-64 mx-2 h-full flex flex-col justify-around print:w-32 print:text-sm">
@@ -13,9 +15,21 @@
       class:mb-16={match.offset}
     >
       <div class="mt-1 px-3 text-end" class:font-extrabold={match.winner === 'white'}>
+        {#if goldMatch && match.winner}
+          {match.winner === 'white' ? '🥇' : '🥈'}
+        {/if}
+        {#if bronzeMatch && match.winner === 'white'}
+          🥉
+        {/if}
         {match.white?.name ?? ''}
       </div>
       <div class="mb-1 px-3 text-end" class:font-extrabold={match.winner === 'blue'}>
+        {#if goldMatch && match.winner}
+          {match.winner === 'blue' ? '🥇' : '🥈'}
+        {/if}
+        {#if bronzeMatch && match.winner === 'blue'}
+          🥉
+        {/if}
         {match.blue?.name ?? ''}
       </div>
     </div>

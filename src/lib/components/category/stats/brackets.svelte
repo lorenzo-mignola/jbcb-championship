@@ -18,7 +18,7 @@
   <!-- winner -->
   {#each winnerRounds as matches, index (index)}
     <div class="flex flex-col justify-center">
-      <RoundBrackets {matches} />
+      <RoundBrackets goldMatch={index === winnerRounds.length - 1} {matches} />
     </div>
   {/each}
 </div>
@@ -30,7 +30,7 @@
     <!-- loserRounds -->
     {#each loserRounds as matches, index (index)}
       <div class="flex flex-col justify-center">
-        <RoundBrackets {matches} />
+        <RoundBrackets bronzeMatch={index === loserRounds.length - 1} {matches} />
       </div>
     {/each}
   </div>
