@@ -1,3 +1,4 @@
+import { produce } from 'immer';
 import { describe, expect, it } from 'vitest';
 import type { Judoka } from '../../../types/judoka.type';
 import { createSinglePool } from './create-single-pool';
@@ -109,24 +110,59 @@ describe('SinglePool even', () => {
   ];
 
   it.each([
-    ['1', '6', 0],
-    ['2', '5', 1],
-    ['3', '4', 2],
-    ['3', '6', 3],
-    ['4', '5', 4],
-    ['3', '1', 5]
+    ['1', '5', 0],
+    ['2', '4', 1],
+    ['2', '6', 2],
+    ['3', '5', 3],
+    ['3', '1', 4],
+    ['4', '5', 5]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
     const pool = createSinglePool(name, athletes, 0);
 
-    const first = pool.matches[index];
-    expect(first.white?.id).toBe(whiteId);
-    expect(first.blue?.id).toBe(blueId);
+    const match = pool.matches[index];
+    expect(match.white?.id).toBe(whiteId);
+    expect(match.blue?.id).toBe(blueId);
   });
 
   it('should have 15 matchs', () => {
     const pool = createSinglePool(name, athletes, 0);
 
     expect(pool.matches).toHaveLength(15);
+  });
+
+  it.each([[4], [5], [6]])('all athletes do the same numbers of match', (slice) => {
+    const pool = createSinglePool(name, athletes.slice(0, slice), 0);
+
+    const nrOfMatch = pool.matches.reduce<Record<string, number>>((counter, match) => {
+      const { white, blue } = match;
+      const updatedWhite = produce(counter, (c) => {
+        if (!white) {
+          return;
+        }
+        if (c[white.id]) {
+          c[white.id] += 1;
+          return;
+        }
+        c[white.id] = 1;
+      });
+      const updatedBlue = produce(updatedWhite, (c) => {
+        if (!blue) {
+          return;
+        }
+        if (c[blue.id]) {
+          c[blue.id] += 1;
+          return;
+        }
+        c[blue.id] = 1;
+      });
+      return updatedBlue;
+    }, {});
+
+    expect(Object.keys(nrOfMatch).length).toBe(slice);
+    const nrMatchPerAthlete = slice - 1;
+    Object.values(nrOfMatch).forEach((nr) => {
+      expect(nr).toBe(nrMatchPerAthlete);
+    });
   });
 
   it('should not have duplicate', () => {

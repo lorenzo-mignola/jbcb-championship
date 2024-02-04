@@ -1,3 +1,4 @@
+import { insert } from 'ramda';
 import type { PoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import { createMatch } from '../../match';
@@ -16,7 +17,8 @@ export const createMatchesPool = (athletes: Judoka[]) => {
   let athletesInRound = JSON.parse(JSON.stringify(athletes)) as (Judoka | undefined)[];
   if (isEvenPool) {
     // add bye match
-    athletesInRound.push(undefined);
+    const middleIndex = athletes.length / 2;
+    athletesInRound = insert(middleIndex, undefined, athletesInRound);
   }
   for (let round = 0; round < athletesLength; round++) {
     const last = athletesLength - 2;
