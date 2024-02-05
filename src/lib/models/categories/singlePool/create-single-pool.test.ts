@@ -30,16 +30,16 @@ describe('SinglePool odds', () => {
   ];
 
   it.each([
-    ['1', '4', 0],
-    ['2', '3', 1],
-    ['2', '5', 2],
-    ['3', '4', 3],
-    ['3', '1', 4],
-    ['4', '5', 5],
-    ['4', '2', 6],
-    ['5', '1', 7],
-    ['5', '3', 8],
-    ['1', '2', 9]
+    ['2', '5', 0],
+    ['3', '4', 1],
+    ['1', '5', 2],
+    ['2', '3', 3],
+    ['1', '4', 4],
+    ['5', '3', 5],
+    ['1', '3', 6],
+    ['4', '2', 7],
+    ['1', '2', 8],
+    ['4', '5', 9]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
     const pool = createSinglePool(name, athletes, 0);
 
@@ -62,7 +62,12 @@ describe('SinglePool odds', () => {
         const sorted = [white?.id, blue?.id].filter((a): a is string => Boolean(a));
         return sorted;
       })
-      .map(([a, b]) => `${a}-${b}`);
+      .map(([a, b]) => {
+        if (a === b) {
+          expect.fail();
+        }
+        return `${a}-${b}`;
+      });
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });
@@ -110,12 +115,12 @@ describe('SinglePool even', () => {
   ];
 
   it.each([
-    ['1', '5', 0],
-    ['2', '4', 1],
-    ['2', '6', 2],
-    ['3', '5', 3],
-    ['3', '1', 4],
-    ['4', '5', 5]
+    ['1', '6', 0],
+    ['2', '5', 1],
+    ['3', '4', 2],
+    ['1', '5', 3],
+    ['6', '4', 4],
+    ['2', '3', 5]
   ])('should return %s vs %s on %d match', (whiteId, blueId, index) => {
     const pool = createSinglePool(name, athletes, 0);
 
@@ -168,7 +173,12 @@ describe('SinglePool even', () => {
   it('should not have duplicate', () => {
     const pool = createSinglePool(name, athletes, 0);
     const { matches } = pool;
-    const onlyId = matches.map(({ white, blue }) => `${white?.id}-${blue?.id}`);
+    const onlyId = matches.map(({ white, blue }) => {
+      if (white?.id === blue?.id) {
+        expect.fail();
+      }
+      return `${white?.id}-${blue?.id}`;
+    });
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });

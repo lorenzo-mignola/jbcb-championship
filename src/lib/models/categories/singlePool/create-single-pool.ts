@@ -1,36 +1,48 @@
-import { insert } from 'ramda';
+import { clone, reverse } from 'ramda';
 import type { PoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
+import type { Match } from '../../../types/match.type';
 import { createMatch } from '../../match';
 import { isNotByeMatch } from '../../ranking/category';
 
-const rotateArray = (athletes: (Judoka | undefined)[]) => {
-  const [first, ...others] = athletes;
-  return [...others, first];
+const getRound = (groupA: (Judoka | undefined)[], groupB: (Judoka | undefined)[]) => {
+  const total: Match[] = [];
+  groupA.forEach((p, i) => {
+    const white = groupA[i];
+    const blue = groupB[i];
+    const match = createMatch(white, blue);
+    total.push(match);
+  });
+  return total;
 };
 
 export const createMatchesPool = (athletes: Judoka[]) => {
-  const isEvenPool = athletes.length % 2 === 0;
-  const athletesLength = athletes.length + (isEvenPool ? 1 : 0);
-  const matchPerRound = Math.floor(athletesLength / 2);
-  const matches = [];
-  let athletesInRound = JSON.parse(JSON.stringify(athletes)) as (Judoka | undefined)[];
-  if (isEvenPool) {
-    // add bye match
-    const middleIndex = athletes.length / 2;
-    athletesInRound = insert(middleIndex, undefined, athletesInRound);
+  const matches: Match[] = [];
+
+  const athletesArray = clone<(Judoka | undefined)[]>(athletes);
+  const isOdd = athletesArray.length % 2 !== 0;
+  if (isOdd) {
+    athletesArray.push(undefined);
   }
-  for (let round = 0; round < athletesLength; round++) {
-    const last = athletesLength - 2;
-    for (let matchInRound = 0; matchInRound < matchPerRound; matchInRound++) {
-      const white = athletesInRound[matchInRound];
-      const blue = athletesInRound[last - matchInRound];
-      const match = createMatch(white, blue);
-      matches.push(match);
+
+  const athleteLength = athletesArray.length;
+
+  const half = Math.ceil(athleteLength / 2);
+  const groupA = athletesArray.slice(0, half);
+  const groupB = reverse(athletesArray.slice(half, athleteLength));
+
+  for (let round = 0; round < athletesArray.length - 1; round++) {
+    if (round !== 0) {
+      // rotate the groups
+      groupA.splice(1, 0, groupB.shift());
+      groupB.push(groupA.pop());
     }
-    athletesInRound = rotateArray(athletesInRound);
+    getRound(groupA, groupB)
+      .filter(isNotByeMatch)
+      .forEach((match) => matches.push(match));
   }
-  return matches.filter(isNotByeMatch);
+
+  return matches;
 };
 
 export const createSinglePool = (
