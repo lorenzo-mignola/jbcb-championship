@@ -9,6 +9,7 @@
     localStorageOsaekomiType,
     localStorageTime
   } from '$lib/store/$local-storage-match';
+  import FullScreen from '../../lib/components/full-screen.svelte';
   import JudokaNameAndPoints from '../../lib/components/match/judoka/judoka-name-and-points.svelte';
   import NextMatch from '../../lib/components/match/next-match.svelte';
   import TimerView from '../../lib/components/match/timer-view.svelte';
@@ -62,6 +63,7 @@
   <div class="flex justify-end">
     <NextMatch nextMatch={$localStorageNextMatch} view={true} />
   </div>
+  <FullScreen />
 </div>
 
 <style lang="postcss">
