@@ -1,5 +1,5 @@
 import { json } from '@sveltejs/kit';
-import { createCategory } from '../../../lib/server/methods';
+import { createCategory, getAllCategories } from '../../../lib/server/methods';
 import { CategoryBaseSchema } from '../../../lib/types/category.type';
 import type { RequestHandler } from './$types';
 
@@ -16,4 +16,11 @@ export const POST: RequestHandler = async ({ request }) => {
 
   const id = await createCategory(schemaCreate.parse(category));
   return json(id);
+};
+
+export const GET: RequestHandler = async ({ url }) => {
+  const tournament = url.searchParams.get('tournament');
+
+  const category = await getAllCategories(tournament || '');
+  return json(category);
 };
