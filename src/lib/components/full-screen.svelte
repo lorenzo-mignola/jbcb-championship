@@ -18,7 +18,7 @@
 <div class="absolute bottom-6 right-6">
   {#if fullScreen}
     <button
-      class="btn-full-screen btn-icon btn-icon-xl btn-close"
+      class="btn-full-screen btn-close btn-icon btn-icon-xl"
       type="button"
       on:click={exitFullScreen}><ExitFullScreen /></button
     >

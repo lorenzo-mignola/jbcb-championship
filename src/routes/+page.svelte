@@ -13,7 +13,7 @@
     text="🏅 Classifica club 🏅"
   />
 
-  <a class="btn variant-ringed-primary settings" href="/settings">
+  <a class="settings variant-ringed-primary btn" href="/settings">
     <span><Settings /></span>
     <span>Impostazioni</span>
   </a>
@@ -22,7 +22,7 @@
 <style lang="postcss">
   .home-container {
     @apply flex flex-col gap-4;
-    @apply lg:grid lg:grid-cols-3 lg:grid-rows-[6fr_1fr] lg:h-[80vh];
+    @apply lg:grid lg:h-[80vh] lg:grid-cols-3 lg:grid-rows-[6fr_1fr];
   }
 
   .settings {

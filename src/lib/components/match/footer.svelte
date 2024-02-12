@@ -7,9 +7,9 @@
   export let nextMatch: Match | undefined;
 </script>
 
-<footer class="py-14 flex justify-between items-center flex-col-reverse md:flex-row">
+<footer class="flex flex-col-reverse items-center justify-between py-14 md:flex-row">
   <div>
-    <a class="btn btn-sm variant-filled-secondary shadow-md" href={`/categories/${categoryId}`}>
+    <a class="variant-filled-secondary btn btn-sm shadow-md" href={`/categories/${categoryId}`}>
       <span><Back /></span>
       <span>Visualizza categoria</span>
     </a>

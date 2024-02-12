@@ -5,7 +5,7 @@
 </script>
 
 <a
-  class="card text-xl xl:text-2xl p-8 flex items-center justify-center bg-primary-500 dark:bg-primary-600 text-white"
+  class="card flex items-center justify-center bg-primary-500 p-8 text-xl text-white dark:bg-primary-600 xl:text-2xl"
   class:disabled
   class:enabled={!disabled}
   href={!disabled ? link : '/'}>{text}</a
@@ -16,6 +16,6 @@
     @apply card-hover hover:shadow-sm hover:shadow-primary-500;
   }
   .disabled {
-    @apply !opacity-50 cursor-not-allowed;
+    @apply cursor-not-allowed !opacity-50;
   }
 </style>

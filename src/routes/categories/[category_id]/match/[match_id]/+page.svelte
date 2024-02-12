@@ -48,7 +48,7 @@
   const athleteType = ['white', 'blue'] as const;
 </script>
 
-<div class="text-xl flex items-center gap-3 justify-between h-16 max-h-16">
+<div class="flex h-16 max-h-16 items-center justify-between gap-3 text-xl">
   {#if category?.name}
     {category.name}
   {:else}
@@ -57,12 +57,12 @@
 
   {#if isMedalMatch}
     <span
-      class="badge text-2xl md:text-3xl border-4 border-warning-600 shadow-warning-600 shadow-md pulse"
+      class="pulse badge border-4 border-warning-600 text-2xl shadow-md shadow-warning-600 md:text-3xl"
       title="Incontro valido per l'assegnazione delle medaglie">🏅</span
     >
   {/if}
   {#if isRepechage && !isMedalMatch}
-    <span class="text-base text-gray-700 dark:text-gray-300 italic">Ripescaggio</span>
+    <span class="text-base italic text-gray-700 dark:text-gray-300">Ripescaggio</span>
   {/if}
 </div>
 

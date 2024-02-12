@@ -12,7 +12,7 @@
 </script>
 
 <button
-  class="btn variant-filled p-4 text-4xl md:text-8xl w-full flex justify-center text-white dark:text-gray-100"
+  class="variant-filled btn flex w-full justify-center p-4 text-4xl text-white dark:text-gray-100 md:text-8xl"
   class:play={!$isPlaying}
   class:stop={$isPlaying}
   {disabled}

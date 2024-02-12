@@ -26,7 +26,7 @@
 </script>
 
 <div class="view-container">
-  <div class="flex justify-between mb-10 items-center">
+  <div class="mb-10 flex items-center justify-between">
     <h1 class="text-5xl">
       {#if $localStorageCategoryName}
         {$localStorageCategoryName}
@@ -37,7 +37,7 @@
     <div class="text-xl">
       {#if $localStorageMatchType === 'medal'}
         <span
-          class="text-4xl badge border-4 border-warning-600 shadow-warning-600 shadow-md"
+          class="badge border-4 border-warning-600 text-4xl shadow-md shadow-warning-600"
           title="Incontro valido per l'assegnazione delle medaglie">🏅</span
         >
       {/if}

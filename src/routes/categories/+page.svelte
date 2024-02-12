@@ -12,7 +12,7 @@
       href={`/categories/${category.id}`}
     >
       <button
-        class="btn card card-hover w-full text-xl p-4"
+        class="card btn card-hover w-full p-4 text-xl"
         class:variant-filled-primary={category.currentMatch}
         class:variant-ghost-primary={!category.currentMatch}
         type="button"

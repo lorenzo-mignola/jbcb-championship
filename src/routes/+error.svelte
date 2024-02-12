@@ -12,7 +12,7 @@
   <h1 class="h1 flex items-center gap-4">
     <span class="text-4xl md:text-8xl">{emoji}</span>
     {header}
-    <span class="text-4xl md:text-8xl hidden md:block">{emoji}</span>
+    <span class="hidden text-4xl md:block md:text-8xl">{emoji}</span>
   </h1>
 </div>
 
@@ -25,4 +25,4 @@
   </Accordion>
 </div>
 
-<a class="btn variant-filled-secondary shadow-sm" href="/">🏠 Torna alla home</a>
+<a class="variant-filled-secondary btn shadow-sm" href="/">🏠 Torna alla home</a>

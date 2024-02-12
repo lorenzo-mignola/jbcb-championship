@@ -32,7 +32,7 @@
 <CategoryType />
 
 <button
-  class="btn btn-xl variant-filled-secondary mx-auto w-full mt-10 mb-1 flex items-end"
+  class="variant-filled-secondary btn btn-xl mx-auto mb-1 mt-10 flex w-full items-end"
   disabled={!canClick || loading}
   type="submit"
   on:click={() => {

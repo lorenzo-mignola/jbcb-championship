@@ -28,11 +28,11 @@
 
 {#if category}
   <div>
-    <h1 class="h1 font-bold mb-4">{category.name}</h1>
+    <h1 class="h1 mb-4 font-bold">{category.name}</h1>
 
     <AthleteList athletes={category.athletes} iconAction={undefined} />
 
-    <div class="flex gap-2 my-2 mt-4">
+    <div class="my-2 mt-4 flex gap-2">
       <p>Durata incontri:</p>
       <span>{formatTimeString(category.duration)}</span>
     </div>

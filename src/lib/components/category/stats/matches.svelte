@@ -55,7 +55,7 @@
           <td class="judoka-blue" class:font-extrabold={match.winner === 'blue'}
             >{match.blue?.name ?? ''}</td
           >
-          <td class="bg-surface-200 dark:bg-surface-700 text-black dark:text-white"
+          <td class="bg-surface-200 text-black dark:bg-surface-700 dark:text-white"
             >{formatWithDuration(match.finalTime, match.goldenScore)}</td
           >
         </tr>

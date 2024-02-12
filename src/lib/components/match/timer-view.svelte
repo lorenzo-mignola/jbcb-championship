@@ -15,17 +15,17 @@
     <OsaekomiTimer {timer} type={oseakomiType} {view} />
   {/if}
   <div
-    class="text-timer w-full text-center p-4 text-4xl md:text-5xl my-5 font-bold"
+    class="text-timer my-5 w-full p-4 text-center text-4xl font-bold md:text-5xl"
     class:!text-7xl={view}
   >
     {String(min).padStart(2, '0')}:{String(sec).padStart(2, '0')}
   </div>
   {#if isGoldenScore}
     <div
-      class="card p-2 variant-ghost-warning text-xl md:text-2xl mb-1 hidden sm:block text-center"
+      class="card variant-ghost-warning mb-1 hidden p-2 text-center text-xl sm:block md:text-2xl"
     >
       Golden Score
     </div>
-    <div class="card p-2 variant-ghost-warning text-xl md:text-2xl mb-1 md:hidden block">GS</div>
+    <div class="card variant-ghost-warning mb-1 block p-2 text-xl md:hidden md:text-2xl">GS</div>
   {/if}
 </div>

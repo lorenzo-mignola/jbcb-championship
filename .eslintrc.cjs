@@ -10,6 +10,7 @@ module.exports = {
     require.resolve('@vercel/style-guide/eslint/node'),
     require.resolve('@vercel/style-guide/eslint/typescript'),
     'plugin:svelte/all',
+    'plugin:prettier/recommended',
     'plugin:svelte/prettier',
     'prettier'
   ],
@@ -49,6 +50,7 @@ module.exports = {
   ],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
+    'prettier/prettier': 'error',
     'import/order': 'off',
     'svelte/block-lang': [
       'error',

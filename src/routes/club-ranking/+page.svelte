@@ -15,7 +15,7 @@
     <thead>
       <tr>
         <th class="w-3/4">Club</th>
-        <th class="text-center text-xl">🥇</th>
+        <th class=" text-center text-xl">🥇</th>
         <th class="text-center text-xl">🥈</th>
         <th class="text-center text-xl">🥉</th>
         <th class="text-center">Tot</th>

@@ -25,7 +25,7 @@
 
 {#if showRepechage}
   <hr />
-  <p class="font-bold mt-3 ml-4">Ripescaggio</p>
+  <p class="ml-4 mt-3 font-bold">Ripescaggio</p>
   <div class="flex overflow-auto">
     <!-- loserRounds -->
     {#each loserRounds as matches, index (index)}

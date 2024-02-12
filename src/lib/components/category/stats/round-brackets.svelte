@@ -8,10 +8,10 @@
   export let bronzeMatch = false;
 </script>
 
-<div class="w-52 md:w-64 mx-2 h-full flex flex-col justify-around print:w-32 print:text-sm">
+<div class="mx-2 flex h-full w-52 flex-col justify-around md:w-64 print:w-32 print:text-sm">
   {#each matches as match (match.id)}
     <div
-      class="border border-black dark:border-white border-l-0 h-20 flex flex-col justify-between my-2"
+      class="my-2 flex h-20 flex-col justify-between border border-l-0 border-black dark:border-white"
       class:mb-16={match.offset}
     >
       <div class="mt-1 px-3 text-end" class:font-extrabold={match.winner === 'white'}>

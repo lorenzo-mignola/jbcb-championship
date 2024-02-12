@@ -24,6 +24,6 @@
 
 <style lang="postcss">
   .active {
-    @apply bg-primary-500 hover:bg-primary-700 text-white !important;
+    @apply bg-primary-500 text-white hover:bg-primary-700 !important;
   }
 </style>

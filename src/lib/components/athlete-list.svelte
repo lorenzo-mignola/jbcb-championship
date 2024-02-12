@@ -25,7 +25,7 @@
       </span>
       {#if iconAction !== undefined}
         <button
-          class="btn-icon variant-filled-primary [&>*]:pointer-events-none text-white"
+          class="variant-filled-primary btn-icon text-white [&>*]:pointer-events-none"
           type="button"
           on:click|preventDefault={() => iconAction?.(athlete.id)}><slot name="icon" /></button
         >

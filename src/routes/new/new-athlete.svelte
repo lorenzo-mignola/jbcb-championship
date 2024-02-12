@@ -14,8 +14,8 @@
   }
 </script>
 
-<form class="my-2 card variant-soft-surface shadow-md" on:submit|preventDefault={handleEnter}>
-  <header class="card-header font-medium text-xl">Aggiungi judoka</header>
+<form class="card variant-soft-surface my-2 shadow-md" on:submit|preventDefault={handleEnter}>
+  <header class="card-header text-xl font-medium">Aggiungi judoka</header>
 
   <section class="p-4">
     <label class="label">
@@ -34,6 +34,6 @@
   </section>
 
   <footer class="card-footer flex flex-row-reverse">
-    <button class="btn variant-filled-primary" disabled={!name} type="submit">Aggiungi</button>
+    <button class="variant-filled-primary btn" disabled={!name} type="submit">Aggiungi</button>
   </footer>
 </form>

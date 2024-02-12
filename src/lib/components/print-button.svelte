@@ -3,7 +3,7 @@
 </script>
 
 <div class="print:hidden">
-  <button class="btn variant-filled" type="button" on:click={() => window.print()}>
+  <button class="variant-filled btn" type="button" on:click={() => window.print()}>
     <span><Print /></span>
     <span>Stampa</span>
   </button>

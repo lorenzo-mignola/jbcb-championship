@@ -23,20 +23,20 @@
 
 <div>
   <h2 class="h3">Durata incontro</h2>
-  <div class="flex gap-3 items-center">
+  <div class="flex items-center gap-3">
     <input {max} {min} {step} type="range" bind:value={$duration} />
     <span>
       <button
-        class="btn-icon btn-icon-sm variant-soft-surface"
+        class="variant-soft-surface btn-icon btn-icon-sm"
         disabled={$duration === min}
         type="button"
         on:click|preventDefault={subtract}><Subtract /></button
       >
     </span>
-    <p class="text-xl card variant-ringed-surface p-2">{formatTimeString($duration)}</p>
+    <p class="card variant-ringed-surface p-2 text-xl">{formatTimeString($duration)}</p>
     <span>
       <button
-        class="btn-icon btn-icon-sm variant-soft-surface"
+        class="variant-soft-surface btn-icon btn-icon-sm"
         disabled={$duration === max}
         type="button"
         on:click|preventDefault={add}><Add /></button

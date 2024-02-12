@@ -18,20 +18,20 @@
   {#if !category}
     <Loading />
   {:else}
-    <div class="flex justify-between md:mb-10 flex-col-reverse md:flex-row gap-2 md:gap-0">
+    <div class="flex flex-col-reverse justify-between gap-2 md:mb-10 md:flex-row md:gap-0">
       <h2 class="h2 font-bold">{category.name}</h2>
 
-      <div class="flex items-center gap-1 md:gap-3 justify-end md:justify-between">
+      <div class="flex items-center justify-end gap-1 md:justify-between md:gap-3">
         {#if !started}
           <a
-            class="btn-icon btn-sm variant-soft-surface"
+            class="variant-soft-surface btn-icon btn-sm"
             href={`/categories/${category.id}/edit`}
             title="Modifica"><Edit /></a
           >
         {/if}
 
         <a
-          class="btn-icon btn-sm variant-soft-surface"
+          class="variant-soft-surface btn-icon btn-sm"
           href={`/categories/${category.id}/print`}
           rel="noopener noreferrer"
           target="_blank"
@@ -40,7 +40,7 @@
 
         {#if category.currentMatch}
           <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
-            <button class="btn md:btn-lg variant-filled-primary shadow-md" type="button"
+            <button class="variant-filled-primary btn shadow-md md:btn-lg" type="button"
               >Prossimo incontro <span class="ml-2"><Next /></span></button
             >
           </a>
@@ -48,16 +48,16 @@
       </div>
     </div>
     <AthleteList athletes={category.athletes} iconAction={undefined}></AthleteList>
-    <div class="flex gap-2 my-2">
+    <div class="my-2 flex gap-2">
       <p>Durata incontri:</p>
-      <span class="badge variant-ghost-surface">{formatTimeString(category.duration)}</span>
+      <span class="variant-ghost-surface badge">{formatTimeString(category.duration)}</span>
     </div>
     <Stats {category} />
   {/if}
 </div>
 
 <a
-  class="btn btn-sm variant-filled-secondary mt-8 shadow-md"
+  class="variant-filled-secondary btn btn-sm mt-8 shadow-md"
   href={`/categories?tournament=${$tournament}`}
 >
   <span><Back /></span>

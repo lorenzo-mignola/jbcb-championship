@@ -60,7 +60,7 @@
 </script>
 
 <button
-  class="btn variant-filled-secondary text-2xl w-full mt-5 p-5 flex items-end"
+  class="variant-filled-secondary btn mt-5 flex w-full items-end p-5 text-2xl"
   class:hidden={!winner}
   disabled={loading}
   type="button"

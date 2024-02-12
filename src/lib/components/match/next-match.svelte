@@ -7,7 +7,7 @@
 
 {#if nextMatch && nextMatch.id}
   <div
-    class="card variant-ringed p-2 mb-4 md:mb-0 break-words"
+    class="card variant-ringed mb-4 break-words p-2 md:mb-0"
     class:spacer={view}
     class:text-xl={view}
   >

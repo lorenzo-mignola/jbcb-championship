@@ -35,7 +35,7 @@
 <div class:judoka-blue-card={type === 'blue'} class:judoka-white-card={type === 'white'}>
   <JudokaNameAndPoints {athlete} points={$points} />
   <hr class="divider" />
-  <div class="flex justify-between items-center">
+  <div class="flex items-center justify-between">
     <div>
       {#if !edit}
         <JudokaButton end={Boolean(winner)} {type} />
@@ -47,7 +47,7 @@
       {#if athlete}
         {#if $points > 0 || athlete.shido > 0}
           <button
-            class="btn-icon btn-icon-sm md:btn-icon text-inherit"
+            class="btn-icon btn-icon-sm text-inherit md:btn-icon"
             class:active={edit}
             class:variant-ringed-surface={!edit}
             type="button"

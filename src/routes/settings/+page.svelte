@@ -60,10 +60,10 @@
 
     <ul>
       {#each $clubs as club (club)}
-        <li class="p-2 flex justify-between">
+        <li class="flex justify-between p-2">
           {club}
           <button
-            class="btn-icon btn-icon-sm variant-filled-primary [&>*]:pointer-events-none text-white"
+            class="variant-filled-primary btn-icon btn-icon-sm text-white [&>*]:pointer-events-none"
             type="button"
             on:click={() => handleRemove(club)}><Delete /></button
           >
@@ -80,13 +80,13 @@
 
   <div>
     <h3 class="h3">Visualizzazione incontro</h3>
-    <a class="btn variant-ringed" href="/view" target="_blank">🤝 Apri pagina</a>
+    <a class="variant-ringed btn" href="/view" target="_blank">🤝 Apri pagina</a>
   </div>
 
   <div>
     <h3 class="h3">Cancella dati</h3>
     <button
-      class="btn variant-ringed mt-1 gap-2"
+      class="variant-ringed btn mt-1 gap-2"
       type="button"
       on:click|preventDefault={() => modalStore.trigger(modal)}><Delete />Cancella tutto</button
     >

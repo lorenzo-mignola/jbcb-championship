@@ -29,7 +29,7 @@
   shadow="shadow-md"
   slotTrail="place-content-end"
 >
-  <a href="/"><h1 class="text-xl md:text-3xl font-bold">{title}</h1></a>
+  <a href="/"><h1 class="text-xl font-bold md:text-3xl">{title}</h1></a>
   <svelte:fragment slot="trail">
     <button
       class="btn-icon btn-sm hover:variant-soft-primary"
@@ -40,6 +40,6 @@
     <LightSwitch rounded="rounded-full" />
   </svelte:fragment>
 </AppBar>
-<div class="container h-full p-8 w-full mx-auto">
+<div class="container mx-auto h-full w-full p-8">
   <slot />
 </div>

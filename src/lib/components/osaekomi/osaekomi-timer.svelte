@@ -24,7 +24,7 @@
 </script>
 
 <div
-  class="card p-2 my-2 text-center shadow-md"
+  class="card my-2 p-2 text-center shadow-md"
   class:judoka-blue={type === 'blue'}
   class:judoka-white={type === 'white'}
 >
@@ -36,7 +36,7 @@
 
 {#if $isPlaying}
   <button
-    class="btn-icon md:btn-icon-sm variant-ghost-surface mx-2"
+    class="variant-ghost-surface btn-icon mx-2 md:btn-icon-sm"
     type="button"
     on:click|preventDefault={stopTimers}
   >
@@ -49,6 +49,6 @@
     text-wrap: nowrap;
   }
   .view {
-    @apply text-4xl p-3;
+    @apply p-3 text-4xl;
   }
 </style>
