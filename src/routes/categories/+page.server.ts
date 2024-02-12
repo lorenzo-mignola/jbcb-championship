@@ -1,4 +1,4 @@
-import { getAllCategories } from '../../lib/db/methods';
+import { getAllCategories } from '../../lib/server/methods';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {

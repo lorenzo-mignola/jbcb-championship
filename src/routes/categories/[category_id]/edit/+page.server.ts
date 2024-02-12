@@ -1,4 +1,4 @@
-import { getCategory } from '$lib/db/methods';
+import { getCategory } from '$lib/server/methods';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {

@@ -17,11 +17,13 @@
 
 <div class="absolute bottom-6 right-6">
   {#if fullScreen}
-    <button class="btn-full-screen btn-close" type="button" on:click={exitFullScreen}
-      ><ExitFullScreen /></button
+    <button
+      class="btn-full-screen btn-icon btn-icon-xl btn-close"
+      type="button"
+      on:click={exitFullScreen}><ExitFullScreen /></button
     >
   {:else}
-    <button class="btn-full-screen" type="button" on:click={enterFullScreen}
+    <button class="btn-full-screen btn-icon btn-icon-xl" type="button" on:click={enterFullScreen}
       ><EnterFullScreen /></button
     >
   {/if}
@@ -33,7 +35,7 @@
   }
 
   .btn-full-screen {
-    @apply btn-icon btn-icon-xl variant-filled-primary shadow-xl;
+    @apply variant-filled-primary shadow-xl;
   }
 
   :global(body):hover .btn-close {

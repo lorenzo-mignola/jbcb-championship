@@ -1,5 +1,5 @@
-import { getAllEndedCategories } from '../../lib/db/methods';
 import { getClubRaking } from '../../lib/models/ranking/club-ranking';
+import { getAllEndedCategories } from '../../lib/server/methods';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {

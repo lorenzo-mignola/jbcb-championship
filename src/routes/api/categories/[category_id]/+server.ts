@@ -1,6 +1,6 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { z } from 'zod';
-import { editCategory } from '../../../../lib/db/methods';
+import { editCategory } from '../../../../lib/server/methods';
 import { CategoryBaseSchema } from '../../../../lib/types/category.type';
 
 const schemaPatch = CategoryBaseSchema.pick({

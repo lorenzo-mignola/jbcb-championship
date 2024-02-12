@@ -1,6 +1,6 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
 import { z } from 'zod';
-import { saveMatch } from '../../../../../lib/db/methods';
+import { saveMatch } from '../../../../../lib/server/methods';
 import { MatchSchema } from '../../../../../lib/types/match.type';
 
 export const PATCH: RequestHandler = async ({ request, params }) => {
