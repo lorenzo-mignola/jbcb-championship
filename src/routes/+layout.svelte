@@ -1,9 +1,16 @@
 <script lang="ts" strictEvents>
   import { invalidateAll } from '$app/navigation';
   import Reload from '$lib/icons/reload.svelte';
-  import { AppBar, LightSwitch, Modal, initializeStores } from '@skeletonlabs/skeleton';
+  import {
+    AppBar,
+    LightSwitch,
+    Modal,
+    initializeStores,
+    type ModalComponent
+  } from '@skeletonlabs/skeleton';
   import { pwaInfo } from 'virtual:pwa-info';
   import '../app.postcss';
+  import CategoryMoveSelect from '../lib/components/move-athlete/category-move-select.svelte';
 
   interface $$Slots {
     default: Record<string, never>;
@@ -14,6 +21,12 @@
   $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '';
 
   const title = '🥋 JBCB Championship';
+
+  const modalRegistry: Record<string, ModalComponent> = {
+    categoryMoveSelect: {
+      ref: CategoryMoveSelect
+    }
+  };
 </script>
 
 <svelte:head>
@@ -21,7 +34,7 @@
   {@html webManifestLink}
 </svelte:head>
 
-<Modal />
+<Modal buttonTextCancel="Annulla" components={modalRegistry} />
 
 <AppBar
   class="sticky top-0 z-50 print:hidden"

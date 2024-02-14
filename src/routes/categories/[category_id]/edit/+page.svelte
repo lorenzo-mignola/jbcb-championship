@@ -8,21 +8,25 @@
   import { type } from '$lib/store/$type';
   import axios from 'redaxios';
   import { onDestroy, onMount } from 'svelte';
+  import { categoriesNotStarted } from '../../../../lib/store/$categories-not-started';
   import { initializeCategory } from './initialize-category';
 
   export let data;
   const category = data.category;
+  const notStartedCategoriesData = data.notStartedCategories;
 
   onMount(() => {
     if (!category) {
       return;
     }
     initializeCategory(category);
+    categoriesNotStarted.set(notStartedCategoriesData);
   });
 
   const reset = () => {
     resetAthletes();
     categoryName.set('');
+    categoriesNotStarted.set([]);
   };
 
   async function handleEdit() {

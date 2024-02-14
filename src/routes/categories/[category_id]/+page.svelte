@@ -25,7 +25,7 @@
         {#if !started}
           <a
             class="variant-soft-surface btn-icon btn-sm"
-            href={`/categories/${category.id}/edit`}
+            href={`/categories/${category.id}/edit?tournament=${category.tournament || ''}`}
             title="Modifica"><Edit /></a
           >
         {/if}
