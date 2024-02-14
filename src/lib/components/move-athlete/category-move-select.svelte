@@ -6,17 +6,17 @@
   /** Exposes parent props to this component. */
   export let parent: SvelteComponent;
 
-  let newCateogryId = '';
+  let newCategoryId = '';
   const modalStore = getModalStore();
+
+  const modal = $modalStore[0];
 
   // Handle Form Submission
   function onFormSubmit() {
-    if ($modalStore[0].response) {
-      $modalStore[0].response(newCateogryId);
-    }
+    const { athleteId, originalCategoryId } = modal.meta;
+    console.log('clg', { newCategoryId, athleteId, originalCategoryId });
     modalStore.close();
   }
-  const modal = $modalStore[0];
 </script>
 
 {#if modal}
@@ -25,7 +25,7 @@
 
     <ListBox class="border border-surface-500 p-4 rounded-container-token">
       {#each $categoriesNotStarted as category (category.id)}
-        <ListBoxItem name={category.id} value={category.id} bind:group={newCateogryId}
+        <ListBoxItem name={category.id} value={category.id} bind:group={newCategoryId}
           >{category.name}</ListBoxItem
         >
       {/each}
@@ -39,7 +39,7 @@
       >
       <button
         class="btn {parent.buttonPositive}"
-        disabled={!newCateogryId}
+        disabled={!newCategoryId}
         type="button"
         on:click|preventDefault={onFormSubmit}>Sposta judoka</button
       >

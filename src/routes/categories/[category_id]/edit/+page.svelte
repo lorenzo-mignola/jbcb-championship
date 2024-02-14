@@ -1,7 +1,7 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
-  import { athletes, resetAthletes } from '$lib/store/$athletes';
+  import { athletes } from '$lib/store/$athletes';
   import { categoryName } from '$lib/store/$category-name';
   import { duration } from '$lib/store/$duration';
   import { tournament } from '$lib/store/$tournament';
@@ -10,6 +10,7 @@
   import { onDestroy, onMount } from 'svelte';
   import { categoriesNotStarted } from '../../../../lib/store/$categories-not-started';
   import { initializeCategory } from './initialize-category';
+  import { reset } from './reset';
 
   export let data;
   const category = data.category;
@@ -22,12 +23,6 @@
     initializeCategory(category);
     categoriesNotStarted.set(notStartedCategoriesData);
   });
-
-  const reset = () => {
-    resetAthletes();
-    categoryName.set('');
-    categoriesNotStarted.set([]);
-  };
 
   async function handleEdit() {
     if (!$categoryName || !$type || !category) {

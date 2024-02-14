@@ -1,11 +1,18 @@
 <script lang="ts" strictEvents>
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
   import MoveIcon from '../../icons/move-icon.svelte';
+  import { originalCategoryId } from '../../store/$original-category-id';
+
+  export let athleteId: string;
 
   const modalStore = getModalStore();
   const modal: ModalSettings = {
     type: 'component',
-    component: 'categoryMoveSelect'
+    component: 'categoryMoveSelect',
+    meta: {
+      athleteId,
+      originalCategoryId: $originalCategoryId
+    }
   };
 </script>
 

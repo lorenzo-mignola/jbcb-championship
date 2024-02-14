@@ -28,7 +28,7 @@
         {/if}
       </span>
       {#if edit}
-        <MoveButton />
+        <MoveButton athleteId={athlete.id} />
       {/if}
       {#if iconAction !== undefined}
         <button
