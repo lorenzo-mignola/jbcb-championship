@@ -7,6 +7,8 @@ import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import type { Category } from '../types/category.type';
 
+export const db = getFirestore();
+
 if (getApps().length === 0) {
   initializeApp({
     credential: cert({
@@ -15,11 +17,9 @@ if (getApps().length === 0) {
       privateKey: FIREBASE_PRIVATE_KEY
     })
   });
+
+  db.settings({ ignoreUndefinedProperties: true });
 }
-
-export const db = getFirestore();
-
-db.settings({ ignoreUndefinedProperties: true });
 
 export const categoryConverter = {
   toFirestore: (data: Omit<Category, 'id'>) => data,
