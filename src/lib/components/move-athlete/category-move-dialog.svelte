@@ -1,7 +1,10 @@
 <script lang="ts" strictEvents>
+  import { goto } from '$app/navigation';
   import { ListBox, ListBoxItem, getModalStore } from '@skeletonlabs/skeleton';
+  import axios from 'redaxios';
   import type { SvelteComponent } from 'svelte';
   import { categoriesNotStarted } from '../../store/$categories-not-started';
+  import { tournament } from '../../store/$tournament';
 
   /** Exposes parent props to this component. */
   export let parent: SvelteComponent;
@@ -11,11 +14,26 @@
 
   const modal = $modalStore[0];
 
-  // Handle Form Submission
-  function onFormSubmit() {
+  async function onFormSubmit() {
+    if (!newCategoryId) {
+      return;
+    }
+
     const { athleteId, originalCategoryId } = modal.meta;
-    console.log('clg', { newCategoryId, athleteId, originalCategoryId });
+    const { data } = await axios.patch<{ originalCategoryId: string; newCategoryId: string }>(
+      '/api/athletes',
+      {
+        originalCategory: originalCategoryId,
+        newCategory: newCategoryId,
+        athlete: athleteId
+      }
+    );
+
     modalStore.close();
+    await goto(`/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
+      replaceState: true,
+      invalidateAll: true
+    });
   }
 </script>
 

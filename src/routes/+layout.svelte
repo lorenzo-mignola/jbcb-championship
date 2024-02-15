@@ -10,7 +10,7 @@
   } from '@skeletonlabs/skeleton';
   import { pwaInfo } from 'virtual:pwa-info';
   import '../app.postcss';
-  import CategoryMoveSelect from '../lib/components/move-athlete/category-move-select.svelte';
+  import CategoryMoveDialog from '../lib/components/move-athlete/category-move-dialog.svelte';
 
   interface $$Slots {
     default: Record<string, never>;
@@ -24,7 +24,7 @@
 
   const modalRegistry: Record<string, ModalComponent> = {
     categoryMoveSelect: {
-      ref: CategoryMoveSelect
+      ref: CategoryMoveDialog
     }
   };
 </script>
@@ -48,7 +48,9 @@
       class="btn-icon btn-sm hover:variant-soft-primary"
       title="Aggiorna"
       type="button"
-      on:click|preventDefault={() => invalidateAll()}><Reload /></button
+      on:click|preventDefault={async () => {
+        await invalidateAll();
+      }}><Reload /></button
     >
     <LightSwitch rounded="rounded-full" />
   </svelte:fragment>

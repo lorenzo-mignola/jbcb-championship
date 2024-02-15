@@ -30,7 +30,7 @@
   <div>
     <h1 class="h1 mb-4 font-bold">{category.name}</h1>
 
-    <AthleteList athletes={category.athletes} iconAction={undefined} />
+    <AthleteList athletes={category.athletes} iconAction={undefined} iconActionTitle={undefined} />
 
     <div class="my-2 mt-4 flex gap-2">
       <p>Durata incontri:</p>

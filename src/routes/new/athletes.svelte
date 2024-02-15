@@ -6,6 +6,6 @@
   const iconAction = (id: string) => removeAthlete(id);
 </script>
 
-<AthleteList athletes={$athletes} {iconAction}>
+<AthleteList athletes={$athletes} {iconAction} iconActionTitle="Elimina">
   <Delete slot="icon" />
 </AthleteList>

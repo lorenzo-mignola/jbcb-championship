@@ -7,22 +7,17 @@
   import { tournament } from '$lib/store/$tournament';
   import { type } from '$lib/store/$type';
   import axios from 'redaxios';
-  import { onDestroy, onMount } from 'svelte';
+  import { onDestroy } from 'svelte';
   import { categoriesNotStarted } from '../../../../lib/store/$categories-not-started';
   import { initializeCategory } from './initialize-category';
   import { reset } from './reset';
 
   export let data;
-  const category = data.category;
-  const notStartedCategoriesData = data.notStartedCategories;
+  $: category = data.category;
+  $: notStartedCategoriesData = data.notStartedCategories;
 
-  onMount(() => {
-    if (!category) {
-      return;
-    }
-    initializeCategory(category);
-    categoriesNotStarted.set(notStartedCategoriesData);
-  });
+  $: initializeCategory(category);
+  $: categoriesNotStarted.set(notStartedCategoriesData);
 
   async function handleEdit() {
     if (!$categoryName || !$type || !category) {

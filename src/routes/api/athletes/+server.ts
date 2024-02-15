@@ -2,12 +2,13 @@ import { error, json, type RequestHandler } from '@sveltejs/kit';
 import { z } from 'zod';
 import { editCategory } from '../../../lib/server/edit-category';
 import { getCategory } from '../../../lib/server/get-category';
-import { JudokaSchema, type Judoka } from '../../../lib/types/judoka.type';
+import type { Category } from '../../../lib/types/category.type';
+import { type Judoka } from '../../../lib/types/judoka.type';
 
 const pathAthleteSchema = z.object({
   originalCategory: z.string(),
   newCategory: z.string(),
-  athlete: JudokaSchema
+  athlete: z.string()
 });
 
 const updateNewCategory = (athlete: Judoka) => async (newCategoryId: string) => {
@@ -29,17 +30,11 @@ const updateNewCategory = (athlete: Judoka) => async (newCategoryId: string) => 
   });
 };
 
-const updateOriginalCategory = (athleteId: string) => async (originalCategoryId: string) => {
-  const originalCategory = await getCategory(originalCategoryId);
-
-  if (!originalCategory) {
-    return;
-  }
-
-  const { name, athletes, type, duration, tournament } = originalCategory;
+const updateOriginalCategory = (athleteId: string) => async (originalCategory: Category) => {
+  const { name, athletes, type, duration, tournament, id } = originalCategory;
   const athletesFiltered = athletes.filter((athlete) => athlete.id !== athleteId);
 
-  return editCategory(originalCategoryId, {
+  return editCategory(id, {
     name,
     athletes: athletesFiltered,
     type,
@@ -53,16 +48,26 @@ export const PATCH: RequestHandler = async ({ request }) => {
   const {
     originalCategory: originalCategoryId,
     newCategory: newCategoryId,
-    athlete
+    athlete: athleteId
   } = pathAthleteSchema.parse(requestData);
 
-  const originalCategoryIdUpdated = await updateOriginalCategory(athlete.id)(originalCategoryId);
+  const originalCategory = await getCategory(originalCategoryId);
 
-  if (!originalCategoryId) {
+  if (!originalCategory) {
     error(500, 'Original category not found');
   }
 
-  const newCategoryIdUpdated = await updateNewCategory(athlete)(newCategoryId);
+  const athleteToUpdate = originalCategory.athletes.find((athlete) => athlete.id === athleteId);
+
+  if (!athleteToUpdate) {
+    error(500, 'Athlete not found');
+  }
+
+  const originalCategoryIdUpdated = await updateOriginalCategory(athleteToUpdate.id)(
+    originalCategory
+  );
+
+  const newCategoryIdUpdated = await updateNewCategory(athleteToUpdate)(newCategoryId);
 
   if (!originalCategoryIdUpdated) {
     error(500, 'Original category not found');

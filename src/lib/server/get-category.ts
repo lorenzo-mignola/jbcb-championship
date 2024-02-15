@@ -1,3 +1,4 @@
+import { isNotByeMatch } from '../models/ranking/category';
 import type { Category } from '../types/category.type';
 import { categoriesCollection } from './firebase';
 
@@ -25,7 +26,14 @@ export const getNotStartedCategory = async (
     return [];
   }
   return categories.docs
-    .filter((category) => !category.data().matches[0].winner)
+    .filter((category) => {
+      const matches = category.data().matches.filter(isNotByeMatch);
+      if (matches.length === 0) {
+        return true;
+      }
+      const [firstMatch] = matches;
+      return !firstMatch.winner;
+    })
     .map((category) => ({ id: category.id, name: category.data().name }));
 };
 

@@ -5,7 +5,10 @@ import { type } from '$lib/store/$type';
 import type { Category } from '$lib/types/category.type';
 import { originalCategoryId } from '../../../../lib/store/$original-category-id';
 
-export const initializeCategory = (category: Category) => {
+export const initializeCategory = (category?: Category) => {
+  if (!category) {
+    return;
+  }
   type.set(category.type);
   duration.set(category.duration);
   athletes.set(category.athletes);
