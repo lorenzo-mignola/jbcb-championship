@@ -5,13 +5,16 @@
   import Edit from '$lib/icons/edit.svelte';
   import Next from '$lib/icons/next.svelte';
   import Print from '$lib/icons/print.svelte';
+  import { isNotByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/store/$timer';
   import { tournament } from '$lib/store/$tournament';
   import Loading from './loading.svelte';
 
   export let data;
   const category = data.category;
-  const started = Boolean(category?.matches[0]?.winner);
+  const matches = category?.matches.filter(isNotByeMatch) || [];
+  const firstMatch = matches[0];
+  const started = Boolean(firstMatch?.winner);
 </script>
 
 <div>
@@ -25,7 +28,7 @@
         {#if !started}
           <a
             class="variant-soft-surface btn-icon btn-sm"
-            href={`/categories/${category.id}/edit`}
+            href={`/categories/${category.id}/edit?tournament=${category.tournament || ''}`}
             title="Modifica"><Edit /></a
           >
         {/if}
@@ -47,7 +50,8 @@
         {/if}
       </div>
     </div>
-    <AthleteList athletes={category.athletes} iconAction={undefined}></AthleteList>
+    <AthleteList athletes={category.athletes} iconAction={undefined} iconActionTitle={undefined}
+    ></AthleteList>
     <div class="my-2 flex gap-2">
       <p>Durata incontri:</p>
       <span class="variant-ghost-surface badge">{formatTimeString(category.duration)}</span>

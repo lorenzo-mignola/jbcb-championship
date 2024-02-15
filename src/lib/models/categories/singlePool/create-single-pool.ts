@@ -58,7 +58,7 @@ export const createSinglePool = (
     tournament,
     athletes,
     matches,
-    currentMatch: matches[0].id,
+    currentMatch: matches.length > 0 ? matches[0].id : null,
     duration
   };
 };

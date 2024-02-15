@@ -19,7 +19,13 @@ if (getApps().length === 0) {
 
 export const db = getFirestore();
 
-db.settings({ ignoreUndefinedProperties: true });
+let settingsCalled = false;
+
+// eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- fix for vite reload
+if (!settingsCalled) {
+  db.settings({ ignoreUndefinedProperties: true });
+  settingsCalled = true;
+}
 
 export const categoryConverter = {
   toFirestore: (data: Omit<Category, 'id'>) => data,

@@ -6,6 +6,7 @@
   import { isByeMatch } from '../models/ranking/category';
   import { match } from '../store/$match';
   import { reset } from '../store/$timer';
+  import type { Category } from '../types/category.type';
   import type { Match } from '../types/match.type';
   import LoadingSpinner from './loading-spinner.svelte';
 
@@ -25,7 +26,7 @@
 
   const save = async (matchToUpdate: Match) => {
     loading = true;
-    const { data: categoryUpdated } = await axios.patch(
+    const { data: categoryUpdated } = await axios.patch<Category | undefined>(
       `/api/categories/${categoryId}/match`,
       matchToUpdate
     );
