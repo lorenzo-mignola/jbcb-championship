@@ -182,4 +182,14 @@ describe('SinglePool even', () => {
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
   });
+
+  it('should create category with no athlete', () => {
+    const pool = createSinglePool(name, [], 0);
+    expect(pool.athletes.length).toBe(0);
+  });
+
+  it('should create category with 1 athlete', () => {
+    const pool = createSinglePool(name, athletes.slice(0, 1), 0);
+    expect(pool.athletes.length).toBe(1);
+  });
 });
