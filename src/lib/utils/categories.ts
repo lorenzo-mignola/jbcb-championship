@@ -1,14 +1,15 @@
-import { always, ascend, pipe, prop, replace, sortWith, when, type Ord } from 'ramda';
+import { always, ascend, map, omit, pipe, prop, replace, sortWith, when, type Ord } from 'ramda';
 import type { Category } from '../types/category.type';
 
-type PartialCategory = Pick<Category, 'id' | 'name' | 'currentMatch'>;
 type Sex = 'F' | 'M';
-type PartialCategoryWithValues = PartialCategory & {
+
+interface CategoryValues {
   category: string;
   sex: Sex | 'NO SEX';
   weight: number;
-};
-type CategoryArray = PartialCategory[];
+}
+
+type CategoryWithValues = Category & CategoryValues;
 
 const getFromRegex = (regex: RegExp, value: string) => (regex.exec(value) || [null])[0];
 
@@ -30,25 +31,25 @@ const getWeight = (name: string) => {
   return weightNumber + 1;
 };
 
-const mapCategoryNameToValues = (partialCategory: PartialCategory): PartialCategoryWithValues => {
-  const { name } = partialCategory;
+const mapCategoryNameToValues = (category: Category): CategoryWithValues => {
+  const { name } = category;
 
   return {
-    ...partialCategory,
+    ...category,
     category: getCategory(name) || 'OTHER CATEGORY',
     sex: getSex(name) || 'NO SEX',
     weight: getWeight(name)
   };
 };
 
-const sortByCategory: (value: PartialCategoryWithValues) => Ord = pipe(
+const sortByCategory: (value: CategoryWithValues) => Ord = pipe(
   prop('category'),
   replace('U', ''),
   Number,
   when<Ord, number>(Number.isNaN, always(Number(Infinity)))
 );
 
-const sortBySex = (a: PartialCategoryWithValues, b: PartialCategoryWithValues) => {
+const sortBySex = (a: CategoryWithValues, b: CategoryWithValues) => {
   const sexA = prop('sex', a);
   const sexB = prop('sex', b);
   if (sexA === 'F') {
@@ -67,21 +68,17 @@ const sortBySex = (a: PartialCategoryWithValues, b: PartialCategoryWithValues) =
 };
 
 // sort ascend
-const sortByWeight = (a: PartialCategoryWithValues, b: PartialCategoryWithValues) =>
+const sortByWeight = (a: CategoryWithValues, b: CategoryWithValues) =>
   prop('weight', a) - prop('weight', b);
 
-export const sortCategories = (categories: CategoryArray): CategoryArray => {
-  const categoriesWithValues = categories.map(mapCategoryNameToValues);
+export const sortCategories = (categories: Category[]): Category[] => {
+  const categoriesWithValues = map(mapCategoryNameToValues)(categories);
 
-  const sorted = sortWith<PartialCategoryWithValues>([
-    ascend(sortByCategory),
-    sortBySex,
-    sortByWeight
-  ])(categoriesWithValues);
+  const sorted = sortWith<CategoryWithValues>([ascend(sortByCategory), sortBySex, sortByWeight])(
+    categoriesWithValues
+  );
 
-  return sorted.map((category) => ({
-    id: category.id,
-    name: category.name,
-    currentMatch: category.currentMatch
-  }));
+  return map<CategoryWithValues, Category>(
+    (category) => omit(['category', 'sex', 'weight'], category) as Category
+  )(sorted);
 };

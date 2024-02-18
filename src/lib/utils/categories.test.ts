@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+import type { Category } from '../types/category.type';
 import { sortCategories } from './categories';
 
 const categories = [
@@ -160,13 +161,13 @@ describe('sortCategories', () => {
     [1, 'M U13 -26Kg'],
     [categories.length - 1, 'JUN.-ELITE M +81Kg']
   ])('at index %i should have "%s"', (index, value) => {
-    const sorted = sortCategories(categories);
+    const sorted = sortCategories(categories as Category[]);
 
     expect(sorted[index].name).toBe(value);
   });
 
   it('should match snapshot', async () => {
-    const sorted = sortCategories(categories);
+    const sorted = sortCategories(categories as Category[]);
 
     await expect(sorted).toMatchFileSnapshot(
       '../../../tests/__snapshots__/categories_sort.ts.snap'

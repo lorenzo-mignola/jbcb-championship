@@ -5,6 +5,7 @@
     AppBar,
     LightSwitch,
     Modal,
+    Toast,
     initializeStores,
     type ModalComponent
   } from '@skeletonlabs/skeleton';
@@ -35,6 +36,7 @@
 </svelte:head>
 
 <Modal buttonTextCancel="Annulla" components={modalRegistry} />
+<Toast />
 
 <AppBar
   class="sticky top-0 z-50 print:hidden"

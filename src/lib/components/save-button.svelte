@@ -1,9 +1,11 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
+  import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
   import axios from 'redaxios';
   import { onMount } from 'svelte';
   import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
   import { isByeMatch } from '../models/ranking/category';
+  import { errorMatches } from '../store/$error-matches';
   import { match } from '../store/$match';
   import { reset } from '../store/$timer';
   import type { Category } from '../types/category.type';
@@ -12,6 +14,12 @@
 
   export let categoryId: string;
   let loading = false;
+
+  const toastStore = getToastStore();
+  const errorToast: ToastSettings = {
+    message: "Errore durante il salvataggio dell'incontro",
+    background: 'variant-filled-error'
+  };
 
   onMount(() => {
     if (!$match) {
@@ -26,27 +34,34 @@
 
   const save = async (matchToUpdate: Match) => {
     loading = true;
-    const { data: categoryUpdated } = await axios.patch<Category | undefined>(
-      `/api/categories/${categoryId}/match`,
-      matchToUpdate
-    );
+    try {
+      const { data: categoryUpdated } = await axios.patch<Category | undefined>(
+        `/api/categories/${categoryId}/match`,
+        matchToUpdate
+      );
 
-    if (!categoryUpdated) {
-      loading = false;
-      return;
-    }
-    if (categoryUpdated.currentMatch) {
+      if (!categoryUpdated) {
+        loading = false;
+        return;
+      }
+      if (categoryUpdated.currentMatch) {
+        reset();
+        goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
+          invalidateAll: true
+        });
+        loading = false;
+        return;
+      }
       reset();
-      goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
+      goto(`/categories/${categoryUpdated.id}`, {
         invalidateAll: true
       });
-      loading = false;
-      return;
+    } catch (error) {
+      toastStore.trigger(errorToast);
+      // eslint-disable-next-line no-console -- console error
+      console.error((error as { data: any }).data);
+      errorMatches.update((errors) => [...errors, matchToUpdate]);
     }
-    reset();
-    goto(`/categories/${categoryUpdated.id}`, {
-      invalidateAll: true
-    });
     loading = false;
   };
 

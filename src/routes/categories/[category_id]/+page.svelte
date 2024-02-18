@@ -50,8 +50,7 @@
         {/if}
       </div>
     </div>
-    <AthleteList athletes={category.athletes} iconAction={undefined} iconActionTitle={undefined}
-    ></AthleteList>
+    <AthleteList athletes={category.athletes}></AthleteList>
     <div class="my-2 flex gap-2">
       <p>Durata incontri:</p>
       <span class="variant-ghost-surface badge">{formatTimeString(category.duration)}</span>

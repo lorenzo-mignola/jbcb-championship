@@ -13,27 +13,42 @@
   import { reset } from './reset';
 
   export let data;
+
   $: category = data.category;
   $: notStartedCategoriesData = data.notStartedCategories;
 
   $: initializeCategory(category);
   $: categoriesNotStarted.set(notStartedCategoriesData);
 
+  import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+
+  const toastStore = getToastStore();
+  const errorToast: ToastSettings = {
+    message: 'Errore durante il salvataggio delle modifiche',
+    background: 'variant-filled-error'
+  };
+
   async function handleEdit() {
     if (!$categoryName || !$type || !category) {
       return;
     }
 
-    const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category.id}`, {
-      name: $categoryName.trim(),
-      athletes: $athletes,
-      type: $type,
-      duration: $duration,
-      tournament: $tournament
-    });
+    try {
+      const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category.id}`, {
+        name: $categoryName.trim(),
+        athletes: $athletes,
+        type: $type,
+        duration: $duration,
+        tournament: $tournament
+      });
 
-    reset();
-    goto(`/categories/${idNewCategory}`);
+      reset();
+      goto(`/categories/${idNewCategory}`);
+    } catch (error) {
+      toastStore.trigger(errorToast);
+      // eslint-disable-next-line no-console -- console error
+      console.error((error as { data: any }).data);
+    }
   }
 
   onDestroy(() => {
