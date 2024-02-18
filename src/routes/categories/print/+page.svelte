@@ -1,10 +1,19 @@
 <script lang="ts" strictEvents>
+  import { browser } from '$app/environment';
   import AthleteList from '$lib/components/athlete-list.svelte';
   import PrintButton from '$lib/components/print-button.svelte';
   import { formatTimeString } from '$lib/store/$timer';
   import { typeToLabel } from '$lib/store/$type.js';
+  import { onMount } from 'svelte';
+  import { isMobile } from '../../../lib/utils/mobile.js';
 
   export let data;
+
+  onMount(() => {
+    if (browser && !isMobile()) {
+      data.autoPrint && window.print();
+    }
+  });
 </script>
 
 <div class="mb-10 flex justify-between">

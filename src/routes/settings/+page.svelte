@@ -73,10 +73,18 @@
     </ul>
   </div>
 
-  <label class="label mb-6">
-    <h3 class="h3">Torneo</h3>
-    <input class="input" placeholder="ID torneo" type="text" bind:value={$tournament} />
-  </label>
+  <div>
+    <label class="label mb-2">
+      <h3 class="h3">Torneo</h3>
+      <input class="input" placeholder="ID torneo" type="text" bind:value={$tournament} />
+    </label>
+    <a
+      class="variant-ringed btn"
+      href={`/categories/print?tournament=${$tournament}`}
+      rel="noopener noreferrer"
+      target="_blank">🖨️ Stampa tutte le categorie</a
+    >
+  </div>
 
   <div>
     <h3 class="h3">Visualizzazione incontro</h3>
@@ -88,7 +96,7 @@
     <button
       class="variant-ringed btn mt-1 gap-2"
       type="button"
-      on:click|preventDefault={() => modalStore.trigger(modal)}><Delete />Cancella tutto</button
+      on:click|preventDefault={() => modalStore.trigger(modal)}>🗑️ Cancella tutto</button
     >
   </div>
 </div>
