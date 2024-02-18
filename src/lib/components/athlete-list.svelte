@@ -9,15 +9,16 @@
   }
 
   export let athletes: Judoka[];
-  export let iconActionTitle: string | undefined;
+  export let iconActionTitle: string = '';
   // eslint-disable-next-line no-unused-vars -- type declaration
-  export let iconAction: ((id: string) => void) | undefined;
+  export let iconAction: ((id: string) => void) | null = null;
+  export let showTitle = true;
 
   const editPage = browser ? window.location.href.includes('/edit') : false;
   $: edit = editPage && $categoriesNotStarted.length > 0;
 </script>
 
-{#if athletes.length > 0}
+{#if showTitle && athletes.length > 0}
   <h2 class="h3">Judoka</h2>
 {/if}
 <ul class="list my-2">
@@ -33,7 +34,7 @@
       {#if edit}
         <MoveButton athleteId={athlete.id} />
       {/if}
-      {#if iconAction !== undefined}
+      {#if iconAction !== null}
         <button
           class="variant-filled-primary btn-icon text-white [&>*]:pointer-events-none"
           title={iconActionTitle}
