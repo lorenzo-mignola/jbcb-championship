@@ -22,7 +22,12 @@ const getWeight = (name: string) => {
   if (weightString === null) {
     return -Infinity;
   }
-  return Number(weightString);
+  const weightNumber = Number(weightString);
+  if (weightNumber <= 0) {
+    return Math.abs(weightNumber);
+  }
+
+  return weightNumber + 1;
 };
 
 const mapCategoryNameToValues = (partialCategory: PartialCategory): PartialCategoryWithValues => {
@@ -63,7 +68,7 @@ const sortBySex = (a: PartialCategoryWithValues, b: PartialCategoryWithValues) =
 
 // sort ascend
 const sortByWeight = (a: PartialCategoryWithValues, b: PartialCategoryWithValues) =>
-  prop('weight', b) - prop('weight', a);
+  prop('weight', a) - prop('weight', b);
 
 export const sortCategories = (categories: CategoryArray): CategoryArray => {
   const categoriesWithValues = categories.map(mapCategoryNameToValues);
@@ -73,7 +78,6 @@ export const sortCategories = (categories: CategoryArray): CategoryArray => {
     sortBySex,
     sortByWeight
   ])(categoriesWithValues);
-  console.log(sorted);
 
   return sorted.map((category) => ({
     id: category.id,

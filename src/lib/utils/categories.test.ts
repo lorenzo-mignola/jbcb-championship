@@ -157,14 +157,15 @@ const categories = [
 describe('sortCategories', () => {
   it.each([
     [0, 'F U13'],
-    [1, 'M U13 -26Kg']
+    [1, 'M U13 -26Kg'],
+    [categories.length - 1, 'JUN.-ELITE M +81Kg']
   ])('at index %i should have "%s"', (index, value) => {
     const sorted = sortCategories(categories);
 
     expect(sorted[index].name).toBe(value);
   });
 
-  it.skip('should match snapshot', async () => {
+  it('should match snapshot', async () => {
     const sorted = sortCategories(categories);
 
     await expect(sorted).toMatchFileSnapshot(
