@@ -2,7 +2,6 @@
   import Athletes from '../../../routes/new/athletes.svelte';
   import CategoryName from '../../../routes/new/category-name.svelte';
   import NewAthlete from '../../../routes/new/new-athlete.svelte';
-  import { athletes } from '../../store/$athletes';
   import { categoryName } from '../../store/$category-name';
   import { type } from '../../store/$type';
   import LoadingSpinner from '../loading-spinner.svelte';
@@ -15,7 +14,7 @@
 
   export let handleClick: () => void;
 
-  $: canClick = [$categoryName.length > 0, $athletes.length > 1, $type].every(Boolean);
+  $: canClick = [$categoryName.trim().length > 0, $type].every(Boolean);
   let loading = false;
 </script>
 

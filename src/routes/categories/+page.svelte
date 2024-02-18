@@ -1,11 +1,25 @@
 <script lang="ts" strictEvents>
   import Check from '$lib/icons/check.svelte';
+  import Search from '../../lib/icons/search.svelte';
 
   export let data;
+
+  let searchValue = '';
+
+  $: categories = searchValue
+    ? data.categories.filter((category) =>
+        category.name.toLowerCase().includes(searchValue.toLowerCase())
+      )
+    : data.categories;
 </script>
 
+<div class="input-group input-group-divider mb-4 grid-cols-[auto_1fr_auto]">
+  <div class="input-group-shim"><Search /></div>
+  <input placeholder="Cerca..." type="search" bind:value={searchValue} />
+</div>
+
 <div class="flex flex-col gap-3">
-  {#each data.categories as category (category.id)}
+  {#each categories as category (category.id)}
     <a
       data-sveltekit-preload-code="hover"
       data-sveltekit-preload-data="tap"

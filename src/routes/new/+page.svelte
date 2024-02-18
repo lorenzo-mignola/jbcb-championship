@@ -19,7 +19,7 @@
     }
 
     const { data: newCategoryId } = await axios.post<string>('/api/categories', {
-      name: $categoryName,
+      name: $categoryName.trim(),
       athletes: $athletes,
       type: $type,
       duration: $duration,
