@@ -9,12 +9,12 @@ export const load: PageServerLoad = async ({ url }) => {
   const categories = await getAllCategories(tournament || '');
   return {
     categories: pipe(
+      sortCategories,
       map<Category, Pick<Category, 'id' | 'name' | 'currentMatch'>>((category) => ({
         id: category.id,
         name: category.name,
         currentMatch: category.currentMatch
-      })),
-      sortCategories
+      }))
     )(categories)
   };
 };

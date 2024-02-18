@@ -1,6 +1,7 @@
 import { PUBLIC_AUTO_PRINT } from '$env/static/public';
 import { getAllCategories } from '$lib/server/methods';
-import { pick } from 'ramda';
+import { map, pick, pipe } from 'ramda';
+import { sortCategories } from '../../../lib/utils/categories';
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -8,7 +9,10 @@ export const load: PageServerLoad = async ({ url }) => {
   const categories = await getAllCategories(tournament || '');
 
   return {
-    categories: categories.map(pick(['name', 'athletes', 'id', 'duration', 'type'])),
+    categories: pipe(
+      sortCategories,
+      map(pick(['name', 'athletes', 'id', 'duration', 'type']))
+    )(categories),
     autoPrint: PUBLIC_AUTO_PRINT !== 'false'
   };
 };
