@@ -11,4 +11,5 @@
     type="text"
     bind:value={$categoryName}
   />
+  <span class="text-sm">Es. M U18 -60Kg</span>
 </label>

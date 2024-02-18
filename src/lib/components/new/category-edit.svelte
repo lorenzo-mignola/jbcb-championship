@@ -14,7 +14,7 @@
 
   export let handleClick: () => void;
 
-  $: canClick = [$categoryName.length > 0, $type].every(Boolean);
+  $: canClick = [$categoryName.trim().length > 0, $type].every(Boolean);
   let loading = false;
 </script>
 
