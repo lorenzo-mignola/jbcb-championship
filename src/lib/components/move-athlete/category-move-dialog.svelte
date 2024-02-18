@@ -1,6 +1,12 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
-  import { ListBox, ListBoxItem, getModalStore } from '@skeletonlabs/skeleton';
+  import {
+    ListBox,
+    ListBoxItem,
+    getModalStore,
+    getToastStore,
+    type ToastSettings
+  } from '@skeletonlabs/skeleton';
   import axios from 'redaxios';
   import type { SvelteComponent } from 'svelte';
   import { categoriesNotStarted } from '../../store/$categories-not-started';
@@ -14,26 +20,38 @@
 
   const modal = $modalStore[0];
 
+  const toastStore = getToastStore();
+  const errorToast: ToastSettings = {
+    message: 'Errore durante la modifica delle categorie',
+    background: 'variant-filled-error'
+  };
+
   async function onFormSubmit() {
     if (!newCategoryId) {
       return;
     }
 
     const { athleteId, originalCategoryId } = modal.meta;
-    const { data } = await axios.patch<{ originalCategoryId: string; newCategoryId: string }>(
-      '/api/athletes',
-      {
-        originalCategory: originalCategoryId,
-        newCategory: newCategoryId,
-        athlete: athleteId
-      }
-    );
+    try {
+      const { data } = await axios.patch<{ originalCategoryId: string; newCategoryId: string }>(
+        '/api/athletes',
+        {
+          originalCategory: originalCategoryId,
+          newCategory: newCategoryId,
+          athlete: athleteId
+        }
+      );
 
-    modalStore.close();
-    await goto(`/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
-      replaceState: true,
-      invalidateAll: true
-    });
+      modalStore.close();
+      await goto(`/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
+        replaceState: true,
+        invalidateAll: true
+      });
+    } catch (error) {
+      toastStore.trigger(errorToast);
+      // eslint-disable-next-line no-console -- console error
+      console.error((error as { data: any }).data);
+    }
   }
 </script>
 
