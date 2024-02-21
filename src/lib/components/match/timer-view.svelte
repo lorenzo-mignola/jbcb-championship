@@ -16,7 +16,7 @@
   {/if}
   <div
     class="text-timer my-5 w-full p-4 text-center text-4xl font-bold md:text-5xl"
-    class:!text-7xl={view}
+    class:!text-8xl={view}
   >
     {String(min).padStart(2, '0')}:{String(sec).padStart(2, '0')}
   </div>
