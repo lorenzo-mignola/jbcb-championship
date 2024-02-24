@@ -27,14 +27,14 @@
 
 <div class="view-container">
   <div class="mb-10 flex items-center justify-between">
-    <h1 class="text-5xl">
+    <h1 class="text-6xl">
       {#if $localStorageCategoryName}
         {$localStorageCategoryName}
       {:else}
         &nbsp;
       {/if}
     </h1>
-    <div class="text-xl">
+    <div class="text-4xl">
       {#if $localStorageMatchType === 'medal'}
         <span
           class="badge border-4 border-warning-600 text-4xl shadow-md shadow-warning-600"
@@ -42,14 +42,14 @@
         >
       {/if}
       {#if $localStorageMatchType === 'repechage'}
-        <span class="italic"> Ripescaggio </span>
+        <span class="italic">Ripescaggio</span>
       {/if}
     </div>
   </div>
-  <div class="judoka-white-card text-7xl">
+  <div class="judoka-white-card text-8xl">
     <JudokaNameAndPoints athlete={white} points={whitePoints} />
   </div>
-  <div class="judoka-blue-card text-7xl">
+  <div class="judoka-blue-card text-8xl">
     <JudokaNameAndPoints athlete={blue} points={bluePoints} />
   </div>
   <TimerView
