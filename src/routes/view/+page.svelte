@@ -34,7 +34,7 @@
         &nbsp;
       {/if}
     </h1>
-    <div class="text-4xl">
+    <div class="text-5xl">
       {#if $localStorageMatchType === 'medal'}
         <span
           class="badge border-4 border-warning-600 text-4xl shadow-md shadow-warning-600"
@@ -60,7 +60,7 @@
     timer={$localStorageOsaekomi}
     view={true}
   />
-  <div class="flex justify-end">
+  <div class="mt-4 flex justify-end">
     <NextMatch nextMatch={$localStorageNextMatch} view={true} />
   </div>
   <FullScreen />

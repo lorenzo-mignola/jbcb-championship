@@ -9,10 +9,10 @@
   <div
     class="card variant-ringed mb-4 break-words p-2 md:mb-0"
     class:spacer={view}
-    class:text-4xl={view}
+    class:text-5xl={view}
   >
     <p>Prossimo incontro</p>
-    <p class:text-4xl={view} class:text-sm={!view}>
+    <p class:text-5xl={view} class:text-sm={!view}>
       <b>{nextMatch.white?.name}</b> - <b>{nextMatch?.blue?.name}</b>
     </p>
   </div>
