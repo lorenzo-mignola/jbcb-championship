@@ -61,7 +61,7 @@ Premere il pulsante _play_. Premendo il pulsante _pausa_ il timer si blocca
 
 Assegna la vittoria diretta e interrompe il timer dell'incontro
 
-![ippon](./docs/assetsippon.png)
+![ippon](./docs/assets/ippon.png)
 
 <div style="page-break-after: always;"></div>
 
