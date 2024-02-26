@@ -21,7 +21,7 @@
 {#if showTitle && athletes.length > 0}
   <h2 class="h3">Judoka</h2>
 {/if}
-<ul class="list my-2">
+<ul class="list my-2 break-inside-avoid-page">
   {#each athletes as athlete (athlete.id)}
     <hr />
     <li>

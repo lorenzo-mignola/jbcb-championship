@@ -4,7 +4,13 @@
   import Rank from '../../rank.svelte';
 
   export let category: Category;
-  const ranking = getRanking(category);
+  export let compact: boolean = false;
+  const ranking = getRanking(category).filter((rank) => {
+    if (!compact) {
+      return true;
+    }
+    return rank.rank <= 4;
+  });
 </script>
 
 {#if ranking.length === 0}
@@ -18,7 +24,7 @@
           club={category.athletes.find((athlete) => athlete.id === rankingAthlete.id)?.club}
           rank={rankingAthlete.rank}
         />
-        {#if rankingAthlete.matchPoint !== undefined || rankingAthlete.evaluationPoint !== undefined}
+        {#if !compact && (rankingAthlete.matchPoint !== undefined || rankingAthlete.evaluationPoint !== undefined)}
           <span>{rankingAthlete.matchPoint}/{rankingAthlete.evaluationPoint}</span>
         {/if}
       </li>

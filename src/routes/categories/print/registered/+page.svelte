@@ -4,8 +4,8 @@
   import PrintButton from '$lib/components/print-button.svelte';
   import { formatTimeString } from '$lib/store/$timer';
   import { typeToLabel } from '$lib/store/$type.js';
+  import { isMobile } from '$lib/utils/mobile.js';
   import { onMount } from 'svelte';
-  import { isMobile } from '../../../lib/utils/mobile.js';
 
   export let data;
 

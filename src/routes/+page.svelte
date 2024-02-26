@@ -1,17 +1,13 @@
 <script>
+  import Card from '$lib/components/card.svelte';
   import Settings from '$lib/icons/settings.svelte';
   import { tournament } from '$lib/store/$tournament';
-  import Card from './card.svelte';
 </script>
 
 <div class="home-container">
   <Card link="/new" text="✨ Crea categoria ✨" />
   <Card link={`/categories?tournament=${$tournament}`} text="💪 Visualizza categorie 💪" />
-  <Card
-    disabled={!$tournament}
-    link={`/club-ranking?tournament=${$tournament}`}
-    text="🏅 Classifica club 🏅"
-  />
+  <Card disabled={!$tournament} link="/print" text="🖨️ Stampa liste 🖨" />
 
   <a class="settings variant-ringed-primary btn" href="/settings">
     <span><Settings /></span>
