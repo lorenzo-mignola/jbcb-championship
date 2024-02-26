@@ -1,7 +1,5 @@
 # JBCB Championship
 
-![Logo](static/512.png)
-
 ## Aprire l'app e configurare il torneo
 
 - Aprire il sito `https://jbcb-championship.vercel.app/`
@@ -55,13 +53,13 @@ Dopo aver selezionato la categoria in alto a destra cliccare il bottone **Prossi
 
 Premere il pulsante _play_. Premendo il pulsante _pausa_ il timer si blocca
 
-![play](./docs/assets/play.png)
+![play](./play.png)
 
 ### Ippon
 
 Assegna la vittoria diretta e interrompe il timer dell'incontro
 
-![ippon](./docs/assetsippon.png)
+![ippon](./ippon.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -69,13 +67,13 @@ Assegna la vittoria diretta e interrompe il timer dell'incontro
 
 Dopo 2 waza-ari viene assegnata la vittoria. Se alla fine del tempo prestabilito uno dei due atleti ha 1 waza-ari viene assegnata la vittoria
 
-![waza-ari](./docs/assetswaza-ari.png)
+![waza-ari](./waza-ari.png)
 
 ### Shido
 
 Dopo 3 shido viene assegnata la vittoria all'avversario. Per assegnare hansoku-make diretto premere 3 volte il pulsante per i shido
 
-![shido](./docs/assetsshido.png)
+![shido](./shido.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -83,12 +81,12 @@ Dopo 3 shido viene assegnata la vittoria all'avversario. Per assegnare hansoku-m
 
 Questi pulsanti sono attivi solo mentre il timer dell'incontro è attivo. Quando viene premuto la prima volta viene attivato il timer per l'osae-komi, se premuto la seconda volta (toketa) il timer per l'osae-komi si interrompe. Dopo 10 secondi viene assegnato 1 waza-ari, dopo 20 viene assegnato l'ippon
 
-![osaekomi](./docs/assetsosaekomi.png)
-![toketa](./docs/assetstoketa.png)
+![osaekomi](./osaekomi.png)
+![toketa](./toketa.png)
 
 Se si preme il pulsante vicino al timer (sonomama) viene messo in pausa sia il timer dell'incontro che il timer dell'osae-komi. Premendo il play del timer entrambi i timer riprendono
 
-![sonomamma](./docs/assetssonomamma.png)
+![sonomamma](./sonomamma.png)
 
 <div style="page-break-after: always;"></div>
 
@@ -96,17 +94,17 @@ Se si preme il pulsante vicino al timer (sonomama) viene messo in pausa sia il t
 
 A destra dei pulsanti per assegnare i punteggi è presente il bottone per correggere i punteggi (il bottone apparirà solo dopo aver assegnato almeno 1 punteggio)
 
-![edit](./docs/assetsedit.png)
+![edit](./edit.png)
 
 Dopo essere entrati in modalità "correzione" è possibile rimuovere dei punteggi assegnati. Se bisogna correggere più punteggi è necessario ripetere questa operazione più volte
 
-![remove](./docs/assetsremove.png)
+![remove](./remove.png)
 
 ### Salvare l'incontro
 
 Quando viene assegnata la vittoria ad un atleta compare il bottone _Termina l'incontro_, premendo questo bottone l'incontro viene salvato e viene aperto il prossimo incontro della categoria (o si ritorna alla pagina della categoria se non ci sono altri incontri)
 
-![termina](./docs/assetstermina.png)
+![termina](./termina.png)
 
 <div style="padding: 8px; border-radius: 4px; background: #fef3c7; color: black; display: flex; justify-content: space-between; align-items: center;">
     <span>❗</span>
