@@ -1,5 +1,5 @@
 import { json, type RequestHandler } from '@sveltejs/kit';
-import { categoriesCollection } from '../../../lib/db/firebase';
+import { categoriesCollection } from '../../../lib/server/firebase';
 
 // TODO delete
 export const GET: RequestHandler = async ({ url }) => {
