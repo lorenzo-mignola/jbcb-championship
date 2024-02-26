@@ -49,34 +49,18 @@ const sortByCategory: (value: CategoryWithValues) => Ord = pipe(
   when<Ord, number>(Number.isNaN, always(Number(Infinity)))
 );
 
-const sortBySex = (a: CategoryWithValues, b: CategoryWithValues) => {
-  const sexA = prop('sex', a);
-  const sexB = prop('sex', b);
-  if (sexA === 'F') {
-    return -1;
-  }
-  if (sexB === 'F') {
-    return 1;
-  }
-  if (sexA === 'NO SEX') {
-    return 1;
-  }
-  if (sexB === 'NO SEX') {
-    return -1;
-  }
-  return 0;
-};
+const sortBySex = pipe(prop('sex'));
 
-// sort ascend
-const sortByWeight = (a: CategoryWithValues, b: CategoryWithValues) =>
-  prop('weight', a) - prop('weight', b);
+const sortByWeight = prop('weight');
 
 export const sortCategories = (categories: Category[]): Category[] => {
   const categoriesWithValues = map(mapCategoryNameToValues)(categories);
 
-  const sorted = sortWith<CategoryWithValues>([ascend(sortByCategory), sortBySex, sortByWeight])(
-    categoriesWithValues
-  );
+  const sorted = sortWith<CategoryWithValues>([
+    ascend(sortByCategory),
+    ascend(sortBySex),
+    ascend(sortByWeight)
+  ])(categoriesWithValues);
 
   return map<CategoryWithValues, Category>(
     (category) => omit(['category', 'sex', 'weight'], category) as Category
