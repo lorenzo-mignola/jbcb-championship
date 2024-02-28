@@ -10,7 +10,7 @@
   export let data;
   const categories = data.categories;
 
-  let rankingOnly = false;
+  let fullReport = false;
 
   onMount(() => {
     if (browser && !isMobile()) {
@@ -20,15 +20,16 @@
 </script>
 
 <div class="mb-8 flex justify-between print:hidden">
-  <SlideToggle name="rankingOnly" bind:checked={rankingOnly}>Stampa solo classifica</SlideToggle>
+  <SlideToggle name="rankingOnly" bind:checked={fullReport}>Classifiche complete</SlideToggle>
   <PrintButton />
 </div>
+
 {#each categories as category (category.id)}
-  {#if rankingOnly}
-    <PrintCategoryRankingOnly {category} />
-  {:else}
+  {#if fullReport}
     <div class="break-after-page">
       <PrintCategory {category} />
     </div>
+  {:else}
+    <PrintCategoryRankingOnly {category} />
   {/if}
 {/each}

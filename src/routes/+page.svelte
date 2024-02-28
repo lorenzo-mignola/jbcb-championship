@@ -7,7 +7,7 @@
 <div class="home-container">
   <Card link="/new" text="✨ Crea categoria ✨" />
   <Card link={`/categories?tournament=${$tournament}`} text="💪 Visualizza categorie 💪" />
-  <Card disabled={!$tournament} link="/print" text="🖨️ Stampa liste 🖨" />
+  <Card disabled={!$tournament} link="/print" text="🖨️ Stampa 🖨" />
 
   <a class="settings variant-ringed-primary btn" href="/settings">
     <span><Settings /></span>

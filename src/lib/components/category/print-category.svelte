@@ -39,7 +39,7 @@
     </div>
   {/if}
 
-  <div class="break-inside-avoid-page">
+  <div class="break-inside-avoid-page overflow-y-scroll">
     <h2 class="h3 mt-4">Incontri</h2>
     <MatchesPrint
       categoryDuration={category.duration}
