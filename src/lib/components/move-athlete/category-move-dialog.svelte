@@ -10,6 +10,7 @@
   import axios from 'redaxios';
   import type { SvelteComponent } from 'svelte';
   import { categoriesNotStarted } from '../../store/$categories-not-started';
+  import { originalCategoryId } from '../../store/$original-category-id';
   import { tournament } from '../../store/$tournament';
 
   /** Exposes parent props to this component. */
@@ -31,18 +32,19 @@
       return;
     }
 
-    const { athleteId, originalCategoryId } = modal.meta;
+    const { athleteId } = modal.meta;
     try {
       const { data } = await axios.patch<{ originalCategoryId: string; newCategoryId: string }>(
         '/api/athletes',
         {
-          originalCategory: originalCategoryId,
+          originalCategory: $originalCategoryId,
           newCategory: newCategoryId,
           athlete: athleteId
         }
       );
 
       modalStore.close();
+      originalCategoryId.set(data.originalCategoryId);
       await goto(`/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
         replaceState: true,
         invalidateAll: true
