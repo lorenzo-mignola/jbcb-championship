@@ -67,7 +67,9 @@ describe('createDoublePool', () => {
     const lastMatchIndex = 21 + 15 - 1;
     const lastMatchPool = doublePool.matches[lastMatchIndex];
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!lastMatchPool.white || !lastMatchPool.blue) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
@@ -83,12 +85,14 @@ describe('createDoublePool', () => {
     expect(currentMatch).toBe(semifinals[0].id);
   });
 
-  it('should have semifinals set', () => {
+  it('should have semifinals set (expect first semifinal)', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const lastMatchIndex = 21 + 15 - 1;
     const lastMatchPool = doublePool.matches[lastMatchIndex];
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!lastMatchPool.white || !lastMatchPool.blue) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
@@ -103,13 +107,38 @@ describe('createDoublePool', () => {
       pools: { A, B }
     } = poolUpdated;
 
-    const [firstSemifinal, secondSemifinal] = semifinals;
+    const [firstSemifinal] = semifinals;
 
     // firstSemifinal
     expect(firstSemifinal.white).toBeDefined();
     expect(A.flatMap((m) => [m.white?.id, m.blue?.id])).contains(firstSemifinal.white?.id);
     expect(firstSemifinal.blue).toBeDefined();
     expect(B.flatMap((m) => [m.white?.id, m.blue?.id])).contains(firstSemifinal.blue?.id);
+  });
+
+  it('should have semifinals set (expect second semifinal)', () => {
+    const doublePool = createDoublePool('test', athletes, 0);
+    const lastMatchIndex = 21 + 15 - 1;
+    const lastMatchPool = doublePool.matches[lastMatchIndex];
+
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
+    if (!lastMatchPool.white || !lastMatchPool.blue) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
+      expect.fail('not last match pool');
+    }
+    const poolUpdated = updateDoublePool(
+      { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
+      {
+        ...lastMatchPool,
+        winner: 'white'
+      }
+    );
+    const {
+      semifinals,
+      pools: { A, B }
+    } = poolUpdated;
+
+    const [_, secondSemifinal] = semifinals;
 
     // secondSemifinal
     expect(secondSemifinal.white).toBeDefined();
@@ -122,7 +151,9 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 
@@ -141,7 +172,9 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const secondSemifinal = doublePool.matches.at(-2);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 
@@ -161,7 +194,9 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 
@@ -183,7 +218,9 @@ describe('createDoublePool', () => {
 
     const secondSemifinal = poolUpdatedFirstSemi.matches.at(-2);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 
@@ -210,7 +247,9 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 
@@ -232,7 +271,9 @@ describe('createDoublePool', () => {
 
     const secondSemifinal = poolUpdatedFirstSemi.matches.at(-2);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("Semifinal can't be undefined");
     }
 

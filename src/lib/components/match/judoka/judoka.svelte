@@ -32,7 +32,11 @@
   unsubscribe.push(watchWinnerOrLoser(type));
 </script>
 
-<div class:judoka-blue-card={type === 'blue'} class:judoka-white-card={type === 'white'}>
+<div
+  class:judoka-blue-card={type === 'blue'}
+  class:judoka-white-card={type === 'white'}
+  data-testid={`judoka-card-${athlete?.id ?? 'null'}`}
+>
   <JudokaNameAndPoints {athlete} points={$points} />
   <hr class="divider" />
   <div class="flex items-center justify-between">

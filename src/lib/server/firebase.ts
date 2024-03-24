@@ -19,6 +19,7 @@ if (getApps().length === 0) {
 
 export const db = getFirestore();
 
+// eslint-disable-next-line vitest/require-hook -- use to initialize only one
 let settingsCalled = false;
 
 // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- fix for vite reload

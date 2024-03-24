@@ -5,7 +5,7 @@ import { createSinglePool } from './create-single-pool';
 
 const name = 'single';
 
-describe('SinglePool odds', () => {
+describe('singlePool odds', () => {
   const athletes: Judoka[] = [
     {
       id: '1',
@@ -64,6 +64,7 @@ describe('SinglePool odds', () => {
       })
       .map(([a, b]) => {
         if (a === b) {
+          // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
           expect.fail();
         }
         return `${a}-${b}`;
@@ -86,7 +87,7 @@ describe('SinglePool odds', () => {
   });
 });
 
-describe('SinglePool even', () => {
+describe('singlePool even', () => {
   const athletes: Judoka[] = [
     {
       id: '1',
@@ -163,7 +164,7 @@ describe('SinglePool even', () => {
       return updatedBlue;
     }, {});
 
-    expect(Object.keys(nrOfMatch).length).toBe(slice);
+    expect(Object.keys(nrOfMatch)).toHaveLength(slice);
     const nrMatchPerAthlete = slice - 1;
     Object.values(nrOfMatch).forEach((nr) => {
       expect(nr).toBe(nrMatchPerAthlete);
@@ -175,6 +176,7 @@ describe('SinglePool even', () => {
     const { matches } = pool;
     const onlyId = matches.map(({ white, blue }) => {
       if (white?.id === blue?.id) {
+        // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
         expect.fail();
       }
       return `${white?.id}-${blue?.id}`;
@@ -185,11 +187,11 @@ describe('SinglePool even', () => {
 
   it('should create category with no athlete', () => {
     const pool = createSinglePool(name, [], 0);
-    expect(pool.athletes.length).toBe(0);
+    expect(pool.athletes).toHaveLength(0);
   });
 
   it('should create category with 1 athlete', () => {
     const pool = createSinglePool(name, athletes.slice(0, 1), 0);
-    expect(pool.athletes.length).toBe(1);
+    expect(pool.athletes).toHaveLength(1);
   });
 });
