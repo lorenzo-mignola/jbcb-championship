@@ -13,7 +13,7 @@
   <Card
     disabled={!$tournament}
     link={`/club-ranking?tournament=${$tournament}`}
-    text="🏅 Classifica club 🏅"
+    text="🎊 Classifica club 🎊"
   />
 
   <Card
