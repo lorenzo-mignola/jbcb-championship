@@ -7,6 +7,8 @@ import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import type { Category } from '../types/category.type';
 
+export const db = getFirestore();
+
 if (getApps().length === 0) {
   initializeApp({
     credential: cert({
@@ -15,17 +17,7 @@ if (getApps().length === 0) {
       privateKey: FIREBASE_PRIVATE_KEY
     })
   });
-}
-
-export const db = getFirestore();
-
-// eslint-disable-next-line vitest/require-hook -- use to initialize only one
-let settingsCalled = false;
-
-// eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- fix for vite reload
-if (!settingsCalled) {
   db.settings({ ignoreUndefinedProperties: true });
-  settingsCalled = true;
 }
 
 export const categoryConverter = {
