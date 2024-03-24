@@ -17,7 +17,7 @@
           <span class="mr-1">🟨</span>
         {/each}
       {/if}
-      <span class="points">{points}</span>
+      <span class="points" data-testid="judoka-score">{points}</span>
     </span>
   {/if}
 </div>

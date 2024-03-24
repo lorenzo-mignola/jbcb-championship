@@ -9,7 +9,7 @@ export const load: PageServerLoad = async ({ params, url }) => {
   const category = await getCategory(categoryId);
   const tournament = url.searchParams.get('tournament');
 
-  const notStartedCategories = await getNotStartedCategory(tournament || '');
+  const notStartedCategories = await getNotStartedCategory(tournament ?? '');
 
   return {
     category,

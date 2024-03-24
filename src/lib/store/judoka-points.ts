@@ -9,7 +9,7 @@ export const getPoints = (athlete?: MatchJudoka) => {
   if (athlete?.wazari === 2) {
     return 10;
   }
-  return athlete?.wazari || 0;
+  return athlete?.wazari ?? 0;
 };
 
 const judokasPoints = derived(

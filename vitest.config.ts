@@ -13,7 +13,8 @@ export default defineConfig(({ mode }) => ({
     conditions: mode === 'test' ? ['browser'] : [],
     alias: {
       $lib: path.resolve(__dirname, './src/lib'),
-      $tests: path.resolve(__dirname, './tests')
+      $tests: path.resolve(__dirname, './tests'),
+      $app: path.resolve(__dirname, './tests/mock/$app-mock')
     }
   }
 }));

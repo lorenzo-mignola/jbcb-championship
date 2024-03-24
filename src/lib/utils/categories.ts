@@ -11,7 +11,7 @@ interface CategoryValues {
 
 type CategoryWithValues = Category & CategoryValues;
 
-const getFromRegex = (regex: RegExp, value: string) => (regex.exec(value) || [null])[0];
+const getFromRegex = (regex: RegExp, value: string) => (regex.exec(value) ?? [null])[0];
 
 const getCategory = (name: string) => getFromRegex(/U\d{1,2}/, name);
 
@@ -36,8 +36,8 @@ const mapCategoryNameToValues = (category: Category): CategoryWithValues => {
 
   return {
     ...category,
-    category: getCategory(name) || 'OTHER CATEGORY',
-    sex: getSex(name) || 'NO SEX',
+    category: getCategory(name) ?? 'OTHER CATEGORY',
+    sex: getSex(name) ?? 'NO SEX',
     weight: getWeight(name)
   };
 };

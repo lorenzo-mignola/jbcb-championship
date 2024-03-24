@@ -179,7 +179,7 @@ describe('singlePool even', () => {
         // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
         expect.fail();
       }
-      return `${white?.id}-${blue?.id}`;
+      return `${white?.id ?? ''}-${blue?.id ?? ''}`;
     });
     const set = new Set(onlyId);
     expect(set.size).toBe(matches.length);
