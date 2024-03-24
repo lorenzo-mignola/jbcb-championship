@@ -7,8 +7,6 @@ import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 import type { Category } from '../types/category.type';
 
-export const db = getFirestore();
-
 if (getApps().length === 0) {
   initializeApp({
     credential: cert({
@@ -17,8 +15,15 @@ if (getApps().length === 0) {
       privateKey: FIREBASE_PRIVATE_KEY
     })
   });
-  db.settings({ ignoreUndefinedProperties: true });
 }
+
+const firebaseDB = getFirestore();
+
+if (getApps().length === 0) {
+  firebaseDB.settings({ ignoreUndefinedProperties: true });
+}
+
+export const db = firebaseDB;
 
 export const categoryConverter = {
   toFirestore: (data: Omit<Category, 'id'>) => data,
@@ -27,6 +32,3 @@ export const categoryConverter = {
 };
 
 export const CATEGORIES_COLLECTION = 'categories';
-export const categoriesCollection = db
-  .collection(CATEGORIES_COLLECTION)
-  .withConverter(categoryConverter);
