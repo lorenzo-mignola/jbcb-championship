@@ -1,8 +1,10 @@
 import categoryMock from '$tests/mock/category.json';
 import matchMock from '$tests/mock/match.json';
 import matc2hMock from '$tests/mock/match2.json';
-import { render, screen, within } from '@testing-library/svelte';
-import { describe, expect, it } from 'vitest';
+import { render, screen, waitFor, within } from '@testing-library/svelte';
+// eslint-disable-next-line import/no-named-as-default -- import default
+import userEvent from '@testing-library/user-event';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
 
 const data = {
@@ -43,11 +45,102 @@ describe('initial state match', () => {
     expect(playPauseButton.disabled).toBeFalsy();
   });
 
-  it('should have the play button enabled with the "play" class', () => {
+  it('should have the play button enabled with "play" class', () => {
     render(Match, { data });
 
     const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
 
     expect(playPauseButton.classList).toContain('play');
+  });
+
+  it('should have the play button enabled with "play" icon', () => {
+    render(Match, { data });
+
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+
+    expect(within(playPauseButton).getByTestId('play-icon')).toBeInTheDocument();
+  });
+});
+
+describe('play timer', () => {
+  it('when play button is clicked should have "stop" class', async () => {
+    const user = userEvent.setup();
+    render(Match, { data });
+
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    await user.click(playPauseButton);
+
+    expect(playPauseButton.classList).toContain('stop');
+  });
+
+  it('when play button is clicked should have "stop" icon', async () => {
+    const user = userEvent.setup();
+    render(Match, { data });
+
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    await user.click(playPauseButton);
+
+    expect(within(playPauseButton).getByTestId('stop-icon')).toBeInTheDocument();
+  });
+});
+
+const TIME_CLOCK_MULTIPLIER = 100;
+const ONE_SECOND_TIMER = 10 * TIME_CLOCK_MULTIPLIER;
+
+describe('end match', () => {
+  // eslint-disable-next-line vitest/no-hooks -- mock timer
+  beforeEach(() => {
+    vi.useFakeTimers({ shouldAdvanceTime: true });
+  });
+
+  // eslint-disable-next-line vitest/no-hooks -- remove mock timer
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it('after 2 sec timer should show (categoryDuration - 2)', async () => {
+    const user = userEvent.setup();
+    render(Match, { data });
+
+    // start play timer
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    await user.click(playPauseButton);
+
+    vi.advanceTimersByTime(2 * ONE_SECOND_TIMER);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('timer')).toHaveTextContent('01:58');
+    });
+  });
+
+  it('when time is ended timer should be 00:00', async () => {
+    const user = userEvent.setup();
+    render(Match, { data });
+
+    // start play timer
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    await user.click(playPauseButton);
+
+    vi.advanceTimersByTime(data.category.duration * TIME_CLOCK_MULTIPLIER);
+
+    await waitFor(() => {
+      expect(screen.getByTestId('timer')).toHaveTextContent('00:00');
+    });
+  });
+
+  it('when time is ended should show play button', async () => {
+    const user = userEvent.setup();
+    render(Match, { data });
+
+    // start play timer
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    await user.click(playPauseButton);
+
+    vi.advanceTimersByTime(data.category.duration * TIME_CLOCK_MULTIPLIER);
+
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('play');
+    });
+    expect(within(playPauseButton).getByTestId('play-icon')).toBeInTheDocument();
   });
 });
