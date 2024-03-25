@@ -10,7 +10,7 @@
   export let view: boolean = false;
 </script>
 
-<div class="flex items-center">
+<div class="flex items-center" data-testid="timer">
   {#if oseakomiType}
     <OsaekomiTimer {timer} type={oseakomiType} {view} />
   {/if}

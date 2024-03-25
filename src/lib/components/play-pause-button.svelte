@@ -15,6 +15,7 @@
   class="variant-filled btn flex w-full justify-center p-4 text-4xl text-white dark:text-gray-100 md:text-8xl"
   class:play={!$isPlaying}
   class:stop={$isPlaying}
+  data-testid="play-pause"
   {disabled}
   type="button"
   on:click|preventDefault={() => togglePlay()}

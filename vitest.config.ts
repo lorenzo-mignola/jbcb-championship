@@ -7,7 +7,8 @@ export default defineConfig(({ mode }) => ({
   test: {
     environment: 'jsdom',
     setupFiles: ['./tests/setup/testing-library-setup.ts'],
-    include: ['**/*.test.ts']
+    include: ['**/*.test.ts'],
+    silent: process.env.CI === 'true'
   },
   resolve: {
     conditions: mode === 'test' ? ['browser'] : [],

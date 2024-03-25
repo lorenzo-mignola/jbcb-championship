@@ -41,11 +41,13 @@ describe.each([['white'], ['blue']] as const)('<Judoka /> of type => %s', (type)
 
     render(Judoka, { type });
 
-    const buttonIppon = within(screen.getByTestId(`judoka-card-${id}`)).getByRole('button', {
+    const buttonIppon = within(
+      screen.getByTestId(`judoka-card-${id}`)
+    ).getByRole<HTMLButtonElement>('button', {
       name: /Ippon/i
     });
 
-    expect(buttonIppon).not.toHaveAttribute('disabled');
+    expect(buttonIppon.disabled).toBeFalsy();
   });
 
   it('should render the "waza-ari" button enabled', () => {
@@ -53,11 +55,13 @@ describe.each([['white'], ['blue']] as const)('<Judoka /> of type => %s', (type)
 
     render(Judoka, { type });
 
-    const buttonIppon = within(screen.getByTestId(`judoka-card-${id}`)).getByRole('button', {
+    const buttonWazari = within(
+      screen.getByTestId(`judoka-card-${id}`)
+    ).getByRole<HTMLButtonElement>('button', {
       name: /Waza-ari/i
     });
 
-    expect(buttonIppon).not.toHaveAttribute('disabled');
+    expect(buttonWazari.disabled).toBeFalsy();
   });
 
   it('should render the "shido" button enabled', () => {
@@ -65,22 +69,26 @@ describe.each([['white'], ['blue']] as const)('<Judoka /> of type => %s', (type)
 
     render(Judoka, { type });
 
-    const buttonIppon = within(screen.getByTestId(`judoka-card-${id}`)).getByRole('button', {
+    const buttonShido = within(
+      screen.getByTestId(`judoka-card-${id}`)
+    ).getByRole<HTMLButtonElement>('button', {
       name: /Shido/i
     });
 
-    expect(buttonIppon).not.toHaveAttribute('disabled');
+    expect(buttonShido.disabled).toBeFalsy();
   });
 
-  it('should render the "shido" button enabled', () => {
+  it('should render the "osaekomi" button enabled', () => {
     const { id } = matchMock[type];
 
     render(Judoka, { type });
 
-    const buttonIppon = within(screen.getByTestId(`judoka-card-${id}`)).getByRole('button', {
+    const buttonOsaekomi = within(
+      screen.getByTestId(`judoka-card-${id}`)
+    ).getByRole<HTMLButtonElement>('button', {
       name: /Osae-komi/i
     });
 
-    expect(buttonIppon).toHaveAttribute('disabled');
+    expect(buttonOsaekomi.disabled).toBeTruthy();
   });
 });
