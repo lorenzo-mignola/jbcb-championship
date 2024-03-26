@@ -50,7 +50,10 @@ module.exports = {
     },
     {
       files: ['**/*.test.ts'],
-      extends: ['plugin:testing-library/dom']
+      extends: ['plugin:testing-library/dom'],
+      rules: {
+        'import/no-named-as-default': 'off'
+      }
     }
   ],
   rules: {

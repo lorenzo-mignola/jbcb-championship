@@ -2,7 +2,6 @@ import categoryMock from '$tests/mock/category.json';
 import matchMock from '$tests/mock/match.json';
 import matc2hMock from '$tests/mock/match2.json';
 import { render, screen, waitFor, within } from '@testing-library/svelte';
-// eslint-disable-next-line import/no-named-as-default -- import default
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
