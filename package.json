@@ -12,7 +12,7 @@
     "lint": "prettier --check . && eslint .",
     "test": "vitest",
     "test:watch": "export CI=true && vitest --watch=true",
-    "test:ui": "vitest --ui --watch=true",
+    "test:ui": "vitest --ui --watch=true --coverage.enabled=true",
     "test:coverage": "vitest --coverage",
     "deploy": "vercel",
     "deploy:prod": "vercel --prod",
