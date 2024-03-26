@@ -1,6 +1,7 @@
 import categoryMock from '$tests/mock/category.json';
 import matchMock from '$tests/mock/match.json';
 import matc2hMock from '$tests/mock/match2.json';
+import { ONE_SECOND_TIMER, TIME_CLOCK_MULTIPLIER } from '$tests/util/constants';
 import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
@@ -82,9 +83,6 @@ describe('play timer', () => {
     expect(within(playPauseButton).getByTestId('stop-icon')).toBeInTheDocument();
   });
 });
-
-const TIME_CLOCK_MULTIPLIER = 100;
-const ONE_SECOND_TIMER = 10 * TIME_CLOCK_MULTIPLIER;
 
 describe('end match', () => {
   // eslint-disable-next-line vitest/no-hooks -- mock timer
