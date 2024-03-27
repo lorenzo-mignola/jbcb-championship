@@ -47,6 +47,22 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
   });
 
+  it('should set 10 when 2 wazari', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+
+    const buttonWazari = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Waza-ari/i
+    });
+    await user.click(buttonWazari);
+    await user.click(buttonWazari);
+
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+  });
+
   it('should set winner when ippon', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
@@ -58,6 +74,22 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     });
 
     await user.click(buttonIppon);
+
+    expect(get(match)?.winner).toBe(type);
+  });
+
+  it('should set winner when 2 wazari', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const buttonWazari = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Waza-ari/i
+    });
+
+    await user.click(buttonWazari);
+    await user.click(buttonWazari);
 
     expect(get(match)?.winner).toBe(type);
   });
@@ -102,15 +134,35 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
 
     const card = screen.getByTestId(`judoka-card-${id}`);
     const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
-    const buttonIppon = within(card).getByRole<HTMLButtonElement>('button', {
+    const buttonWazari = within(card).getByRole<HTMLButtonElement>('button', {
       name: /Waza-ari/i
     });
 
     await user.click(playPauseButton);
-    await user.click(buttonIppon);
     vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonWazari);
 
     expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+  });
+
+  it('should set 10 when 2 wazari', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonWazari = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Waza-ari/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonWazari);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonWazari);
+
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
   });
 
   it('should set winner when ippon', async () => {
@@ -125,8 +177,31 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     });
 
     await user.click(playPauseButton);
-    await user.click(buttonIppon);
     vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonIppon);
+
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('play');
+    });
+    expect(get(match)?.winner).toBe(type);
+  });
+
+  it('should set winner when 2 wazari', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonWazari = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Waza-ari/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonWazari);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonWazari);
 
     await waitFor(() => {
       expect(playPauseButton.classList).toContain('play');
