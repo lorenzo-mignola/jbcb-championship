@@ -93,6 +93,37 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
 
     expect(get(match)?.winner).toBe(type);
   });
+
+  it('should add a yellow card when is shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(buttonShido);
+
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(1);
+  });
+
+  it('should add 2 yellow card when is 2 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
+  });
 });
 
 describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play', (type) => {
@@ -207,5 +238,43 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
       expect(playPauseButton.classList).toContain('play');
     });
     expect(get(match)?.winner).toBe(type);
+  });
+
+  it('should add a yellow card when is shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(1);
+  });
+
+  it('should add 2 yellow card when is 2 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
   });
 });
