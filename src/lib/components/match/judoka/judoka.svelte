@@ -54,6 +54,7 @@
             class="btn-icon btn-icon-sm text-inherit md:btn-icon"
             class:active={edit}
             class:variant-ringed-surface={!edit}
+            data-testId="edit-point"
             type="button"
             on:click={toggleEdit}><Edit /></button
           >

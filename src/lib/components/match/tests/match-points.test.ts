@@ -1,7 +1,7 @@
 import { match } from '$lib/store/$match';
 import categoryMock from '$tests/mock/category.json';
 import matchMock from '$tests/mock/match.json';
-import matc2hMock from '$tests/mock/match2.json';
+import match2Mock from '$tests/mock/match2.json';
 import { ONE_SECOND_TIMER } from '$tests/util/constants';
 import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
@@ -13,7 +13,7 @@ import { getOpponentType } from '../../../utils/judoka';
 const data = {
   category: categoryMock,
   match: matchMock,
-  nextMatch: matc2hMock,
+  nextMatch: match2Mock,
   isMedalMatch: false
 };
 
