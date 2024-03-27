@@ -78,7 +78,7 @@ describe.each([['white'], ['blue']] as const)('<Judoka /> of type => %s', (type)
     expect(buttonShido.disabled).toBeFalsy();
   });
 
-  it('should render the "osaekomi" button enabled', () => {
+  it('should render the "osaekomi" button disabled', () => {
     const { id } = matchMock[type];
 
     render(Judoka, { type });

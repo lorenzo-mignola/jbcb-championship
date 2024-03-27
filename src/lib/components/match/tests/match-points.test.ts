@@ -46,6 +46,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonWazari);
 
     expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should set 10 when 2 wazari', async () => {
@@ -108,6 +109,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(1);
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should add 2 yellow card when is 2 shido', async () => {
@@ -124,6 +126,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should set red card when is 3 shido', async () => {
@@ -230,6 +233,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await user.click(buttonWazari);
 
     expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should set 10 when 2 wazari', async () => {
@@ -312,6 +316,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(1);
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should add 2 yellow card when is 2 shido', async () => {
@@ -332,6 +337,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
+    expect(get(match)?.winner).toBeUndefined();
   });
 
   it('should set red card when is 3 shido', async () => {
@@ -411,5 +417,25 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
       expect(playPauseButton.classList).toContain('play');
     });
     expect(get(match)?.winner).toBe(getOpponentType(type));
+  });
+
+  it('should have "Osaekomi" button enabled when time is playing', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    // start play timer
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonOsaekomi = within(
+      screen.getByTestId(`judoka-card-${id}`)
+    ).getByRole<HTMLButtonElement>('button', {
+      name: /Osae-komi/i
+    });
+
+    await user.click(playPauseButton);
+
+    vi.advanceTimersByTime(ONE_SECOND_TIMER);
+
+    expect(buttonOsaekomi.disabled).toBeFalsy();
   });
 });
