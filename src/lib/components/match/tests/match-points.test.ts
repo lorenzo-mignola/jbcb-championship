@@ -8,6 +8,7 @@ import userEvent from '@testing-library/user-event';
 import { get } from 'svelte/store';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
+import { getOpponentType } from '../../../utils/judoka';
 
 const data = {
   category: categoryMock,
@@ -123,6 +124,61 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
+  });
+
+  it('should set red card when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(0);
+    expect(within(card).queryAllByTestId('shido-red')).toHaveLength(1);
+  });
+
+  it('should set 10 to opponent when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is never null
+    const { id: opponentId } = data.match[getOpponentType(type)!];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const opponentCard = screen.getByTestId(`judoka-card-${opponentId}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+
+    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('10');
+  });
+
+  it('should set opponent as when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+    await user.click(buttonShido);
+
+    expect(get(match)?.winner).toBe(getOpponentType(type));
   });
 });
 
@@ -276,5 +332,84 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await user.click(buttonShido);
 
     expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(2);
+  });
+
+  it('should set red card when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('play');
+    });
+    expect(within(card).queryAllByTestId('shido-yellow')).toHaveLength(0);
+    expect(within(card).queryAllByTestId('shido-red')).toHaveLength(1);
+  });
+
+  it('should set 10 to opponent when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is never null
+    const { id: opponentId } = data.match[getOpponentType(type)!];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const opponentCard = screen.getByTestId(`judoka-card-${opponentId}`);
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('play');
+    });
+    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('10');
+  });
+
+  it('should set opponent as when is 3 shido', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    render(Match, { data });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+    const buttonShido = within(card).getByRole<HTMLButtonElement>('button', {
+      name: /Shido/i
+    });
+
+    await user.click(playPauseButton);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+    vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
+    await user.click(buttonShido);
+
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('play');
+    });
+    expect(get(match)?.winner).toBe(getOpponentType(type));
   });
 });

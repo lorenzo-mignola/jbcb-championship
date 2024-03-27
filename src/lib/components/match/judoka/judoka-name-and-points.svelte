@@ -10,7 +10,7 @@
   {#if athlete}
     <span>
       {#if athlete.shido === 3}
-        <span class="mr-1">🟥</span>
+        <span class="mr-1" data-testid="shido-red">🟥</span>
       {:else}
         <!--  eslint-disable-next-line @typescript-eslint/no-unused-vars eslint-disable-next-line svelte/require-each-key no-unused-vars -->
         {#each { length: athlete.shido } as _}
