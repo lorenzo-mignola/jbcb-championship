@@ -40,7 +40,7 @@
   <JudokaNameAndPoints {athlete} points={$points} />
   <hr class="divider" />
   <div class="flex items-center justify-between">
-    <div>
+    <div data-testId="points-container">
       {#if !edit}
         <JudokaButton end={Boolean(winner)} {type} />
       {:else}
