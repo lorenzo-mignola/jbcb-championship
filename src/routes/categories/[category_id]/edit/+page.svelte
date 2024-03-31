@@ -6,7 +6,7 @@
   import { duration } from '$lib/store/$duration';
   import { tournament } from '$lib/store/$tournament';
   import { type } from '$lib/store/$type';
-  import axios from 'redaxios';
+  import axios from 'axios';
   import { onDestroy } from 'svelte';
   import { categoriesNotStarted } from '../../../../lib/store/$categories-not-started';
   import { initializeCategory } from './initialize-category';

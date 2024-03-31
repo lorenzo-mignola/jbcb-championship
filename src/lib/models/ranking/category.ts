@@ -24,7 +24,7 @@ export const getRankingIcon = (rankValue: number) => {
       return '🥉';
 
     default:
-      return `#${rankValue}`;
+      return `#${rankValue.toString()}`;
   }
 };
 

@@ -5,7 +5,7 @@
   import { categoryName } from '$lib/store/$category-name';
   import { duration } from '$lib/store/$duration';
   import { type } from '$lib/store/$type';
-  import axios from 'redaxios';
+  import axios from 'axios';
   import { tournament } from '../../lib/store/$tournament';
 
   const reset = () => {
