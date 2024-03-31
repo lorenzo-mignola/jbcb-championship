@@ -9,6 +9,7 @@ vi.mock('@skeletonlabs/skeleton', async (importOriginal) => {
   const actual = await importOriginal();
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return -- keep all original module
   return {
+    // @ts-expect-error -- keep all original module
     ...actual,
     getToastStore: vi.fn().mockResolvedValue({
       trigger: vi.fn()
