@@ -11,7 +11,7 @@ vi.mock('@skeletonlabs/skeleton', async (importOriginal) => {
   return {
     // @ts-expect-error -- keep all original module
     ...actual,
-    getToastStore: vi.fn().mockResolvedValue({
+    getToastStore: vi.fn().mockReturnValue({
       trigger: vi.fn()
     })
   };
