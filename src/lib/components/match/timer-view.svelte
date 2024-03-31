@@ -23,6 +23,7 @@
   {#if isGoldenScore}
     <div
       class="card variant-ghost-warning mb-1 hidden p-2 text-center text-xl sm:block md:text-2xl"
+      data-testid="golden-score-badge"
     >
       Golden Score
     </div>
