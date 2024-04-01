@@ -68,6 +68,6 @@ describe('next match', () => {
         formatTimeString(data.category.duration)
       );
     });
-    screen.debug();
+    expect(screen.getByTestId<HTMLButtonElement>('play-pause').classList).toContain('play');
   });
 });

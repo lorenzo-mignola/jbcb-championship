@@ -27,6 +27,7 @@
   class="card my-2 p-2 text-center shadow-md"
   class:judoka-blue={type === 'blue'}
   class:judoka-white={type === 'white'}
+  data-testid={`timer-osaekomi-${type}`}
 >
   {#if !view}
     Osae-komi
