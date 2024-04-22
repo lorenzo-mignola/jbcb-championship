@@ -1,6 +1,8 @@
+import { map, pick, pipe } from 'ramda';
+
 import { PUBLIC_AUTO_PRINT } from '$env/static/public';
 import { getAllCategories } from '$lib/server/methods';
-import { map, pick, pipe } from 'ramda';
+
 import { sortCategories } from '../../../../lib/utils/categories';
 import type { PageServerLoad } from './$types';
 

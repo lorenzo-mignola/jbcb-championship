@@ -1,6 +1,8 @@
-import matchMock from '$tests/mock/match.json';
 import { render, screen, within } from '@testing-library/svelte';
 import { beforeEach, describe, expect, it } from 'vitest';
+
+import matchMock from '$tests/mock/match.json';
+
 import { match } from '../../../../store/$match';
 import Judoka from '../judoka.svelte';
 

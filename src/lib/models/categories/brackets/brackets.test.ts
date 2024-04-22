@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- test fail if is null*/
 import { describe, expect, it } from 'vitest';
+
 import type { BracketsCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';

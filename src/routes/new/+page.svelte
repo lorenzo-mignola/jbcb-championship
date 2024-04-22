@@ -1,11 +1,14 @@
 <script lang="ts" strictEvents>
+  import axios from 'axios';
+
   import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
   import CategoryEdit from '$lib/components/new/category-edit.svelte';
   import { athletes, resetAthletes } from '$lib/store/$athletes';
   import { categoryName } from '$lib/store/$category-name';
   import { duration } from '$lib/store/$duration';
   import { type } from '$lib/store/$type';
-  import axios from 'axios';
+
   import { tournament } from '../../lib/store/$tournament';
 
   const reset = () => {
@@ -27,7 +30,7 @@
     });
 
     reset();
-    goto(`/categories/${newCategoryId}`);
+    goto(`${base}/categories/${newCategoryId}`);
   }
 </script>
 

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import type { Category } from '../types/category.type';
 import { sortCategories } from './categories';
 

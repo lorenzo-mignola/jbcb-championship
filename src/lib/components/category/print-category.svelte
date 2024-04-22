@@ -6,8 +6,8 @@
   import AthleteList from '../athlete-list.svelte';
   import MatchesPrint from '../print/matches-print.svelte';
   import Brackets from './stats/brackets.svelte';
-  import RankingDoublePool from './stats/ranking-double-pool.svelte';
   import Ranking from './stats/ranking.svelte';
+  import RankingDoublePool from './stats/ranking-double-pool.svelte';
 
   export let category: Category;
 </script>

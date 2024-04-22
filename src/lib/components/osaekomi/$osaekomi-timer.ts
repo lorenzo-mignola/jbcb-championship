@@ -1,4 +1,5 @@
 import { get, writable } from 'svelte/store';
+
 import { localStorageOsaekomi, localStorageOsaekomiType } from '../../store/$local-storage-match';
 import { wazari } from '../../store/$match';
 import type { JudokaType } from '../../types/match.type';

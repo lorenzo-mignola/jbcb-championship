@@ -1,6 +1,7 @@
 <script>
-  import { page } from '$app/stores';
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+
+  import { page } from '$app/stores';
 
   const emoji = $page.status === 404 ? '🤷🏻‍♂️' : '😢';
   const header =

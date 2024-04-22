@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'vitest';
+
 import type { DoublePoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import { resetAthlete } from '../brackets/reset-athlete';

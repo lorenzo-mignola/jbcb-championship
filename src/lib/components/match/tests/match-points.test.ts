@@ -1,12 +1,14 @@
+import { render, screen, waitFor, within } from '@testing-library/svelte';
+import userEvent from '@testing-library/user-event';
+import { get } from 'svelte/store';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import { match } from '$lib/store/$match';
 import categoryMock from '$tests/mock/category.json';
 import matchMock from '$tests/mock/match.json';
 import match2Mock from '$tests/mock/match2.json';
 import { ONE_SECOND_TIMER } from '$tests/util/constants';
-import { render, screen, waitFor, within } from '@testing-library/svelte';
-import userEvent from '@testing-library/user-event';
-import { get } from 'svelte/store';
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
 import { getOpponentType } from '../../../utils/judoka';
 

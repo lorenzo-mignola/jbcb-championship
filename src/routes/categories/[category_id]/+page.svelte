@@ -8,6 +8,7 @@
   import { isNotByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/store/$timer';
   import { tournament } from '$lib/store/$tournament';
+
   import Loading from './loading.svelte';
 
   export let data;

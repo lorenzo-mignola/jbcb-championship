@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+
   import MoveIcon from '../../icons/move-icon.svelte';
 
   export let athleteId: string;

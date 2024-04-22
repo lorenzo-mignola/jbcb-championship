@@ -1,5 +1,7 @@
-import { getCategory, getNotStartedCategory } from '$lib/server/methods';
 import { equals, filter, map, not, pick, pipe, prop } from 'ramda';
+
+import { getCategory, getNotStartedCategory } from '$lib/server/methods';
+
 import type { Category } from '../../../../lib/types/category.type';
 import { sortCategories } from '../../../../lib/utils/categories';
 import type { PageServerLoad } from './$types';

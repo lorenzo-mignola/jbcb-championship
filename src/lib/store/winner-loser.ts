@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { get } from 'svelte/store';
+
 import { isExtraTime, stopOsaekomi } from '../components/osaekomi/$osaekomi-timer';
 import type { JudokaType, Match } from '../types/match.type';
 import { getOpponentType } from '../utils/judoka';

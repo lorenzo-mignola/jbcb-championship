@@ -1,4 +1,5 @@
 import { descend, prop, sortWith } from 'ramda';
+
 import type { RankingAthlete } from '../../types/category.type';
 import type { Judoka } from '../../types/judoka.type';
 import type { Match, MatchWithWinner } from '../../types/match.type';

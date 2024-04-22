@@ -1,4 +1,5 @@
-import { always, ascend, map, omit, pipe, prop, replace, sortWith, when, type Ord } from 'ramda';
+import { always, ascend, map, omit, type Ord, pipe, prop, replace, sortWith, when } from 'ramda';
+
 import type { Category } from '../types/category.type';
 
 type Sex = 'F' | 'M';

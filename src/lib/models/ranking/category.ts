@@ -1,4 +1,5 @@
 import { complement } from 'ramda';
+
 import type { Category, RankingAthlete } from '../../types/category.type';
 import type { Match } from '../../types/match.type';
 import { getRankingBrackets } from './ranking-brackets';

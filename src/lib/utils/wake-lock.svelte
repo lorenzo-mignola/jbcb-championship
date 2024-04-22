@@ -1,7 +1,7 @@
 <script lang="ts" strictEvents>
-  import { browser } from '$app/environment';
-
   import { onDestroy, onMount } from 'svelte';
+
+  import { browser } from '$app/environment';
 
   let sentinel: WakeLockSentinel | null = null;
 

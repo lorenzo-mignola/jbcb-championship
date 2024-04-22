@@ -1,11 +1,13 @@
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER } from '$tests/util/constants';
 import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent, { type UserEvent } from '@testing-library/user-event';
 import { get } from 'svelte/store';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+
+import categoryMock from '$tests/mock/category.json';
+import matchMock from '$tests/mock/match.json';
+import match2Mock from '$tests/mock/match2.json';
+import { ONE_SECOND_TIMER } from '$tests/util/constants';
+
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
 import { match } from '../../../store/$match';
 

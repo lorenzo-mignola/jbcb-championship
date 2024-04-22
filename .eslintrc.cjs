@@ -16,7 +16,7 @@ module.exports = {
     'prettier'
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'vitest', 'testing-library'],
+  plugins: ['@typescript-eslint', 'vitest', 'testing-library', 'simple-import-sort'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -57,6 +57,8 @@ module.exports = {
     }
   ],
   rules: {
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'prettier/prettier': 'error',
     'import/order': 'off',

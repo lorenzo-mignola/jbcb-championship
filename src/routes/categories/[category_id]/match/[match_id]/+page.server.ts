@@ -1,4 +1,5 @@
 import { getCategory } from '$lib/server/methods';
+
 import { isNotByeMatch } from '../../../../../lib/models/ranking/category';
 import type { Category } from '../../../../../lib/types/category.type';
 import type { Match } from '../../../../../lib/types/match.type';

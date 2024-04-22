@@ -1,8 +1,11 @@
 <script lang="ts" strictEvents>
-  import { goto } from '$app/navigation';
   import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
   import axios from 'axios';
   import { onMount } from 'svelte';
+
+  import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
+
   import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
   import { isByeMatch } from '../models/ranking/category';
   import { errorMatches } from '../store/$error-matches';
@@ -46,14 +49,14 @@
       }
       if (categoryUpdated.currentMatch) {
         reset();
-        goto(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
+        goto(`${base}/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`, {
           invalidateAll: true
         });
         loading = false;
         return;
       }
       reset();
-      goto(`/categories/${categoryUpdated.id}`, {
+      goto(`${base}/categories/${categoryUpdated.id}`, {
         invalidateAll: true
       });
     } catch (error) {

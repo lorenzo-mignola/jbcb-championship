@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import Check from '$lib/icons/check.svelte';
+
   import Search from '../../lib/icons/search.svelte';
 
   export let data;

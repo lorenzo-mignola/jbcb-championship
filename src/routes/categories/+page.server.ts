@@ -1,4 +1,5 @@
 import { map, pipe } from 'ramda';
+
 import { getAllCategories } from '../../lib/server/methods';
 import type { Category } from '../../lib/types/category.type';
 import { sortCategories } from '../../lib/utils/categories';

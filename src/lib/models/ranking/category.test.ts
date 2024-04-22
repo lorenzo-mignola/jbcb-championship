@@ -1,14 +1,16 @@
+import { describe, expect, it } from 'vitest';
+
 import type { DoublePoolCategory, PoolCategory } from '$lib/types/category.type';
 import type { Judoka } from '$lib/types/judoka.type';
 import type { Match } from '$lib/types/match.type';
 import brackets from '$tests/mock/2ko.json';
 import doublePool from '$tests/mock/double-pool.json';
 import poolCategoryMock from '$tests/mock/pool-category.json';
+import single from '$tests/mock/single-pool.json';
 import singleEven from '$tests/mock/single-pool-even.json';
 import singleEven2 from '$tests/mock/single-pool-even2.json';
 import singleEven3 from '$tests/mock/single-pool-even3.json';
-import single from '$tests/mock/single-pool.json';
-import { describe, expect, it } from 'vitest';
+
 import {
   getRanking,
   getRankingBrackets,

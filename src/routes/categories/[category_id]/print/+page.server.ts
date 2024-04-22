@@ -1,5 +1,6 @@
 import { PUBLIC_AUTO_PRINT } from '$env/static/public';
 import { getCategory } from '$lib/server/methods';
+
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params }) => {
