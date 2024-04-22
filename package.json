@@ -17,7 +17,8 @@
     "deploy": "vercel",
     "deploy:prod": "vercel --prod",
     "firestore": "firebase emulators:start --import ./data --export-on-exit ./data",
-    "firestore:export": "firebase emulators:export ./data"
+    "firestore:export": "firebase emulators:export ./data",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@skeletonlabs/skeleton": "2.9.1",
@@ -46,7 +47,9 @@
     "eslint-plugin-testing-library": "^6.2.2",
     "eslint-plugin-vitest": "^0.4.1",
     "firebase-admin": "^12.1.0",
+    "husky": "^9.0.11",
     "jsdom": "^24.0.0",
+    "lint-staged": "^15.2.2",
     "postcss": "8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-svelte": "^3.2.3",
