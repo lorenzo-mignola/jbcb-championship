@@ -1,6 +1,6 @@
 import { isNotByeMatch } from '../models/ranking/category';
 import type { Category } from '../types/category.type';
-import { categoriesCollection } from './firebase';
+import { categoriesCollection } from './categories-collection';
 
 export const getCategory = async (id: string): Promise<Category | undefined> => {
   const category = await categoriesCollection.doc(id).get();

@@ -109,6 +109,7 @@ describe('createBrackets', () => {
     const [firstRound] = rounds;
     const missingRounds = firstRound.winner.filter(({ blue, white }) => {
       if (!blue && !white) {
+        // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
         expect.fail("A match in first round can't be empty");
       }
       return !blue || !white;
@@ -207,7 +208,9 @@ describe('updateBrackets', () => {
 
     const firstMatch = brackets.rounds[0].winner[0];
     const { white: whiteFirst } = firstMatch;
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!whiteFirst) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("white can't be undefined");
     }
     const winner = 'white';
@@ -232,11 +235,17 @@ describe('updateBrackets', () => {
     expect(bracketsUpdated.rounds[0].winner[0].winner).toBe('white');
     expect(brackets.matches[0].id).toBe(bracketsUpdated.matches[0].id);
     expect(updatedMatchesSetLengths).toBeGreaterThan(matchesSetLengths);
-    expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(whiteFirst.id);
-    expect(bracketsUpdated.rounds[1].winner[0].white!.ippon).toBe(0);
-    expect(bracketsUpdated.rounds[1].winner[0].white!.wazari).toBe(0);
-    expect(bracketsUpdated.rounds[1].winner[0].white!.shido).toBe(0);
-    expect(bracketsUpdated.rounds[1].winner[0].finalTime).toBe(null);
+
+    expect(bracketsUpdated.rounds[1].winner[0].white!).toStrictEqual({
+      id: whiteFirst.id,
+      name: whiteFirst.name,
+      ippon: 0,
+      wazari: 0,
+      shido: 0
+    });
+
+    expect(bracketsUpdated.rounds[1].winner[0].finalTime).toBeNull();
+    // eslint-disable-next-line vitest/max-expects -- many test to test part of data
     expect(bracketsUpdated.rounds[1].winner[0].blue).toBeUndefined();
   });
 
@@ -490,7 +499,7 @@ describe('update bye', () => {
 
     const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, loserMatch);
 
-    expect(bracketsUpdated.currentMatch).not.toBeUndefined();
+    expect(bracketsUpdated.currentMatch).toBeDefined();
     expect(bracketsUpdated.currentMatch).toBe(brackets.rounds[1].winner[0].id);
   });
 });
@@ -511,7 +520,9 @@ describe('currentMatch', () => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const firstMatch = brackets.matches.find((match) => match.id === brackets.currentMatch);
 
+    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstMatch) {
+      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail("currentMatch can't be undefined");
     }
 
@@ -520,7 +531,7 @@ describe('currentMatch', () => {
       winner: 'white'
     });
 
-    expect(bracketsUpdated.currentMatch).not.toBeUndefined();
+    expect(bracketsUpdated.currentMatch).toBeDefined();
     expect(bracketsUpdated.currentMatch).toBe(brackets.matches[1].id);
   });
 
@@ -552,8 +563,8 @@ describe('repechage', () => {
     const secondRoundWinner = brackets.rounds[1].winner[0];
     const secondRoundRepechage = brackets.rounds[1].repechage[0];
 
-    expect(secondRoundLoser.isRepechage).toBe(true);
-    expect(secondRoundRepechage.isRepechage).toBe(true);
+    expect(secondRoundLoser.isRepechage).toBeTruthy();
+    expect(secondRoundRepechage.isRepechage).toBeTruthy();
     expect(secondRoundWinner.isRepechage).toBeUndefined();
   });
 });

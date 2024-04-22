@@ -7,7 +7,7 @@
     getToastStore,
     type ToastSettings
   } from '@skeletonlabs/skeleton';
-  import axios from 'redaxios';
+  import axios from 'axios';
   import type { SvelteComponent } from 'svelte';
   import { categoriesNotStarted } from '../../store/$categories-not-started';
   import { originalCategoryId } from '../../store/$original-category-id';

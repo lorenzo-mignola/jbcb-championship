@@ -10,6 +10,7 @@
     class="card variant-ringed mb-4 break-words p-2 md:mb-0"
     class:spacer={view}
     class:text-5xl={view}
+    data-testid="next-match"
   >
     <p>Prossimo incontro</p>
     <p class:text-5xl={view} class:text-sm={!view}>

@@ -32,11 +32,15 @@
   unsubscribe.push(watchWinnerOrLoser(type));
 </script>
 
-<div class:judoka-blue-card={type === 'blue'} class:judoka-white-card={type === 'white'}>
+<div
+  class:judoka-blue-card={type === 'blue'}
+  class:judoka-white-card={type === 'white'}
+  data-testid={`judoka-card-${athlete?.id ?? 'null'}`}
+>
   <JudokaNameAndPoints {athlete} points={$points} />
   <hr class="divider" />
   <div class="flex items-center justify-between">
-    <div>
+    <div data-testId="points-container">
       {#if !edit}
         <JudokaButton end={Boolean(winner)} {type} />
       {:else}
@@ -50,6 +54,7 @@
             class="btn-icon btn-icon-sm text-inherit md:btn-icon"
             class:active={edit}
             class:variant-ringed-surface={!edit}
+            data-testId="edit-point"
             type="button"
             on:click={toggleEdit}><Edit /></button
           >

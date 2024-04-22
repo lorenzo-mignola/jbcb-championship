@@ -10,7 +10,7 @@
   export let view: boolean = false;
 </script>
 
-<div class="flex items-center">
+<div class="flex items-center" data-testid="timer">
   {#if oseakomiType}
     <OsaekomiTimer {timer} type={oseakomiType} {view} />
   {/if}
@@ -23,6 +23,7 @@
   {#if isGoldenScore}
     <div
       class="card variant-ghost-warning mb-1 hidden p-2 text-center text-xl sm:block md:text-2xl"
+      data-testid="golden-score-badge"
     >
       Golden Score
     </div>

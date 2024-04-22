@@ -1,7 +1,7 @@
 <script lang="ts" strictEvents>
   import { goto } from '$app/navigation';
   import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-  import axios from 'redaxios';
+  import axios from 'axios';
   import { onMount } from 'svelte';
   import { getByeWinner } from '../models/categories/brackets/auto-update-next-match';
   import { isByeMatch } from '../models/ranking/category';
@@ -57,9 +57,9 @@
         invalidateAll: true
       });
     } catch (error) {
-      toastStore.trigger(errorToast);
       // eslint-disable-next-line no-console -- console error
       console.error((error as { data: any }).data);
+      toastStore.trigger(errorToast);
       errorMatches.update((errors) => [...errors, matchToUpdate]);
     }
     loading = false;

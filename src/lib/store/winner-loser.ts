@@ -117,13 +117,13 @@ export const watchWinnerOrLoser = (type: JudokaType) => {
 };
 
 function isWinnerByWazari(matchUpdated: Match, type: JudokaType) {
-  const wazari = matchUpdated[type]?.wazari || 0;
+  const wazari = matchUpdated[type]?.wazari ?? 0;
   const opponentType = getOpponentType(type);
   if (!opponentType) {
     return false;
   }
-  const wazariOpponent = matchUpdated[opponentType]?.wazari || 0;
-  const ipponOpponent = matchUpdated[opponentType]?.ippon || 0;
+  const wazariOpponent = matchUpdated[opponentType]?.wazari ?? 0;
+  const ipponOpponent = matchUpdated[opponentType]?.ippon ?? 0;
   if (ipponOpponent || wazariOpponent === 2) {
     return false;
   }

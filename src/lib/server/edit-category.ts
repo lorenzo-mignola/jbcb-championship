@@ -4,8 +4,8 @@ import { updateDoublePool } from '../models/categories/doublePool/update-double-
 import { updateSinglePool } from '../models/categories/singlePool/update-single-pool';
 import type { Category } from '../types/category.type';
 import type { Match } from '../types/match.type';
+import { categoriesCollection } from './categories-collection';
 import { createCategory } from './create-cateogry';
-import { categoriesCollection } from './firebase';
 import { getCategory } from './get-category';
 
 const removeCategory = (id: string) => {

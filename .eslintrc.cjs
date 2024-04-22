@@ -12,10 +12,11 @@ module.exports = {
     'plugin:svelte/all',
     'plugin:prettier/recommended',
     'plugin:svelte/prettier',
+    'plugin:vitest/all',
     'prettier'
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'vitest', 'testing-library'],
   settings: {
     'import/resolver': {
       typescript: {
@@ -46,6 +47,13 @@ module.exports = {
         'import/no-unresolved': [2, { ignore: ['.app/', 'virtual:pwa-info'] }],
         'no-unused-vars': ['error', { varsIgnorePattern: '..Slots' }]
       }
+    },
+    {
+      files: ['**/*.test.ts'],
+      extends: ['plugin:testing-library/dom'],
+      rules: {
+        'import/no-named-as-default': 'off'
+      }
     }
   ],
   rules: {
@@ -62,6 +70,7 @@ module.exports = {
       }
     ],
     'svelte/no-unused-class-name': 'off',
-    camelcase: ['error', { allow: ['category_id', 'match_id', 'double_pool'] }]
+    camelcase: ['error', { allow: ['category_id', 'match_id', 'double_pool'] }],
+    'vitest/prefer-expect-assertions': 'off'
   }
 };

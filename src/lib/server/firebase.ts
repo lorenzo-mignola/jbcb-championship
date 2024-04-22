@@ -17,15 +17,13 @@ if (getApps().length === 0) {
   });
 }
 
-export const db = getFirestore();
+const firebaseDB = getFirestore();
 
-let settingsCalled = false;
-
-// eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- fix for vite reload
-if (!settingsCalled) {
-  db.settings({ ignoreUndefinedProperties: true });
-  settingsCalled = true;
+if (getApps().length === 0) {
+  firebaseDB.settings({ ignoreUndefinedProperties: true });
 }
+
+export const db = firebaseDB;
 
 export const categoryConverter = {
   toFirestore: (data: Omit<Category, 'id'>) => data,
@@ -34,6 +32,3 @@ export const categoryConverter = {
 };
 
 export const CATEGORIES_COLLECTION = 'categories';
-export const categoriesCollection = db
-  .collection(CATEGORIES_COLLECTION)
-  .withConverter(categoryConverter);
