@@ -3,6 +3,7 @@
 
   import {
     AppBar,
+    Drawer,
     initializeStores,
     LightSwitch,
     Modal,
@@ -14,6 +15,7 @@
   import { invalidateAll } from '$app/navigation';
   import Reload from '$lib/icons/reload.svelte';
 
+  import DrawerContent from '../lib/components/drawers/drawer-content.svelte';
   import CategoryMoveDialog from '../lib/components/move-athlete/category-move-dialog.svelte';
 
   interface $$Slots {
@@ -38,8 +40,12 @@
   {@html webManifestLink}
 </svelte:head>
 
+<!-- skeleton root components -->
 <Modal buttonTextCancel="Annulla" components={modalRegistry} />
 <Toast />
+<Drawer class="pt-16" position="right">
+  <DrawerContent />
+</Drawer>
 
 <AppBar
   class="sticky top-0 z-50 print:hidden"

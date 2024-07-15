@@ -11,8 +11,8 @@ export const ippon = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.ippon += 1;
+
+      $matchState[type].ippon += 1;
     });
   });
 };
@@ -23,8 +23,8 @@ export const removeIppon = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.ippon -= 1;
+
+      $matchState[type].ippon -= 1;
       if ($matchState.winner) {
         $matchState.winner = undefined;
       }
@@ -38,8 +38,8 @@ export const wazari = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.wazari += 1;
+
+      $matchState[type].wazari += 1;
     });
   });
 };
@@ -50,8 +50,8 @@ export const removeWazari = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.wazari -= 1;
+
+      $matchState[type].wazari -= 1;
       if ($matchState.winner) {
         $matchState.winner = undefined;
       }
@@ -65,8 +65,8 @@ export const shido = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.shido += 1;
+
+      $matchState[type].shido += 1;
     });
   });
 };
@@ -77,8 +77,8 @@ export const removeShido = (type: JudokaType) => {
       if (!$matchState?.[type]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[type]!.shido -= 1;
+
+      $matchState[type].shido -= 1;
     });
   });
 };
