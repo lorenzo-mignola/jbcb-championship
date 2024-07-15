@@ -1,6 +1,8 @@
 <script lang="ts" strictEvents>
-  import Delete from '$lib/icons/delete.svelte';
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
+
+  import Delete from '$lib/icons/delete.svelte';
+
   import { addClub, clubs, removeClub } from '../../lib/store/$settings';
   import { tournament } from '../../lib/store/$tournament';
 

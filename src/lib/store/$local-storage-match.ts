@@ -1,4 +1,5 @@
 import { localStorageStore } from '@skeletonlabs/skeleton';
+
 import type { JudokaType, Match } from '../types/match.type';
 
 const defaultMatch: Match = {

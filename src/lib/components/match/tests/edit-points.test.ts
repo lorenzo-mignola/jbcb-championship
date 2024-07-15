@@ -1,11 +1,13 @@
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
 import { render, screen, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { produce } from 'immer';
 import { get } from 'svelte/store';
 import { describe, expect, it } from 'vitest';
+
+import categoryMock from '$tests/mock/category.json';
+import matchMock from '$tests/mock/match.json';
+import match2Mock from '$tests/mock/match2.json';
+
 import Match from '../../../../routes/categories/[category_id]/match/[match_id]/+page.svelte';
 import { match } from '../../../store/$match';
 import type { JudokaType } from '../../../types/match.type';

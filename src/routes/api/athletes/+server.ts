@@ -1,5 +1,6 @@
 import { error, json, type RequestHandler } from '@sveltejs/kit';
 import { z } from 'zod';
+
 import { editCategory } from '../../../lib/server/edit-category';
 import { getCategory } from '../../../lib/server/get-category';
 import type { Category } from '../../../lib/types/category.type';

@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { onDestroy } from 'svelte';
+
   import Footer from '$lib/components/match/footer.svelte';
   import Judoka from '$lib/components/match/judoka/judoka.svelte';
   import Timer from '$lib/components/match/timer.svelte';
@@ -12,7 +14,6 @@
   } from '$lib/store/$local-storage-match';
   import { match } from '$lib/store/$match';
   import { setDuration, timer } from '$lib/store/$timer';
-  import { onDestroy } from 'svelte';
 
   export let data;
   $: ({ category, match: matchData, nextMatch, isMedalMatch } = data);

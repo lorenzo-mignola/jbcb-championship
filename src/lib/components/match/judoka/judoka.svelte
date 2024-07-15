@@ -1,13 +1,15 @@
 <script lang="ts" strictEvents>
+  import { onDestroy } from 'svelte';
+
   import Edit from '$lib/icons/edit.svelte';
   import { match } from '$lib/store/$match';
   import { bluePoints, whitePoints } from '$lib/store/judoka-points';
   import { watchWinnerOrLoser } from '$lib/store/winner-loser';
-  import { onDestroy } from 'svelte';
+
   import { timerWatch } from '../../../store/$timer';
   import { watchTimerOsaekomi } from '../../osaekomi/$osaekomi-timer';
-  import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
+  import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaNameAndPoints from './judoka-name-and-points.svelte';
 
   export let type: 'white' | 'blue';

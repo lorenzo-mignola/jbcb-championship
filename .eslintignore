@@ -15,3 +15,6 @@ yarn.lock
 .eslintrc.cjs
 *.config.ts
 *.config.js
+
+# test coverage
+coverage

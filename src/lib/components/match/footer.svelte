@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import Back from '$lib/icons/back.svelte';
+
   import type { Match } from '../../types/match.type';
   import NextMatch from './next-match.svelte';
 

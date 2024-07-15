@@ -1,6 +1,7 @@
 import { produce } from 'immer';
 import { get, writable } from 'svelte/store';
 import { describe, expect, it, vi } from 'vitest';
+
 import type { Match } from '../types/match.type';
 import { match } from './$match';
 import { bluePoints, whitePoints } from './judoka-points';

@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import { getRanking } from '$lib/models/ranking/category';
+
   import type { Category } from '../../../types/category.type';
   import Rank from '../../rank.svelte';
 

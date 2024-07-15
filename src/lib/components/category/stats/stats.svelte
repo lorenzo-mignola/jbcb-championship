@@ -1,11 +1,12 @@
 <script lang="ts" strictEvents>
   import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+
   import { mapFinalsToRounds } from '../../../models/categories/doublePool/map-finals-to-rounds';
   import type { Category } from '../../../types/category.type';
   import Brackets from './brackets.svelte';
   import Matches from './matches.svelte';
-  import RankingDoublePool from './ranking-double-pool.svelte';
   import Ranking from './ranking.svelte';
+  import RankingDoublePool from './ranking-double-pool.svelte';
 
   export let category: Category;
 </script>

@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import { onDestroy } from 'svelte';
+
   import Stop from '../icons/pause.svelte';
   import Play from '../icons/play.svelte';
   import { match } from '../store/$match';

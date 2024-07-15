@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
   import { browser } from '$app/environment';
+
   import { categoriesNotStarted } from '../store/$categories-not-started';
   import type { Judoka } from '../types/judoka.type';
   import MoveButton from './move-athlete/move-button.svelte';

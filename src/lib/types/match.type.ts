@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { JudokaSchema } from './judoka.type';
 
 const JudokaTypeSchema = z.enum(['white', 'blue']);

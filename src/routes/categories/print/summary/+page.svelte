@@ -1,11 +1,12 @@
 <script lang="ts" strictEvents>
-  import { browser } from '$app/environment';
-  import PrintCategoryRankingOnly from '$lib/components/category/print-category-ranking-only.svelte';
-  import PrintCategory from '$lib/components/category/print-category.svelte';
-  import PrintButton from '$lib/components/print-button.svelte';
-  import { isMobile } from '$lib/utils/mobile';
   import { SlideToggle } from '@skeletonlabs/skeleton';
   import { onMount } from 'svelte';
+
+  import { browser } from '$app/environment';
+  import PrintCategory from '$lib/components/category/print-category.svelte';
+  import PrintCategoryRankingOnly from '$lib/components/category/print-category-ranking-only.svelte';
+  import PrintButton from '$lib/components/print-button.svelte';
+  import { isMobile } from '$lib/utils/mobile';
 
   export let data;
   const categories = data.categories;

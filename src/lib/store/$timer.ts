@@ -1,4 +1,5 @@
 import { derived, get, writable } from 'svelte/store';
+
 import {
   isExtraTime,
   oseakomiType,

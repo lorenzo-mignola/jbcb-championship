@@ -1,4 +1,5 @@
 import { z } from 'zod';
+
 import { JudokaSchema } from './judoka.type';
 import { MatchSchema } from './match.type';
 import { RoundsSchema } from './rounds.type';

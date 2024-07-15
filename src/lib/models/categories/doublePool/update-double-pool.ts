@@ -1,4 +1,5 @@
 import { produce } from 'immer';
+
 import type { DoublePoolCategory } from '../../../types/category.type';
 import type { Match } from '../../../types/match.type';
 import { getRankingPool } from '../../ranking/category';

@@ -1,14 +1,17 @@
 <script lang="ts" strictEvents>
-  import { goto } from '$app/navigation';
   import {
-    ListBox,
-    ListBoxItem,
     getModalStore,
     getToastStore,
+    ListBox,
+    ListBoxItem,
     type ToastSettings
   } from '@skeletonlabs/skeleton';
   import axios from 'axios';
   import type { SvelteComponent } from 'svelte';
+
+  import { goto } from '$app/navigation';
+  import { base } from '$app/paths';
+
   import { categoriesNotStarted } from '../../store/$categories-not-started';
   import { originalCategoryId } from '../../store/$original-category-id';
   import { tournament } from '../../store/$tournament';
@@ -45,7 +48,7 @@
 
       modalStore.close();
       originalCategoryId.set(data.originalCategoryId);
-      await goto(`/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
+      await goto(`${base}/categories/${data.originalCategoryId}/edit?tournament=${$tournament}`, {
         replaceState: true,
         invalidateAll: true
       });

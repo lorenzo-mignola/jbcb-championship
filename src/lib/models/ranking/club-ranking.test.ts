@@ -1,7 +1,9 @@
+import { describe, expect, it } from 'vitest';
+
 import ko from '$tests/mock/2ko.json';
 import double from '$tests/mock/double-pool.json';
 import single from '$tests/mock/single-pool.json';
-import { describe, expect, it } from 'vitest';
+
 import type { Category } from '../../types/category.type';
 import { getClubRaking } from './club-ranking';
 

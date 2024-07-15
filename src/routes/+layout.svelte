@@ -1,16 +1,19 @@
 <script lang="ts" strictEvents>
-  import { invalidateAll } from '$app/navigation';
-  import Reload from '$lib/icons/reload.svelte';
+  import '../app.postcss';
+
   import {
     AppBar,
+    initializeStores,
     LightSwitch,
     Modal,
-    Toast,
-    initializeStores,
-    type ModalComponent
+    type ModalComponent,
+    Toast
   } from '@skeletonlabs/skeleton';
   import { pwaInfo } from 'virtual:pwa-info';
-  import '../app.postcss';
+
+  import { invalidateAll } from '$app/navigation';
+  import Reload from '$lib/icons/reload.svelte';
+
   import CategoryMoveDialog from '../lib/components/move-athlete/category-move-dialog.svelte';
 
   interface $$Slots {

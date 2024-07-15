@@ -2,6 +2,7 @@ import type { Judoka } from '$lib/types/judoka.type';
 import type { Match } from '$lib/types/match.type';
 import type { Rounds } from '$lib/types/rounds.type';
 import { getRandomElement } from '$lib/utils/match';
+
 import { createMatch } from '../../match';
 import { removeAthlete } from './remove-athlete';
 

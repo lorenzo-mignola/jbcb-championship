@@ -1,7 +1,9 @@
 <script lang="ts" strictEvents>
+  import { onDestroy, onMount } from 'svelte';
+
   import Pause from '$lib/icons/pause.svelte';
   import { isPlaying } from '$lib/store/$timer';
-  import { onDestroy, onMount } from 'svelte';
+
   import type { JudokaType } from '../../types/match.type';
   import { resetOsaekomi, startOsaekomi, stopOsaekomi } from './$osaekomi-timer';
 

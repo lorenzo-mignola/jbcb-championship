@@ -1,11 +1,12 @@
 <script lang="ts" strictEvents>
+  import { onMount } from 'svelte';
+
   import { browser } from '$app/environment';
   import AthleteList from '$lib/components/athlete-list.svelte';
   import PrintButton from '$lib/components/print-button.svelte';
   import { formatTimeString } from '$lib/store/$timer';
   import { typeToLabel } from '$lib/store/$type.js';
   import { isMobile } from '$lib/utils/mobile.js';
-  import { onMount } from 'svelte';
 
   export let data;
 

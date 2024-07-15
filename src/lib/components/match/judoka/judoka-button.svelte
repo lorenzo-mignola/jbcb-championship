@@ -1,6 +1,6 @@
 <script lang="ts" strictEvents>
-  import HandRaisedBack from '../../../icons/hand-raised-back.svelte';
   import HandRaised from '../../../icons/hand-raised.svelte';
+  import HandRaisedBack from '../../../icons/hand-raised-back.svelte';
   import IndexPointing from '../../../icons/index-pointing.svelte';
   import PalmDown from '../../../icons/palm-down.svelte';
   import { ippon, shido, wazari } from '../../../store/$match';

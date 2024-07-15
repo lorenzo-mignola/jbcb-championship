@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import { describe, expect, it } from 'vitest';
+
 import type { Judoka } from '../../../types/judoka.type';
 import { createSinglePool } from './create-single-pool';
 

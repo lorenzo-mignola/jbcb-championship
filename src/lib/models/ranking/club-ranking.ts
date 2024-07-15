@@ -1,7 +1,7 @@
 import { produce } from 'immer';
-import type { Category, RankingAthlete } from '../../types/category.type';
-
 import { descend, prop, sortWith } from 'ramda';
+
+import type { Category, RankingAthlete } from '../../types/category.type';
 import { getRanking } from './category';
 
 type RankingWithClub = RankingAthlete & {
