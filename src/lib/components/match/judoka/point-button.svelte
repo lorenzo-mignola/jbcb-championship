@@ -5,6 +5,7 @@
 
   interface $$Slots {
     default: Record<string, never>;
+    shortcut: Record<string, never>;
   }
 </script>
 
@@ -15,3 +16,4 @@
   type="button"
   on:click={action}><slot /></button
 >
+<slot name="shortcut" />

@@ -3,6 +3,7 @@
   import HandRaisedBack from '../../../icons/hand-raised-back.svelte';
   import IndexPointing from '../../../icons/index-pointing.svelte';
   import PalmDown from '../../../icons/palm-down.svelte';
+  import IpponShortcut from '../../../shortcuts/ippon-shortcut.svelte';
   import { ippon, shido, wazari } from '../../../store/$match';
   import { isPlaying } from '../../../store/$timer';
   import type { JudokaType } from '../../../types/match.type';
@@ -26,13 +27,22 @@
   };
 </script>
 
-<PointButton action={() => ippon(type)} disabled={disableButton}><HandRaised /> Ippon</PointButton>
-<PointButton action={() => wazari(type)} disabled={disableButton}><PalmDown /> Waza-ari</PointButton
->
-<PointButton action={() => shido(type)} disabled={disableButton}
-  ><IndexPointing /> Shido</PointButton
->
-<PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}
-  ><span class="rotate-180"><HandRaisedBack /></span>
-  {isOsaekomi ? 'Toketa' : 'Osae-komi'}</PointButton
->
+<PointButton action={() => ippon(type)} disabled={disableButton}>
+  <HandRaised /> Ippon
+  <svelte:fragment slot="shortcut">
+    <IpponShortcut callback={() => ippon(type)} {type} />
+  </svelte:fragment>
+</PointButton>
+
+<PointButton action={() => wazari(type)} disabled={disableButton}>
+  <PalmDown /> Waza-ari
+</PointButton>
+
+<PointButton action={() => shido(type)} disabled={disableButton}>
+  <IndexPointing /> Shido
+</PointButton>
+
+<PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}>
+  <span class="rotate-180"><HandRaisedBack /></span>
+  {isOsaekomi ? 'Toketa' : 'Osae-komi'}
+</PointButton>
