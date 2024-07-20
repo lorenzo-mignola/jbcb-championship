@@ -33,7 +33,8 @@ async function setupOsaekomi(user: UserEvent, id: string) {
 
   await user.click(buttonOsaekomi);
   return {
-    card
+    card,
+    playPauseButton
   };
 }
 
@@ -62,6 +63,32 @@ describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
     const { card } = await setupOsaekomi(user, id);
 
     expect(within(card).getByRole('button', { name: /Toketa/i })).toBeInTheDocument();
+  });
+
+  it('should stop osakeomi when timer is stopped (click)', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    const { playPauseButton } = await setupOsaekomi(user, id);
+
+    expect(screen.getByTestId(`timer-osaekomi-${type}`)).toBeInTheDocument();
+
+    // stop
+    await user.click(playPauseButton);
+
+    expect(screen.queryByTestId(`timer-osaekomi-${type}`)).toBeNull();
+  });
+
+  it('should stop osakeomi when timer is stopped (keyboard)', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    await setupOsaekomi(user, id);
+
+    expect(screen.getByTestId(`timer-osaekomi-${type}`)).toBeInTheDocument();
+
+    // stop
+    await user.keyboard(' ');
+
+    expect(screen.queryByTestId(`timer-osaekomi-${type}`)).toBeNull();
   });
 
   it('should have osakeomi when toketa button is clicked', async () => {
