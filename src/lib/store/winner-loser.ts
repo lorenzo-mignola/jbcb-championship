@@ -52,8 +52,8 @@ const disqualification = (type: JudokaType) => {
       if (!$matchState?.[opponentType]) {
         return;
       }
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-      $matchState[opponentType]!.ippon = 1;
+
+      $matchState[opponentType].ippon = 1;
       $matchState.winner = opponentType;
       $matchState.finalTime = get(timer);
     });
