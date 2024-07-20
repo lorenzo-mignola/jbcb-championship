@@ -13,6 +13,10 @@ vi.mock('@skeletonlabs/skeleton', async (importOriginal) => {
     ...actual,
     getToastStore: vi.fn().mockReturnValue({
       trigger: vi.fn()
+    }),
+    getDrawerStore: vi.fn().mockReturnValue({
+      id: '',
+      open: vi.fn()
     })
   };
 });
