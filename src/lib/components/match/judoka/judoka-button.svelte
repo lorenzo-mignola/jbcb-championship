@@ -4,6 +4,7 @@
   import IndexPointing from '../../../icons/index-pointing.svelte';
   import PalmDown from '../../../icons/palm-down.svelte';
   import IpponShortcut from '../../../shortcuts/ippon-shortcut.svelte';
+  import WazariShortcut from '../../../shortcuts/wazari-shortcut.svelte';
   import { ippon, shido, wazari } from '../../../store/$match';
   import { isPlaying } from '../../../store/$timer';
   import type { JudokaType } from '../../../types/match.type';
@@ -36,6 +37,9 @@
 
 <PointButton action={() => wazari(type)} disabled={disableButton}>
   <PalmDown /> Waza-ari
+  <svelte:fragment slot="shortcut">
+    <WazariShortcut callback={() => wazari(type)} {type} />
+  </svelte:fragment>
 </PointButton>
 
 <PointButton action={() => shido(type)} disabled={disableButton}>
