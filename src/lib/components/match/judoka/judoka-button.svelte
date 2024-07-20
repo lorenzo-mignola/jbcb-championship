@@ -4,6 +4,7 @@
   import IndexPointing from '../../../icons/index-pointing.svelte';
   import PalmDown from '../../../icons/palm-down.svelte';
   import IpponShortcut from '../../../shortcuts/ippon-shortcut.svelte';
+  import ShidoShortcut from '../../../shortcuts/shido-shortcut.svelte';
   import WazariShortcut from '../../../shortcuts/wazari-shortcut.svelte';
   import { ippon, shido, wazari } from '../../../store/$match';
   import { isPlaying } from '../../../store/$timer';
@@ -44,6 +45,9 @@
 
 <PointButton action={() => shido(type)} disabled={disableButton}>
   <IndexPointing /> Shido
+  <svelte:fragment slot="shortcut">
+    <ShidoShortcut callback={() => shido(type)} {type} />
+  </svelte:fragment>
 </PointButton>
 
 <PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}>

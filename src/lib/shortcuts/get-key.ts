@@ -1,6 +1,6 @@
 import type { JudokaType } from '../types/match.type';
 
-type ShortcutType = 'play' | 'ippon' | 'wazari' | '';
+type ShortcutType = 'play' | 'ippon' | 'wazari' | 'shido' | '';
 
 const isWhite = (judokaType: JudokaType) => judokaType === 'white';
 const isBlue = (judokaType: JudokaType) => judokaType === 'blue';
@@ -31,6 +31,18 @@ const wazariKey = (judokaType: JudokaType) => {
   return '';
 };
 
+const shidoKey = (judokaType: JudokaType) => {
+  if (isWhite(judokaType)) {
+    return 'D';
+  }
+
+  if (isBlue(judokaType)) {
+    return 'K';
+  }
+
+  return '';
+};
+
 export const getKey = (shortcutType: ShortcutType) => (judokaType?: JudokaType) => {
   if (shortcutType === 'play') {
     return playKey();
@@ -46,6 +58,10 @@ export const getKey = (shortcutType: ShortcutType) => (judokaType?: JudokaType) 
 
   if (shortcutType === 'wazari') {
     return wazariKey(judokaType);
+  }
+
+  if (shortcutType === 'shido') {
+    return shidoKey(judokaType);
   }
 
   return '';
