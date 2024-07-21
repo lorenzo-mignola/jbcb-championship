@@ -4,6 +4,7 @@
   import IndexPointing from '../../../icons/index-pointing.svelte';
   import PalmDown from '../../../icons/palm-down.svelte';
   import IpponShortcut from '../../../shortcuts/ippon-shortcut.svelte';
+  import OsaekomiShortcut from '../../../shortcuts/osaekomi-shortcut.svelte';
   import ShidoShortcut from '../../../shortcuts/shido-shortcut.svelte';
   import WazariShortcut from '../../../shortcuts/wazari-shortcut.svelte';
   import { ippon, shido, wazari } from '../../../store/$match';
@@ -53,4 +54,7 @@
 <PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}>
   <span class="rotate-180"><HandRaisedBack /></span>
   {isOsaekomi ? 'Toketa' : 'Osae-komi'}
+  <svelte:fragment slot="shortcut">
+    <OsaekomiShortcut callback={oasekomiAction} disabled={disableOsaekomi} {type} />
+  </svelte:fragment>
 </PointButton>

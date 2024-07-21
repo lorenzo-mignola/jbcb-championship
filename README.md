@@ -112,6 +112,8 @@ Quando viene assegnata la vittoria ad un atleta compare il bottone _Termina l'in
 
 ## Scorciatoie da tastiera (layout CH-fr)
 
+> ❗I tasti sono con le lettere maiuscole. Per attivare la scorciatoia è necessario premere anche **shift** oppure attivare **caps lock** ❗
+
 ### Generale
 
 | Tasto  | Azione           |

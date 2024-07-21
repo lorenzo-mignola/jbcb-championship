@@ -31,7 +31,7 @@
   </div>
 </button>
 
-<TimerShortcut callback={togglePlay} />
+<TimerShortcut callback={togglePlay} {disabled} />
 
 <style lang="postcss">
   button:focus {
