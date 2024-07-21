@@ -12,7 +12,8 @@ const data = {
   category: categoryMock,
   match: matchMock,
   nextMatch: match2Mock,
-  isMedalMatch: false
+  isMedalMatch: false,
+  winner: null
 };
 
 describe('ippon shortcut', () => {
@@ -28,6 +29,31 @@ describe('ippon shortcut', () => {
 
     await user.keyboard(key);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(card).getByTestId('judoka-score').textContent).toBe('10');
   });
+
+  it.each([
+    ['white', 'A'],
+    ['blue', 'H']
+  ] as const)(
+    'should not set ippon for %s when "%s" is pressed because button is disabled',
+    async (type, key) => {
+      const user = userEvent.setup();
+      const dataWithWinner = {
+        ...data,
+        match: {
+          ...data.match,
+          winner: type // disable buttons
+        }
+      };
+      const { id } = dataWithWinner.match[type];
+      render(Match, { data: dataWithWinner });
+
+      const card = screen.getByTestId(`judoka-card-${id}`);
+
+      await user.keyboard(key);
+
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('0');
+    }
+  );
 });

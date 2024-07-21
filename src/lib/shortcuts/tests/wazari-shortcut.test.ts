@@ -28,6 +28,31 @@ describe('ippon shortcut', () => {
 
     await user.keyboard(key);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+    expect(within(card).getByTestId('judoka-score').textContent).toBe('1');
   });
+
+  it.each([
+    ['white', 'S'],
+    ['blue', 'J']
+  ] as const)(
+    'should not set wazari for %s when "%s" is pressed because button is disabled',
+    async (type, key) => {
+      const user = userEvent.setup();
+      const dataWithWinner = {
+        ...data,
+        match: {
+          ...data.match,
+          winner: type // disable buttons
+        }
+      };
+      const { id } = dataWithWinner.match[type];
+      render(Match, { data: dataWithWinner });
+
+      const card = screen.getByTestId(`judoka-card-${id}`);
+
+      await user.keyboard(key);
+
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('0');
+    }
+  );
 });

@@ -32,21 +32,21 @@
 <PointButton action={() => ippon(type)} disabled={disableButton}>
   <HandRaised /> Ippon
   <svelte:fragment slot="shortcut">
-    <IpponShortcut callback={() => ippon(type)} {type} />
+    <IpponShortcut callback={() => ippon(type)} disabled={disableButton} {type} />
   </svelte:fragment>
 </PointButton>
 
 <PointButton action={() => wazari(type)} disabled={disableButton}>
   <PalmDown /> Waza-ari
   <svelte:fragment slot="shortcut">
-    <WazariShortcut callback={() => wazari(type)} {type} />
+    <WazariShortcut callback={() => wazari(type)} disabled={disableButton} {type} />
   </svelte:fragment>
 </PointButton>
 
 <PointButton action={() => shido(type)} disabled={disableButton}>
   <IndexPointing /> Shido
   <svelte:fragment slot="shortcut">
-    <ShidoShortcut callback={() => shido(type)} {type} />
+    <ShidoShortcut callback={() => shido(type)} disabled={disableButton} {type} />
   </svelte:fragment>
 </PointButton>
 
