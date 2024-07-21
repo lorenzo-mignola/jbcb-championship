@@ -108,8 +108,32 @@ Quando viene assegnata la vittoria ad un atleta compare il bottone _Termina l'in
 
 ![termina](./docs/assets/termina.png)
 
-<div style="padding: 8px; border-radius: 4px; background: #fef3c7; color: black; display: flex; justify-content: space-between; align-items: center;">
-    <span>❗</span>
-    <span style="text-align: center">Se si aggiorna la pagina o si ritorna alla categoria i dati non salvati andranno persi</span>
-    <span>❗</span>
-<div>
+> <p style="font-size: 2rem">❗Se si aggiorna la pagina o si ritorna alla categoria i dati non salvati andranno persi❗</p>
+
+## Scorciatoie da tastiera (layout CH-fr)
+
+> ❗I tasti sono con le lettere maiuscole. Per attivare la scorciatoia è necessario premere anche **shift** oppure attivare **caps lock** ❗
+
+### Generale
+
+| Tasto  | Azione           |
+| :----: | ---------------- |
+| Spazio | Play/pausa timer |
+
+### Judoka bianco
+
+| Tasto | Azione    |
+| :---: | --------- |
+|   A   | Ippon     |
+|   S   | Waza-ari  |
+|   D   | Shido     |
+|   F   | Osae-komi |
+
+### Judoka blu
+
+| Tasto | Azione    |
+| :---: | --------- |
+|   H   | Ippon     |
+|   J   | Waza-ari  |
+|   K   | Shido     |
+|   L   | Osae-komi |

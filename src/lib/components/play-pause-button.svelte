@@ -3,6 +3,7 @@
 
   import Stop from '../icons/pause.svelte';
   import Play from '../icons/play.svelte';
+  import TimerShortcut from '../shortcuts/timer-shortcut.svelte';
   import { match } from '../store/$match';
   import { isPlaying, reset, togglePlay } from '../store/$timer';
   import { isExtraTime } from './osaekomi/$osaekomi-timer';
@@ -29,6 +30,8 @@
     {/if}
   </div>
 </button>
+
+<TimerShortcut callback={togglePlay} {disabled} />
 
 <style lang="postcss">
   button:focus {
