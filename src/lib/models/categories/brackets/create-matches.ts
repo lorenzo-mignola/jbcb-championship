@@ -12,7 +12,8 @@ const pickAthlete = (
   athletesNotPicket: (Judoka | undefined)[],
   filterFn?: (judoka: Judoka | undefined) => boolean
 ) => {
-  const athlete = getRandomElement(athletesNotPicket.filter(filterFn ?? T));
+  const athletesToPick = athletesNotPicket.filter(filterFn ?? T);
+  const athlete = getRandomElement(athletesToPick.length < 2 ? athletesNotPicket : athletesToPick);
   const remain = removeAthlete(athletesNotPicket)(athlete);
   return { athlete, remain };
 };
