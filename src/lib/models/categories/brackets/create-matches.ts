@@ -1,3 +1,5 @@
+import { T } from 'ramda';
+
 import type { Judoka } from '$lib/types/judoka.type';
 import type { Match } from '$lib/types/match.type';
 import type { Rounds } from '$lib/types/rounds.type';
@@ -6,8 +8,11 @@ import { getRandomElement } from '$lib/utils/match';
 import { createMatch } from '../../match';
 import { removeAthlete } from './remove-athlete';
 
-const pickAthlete = (athletesNotPicket: (Judoka | undefined)[]) => {
-  const athlete = getRandomElement(athletesNotPicket);
+const pickAthlete = (
+  athletesNotPicket: (Judoka | undefined)[],
+  filterFn?: (judoka: Judoka | undefined) => boolean
+) => {
+  const athlete = getRandomElement(athletesNotPicket.filter(filterFn ?? T));
   const remain = removeAthlete(athletesNotPicket)(athlete);
   return { athlete, remain };
 };
@@ -33,8 +38,10 @@ const getEvenOrOddMatches =
         pickAthlete(athletesNotPicket);
       athletesNotPicket = remainAthletesNotPicketAfterWhite;
 
-      const { athlete: blue, remain: remainAthletesNotPicketAfterBlue } =
-        pickAthlete(athletesNotPicket);
+      const { athlete: blue, remain: remainAthletesNotPicketAfterBlue } = pickAthlete(
+        athletesNotPicket,
+        white?.club ? (athlete) => athlete?.club !== white.club : undefined
+      );
       athletesNotPicket = remainAthletesNotPicketAfterBlue;
 
       matches.push(createMatch(white, blue));

@@ -4,7 +4,6 @@ import { afterEach, describe, expect, it, vi } from 'vitest';
 import type { BracketsCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';
-import * as getRandom from '../../../utils/match';
 import { createBrackets, updateBrackets } from './brackets';
 import { getCurrentMatch } from './get-current-match';
 
@@ -578,23 +577,15 @@ describe('same club', () => {
     vi.resetAllMocks();
   });
 
-  it('should have a props to show when is repechage match', () => {
-    // vi.spyOn(global.Math, 'random')
-    //   .mockReturnValueOnce(0.1) // first element
-    //   .mockReturnValueOnce(0.4) // second element
-    //   .mockReturnValueOnce(0.6) // third element
-    //   .mockReturnValueOnce(0.9); // fourth element
+  it('should not have 2 from the same club on first match', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.1); // return always the first element in the array
+
     const athletesWithClub: Judoka[] = [
       { id: '1', name: '1', club: 'A' },
       { id: '2', name: '2', club: 'A' },
       { id: '3', name: '3', club: 'B' },
       { id: '4', name: '4', club: 'B' }
     ];
-    vi.spyOn(getRandom, 'getRandomElement')
-      .mockReturnValueOnce(athletesWithClub[0])
-      .mockReturnValueOnce(athletesWithClub[1])
-      .mockReturnValueOnce(athletesWithClub[2])
-      .mockReturnValueOnce(athletesWithClub[3]);
 
     const brackets = createBrackets('test', athletesWithClub, 0);
     const getAthlete = (athleteToFind: Match['white']) =>
