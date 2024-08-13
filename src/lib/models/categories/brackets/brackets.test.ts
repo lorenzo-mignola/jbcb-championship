@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion -- test fail if is null*/
-import { describe, expect, it } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { BracketsCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
@@ -567,5 +567,63 @@ describe('repechage', () => {
     expect(secondRoundLoser.isRepechage).toBeTruthy();
     expect(secondRoundRepechage.isRepechage).toBeTruthy();
     expect(secondRoundWinner.isRepechage).toBeUndefined();
+  });
+});
+
+describe('same club', () => {
+  // eslint-disable-next-line vitest/no-hooks -- reset mocks
+  afterEach(() => {
+    vi.clearAllMocks();
+    vi.resetAllMocks();
+  });
+
+  it('should not have 2 from the same club on first match', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.1); // return always the first element in the array
+
+    const athletesWithClub: Judoka[] = [
+      { id: '1', name: '1', club: 'A' },
+      { id: '2', name: '2', club: 'A' },
+      { id: '3', name: '3', club: 'B' },
+      { id: '4', name: '4', club: 'B' }
+    ];
+
+    const brackets = createBrackets('test', athletesWithClub, 0);
+    const getAthlete = (athleteToFind: Match['white']) =>
+      athletesWithClub.find((athlete) => athlete.id === athleteToFind?.id);
+
+    const [firstMatch, secondMatch] = brackets.matches;
+    const firstMatchAthleteWhite = getAthlete(firstMatch.white);
+    const firstMatchAthleteBlue = getAthlete(firstMatch.blue);
+    const secondMatchAthleteWhite = getAthlete(secondMatch.white);
+    const secondMatchAthleteBlue = getAthlete(secondMatch.blue);
+
+    expect(firstMatchAthleteWhite!.club).not.toBe(firstMatchAthleteBlue!.club);
+    expect(secondMatchAthleteWhite!.club).not.toBe(secondMatchAthleteBlue!.club);
+  });
+
+  it('should handle brackets with all from the same club', () => {
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.1); // return always the first element in the array
+
+    const athletesWithClub: Judoka[] = [
+      { id: '1', name: '1', club: 'A' },
+      { id: '2', name: '2', club: 'A' },
+      { id: '3', name: '3', club: 'A' },
+      { id: '4', name: '4', club: 'A' }
+    ];
+
+    const brackets = createBrackets('test', athletesWithClub, 0);
+    const getAthlete = (athleteToFind: Match['white']) =>
+      athletesWithClub.find((athlete) => athlete.id === athleteToFind?.id);
+
+    const [firstMatch, secondMatch] = brackets.matches;
+    const firstMatchAthleteWhite = getAthlete(firstMatch.white);
+    const firstMatchAthleteBlue = getAthlete(firstMatch.blue);
+    const secondMatchAthleteWhite = getAthlete(secondMatch.white);
+    const secondMatchAthleteBlue = getAthlete(secondMatch.blue);
+
+    expect(firstMatchAthleteWhite).toBeDefined();
+    expect(firstMatchAthleteBlue).toBeDefined();
+    expect(secondMatchAthleteWhite).toBeDefined();
+    expect(secondMatchAthleteBlue).toBeDefined();
   });
 });
