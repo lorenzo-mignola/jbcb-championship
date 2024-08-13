@@ -8,10 +8,10 @@ import { getRandomElement } from '$lib/utils/match';
 import { createMatch } from '../../match';
 import { removeAthlete } from './remove-athlete';
 
-const pickAthlete = (
-  athletesNotPicket: (Judoka | undefined)[],
-  filterFn?: (judoka: Judoka | undefined) => boolean
-) => {
+const pickAthlete = (athletesNotPicket: (Judoka | undefined)[], otherAthleteClub?: string) => {
+  const filterFn = otherAthleteClub
+    ? (athlete: Judoka | undefined) => athlete?.club !== otherAthleteClub
+    : undefined;
   const athletesToPick = athletesNotPicket.filter(filterFn ?? T);
   const athlete = getRandomElement(athletesToPick.length < 2 ? athletesNotPicket : athletesToPick);
   const remain = removeAthlete(athletesNotPicket)(athlete);
@@ -41,7 +41,7 @@ const getEvenOrOddMatches =
 
       const { athlete: blue, remain: remainAthletesNotPicketAfterBlue } = pickAthlete(
         athletesNotPicket,
-        white?.club ? (athlete) => athlete?.club !== white.club : undefined
+        white?.club
       );
       athletesNotPicket = remainAthletesNotPicketAfterBlue;
 
