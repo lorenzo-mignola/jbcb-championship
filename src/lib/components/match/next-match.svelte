@@ -1,8 +1,12 @@
 <script lang="ts" strictEvents>
   import type { Match } from '$lib/types/match.type';
 
-  export let nextMatch: Pick<Match, 'white' | 'blue' | 'id'> | undefined;
-  export let view = false;
+  interface Props {
+    nextMatch: Pick<Match, 'white' | 'blue' | 'id'> | undefined;
+    view?: boolean;
+  }
+
+  let { nextMatch, view = false }: Props = $props();
 </script>
 
 {#if nextMatch && nextMatch.id}

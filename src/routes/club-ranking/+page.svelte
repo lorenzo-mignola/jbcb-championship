@@ -1,8 +1,8 @@
 <script lang="ts" strictEvents>
   import PrintButton from '$lib/components/print-button.svelte';
 
-  export let data;
-  $: ranking = data.ranking;
+  let { data } = $props();
+  let ranking = $derived(data.ranking);
 </script>
 
 <div class="flex justify-between">

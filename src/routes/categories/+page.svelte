@@ -3,15 +3,17 @@
 
   import Search from '../../lib/icons/search.svelte';
 
-  export let data;
+  let { data } = $props();
 
-  let searchValue = '';
+  let searchValue = $state('');
 
-  $: categories = searchValue
-    ? data.categories.filter((category) =>
-        category.name.toLowerCase().includes(searchValue.toLowerCase())
-      )
-    : data.categories;
+  let categories = $derived(
+    searchValue
+      ? data.categories.filter((category) =>
+          category.name.toLowerCase().includes(searchValue.toLowerCase())
+        )
+      : data.categories
+  );
 </script>
 
 <div class="input-group input-group-divider mb-4 grid-cols-[auto_1fr_auto]">

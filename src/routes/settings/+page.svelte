@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 
   import Delete from '$lib/icons/delete.svelte';
@@ -6,7 +8,7 @@
   import { addClub, clubs, removeClub } from '../../lib/store/$settings';
   import { tournament } from '../../lib/store/$tournament';
 
-  let club = '';
+  let club = $state('');
 
   const modalStore = getModalStore();
 
@@ -46,7 +48,7 @@
 <div class="flex flex-col gap-8">
   <div>
     <h3 class="h3">Club</h3>
-    <form class="mb-2" on:submit|preventDefault={handleAdd}>
+    <form class="mb-2" onsubmit={preventDefault(handleAdd)}>
       <div class="input-group input-group-divider grid-cols-[1fr_auto]">
         <label class="label">
           <input class="input" placeholder="Nome club" type="text" bind:value={club} />
@@ -55,7 +57,7 @@
           class="variant-filled-primary"
           disabled={!club}
           type="button"
-          on:click|preventDefault={handleAdd}>Aggiungi</button
+          onclick={preventDefault(handleAdd)}>Aggiungi</button
         >
       </div>
     </form>
@@ -67,7 +69,7 @@
           <button
             class="variant-filled-primary btn-icon btn-icon-sm text-white [&>*]:pointer-events-none"
             type="button"
-            on:click={() => handleRemove(club)}><Delete /></button
+            onclick={() => handleRemove(club)}><Delete /></button
           >
         </li>
         <hr />
@@ -98,7 +100,7 @@
     <button
       class="variant-ringed btn mt-1 gap-2"
       type="button"
-      on:click|preventDefault={() => modalStore.trigger(modal)}>🗑️ Cancella tutto</button
+      onclick={preventDefault(() => modalStore.trigger(modal))}>🗑️ Cancella tutto</button
     >
   </div>
 </div>

@@ -45,7 +45,8 @@ module.exports = {
       rules: {
         'import/no-mutable-exports': 'off',
         'import/no-unresolved': [2, { ignore: ['.app/', 'virtual:pwa-info'] }],
-        'no-unused-vars': ['error', { varsIgnorePattern: '..Slots' }]
+        'no-unused-vars': ['error', { varsIgnorePattern: '..Slots' }],
+        'prefer-const': 'off'
       }
     },
     {

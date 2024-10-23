@@ -4,8 +4,8 @@
   import { getMin, getSec, isGoldenScore, timer } from '$lib/store/$timer';
   import WakeLock from '$lib/utils/wake-lock.svelte';
 
-  $: min = getMin($timer);
-  $: sec = getSec($timer);
+  let min = $derived(getMin($timer));
+  let sec = $derived(getSec($timer));
 </script>
 
 <WakeLock />

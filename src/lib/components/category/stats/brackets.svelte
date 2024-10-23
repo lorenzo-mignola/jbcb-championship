@@ -3,8 +3,12 @@
 
   import RoundBrackets from './round-brackets.svelte';
 
-  export let rounds: Rounds;
-  export let showRepechage: boolean | undefined = true;
+  interface Props {
+    rounds: Rounds;
+    showRepechage?: boolean | undefined;
+  }
+
+  let { rounds, showRepechage = true }: Props = $props();
 
   const winnerRounds = rounds.map(({ winner }) => winner);
   const loserRounds = rounds
@@ -15,6 +19,7 @@
     .filter((matches) => matches.length > 0);
 </script>
 
+// eslint-disable-next-line
 <div class="flex overflow-auto">
   <!-- winner -->
   {#each winnerRounds as matches, index (index)}

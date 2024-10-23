@@ -4,8 +4,12 @@
   import type { Category } from '../../../types/category.type';
   import Rank from '../../rank.svelte';
 
-  export let category: Category;
-  export let compact: boolean = false;
+  interface Props {
+    category: Category;
+    compact?: boolean;
+  }
+
+  let { category, compact = false }: Props = $props();
   const ranking = getRanking(category).filter((rank) => {
     if (!compact) {
       return true;

@@ -8,6 +8,7 @@
   } from '@skeletonlabs/skeleton';
   import axios from 'axios';
   import type { SvelteComponent } from 'svelte';
+  import { preventDefault } from 'svelte/legacy';
 
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
@@ -16,10 +17,14 @@
   import { originalCategoryId } from '../../store/$original-category-id';
   import { tournament } from '../../store/$tournament';
 
-  /** Exposes parent props to this component. */
-  export let parent: SvelteComponent;
+  interface Props {
+    /** Exposes parent props to this component. */
+    parent: SvelteComponent;
+  }
 
-  let newCategoryId = '';
+  let { parent }: Props = $props();
+
+  let newCategoryId = $state('');
   const modalStore = getModalStore();
 
   const modal = $modalStore[0];
@@ -75,14 +80,14 @@
     <footer class="modal-footer {parent.regionFooter}">
       <button
         class="btn {parent.buttonNeutral}"
-        type="button"
-        on:click|preventDefault={parent.onClose}>{parent.buttonTextCancel}</button
+        onclick={preventDefault(parent.onClose)}
+        type="button">{parent.buttonTextCancel}</button
       >
       <button
         class="btn {parent.buttonPositive}"
         disabled={!newCategoryId}
-        type="button"
-        on:click|preventDefault={onFormSubmit}>Sposta judoka</button
+        onclick={preventDefault(onFormSubmit)}
+        type="button">Sposta judoka</button
       >
     </footer>
   </div>

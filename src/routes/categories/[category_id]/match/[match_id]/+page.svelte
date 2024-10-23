@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { run } from 'svelte/legacy';
+
   import { onDestroy } from 'svelte';
 
   import Footer from '$lib/components/match/footer.svelte';
@@ -15,32 +17,42 @@
   import { match } from '$lib/store/$match';
   import { setDuration, timer } from '$lib/store/$timer';
 
-  export let data;
-  $: ({ category, match: matchData, nextMatch, isMedalMatch } = data);
+  let { data } = $props();
+  let { category, match: matchData, nextMatch, isMedalMatch } = $derived(data);
 
-  $: match.set(matchData);
-  $: isRepechage = $match?.isRepechage || false;
-  $: localStorageMatchType.set(getMatchType(isMedalMatch, isRepechage));
-  $: localStorageCategoryName.set(category?.name || '');
-  $: localStorageNextMatch.update(() => {
-    if (!nextMatch) {
+  run(() => {
+    match.set(matchData);
+  });
+  let isRepechage = $derived($match?.isRepechage || false);
+  run(() => {
+    localStorageMatchType.set(getMatchType(isMedalMatch, isRepechage));
+  });
+  run(() => {
+    localStorageCategoryName.set(category?.name || '');
+  });
+  run(() => {
+    localStorageNextMatch.update(() => {
+      if (!nextMatch) {
+        return {
+          id: '',
+          finalTime: null,
+          goldenScore: null
+        };
+      }
       return {
-        id: '',
-        finalTime: null,
-        goldenScore: null
+        id: nextMatch.id,
+        white: nextMatch.white,
+        blue: nextMatch.blue
       };
-    }
-    return {
-      id: nextMatch.id,
-      white: nextMatch.white,
-      blue: nextMatch.blue
-    };
+    });
   });
 
-  $: if (category?.duration) {
-    setDuration(category.duration);
-    timer.set(category.duration);
-  }
+  run(() => {
+    if (category?.duration) {
+      setDuration(category.duration);
+      timer.set(category.duration);
+    }
+  });
 
   onDestroy(() => {
     match.set(undefined);

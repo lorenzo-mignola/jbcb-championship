@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { onDestroy } from 'svelte';
 
   import Stop from '../icons/pause.svelte';
@@ -8,7 +10,7 @@
   import { isPlaying, reset, togglePlay } from '../store/$timer';
   import { isExtraTime } from './osaekomi/$osaekomi-timer';
 
-  $: disabled = Boolean($match?.winner) || $isExtraTime;
+  let disabled = $derived(Boolean($match?.winner) || $isExtraTime);
 
   onDestroy(() => reset());
 </script>
@@ -20,7 +22,7 @@
   data-testid="play-pause"
   {disabled}
   type="button"
-  on:click|preventDefault={() => togglePlay()}
+  onclick={preventDefault(() => togglePlay())}
 >
   <div>
     {#if $isPlaying}

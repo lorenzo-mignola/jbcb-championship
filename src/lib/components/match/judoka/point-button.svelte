@@ -1,7 +1,13 @@
 <script lang="ts" strictEvents>
-  export let action: (() => void) | undefined;
-  export let disabled: boolean | undefined = false;
-  export let active: boolean | undefined = false;
+  interface Props {
+    action: (() => void) | undefined;
+    disabled?: boolean | undefined;
+    active?: boolean | undefined;
+    children?: import('svelte').Snippet;
+    shortcut?: import('svelte').Snippet;
+  }
+
+  let { action, disabled = false, active = false, children, shortcut }: Props = $props();
 
   interface $$Slots {
     default: Record<string, never>;
@@ -14,6 +20,6 @@
   class:active
   {disabled}
   type="button"
-  on:click={action}><slot /></button
+  onclick={action}>{@render children?.()}</button
 >
-<slot name="shortcut" />
+{@render shortcut?.()}

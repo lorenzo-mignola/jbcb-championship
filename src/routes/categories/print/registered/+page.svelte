@@ -8,7 +8,7 @@
   import { typeToLabel } from '$lib/store/$type.js';
   import { isMobile } from '$lib/utils/mobile.js';
 
-  export let data;
+  let { data } = $props();
 
   onMount(() => {
     if (browser && !isMobile()) {

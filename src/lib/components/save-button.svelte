@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
   import axios from 'axios';
   import { onMount } from 'svelte';
@@ -15,8 +17,12 @@
   import type { Match } from '../types/match.type';
   import LoadingSpinner from './loading-spinner.svelte';
 
-  export let categoryId: string;
-  let loading = false;
+  interface Props {
+    categoryId: string;
+  }
+
+  let { categoryId }: Props = $props();
+  let loading = $state(false);
 
   const toastStore = getToastStore();
   const errorToast: ToastSettings = {
@@ -75,7 +81,7 @@
     save($match);
   };
 
-  $: winner = $match?.winner;
+  let winner = $derived($match?.winner);
 </script>
 
 <button
@@ -83,7 +89,7 @@
   class:hidden={!winner}
   disabled={loading}
   type="button"
-  on:click|preventDefault={handleClick}
+  onclick={preventDefault(handleClick)}
 >
   <span class="ml-2"> Termina incontro </span>
   {#if loading}

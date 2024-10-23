@@ -5,8 +5,12 @@
   import { runIfNotDisabled } from './run-if-not-disabled';
   import type { ShortcutFunction } from './shortcut-function.type';
 
-  export let callback: ShortcutFunction;
-  export let disabled: boolean = false;
+  interface Props {
+    callback: ShortcutFunction;
+    disabled?: boolean;
+  }
+
+  let { callback, disabled = false }: Props = $props();
 
   const key = getKey('play')();
 </script>

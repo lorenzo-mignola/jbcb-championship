@@ -14,12 +14,16 @@
   import { isExtraTime, oseakomiType } from '../../osaekomi/$osaekomi-timer';
   import PointButton from './point-button.svelte';
 
-  export let type: JudokaType;
-  export let end: boolean;
+  interface Props {
+    type: JudokaType;
+    end: boolean;
+  }
 
-  $: isOsaekomi = $oseakomiType === type;
-  $: disableButton = end || getOpponentType(type) === $oseakomiType;
-  $: disableOsaekomi = (disableButton || !$isPlaying) && !$isExtraTime;
+  let { type, end }: Props = $props();
+
+  let isOsaekomi = $derived($oseakomiType === type);
+  let disableButton = $derived(end || getOpponentType(type) === $oseakomiType);
+  let disableOsaekomi = $derived((disableButton || !$isPlaying) && !$isExtraTime);
 
   const oasekomiAction = () => {
     if ($oseakomiType) {
@@ -32,29 +36,29 @@
 
 <PointButton action={() => ippon(type)} disabled={disableButton}>
   <HandRaised /> Ippon
-  <svelte:fragment slot="shortcut">
+  {#snippet shortcut()}
     <IpponShortcut callback={() => ippon(type)} disabled={disableButton} {type} />
-  </svelte:fragment>
+  {/snippet}
 </PointButton>
 
 <PointButton action={() => wazari(type)} disabled={disableButton}>
   <PalmDown /> Waza-ari
-  <svelte:fragment slot="shortcut">
+  {#snippet shortcut()}
     <WazariShortcut callback={() => wazari(type)} disabled={disableButton} {type} />
-  </svelte:fragment>
+  {/snippet}
 </PointButton>
 
 <PointButton action={() => shido(type)} disabled={disableButton}>
   <IndexPointing /> Shido
-  <svelte:fragment slot="shortcut">
+  {#snippet shortcut()}
     <ShidoShortcut callback={() => shido(type)} disabled={disableButton} {type} />
-  </svelte:fragment>
+  {/snippet}
 </PointButton>
 
 <PointButton action={oasekomiAction} active={isOsaekomi} disabled={disableOsaekomi}>
   <span class="rotate-180"><HandRaisedBack /></span>
   {isOsaekomi ? 'Toketa' : 'Osae-komi'}
-  <svelte:fragment slot="shortcut">
+  {#snippet shortcut()}
     <OsaekomiShortcut callback={oasekomiAction} disabled={disableOsaekomi} {type} />
-  </svelte:fragment>
+  {/snippet}
 </PointButton>

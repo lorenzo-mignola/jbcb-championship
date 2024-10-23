@@ -1,10 +1,16 @@
 <script lang="ts" strictEvents>
+  import { stopImmediatePropagation } from 'svelte/legacy';
+
   import { isNotByeMatch } from '../../../models/ranking/category';
   import { formatTime } from '../../../store/$timer';
   import type { Match } from '../../../types/match.type';
 
-  export let matches: Match[];
-  export let categoryDuration: number;
+  interface Props {
+    matches: Match[];
+    categoryDuration: number;
+  }
+
+  let { matches, categoryDuration }: Props = $props();
 
   const formatWithDuration = formatTime(categoryDuration);
 
@@ -41,7 +47,7 @@
         <tr
           class="row hover:brightness-95"
           data-match-id={match.id}
-          on:click|stopImmediatePropagation={(event) => openMatch(event, match.id)}
+          onclick={stopImmediatePropagation((event) => openMatch(event, match.id))}
         >
           <td class="judoka-white" class:font-extrabold={match.winner === 'white'}
             >{match.white?.name ?? '-'}</td

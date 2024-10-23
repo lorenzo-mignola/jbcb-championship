@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { browser } from '$app/environment';
 
   import { categoriesNotStarted } from '../store/$categories-not-started';
@@ -9,14 +11,25 @@
     icon: Record<string, never>;
   }
 
-  export let athletes: Judoka[];
-  export let iconActionTitle: string = '';
-  // eslint-disable-next-line no-unused-vars -- type declaration
-  export let iconAction: ((id: string) => void) | null = null;
-  export let showTitle = true;
+  interface Props {
+    athletes: Judoka[];
+    iconActionTitle?: string;
+    // eslint-disable-next-line no-unused-vars -- type declaration
+    iconAction?: ((id: string) => void) | null;
+    showTitle?: boolean;
+    icon?: import('svelte').Snippet;
+  }
+
+  let {
+    athletes,
+    iconActionTitle = '',
+    iconAction = null,
+    showTitle = true,
+    icon
+  }: Props = $props();
 
   const editPage = browser ? window.location.href.includes('/edit') : false;
-  $: edit = editPage && $categoriesNotStarted.length > 0;
+  let edit = $derived(editPage && $categoriesNotStarted.length > 0);
 </script>
 
 {#if showTitle && athletes.length > 0}
@@ -40,7 +53,7 @@
           class="variant-filled-primary btn-icon text-white [&>*]:pointer-events-none"
           title={iconActionTitle}
           type="button"
-          on:click|preventDefault={() => iconAction?.(athlete.id)}><slot name="icon" /></button
+          onclick={preventDefault(() => iconAction?.(athlete.id))}>{@render icon?.()}</button
         >
       {/if}
     </li>

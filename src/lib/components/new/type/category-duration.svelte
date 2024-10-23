@@ -1,4 +1,6 @@
 <script>
+  import { preventDefault } from 'svelte/legacy';
+
   import Add from '$lib/icons/add.svelte';
   import Subtract from '$lib/icons/subtract.svelte';
   import { duration } from '$lib/store/$duration';
@@ -30,7 +32,7 @@
         class="variant-soft-surface btn-icon btn-icon-sm"
         disabled={$duration === min}
         type="button"
-        on:click|preventDefault={subtract}><Subtract /></button
+        onclick={preventDefault(subtract)}><Subtract /></button
       >
     </span>
     <p class="card variant-ringed-surface p-2 text-xl">{formatTimeString($duration)}</p>
@@ -39,7 +41,7 @@
         class="variant-soft-surface btn-icon btn-icon-sm"
         disabled={$duration === max}
         type="button"
-        on:click|preventDefault={add}><Add /></button
+        onclick={preventDefault(add)}><Add /></button
       >
     </span>
   </div>

@@ -1,11 +1,15 @@
 <script lang="ts" strictEvents>
   import { getRankingIcon } from '../models/ranking/category';
 
-  export let rank: number;
-  export let name: string | undefined = '-';
-  export let club: string | undefined;
+  interface Props {
+    rank: number;
+    name?: string | undefined;
+    club: string | undefined;
+  }
 
-  $: rankIcon = getRankingIcon(rank);
+  let { rank, name = '-', club }: Props = $props();
+
+  let rankIcon = $derived(getRankingIcon(rank));
 </script>
 
 <span

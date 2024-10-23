@@ -8,7 +8,11 @@
 
   const drawerStore = getDrawerStore();
 
-  export let categoryId: string;
+  interface Props {
+    categoryId: string;
+  }
+
+  let { categoryId }: Props = $props();
 
   async function openDrawer() {
     resetNextMatches();
@@ -22,7 +26,7 @@
   class="variant-filled-surface btn btn-sm mt-2 w-full shadow-md"
   data-testId="drawer-next-matches"
   type="button"
-  on:click={openDrawer}
+  onclick={openDrawer}
 >
   ⏭️ Prossimi incontri
 </button>

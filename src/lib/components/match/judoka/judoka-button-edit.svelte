@@ -4,10 +4,14 @@
   import { getOpponentType } from '../../../utils/judoka';
   import PointButton from './point-button.svelte';
 
-  export let athlete: MatchJudoka | undefined;
-  export let type: JudokaType;
-  export let toggleEdit: () => void;
-  $: winner = $match?.winner;
+  interface Props {
+    athlete: MatchJudoka | undefined;
+    type: JudokaType;
+    toggleEdit: () => void;
+  }
+
+  let { athlete, type, toggleEdit }: Props = $props();
+  let winner = $derived($match?.winner);
 </script>
 
 {#if athlete?.ippon}

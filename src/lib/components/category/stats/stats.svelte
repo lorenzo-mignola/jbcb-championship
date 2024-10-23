@@ -8,52 +8,76 @@
   import Ranking from './ranking.svelte';
   import RankingDoublePool from './ranking-double-pool.svelte';
 
-  export let category: Category;
+  interface Props {
+    category: Category;
+  }
+
+  let { category }: Props = $props();
 </script>
 
 <div class="card p-2">
   <Accordion>
     <AccordionItem>
-      <svelte:fragment slot="lead">🏆</svelte:fragment>
-      <svelte:fragment slot="summary">Classifica</svelte:fragment>
-      <svelte:fragment slot="content">
+      {#snippet lead()}
+        🏆
+      {/snippet}
+      {#snippet summary()}
+        Classifica
+      {/snippet}
+      {#snippet content()}
         <Ranking {category} />
-      </svelte:fragment>
+      {/snippet}
     </AccordionItem>
 
     <AccordionItem>
-      <svelte:fragment slot="lead">📣</svelte:fragment>
-      <svelte:fragment slot="summary">Incontri</svelte:fragment>
-      <svelte:fragment slot="content">
+      {#snippet lead()}
+        📣
+      {/snippet}
+      {#snippet summary()}
+        Incontri
+      {/snippet}
+      {#snippet content()}
         <Matches categoryDuration={category.duration} matches={category.matches} />
-      </svelte:fragment>
+      {/snippet}
     </AccordionItem>
 
     {#if category.type === 'double_pool'}
       <AccordionItem>
-        <svelte:fragment slot="lead">📈</svelte:fragment>
-        <svelte:fragment slot="summary">Classifica pool</svelte:fragment>
-        <svelte:fragment slot="content">
+        {#snippet lead()}
+          📈
+        {/snippet}
+        {#snippet summary()}
+          Classifica pool
+        {/snippet}
+        {#snippet content()}
           <RankingDoublePool {category} />
-        </svelte:fragment>
+        {/snippet}
       </AccordionItem>
 
       <AccordionItem>
-        <svelte:fragment slot="lead">📊</svelte:fragment>
-        <svelte:fragment slot="summary">Tabellone finale</svelte:fragment>
-        <svelte:fragment slot="content">
+        {#snippet lead()}
+          📊
+        {/snippet}
+        {#snippet summary()}
+          Tabellone finale
+        {/snippet}
+        {#snippet content()}
           <Brackets rounds={mapFinalsToRounds(category)} showRepechage={false} />
-        </svelte:fragment>
+        {/snippet}
       </AccordionItem>
     {/if}
 
     {#if category.type === 'brackets'}
       <AccordionItem>
-        <svelte:fragment slot="lead">📊</svelte:fragment>
-        <svelte:fragment slot="summary">Tabellone</svelte:fragment>
-        <svelte:fragment slot="content">
+        {#snippet lead()}
+          📊
+        {/snippet}
+        {#snippet summary()}
+          Tabellone
+        {/snippet}
+        {#snippet content()}
           <Brackets rounds={category.rounds} />
-        </svelte:fragment>
+        {/snippet}
       </AccordionItem>
     {/if}
   </Accordion>

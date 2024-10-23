@@ -1,9 +1,15 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { type, typeToLabel } from '../../../store/$type';
   import type { Category } from '../../../types/category.type';
 
-  export let value: Category['type'];
-  export let disabled: boolean | undefined = false;
+  interface Props {
+    value: Category['type'];
+    disabled?: boolean | undefined;
+  }
+
+  let { value, disabled = false }: Props = $props();
 
   const setType = () => {
     if ($type === value) {
@@ -19,7 +25,7 @@
   class:active={$type === value}
   {disabled}
   type="button"
-  on:click|preventDefault={setType}>{typeToLabel[value]}</button
+  onclick={preventDefault(setType)}>{typeToLabel[value]}</button
 >
 
 <style lang="postcss">

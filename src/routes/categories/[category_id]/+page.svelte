@@ -11,7 +11,7 @@
 
   import Loading from './loading.svelte';
 
-  export let data;
+  let { data } = $props();
   const category = data.category;
   const matches = category?.matches.filter(isNotByeMatch) || [];
   const firstMatch = matches[0];

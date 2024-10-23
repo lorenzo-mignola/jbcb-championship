@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { run } from 'svelte/legacy';
+
   import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
   import axios from 'axios';
   import { onDestroy } from 'svelte';
@@ -16,13 +18,17 @@
   import { initializeCategory } from './initialize-category';
   import { reset } from './reset';
 
-  export let data;
+  let { data } = $props();
 
-  $: category = data.category;
-  $: notStartedCategoriesData = data.notStartedCategories;
+  let category = $derived(data.category);
+  let notStartedCategoriesData = $derived(data.notStartedCategories);
 
-  $: initializeCategory(category);
-  $: categoriesNotStarted.set(notStartedCategoriesData);
+  run(() => {
+    initializeCategory(category);
+  });
+  run(() => {
+    categoriesNotStarted.set(notStartedCategoriesData);
+  });
 
   const toastStore = getToastStore();
   const errorToast: ToastSettings = {
@@ -59,5 +65,7 @@
 </script>
 
 <CategoryEdit handleClick={handleEdit}>
+  <!-- @migration-task: migrate this slot by hand, `label-button` is an invalid identifier -->
+  <!-- @migration-task: migrate this slot by hand, `label-button` is an invalid identifier -->
   <span slot="label-button">Modifica categoria</span>
 </CategoryEdit>

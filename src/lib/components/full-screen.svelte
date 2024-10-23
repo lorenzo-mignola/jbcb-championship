@@ -2,7 +2,7 @@
   import EnterFullScreen from '../icons/enter-full-screen.svelte';
   import ExitFullScreen from '../icons/exit-full-screen.svelte';
 
-  let fullScreen = false;
+  let fullScreen = $state(false);
 
   const enterFullScreen = async () => {
     await document.documentElement.requestFullscreen();
@@ -20,10 +20,10 @@
     <button
       class="btn-full-screen btn-close btn-icon btn-icon-xl"
       type="button"
-      on:click={exitFullScreen}><ExitFullScreen /></button
+      onclick={exitFullScreen}><ExitFullScreen /></button
     >
   {:else}
-    <button class="btn-full-screen btn-icon btn-icon-xl" type="button" on:click={enterFullScreen}
+    <button class="btn-full-screen btn-icon btn-icon-xl" type="button" onclick={enterFullScreen}
       ><EnterFullScreen /></button
     >
   {/if}

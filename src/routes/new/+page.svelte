@@ -35,5 +35,7 @@
 </script>
 
 <CategoryEdit handleClick={handleCreate}>
+  <!-- @migration-task: migrate this slot by hand, `label-button` is an invalid identifier -->
+  <!-- @migration-task: migrate this slot by hand, `label-button` is an invalid identifier -->
   <span slot="label-button">Crea categoria</span>
 </CategoryEdit>

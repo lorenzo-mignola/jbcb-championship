@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import '../app.postcss';
 
   import {
@@ -17,6 +19,11 @@
 
   import DrawerContent from '../lib/components/drawers/drawer-content.svelte';
   import CategoryMoveDialog from '../lib/components/move-athlete/category-move-dialog.svelte';
+  interface Props {
+    children?: import('svelte').Snippet;
+  }
+
+  let { children }: Props = $props();
 
   interface $$Slots {
     default: Record<string, never>;
@@ -24,7 +31,7 @@
 
   initializeStores();
   // eslint-disable-next-line svelte/no-immutable-reactive-statements -- copied
-  $: webManifestLink = pwaInfo ? pwaInfo.webManifest.linkTag : '';
+  let webManifestLink = $derived(pwaInfo ? pwaInfo.webManifest.linkTag : '');
 
   const title = '🥋 JBCB Championship';
 
@@ -54,18 +61,18 @@
   slotTrail="place-content-end"
 >
   <a href="/"><h1 class="text-xl font-bold md:text-3xl">{title}</h1></a>
-  <svelte:fragment slot="trail">
+  {#snippet trail()}
     <button
       class="btn-icon btn-sm hover:variant-soft-primary"
       title="Aggiorna"
       type="button"
-      on:click|preventDefault={async () => {
+      onclick={preventDefault(async () => {
         await invalidateAll();
-      }}><Reload /></button
+      })}><Reload /></button
     >
     <LightSwitch rounded="rounded-full" />
-  </svelte:fragment>
+  {/snippet}
 </AppBar>
 <div class="container mx-auto h-full w-full p-8">
-  <slot />
+  {@render children?.()}
 </div>

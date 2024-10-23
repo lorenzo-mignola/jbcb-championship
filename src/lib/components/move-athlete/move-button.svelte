@@ -1,9 +1,15 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { getModalStore, type ModalSettings } from '@skeletonlabs/skeleton';
 
   import MoveIcon from '../../icons/move-icon.svelte';
 
-  export let athleteId: string;
+  interface Props {
+    athleteId: string;
+  }
+
+  let { athleteId }: Props = $props();
 
   const modalStore = getModalStore();
   const modal: ModalSettings = {
@@ -19,7 +25,7 @@
   class="variant-ringed-secondary btn-icon"
   title="Sposta"
   type="button"
-  on:click|preventDefault={() => modalStore.trigger(modal)}
+  onclick={preventDefault(() => modalStore.trigger(modal))}
 >
   <MoveIcon />
 </button>

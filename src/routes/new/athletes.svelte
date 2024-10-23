@@ -7,5 +7,7 @@
 </script>
 
 <AthleteList athletes={$athletes} {iconAction} iconActionTitle="Elimina">
-  <Delete slot="icon" />
+  {#snippet icon()}
+    <Delete />
+  {/snippet}
 </AthleteList>

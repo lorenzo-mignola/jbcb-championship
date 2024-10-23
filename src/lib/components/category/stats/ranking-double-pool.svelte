@@ -3,7 +3,11 @@
   import { poolToCategory } from './pool-to-category';
   import Ranking from './ranking.svelte';
 
-  export let category: DoublePoolCategory;
+  interface Props {
+    category: DoublePoolCategory;
+  }
+
+  let { category }: Props = $props();
 </script>
 
 <div class="font-bold">Pool A</div>

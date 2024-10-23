@@ -1,4 +1,9 @@
-<svg height="1em" viewBox="0 0 20 20" width="1em" xmlns="http://www.w3.org/2000/svg" {...$$props}
+<script>
+  /** @type {{ [key: string]: any }} */
+  let { ...props } = $props();
+</script>
+
+<svg height="1em" viewBox="0 0 20 20" width="1em" xmlns="http://www.w3.org/2000/svg" {...props}
   ><g transform="translate(10 10)"
     ><path id="oouiSettings0" d="M1.5-10h-3l-1 6.5h5m0 7h-5l1 6.5h3" fill="currentColor" /><use
       href="#oouiSettings0"

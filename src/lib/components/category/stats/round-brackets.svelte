@@ -3,9 +3,13 @@
 
   type BracketMatch = Match & { offset?: boolean };
 
-  export let matches: BracketMatch[];
-  export let goldMatch = false;
-  export let bronzeMatch = false;
+  interface Props {
+    matches: BracketMatch[];
+    goldMatch?: boolean;
+    bronzeMatch?: boolean;
+  }
+
+  let { matches, goldMatch = false, bronzeMatch = false }: Props = $props();
 </script>
 
 <div class="mx-2 flex h-full w-52 flex-col justify-around md:w-64 print:w-32 print:text-sm">

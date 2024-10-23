@@ -7,7 +7,7 @@
 
   import PrintCategory from '../../../../lib/components/category/print-category.svelte';
 
-  export let data;
+  let { data } = $props();
   const category = data.category;
 
   onMount(() => {

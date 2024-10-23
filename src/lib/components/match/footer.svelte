@@ -5,8 +5,12 @@
   import NextMatch from './next-match.svelte';
   import NextMatchDrawer from './next-match-drawer/next-match-button.svelte';
 
-  export let categoryId: string;
-  export let nextMatch: Match | undefined;
+  interface Props {
+    categoryId: string;
+    nextMatch: Match | undefined;
+  }
+
+  let { categoryId, nextMatch }: Props = $props();
 </script>
 
 <footer class="flex flex-col-reverse items-end justify-between py-14 md:flex-row">

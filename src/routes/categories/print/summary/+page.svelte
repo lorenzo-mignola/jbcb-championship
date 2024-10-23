@@ -8,10 +8,10 @@
   import PrintButton from '$lib/components/print-button.svelte';
   import { isMobile } from '$lib/utils/mobile';
 
-  export let data;
+  let { data } = $props();
   const categories = data.categories;
 
-  let fullReport = false;
+  let fullReport = $state(false);
 
   onMount(() => {
     if (browser && !isMobile()) {

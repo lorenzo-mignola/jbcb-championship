@@ -9,7 +9,11 @@
   import Ranking from './stats/ranking.svelte';
   import RankingDoublePool from './stats/ranking-double-pool.svelte';
 
-  export let category: Category;
+  interface Props {
+    category: Category;
+  }
+
+  let { category }: Props = $props();
 </script>
 
 <div>

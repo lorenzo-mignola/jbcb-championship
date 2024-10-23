@@ -1,9 +1,11 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { addAthlete } from '../../lib/store/$athletes';
   import { clubs } from '../../lib/store/$settings';
 
-  let name = '';
-  let club = '';
+  let name = $state('');
+  let club = $state('');
 
   function handleEnter() {
     if (!name) {
@@ -14,7 +16,7 @@
   }
 </script>
 
-<form class="card variant-soft-surface my-2 shadow-md" on:submit|preventDefault={handleEnter}>
+<form class="card variant-soft-surface my-2 shadow-md" onsubmit={preventDefault(handleEnter)}>
   <header class="card-header text-xl font-medium">Aggiungi judoka</header>
 
   <section class="p-4">

@@ -1,4 +1,6 @@
 <script lang="ts" strictEvents>
+  import { preventDefault } from 'svelte/legacy';
+
   import { onDestroy, onMount } from 'svelte';
 
   import Pause from '$lib/icons/pause.svelte';
@@ -7,9 +9,13 @@
   import type { JudokaType } from '../../types/match.type';
   import { resetOsaekomi, startOsaekomi, stopOsaekomi } from './$osaekomi-timer';
 
-  export let view: boolean;
-  export let timer: number;
-  export let type: JudokaType | null;
+  interface Props {
+    view: boolean;
+    timer: number;
+    type: JudokaType | null;
+  }
+
+  let { view, timer, type }: Props = $props();
 
   onMount(() => {
     startOsaekomi();
@@ -41,7 +47,7 @@
   <button
     class="variant-ghost-surface btn-icon mx-2 md:btn-icon-sm"
     type="button"
-    on:click|preventDefault={stopTimers}
+    onclick={preventDefault(stopTimers)}
   >
     <Pause />
   </button>

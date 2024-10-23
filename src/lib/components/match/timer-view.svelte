@@ -2,12 +2,16 @@
   import type { JudokaType } from '../../types/match.type';
   import OsaekomiTimer from '../osaekomi/osaekomi-timer.svelte';
 
-  export let oseakomiType: JudokaType | null;
-  export let timer: number;
-  export let min: number;
-  export let sec: number;
-  export let isGoldenScore: boolean;
-  export let view: boolean = false;
+  interface Props {
+    oseakomiType: JudokaType | null;
+    timer: number;
+    min: number;
+    sec: number;
+    isGoldenScore: boolean;
+    view?: boolean;
+  }
+
+  let { oseakomiType, timer, min, sec, isGoldenScore, view = false }: Props = $props();
 </script>
 
 <div class="flex items-center" data-testid="timer">

@@ -17,13 +17,13 @@
   import { getMin, getSec } from '../../lib/store/$timer';
   import { getPoints } from '../../lib/store/judoka-points';
 
-  $: white = $localStorageMatch.white;
-  $: blue = $localStorageMatch.blue;
-  $: whitePoints = white ? getPoints(white) : 0;
-  $: bluePoints = blue ? getPoints(blue) : 0;
+  let white = $derived($localStorageMatch.white);
+  let blue = $derived($localStorageMatch.blue);
+  let whitePoints = $derived(white ? getPoints(white) : 0);
+  let bluePoints = $derived(blue ? getPoints(blue) : 0);
 
-  $: min = getMin($localStorageTime);
-  $: sec = getSec($localStorageTime);
+  let min = $derived(getMin($localStorageTime));
+  let sec = $derived(getSec($localStorageTime));
 </script>
 
 <div class="view-container">

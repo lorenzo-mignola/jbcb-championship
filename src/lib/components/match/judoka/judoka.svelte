@@ -12,13 +12,17 @@
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaNameAndPoints from './judoka-name-and-points.svelte';
 
-  export let type: 'white' | 'blue';
-  $: athlete = $match?.[type];
+  interface Props {
+    type: 'white' | 'blue';
+  }
 
-  $: points = type === 'white' ? whitePoints : bluePoints;
-  $: winner = $match?.winner;
+  let { type }: Props = $props();
+  let athlete = $derived($match?.[type]);
 
-  let edit = false;
+  let points = $derived(type === 'white' ? whitePoints : bluePoints);
+  let winner = $derived($match?.winner);
+
+  let edit = $state(false);
   const unsubscribe: (() => void)[] = [];
 
   onDestroy(() => {
@@ -58,7 +62,7 @@
             class:variant-ringed-surface={!edit}
             data-testId="edit-point"
             type="button"
-            on:click={toggleEdit}><Edit /></button
+            onclick={toggleEdit}><Edit /></button
           >
         {/if}
       {/if}

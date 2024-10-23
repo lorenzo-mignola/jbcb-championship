@@ -6,11 +6,15 @@
   import { runIfNotDisabled } from './run-if-not-disabled';
   import type { ShortcutFunction } from './shortcut-function.type';
 
-  export let callback: ShortcutFunction;
-  export let type: JudokaType;
-  export let disabled: boolean = false;
+  interface Props {
+    callback: ShortcutFunction;
+    type: JudokaType;
+    disabled?: boolean;
+  }
 
-  $: key = getKey('ippon')(type);
+  let { callback, type, disabled = false }: Props = $props();
+
+  let key = $derived(getKey('ippon')(type));
 </script>
 
 <svelte:window

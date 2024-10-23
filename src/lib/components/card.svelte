@@ -1,7 +1,11 @@
 <script lang="ts" strictEvents>
-  export let link: string;
-  export let text: string;
-  export let disabled = false;
+  interface Props {
+    link: string;
+    text: string;
+    disabled?: boolean;
+  }
+
+  let { link, text, disabled = false }: Props = $props();
 </script>
 
 <a

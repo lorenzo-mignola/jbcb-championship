@@ -3,8 +3,12 @@
   import type { Match } from '../../types/match.type';
   import MatchRow from './match-row.svelte';
 
-  export let matches: Match[];
-  export let categoryDuration: number;
+  interface Props {
+    matches: Match[];
+    categoryDuration: number;
+  }
+
+  let { matches, categoryDuration }: Props = $props();
 
   const formatWithDuration = formatTime(categoryDuration);
 </script>

@@ -2,7 +2,11 @@
   import type { Category } from '../../types/category.type';
   import Ranking from './stats/ranking.svelte';
 
-  export let category: Category;
+  interface Props {
+    category: Category;
+  }
+
+  let { category }: Props = $props();
 </script>
 
 <div class="mb-12 break-inside-avoid-page">

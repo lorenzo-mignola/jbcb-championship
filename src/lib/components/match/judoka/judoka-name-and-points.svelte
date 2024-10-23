@@ -1,8 +1,12 @@
 <script lang="ts" strictEvents>
   import type { MatchJudoka } from '../../../types/match.type';
 
-  export let athlete: MatchJudoka | undefined;
-  export let points: number;
+  interface Props {
+    athlete: MatchJudoka | undefined;
+    points: number;
+  }
+
+  let { athlete, points }: Props = $props();
 </script>
 
 <div class="flex justify-between">

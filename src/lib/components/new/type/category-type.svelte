@@ -1,17 +1,19 @@
 <script lang="ts" strictEvents>
+  import { run } from 'svelte/legacy';
+
   import { athletes } from '../../../store/$athletes';
   import { type } from '../../../store/$type';
   import CategoryTypeButton from './category-type-button.svelte';
 
-  $: athletesCount = $athletes.length;
-  $: {
+  let athletesCount = $derived($athletes.length);
+  run(() => {
     if ($type === 'brackets' && athletesCount < 6) {
       type.set(null);
     }
     if ($type === 'double_pool' && athletesCount < 4) {
       type.set(null);
     }
-  }
+  });
 </script>
 
 <div>

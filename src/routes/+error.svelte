@@ -6,7 +6,7 @@
   const emoji = $page.status === 404 ? '🤷🏻‍♂️' : '😢';
   const header =
     $page.status === 404 ? 'Pagina non trovata' : "C'è stato un errore nell'applicazione";
-  $: ({ error } = $page);
+  let { error } = $derived($page);
 </script>
 
 <div class="flex items-center justify-center">
@@ -20,8 +20,12 @@
 <div class="card my-10">
   <Accordion>
     <AccordionItem>
-      <svelte:fragment slot="summary">Dettagli</svelte:fragment>
-      <svelte:fragment slot="content">{error?.message}</svelte:fragment>
+      {#snippet summary()}
+        Dettagli
+      {/snippet}
+      {#snippet content()}
+        {error?.message}
+      {/snippet}
     </AccordionItem>
   </Accordion>
 </div>
