@@ -34,6 +34,10 @@ export class LocalStore<T> {
   get current(): T {
     return this.#value;
   }
+
+  set current(value: T) {
+    this.#value = value;
+  }
 }
 
 export function localStore<T>(key: string, value: T) {

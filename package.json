@@ -15,8 +15,12 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "lint": "eslint .",
-    "test:unit": "vitest",
-    "test": "npm run test:unit -- --run"
+    "test": "vitest --coverage"
+  },
+  "dependencies": {
+    "ky": "^1.14.2",
+    "nanoid": "^5.1.6",
+    "zod": "^4.3.4"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^6.7.3",
@@ -32,6 +36,7 @@
     "@tailwindcss/vite": "^4.1.17",
     "@types/node": "^24",
     "@vite-pwa/sveltekit": "^1.1.0",
+    "@vitest/coverage-v8": "4.0.16",
     "eslint": "^9.39.2",
     "eslint-plugin-format": "^1.1.0",
     "eslint-plugin-svelte": "^3.13.1",

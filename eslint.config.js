@@ -28,7 +28,7 @@ export default antfu(
     svelte: true,
   },
   {
-    files: ['*.svelte'],
+    files: ['*.svelte', '*-state.svelte.ts'],
     rules: {
     },
   },
