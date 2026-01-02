@@ -15,7 +15,7 @@
 </script>
 
 <form
-  class='card preset-filled-surface my-2 shadow-md p-4'
+  class='card preset-outlined-surface-500 my-2 p-4'
   onsubmit={(e) => {
     e.preventDefault();
     handleEnter();

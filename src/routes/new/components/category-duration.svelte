@@ -1,4 +1,5 @@
 <script lang='ts'>
+  import { Slider } from '@skeletonlabs/skeleton-svelte';
   import Add from '$lib/icons/add.svelte';
   import Subtract from '$lib/icons/subtract.svelte';
   import { durationState } from '$lib/state/duration-state.svelte';
@@ -24,7 +25,22 @@
 <div>
   <h2 class='h4'>Durata incontro</h2>
   <div class='flex items-center gap-3'>
-    <input {max} {min} {step} type='range' bind:value={durationState.duration} />
+    <Slider
+      value={[durationState.duration]}
+      onValueChange={e => (durationState.duration = e.value[0])}
+      min={min}
+      max={max}
+      step={step}
+    >
+      <Slider.Control>
+        <Slider.Track>
+          <Slider.Range />
+        </Slider.Track>
+        <Slider.Thumb index={0}>
+          <Slider.HiddenInput />
+        </Slider.Thumb>
+      </Slider.Control>
+    </Slider>
     <span>
       <button
         class='preset-tonal-surface btn-icon btn-icon-sm'
@@ -33,7 +49,7 @@
         onclick={subtract}><Subtract /></button
       >
     </span>
-    <p class='card preset-outlined-surface-500 p-2 text-xl'>
+    <p class='card preset-outlined-surface-500 p-2'>
       {formatTimeString(durationState.duration)}
     </p>
     <span>
