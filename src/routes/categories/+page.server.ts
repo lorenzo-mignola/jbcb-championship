@@ -1,6 +1,6 @@
 import type { Category } from '$lib/types/category.type';
 
-import { getAllCategories } from '$lib/server';
+import { getAllCategories } from '$lib/db';
 import { sortCategories } from '$lib/utils/categories-utils';
 import { map, pipe } from 'ramda';
 
