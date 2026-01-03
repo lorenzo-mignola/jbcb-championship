@@ -1,4 +1,5 @@
 import { json } from '@sveltejs/kit';
+
 import { createCategory } from '$lib/db';
 import { CategoryBaseSchema } from '$lib/types/category.type';
 

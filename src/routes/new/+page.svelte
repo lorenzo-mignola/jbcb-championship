@@ -1,12 +1,13 @@
 <script lang='ts'>
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
+  import ky from 'ky';
+
   import { athletesState } from '$lib/state/athletes-state.svelte';
   import { categoryNameState } from '$lib/state/category-name-state.svelte';
   import { categoryTypeState } from '$lib/state/category-type-state.svelte';
   import { durationState } from '$lib/state/duration-state.svelte';
   import { tournamentState } from '$lib/state/tournament-state';
-  import ky from 'ky';
 
   import CategoryEdit from './components/category-edit.svelte';
 

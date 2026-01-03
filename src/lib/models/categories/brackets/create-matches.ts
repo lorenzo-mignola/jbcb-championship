@@ -1,8 +1,8 @@
+import { T } from 'ramda';
+
 import type { Judoka } from '$lib/types/judoka.type';
 import type { Match } from '$lib/types/match.type';
 import type { Rounds } from '$lib/types/rounds.type';
-
-import { T } from 'ramda';
 
 import { getRandomElement } from '../../../utils/match-utils';
 import { createMatch } from '../../match';

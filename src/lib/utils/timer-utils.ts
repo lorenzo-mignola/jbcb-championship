@@ -11,3 +11,18 @@ export function formatTimeString(time: number) {
     `${String(getMinutes(time)).padStart(2, '0')}:${String(getSeconds(time)).padStart(2, '0')}`
   );
 }
+
+export function formatTime(categoryDuration: number) {
+  return (time: number | null, goldenScore: boolean | null) => {
+    if (time === null) {
+      return '-';
+    }
+
+    if (goldenScore) {
+      return `${formatTimeString(time)} (GS)`;
+    }
+
+    const notGoldenScoreTime = categoryDuration - time;
+    return formatTimeString(notGoldenScoreTime);
+  };
+}

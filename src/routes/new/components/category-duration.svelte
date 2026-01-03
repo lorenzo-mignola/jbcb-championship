@@ -1,5 +1,6 @@
 <script lang='ts'>
   import { Slider } from '@skeletonlabs/skeleton-svelte';
+
   import Add from '$lib/icons/add.svelte';
   import Subtract from '$lib/icons/subtract.svelte';
   import { durationState } from '$lib/state/duration-state.svelte';

@@ -9,7 +9,7 @@ export default antfu(
       'perfectionist/sort-imports': [
         'error',
         {
-          internalPattern: ['^$lib/.+', '^$tests/.+'],
+          internalPattern: ['^\\$lib(/.*)?$', '^\\$tests(/.*)?$'],
           newlinesBetween: 1,
           type: 'alphabetical',
         },

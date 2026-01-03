@@ -1,9 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 import { json } from '@sveltejs/kit';
+import { z } from 'zod';
+
 import { saveMatch } from '$lib/db';
 import { MatchSchema } from '$lib/types/match.type';
-import { z } from 'zod';
 
 export const PATCH: RequestHandler = async ({ params, request }) => {
   const categoryId = z.string().parse(params.category_id);

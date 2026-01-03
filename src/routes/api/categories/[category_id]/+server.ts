@@ -1,9 +1,10 @@
 import type { RequestHandler } from '@sveltejs/kit';
 
 import { json } from '@sveltejs/kit';
+import { z } from 'zod';
+
 import { editCategory } from '$lib/db';
 import { CategoryBaseSchema } from '$lib/types/category.type';
-import { z } from 'zod';
 
 const schemaPatch = CategoryBaseSchema.pick({
   athletes: true,

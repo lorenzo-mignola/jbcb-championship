@@ -1,5 +1,6 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
+
   import Delete from '$lib/icons/delete.svelte';
 
   import { settingsState } from '../../lib/state/settings-state.svelte';

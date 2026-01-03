@@ -3,8 +3,9 @@
 
   import { AppBar } from '@skeletonlabs/skeleton-svelte';
   import { invalidateAll } from '$app/navigation';
-  import Reload from '$lib/icons/reload.svelte';
   import { pwaInfo } from 'virtual:pwa-info';
+
+  import Reload from '$lib/icons/reload.svelte';
 
   import LightSwitch from '../lib/components/light-switch.svelte';
 
