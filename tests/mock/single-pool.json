@@ -1,0 +1,237 @@
+{
+  "id": "P5chI5Zz6u3edg1SZAs6",
+  "duration": 2400,
+  "name": "Single",
+  "athletes": [
+    {
+      "name": "Prima",
+      "club": "Club 1",
+      "id": "jdsEP-lhU7cXXkqZzEkKR"
+    },
+    {
+      "name": "Seconda",
+      "club": "Club 1",
+      "id": "DUiUicWK3x8jzoLk3pKlk"
+    },
+    {
+      "name": "Terza",
+      "club": "Club 1",
+      "id": "6E6iZxhoFK3KQGL1n5sxx"
+    },
+    {
+      "name": "Quarta",
+      "club": "Club 3",
+      "id": "5UAhk7jAVQ9mKSLFD7jKT"
+    },
+    {
+      "name": "Quinta",
+      "club": "Club 3",
+      "id": "sXGiWm4aJ-JaIA69Xy7mT"
+    }
+  ],
+  "tournament": "",
+  "type": "pool",
+  "currentMatch": null,
+  "matches": [
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "Prima",
+        "wazari": 0,
+        "shido": 0,
+        "id": "jdsEP-lhU7cXXkqZzEkKR"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "Quarta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "5UAhk7jAVQ9mKSLFD7jKT"
+      },
+      "id": "Xd9jXIdEqqYMoF0MeQSqa",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "Seconda",
+        "wazari": 0,
+        "shido": 0,
+        "id": "DUiUicWK3x8jzoLk3pKlk"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "Terza",
+        "wazari": 0,
+        "shido": 0,
+        "id": "6E6iZxhoFK3KQGL1n5sxx"
+      },
+      "id": "xSfexH9QGQ56zxbJKkqKH",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "Seconda",
+        "wazari": 0,
+        "shido": 0,
+        "id": "DUiUicWK3x8jzoLk3pKlk"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "Quinta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "sXGiWm4aJ-JaIA69Xy7mT"
+      },
+      "id": "3vAcCTSqkjXwgmGQznRoq",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "Terza",
+        "wazari": 0,
+        "shido": 0,
+        "id": "6E6iZxhoFK3KQGL1n5sxx"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "Quarta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "5UAhk7jAVQ9mKSLFD7jKT"
+      },
+      "id": "HkZJIbVLBM8yaYkJv8-kC",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "Terza",
+        "wazari": 0,
+        "shido": 0,
+        "id": "6E6iZxhoFK3KQGL1n5sxx"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "Prima",
+        "wazari": 0,
+        "shido": 0,
+        "id": "jdsEP-lhU7cXXkqZzEkKR"
+      },
+      "id": "FON45jVv9n4VaHolTzDvS",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "Quarta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "5UAhk7jAVQ9mKSLFD7jKT"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "Quinta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "sXGiWm4aJ-JaIA69Xy7mT"
+      },
+      "id": "4Jro5BUyUysi5QT7oGHnm",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "Quarta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "5UAhk7jAVQ9mKSLFD7jKT"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "Seconda",
+        "wazari": 0,
+        "shido": 0,
+        "id": "DUiUicWK3x8jzoLk3pKlk"
+      },
+      "id": "sxj_j89GhD-edJWSQKdx6",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "Quinta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "sXGiWm4aJ-JaIA69Xy7mT"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "Prima",
+        "wazari": 0,
+        "shido": 0,
+        "id": "jdsEP-lhU7cXXkqZzEkKR"
+      },
+      "id": "N4mcmhS8pZlyDTEmiqv2r",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "white",
+      "white": {
+        "ippon": 1,
+        "name": "Quinta",
+        "wazari": 0,
+        "shido": 0,
+        "id": "sXGiWm4aJ-JaIA69Xy7mT"
+      },
+      "blue": {
+        "ippon": 0,
+        "name": "Terza",
+        "wazari": 0,
+        "shido": 0,
+        "id": "6E6iZxhoFK3KQGL1n5sxx"
+      },
+      "id": "y_8F-JPPJE8KyHw-eIKAn",
+      "finalTime": 2400
+    },
+    {
+      "goldenScore": false,
+      "winner": "blue",
+      "white": {
+        "ippon": 0,
+        "name": "Prima",
+        "wazari": 0,
+        "shido": 0,
+        "id": "jdsEP-lhU7cXXkqZzEkKR"
+      },
+      "blue": {
+        "ippon": 1,
+        "name": "Seconda",
+        "wazari": 0,
+        "shido": 0,
+        "id": "DUiUicWK3x8jzoLk3pKlk"
+      },
+      "id": "ctAbKyVD5qLtl8w74-lQR",
+      "finalTime": 2400
+    }
+  ]
+}

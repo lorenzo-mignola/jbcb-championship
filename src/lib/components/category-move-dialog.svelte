@@ -73,9 +73,13 @@
 
 <Portal>
   <Dialog.Backdrop class='fixed inset-0 z-50 bg-surface-50-950/50' />
-  <Dialog.Positioner class='fixed inset-0 z-50 flex justify-center items-center p-4'>
-    <Dialog.Content class='card bg-surface-100-900 w-full max-w-xl p-4 space-y-4 shadow-xl'>
-      <div class='card w-modal space-y-4 p-4 shadow-xl'>
+  <Dialog.Positioner class='
+    fixed inset-0 z-50 flex items-center justify-center p-4
+  '>
+    <Dialog.Content class='
+      w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl
+    '>
+      <div class='space-y-4 card p-4 shadow-xl'>
         <header class='text-2xl font-bold'>
           <Dialog.Title>
             Seleziona categoria
@@ -83,7 +87,7 @@
         </header>
         <Dialog.Description>
           <Listbox
-            class='border border-surface-500 p-4 rounded-container'
+            class='rounded-container border border-surface-500 p-4'
             {collection}
             value={newCategoryId}
             onValueChange={details => newCategoryId = details.value}
@@ -99,7 +103,7 @@
           </Listbox>
         </Dialog.Description>
 
-        <footer class='modal-footer'>
+        <footer>
           <Dialog.CloseTrigger class='btn preset-outlined'>
             Annulla
           </Dialog.CloseTrigger>

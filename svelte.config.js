@@ -3,7 +3,12 @@ import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-  kit: { adapter: adapter() },
+  kit: {
+    adapter: adapter(),
+    alias: {
+      '$tests/*': './tests/*',
+    },
+  },
 
   // Consult https://svelte.dev/docs/kit/integrations
   // for more information about preprocessors

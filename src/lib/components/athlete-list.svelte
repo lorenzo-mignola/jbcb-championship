@@ -33,7 +33,7 @@
 {#if showTitle && athletes.length > 0}
   <h2 class='h4'>Judoka</h2>
 {/if}
-<ul class='list my-2 break-inside-avoid-page'>
+<ul class='my-2 break-inside-avoid-page'>
   {#each athletes as athlete (athlete.id)}
     <hr />
     <li class='flex p-2'>
@@ -48,7 +48,10 @@
       {/if}
       {#if iconAction !== null}
         <button
-          class='preset-filled-primary-500 btn-icon text-white *:pointer-events-none'
+          class='
+            btn-icon preset-filled-primary-500 text-white
+            *:pointer-events-none
+          '
           title={iconActionTitle}
           type='button'
           onclick={() => iconAction?.(athlete.id)}>{@render icon?.()}</button

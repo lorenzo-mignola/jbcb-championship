@@ -4,6 +4,7 @@
   import { tournamentState } from '$lib/state/tournament-state';
 </script>
 
+<!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
 <div class='home-container'>
   <Card
     link='/new'
@@ -19,7 +20,8 @@
     text='🖨️ Stampa 🖨'
   />
 
-  <a class='settings preset-outlined-primary-500 btn' href='/settings'>
+  <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
+  <a class='settings btn preset-outlined-primary-500' href='/settings'>
     <span><Settings /></span>
     <span>Impostazioni</span>
   </a>

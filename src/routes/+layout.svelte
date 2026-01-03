@@ -19,14 +19,23 @@
   {@html webManifestLink}
 </svelte:head>
 
-<AppBar class='sticky top-0 z-50 print:hidden bg-surface-200-800 shadow-md'>
+<AppBar class='
+  sticky top-0 z-50 bg-surface-200-800 shadow-md
+  print:hidden
+'>
   <AppBar.Toolbar class='flex'>
     <AppBar.Lead>
-      <a href='/'><h1 class='text-xl font-bold md:text-3xl'>{title}</h1></a>
+      <a href='/'><h1 class='
+        text-xl font-bold
+        md:text-3xl
+      '>{title}</h1></a>
     </AppBar.Lead>
     <AppBar.Trail>
       <button
-        class='btn-icon hover:preset-tonal-primary'
+        class='
+          btn-icon
+          hover:preset-tonal-primary
+        '
         title='Aggiorna'
         type='button'
         onclick={async (event) => {

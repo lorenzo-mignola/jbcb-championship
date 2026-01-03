@@ -15,19 +15,19 @@
 </script>
 
 <form
-  class='card preset-outlined-surface-500 my-2 p-4'
+  class='my-2 card preset-outlined-surface-500 p-4'
   onsubmit={(e) => {
     e.preventDefault();
     handleEnter();
   }}>
-  <header class='card-header text-xl font-medium'>Aggiungi judoka</header>
+  <header class='text-xl font-medium'>Aggiungi judoka</header>
 
   <section class='p-4'>
     <label class='label'>
       <span>Nome judoka</span>
       <input class='input' placeholder='Nome' type='text' bind:value={name} />
     </label>
-    <label class='label my-2'>
+    <label class='my-2 label'>
       <span>Club</span>
       <select class='select' bind:value={club}>
         <option disabled value="">Seleziona club</option>
@@ -38,7 +38,7 @@
     </label>
   </section>
 
-  <footer class='card-footer flex flex-row-reverse'>
-    <button class='preset-filled-primary-500 btn' disabled={!name} type='submit'>Aggiungi</button>
+  <footer class='flex flex-row-reverse'>
+    <button class='btn preset-filled-primary-500' disabled={!name} type='submit'>Aggiungi</button>
   </footer>
 </form>

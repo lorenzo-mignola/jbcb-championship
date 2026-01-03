@@ -1,4 +1,5 @@
 import antfu from '@antfu/eslint-config';
+import betterTailwind from 'eslint-plugin-better-tailwindcss';
 
 export default antfu(
   {
@@ -8,7 +9,7 @@ export default antfu(
       'perfectionist/sort-imports': [
         'error',
         {
-          internalPattern: ['^$lib/.+'],
+          internalPattern: ['^$lib/.+', '^$tests/.+'],
           newlinesBetween: 1,
           type: 'alphabetical',
         },
@@ -28,8 +29,16 @@ export default antfu(
     svelte: true,
   },
   {
-    files: ['*.svelte', '*-state.svelte.ts'],
+    plugins: {
+      'better-tailwindcss': betterTailwind,
+    },
     rules: {
+      ...betterTailwind.configs.recommended.rules,
+    },
+    settings: {
+      'better-tailwindcss': {
+        entryPoint: 'src/routes/layout.css',
+      },
     },
   },
   {
@@ -40,7 +49,7 @@ export default antfu(
     },
   },
   {
-    files: ['*.html', 'src/lib/icons/**'],
+    files: ['**/*.{html,css,json}', 'src/lib/icons/**', 'cert/**'],
     rules: {
       'style/max-len': ['off'],
     },

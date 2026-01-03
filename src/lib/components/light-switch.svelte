@@ -27,7 +27,10 @@
 </svelte:head>
 
 <Switch {checked} {onCheckedChange}>
-  <Switch.Control class='border border-surface-100 dark:border-surface-700'>
+  <Switch.Control class='
+    border border-surface-100
+    dark:border-surface-700
+  '>
     <Switch.Thumb>
       <Switch.Context>
         {#snippet children(switch_)}

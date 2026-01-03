@@ -10,14 +10,20 @@
 </script>
 
 <div class='flex items-center justify-center'>
-  <h1 class='h1 flex items-center'>
-    <span class='text-2xl md:text-5xl'>{emoji} </span>
+  <h1 class='flex items-center h1'>
+    <span class='
+      text-2xl
+      md:text-5xl
+    '>{emoji} </span>
     {header}
-    <span class='hidden text-2xl md:text-5xl md:block'> {emoji}</span>
+    <span class='
+      hidden text-2xl
+      md:block md:text-5xl
+    '> {emoji}</span>
   </h1>
 </div>
 
-<div class='card m-8 ml-0 mr-0'>
+<div class='m-8 mr-0 ml-0 card'>
   <Accordion>
     <Accordion.Item value='error-details'>
       <Accordion.ItemTrigger class='border'>Dettagli</Accordion.ItemTrigger>
@@ -26,4 +32,4 @@
   </Accordion>
 </div>
 
-<a class='preset-filled-secondary-500 btn shadow-sm' href='/'>🏠 Torna alla home</a>
+<a class='btn preset-filled-secondary-500 shadow-sm' href='/'>🏠 Torna alla home</a>

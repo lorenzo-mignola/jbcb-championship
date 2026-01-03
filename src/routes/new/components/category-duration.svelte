@@ -43,7 +43,7 @@
     </Slider>
     <span>
       <button
-        class='preset-tonal-surface btn-icon btn-icon-sm'
+        class='btn-icon btn-icon-sm preset-tonal-surface'
         disabled={durationState.duration === min}
         type='button'
         onclick={subtract}><Subtract /></button
@@ -54,7 +54,7 @@
     </p>
     <span>
       <button
-        class='preset-tonal-surface btn-icon btn-icon-sm'
+        class='btn-icon btn-icon-sm preset-tonal-surface'
         disabled={durationState.duration === max}
         type='button'
         onclick={add}><Add /></button

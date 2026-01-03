@@ -13,7 +13,7 @@
 </script>
 
 <Dialog onOpenChange={details => open = details.open} {open}>
-  <Dialog.Trigger class='preset-outlined-secondary-500 btn-icon' title='Sposta' type='button'>
+  <Dialog.Trigger class='btn-icon preset-outlined-secondary-500' title='Sposta' type='button'>
     <MoveIcon />
   </Dialog.Trigger>
   <CategoryMoveDialog {athleteId} closeDialog={() => open = false} />

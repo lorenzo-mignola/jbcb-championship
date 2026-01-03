@@ -10,8 +10,9 @@
 
 <a
   class='
-    card flex items-center justify-center bg-primary-500 p-8 text-xl text-white
-    dark:bg-primary-600 xl:text-2xl
+    flex items-center justify-center card bg-primary-500 p-8 text-xl text-white
+    xl:text-2xl
+    dark:bg-primary-600
   '
   class:disabled
   class:enabled={!disabled}

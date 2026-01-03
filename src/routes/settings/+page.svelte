@@ -23,7 +23,7 @@
   }
 </script>
 
-<h2 class='h2 mb-8'>Impostazioni</h2>
+<h2 class='mb-8 h2'>Impostazioni</h2>
 
 <div class='flex flex-col gap-8'>
   <div>
@@ -34,12 +34,12 @@
         e.preventDefault();
         handleAdd();
       }}>
-      <div class='input-group input-group-divider grid-cols-[1fr_auto]'>
+      <div class='input-group grid-cols-[1fr_auto]'>
         <label class='label'>
           <input class='input' placeholder='Nome club' type='text' bind:value={club} />
         </label>
         <button
-          class='variant-filled-primary'
+          class='preset-filled-primary-500'
           disabled={!club}
           type='button'
           onclick={handleAdd}>Aggiungi</button
@@ -52,7 +52,10 @@
         <li class='flex justify-between p-2'>
           {club}
           <button
-            class='variant-filled-primary btn-icon btn-icon-sm text-white *:pointer-events-none'
+            class='
+              btn-icon btn-icon-sm preset-filled-primary-500 text-white
+              *:pointer-events-none
+            '
             type='button'
             onclick={() => handleRemove(club)}><Delete /></button
           >
@@ -73,7 +76,7 @@
       />
     </label>
     <a
-      class='preset-outlined btn'
+      class='btn preset-outlined'
       href={`/categories/print?tournament=${tournamentState.tournament}`}
       rel='noopener noreferrer'
       target='_blank'>🖨️ Stampa tutte le categorie</a
@@ -82,18 +85,22 @@
 
   <div>
     <h3 class='h3'>Visualizzazione incontro</h3>
-    <a class='preset-outlined btn' href='/view' target='_blank'>🤝 Apri pagina</a>
+    <a class='btn preset-outlined' href='/view' target='_blank'>🤝 Apri pagina</a>
   </div>
 
   <div>
     <h3 class='h3'>Cancella dati</h3>
     <Dialog>
-      <Dialog.Trigger class='preset-outlined btn mt-1 gap-2'>🗑️ Cancella tutto</Dialog.Trigger>
+      <Dialog.Trigger class='mt-1 btn gap-2 preset-outlined'>🗑️ Cancella tutto</Dialog.Trigger>
       <Portal>
         <Dialog.Backdrop class='fixed inset-0 z-50 bg-surface-50-950/50' />
-        <Dialog.Positioner class='fixed inset-0 z-50 flex justify-center items-center p-4'>
-          <Dialog.Content class='card bg-surface-100-900 w-full max-w-xl p-4 space-y-4 shadow-xl'>
-            <header class='flex justify-between items-center'>
+        <Dialog.Positioner class='
+          fixed inset-0 z-50 flex items-center justify-center p-4
+        '>
+          <Dialog.Content class='
+            w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl
+          '>
+            <header class='flex items-center justify-between'>
               <Dialog.Title class='text-lg font-bold'>Cancellare i dati?</Dialog.Title>
             </header>
             <Dialog.Description>

@@ -41,7 +41,10 @@
 <CategoryType />
 
 <button
-  class='preset-filled-secondary-500 btn btn-lg mx-auto mb-1 mt-10 flex w-full items-end'
+  class='
+    mx-auto mt-10 mb-1 btn flex w-full items-end preset-filled-secondary-500
+    btn-lg
+  '
   disabled={!canClick || loading}
   type='submit'
   onclick={() => {
