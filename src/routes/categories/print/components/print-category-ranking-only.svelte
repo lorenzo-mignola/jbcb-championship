@@ -1,7 +1,7 @@
 <script lang='ts'>
   import type { Category } from '$lib/types/category.type';
 
-  import Ranking from './ranking.svelte';
+  import Ranking from '$lib/components/stats/ranking.svelte';
 
   interface Props {
     category: Category;

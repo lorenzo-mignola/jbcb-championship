@@ -10,23 +10,29 @@
 </script>
 
 <div class='flex items-center justify-center'>
-  <h1 class='flex items-center h1'>
+  <h1 class='flex items-center text-center h1'>
     <span class='
-      text-2xl
+      mr-4 text-2xl
       md:text-5xl
-    '>{emoji} </span>
+    '>
+      {emoji}
+    </span>
     {header}
     <span class='
-      hidden text-2xl
+      ml-4 hidden text-2xl
       md:block md:text-5xl
-    '> {emoji}</span>
+    '>{emoji}</span>
   </h1>
 </div>
 
 <div class='m-8 mr-0 ml-0 card'>
   <Accordion>
     <Accordion.Item value='error-details'>
-      <Accordion.ItemTrigger class='border'>Dettagli</Accordion.ItemTrigger>
+      <Accordion.ItemTrigger class='
+        bg-gray-100
+        hover:bg-gray-200
+        dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white
+      '>Dettagli</Accordion.ItemTrigger>
       <Accordion.ItemContent>{error?.message}</Accordion.ItemContent>
     </Accordion.Item>
   </Accordion>

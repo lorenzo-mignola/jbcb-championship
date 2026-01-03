@@ -1,9 +1,8 @@
 <script lang='ts'>
   import type { Match } from '$lib/types/match.type';
 
+  import MatchRow from '$lib/components/stats/match-row.svelte';
   import { formatTime } from '$lib/utils/timer-utils';
-
-  import MatchRow from './match-row.svelte';
 
   interface Props {
     categoryDuration: number;
