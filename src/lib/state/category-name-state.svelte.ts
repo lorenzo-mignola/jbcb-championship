@@ -1,5 +1,5 @@
 class CategoryNameState {
-  categoryName = $state('');
+  name = $state('');
 }
 
 export const categoryNameState = new CategoryNameState();

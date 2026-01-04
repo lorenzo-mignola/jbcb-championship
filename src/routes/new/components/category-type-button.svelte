@@ -21,7 +21,7 @@
 </script>
 
 <button
-  class='btn w-full preset-filled py-2'
+  class='m-1 btn w-full preset-filled py-2'
   class:active={categoryTypeState.type === value}
   {disabled}
   type='button'

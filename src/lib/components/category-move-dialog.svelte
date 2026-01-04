@@ -79,7 +79,7 @@
     <Dialog.Content class='
       w-full max-w-xl space-y-4 card bg-surface-100-900 p-4 shadow-xl
     '>
-      <div class='space-y-4 card p-4 shadow-xl'>
+      <div class='space-y-4 card p-4'>
         <header class='text-2xl font-bold'>
           <Dialog.Title>
             Seleziona categoria
@@ -87,7 +87,7 @@
         </header>
         <Dialog.Description>
           <Listbox
-            class='rounded-container border border-surface-500 p-4'
+            class='rounded-container'
             {collection}
             value={newCategoryId}
             onValueChange={details => newCategoryId = details.value}
@@ -103,7 +103,7 @@
           </Listbox>
         </Dialog.Description>
 
-        <footer>
+        <footer class='flex justify-end gap-2'>
           <Dialog.CloseTrigger class='btn preset-outlined'>
             Annulla
           </Dialog.CloseTrigger>

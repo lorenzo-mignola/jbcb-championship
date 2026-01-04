@@ -9,6 +9,10 @@ class AthletesState {
     return this.#athletes;
   }
 
+  set athletes(athletes: Judoka[]) {
+    this.#athletes = athletes;
+  }
+
   addAthlete(newAthlete: { name: string; club?: string }) {
     this.#athletes = [
       ...this.#athletes,

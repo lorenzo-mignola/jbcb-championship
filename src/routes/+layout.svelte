@@ -1,11 +1,12 @@
 <script lang='ts'>
   import './layout.css';
 
-  import { AppBar } from '@skeletonlabs/skeleton-svelte';
+  import { AppBar, Toast } from '@skeletonlabs/skeleton-svelte';
   import { invalidateAll } from '$app/navigation';
   import { pwaInfo } from 'virtual:pwa-info';
 
   import Reload from '$lib/icons/reload.svelte';
+  import { toaster } from '$lib/state/toaster-state';
 
   import LightSwitch from '../lib/components/light-switch.svelte';
 
@@ -51,4 +52,16 @@
 
 <div class='container mx-auto h-full w-full p-8'>
   {@render children()}
+
+  <Toast.Group {toaster}>
+    {#snippet children(toast)}
+      <Toast {toast}>
+        <Toast.Message>
+          <Toast.Title>{toast.title}</Toast.Title>
+          <Toast.Description>{toast.description}</Toast.Description>
+        </Toast.Message>
+        <Toast.CloseTrigger />
+      </Toast>
+    {/snippet}
+  </Toast.Group>
 </div>

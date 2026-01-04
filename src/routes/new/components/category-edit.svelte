@@ -20,7 +20,7 @@
 
   const canClick = $derived(
     [
-      categoryNameState.categoryName.trim().length > 0,
+      categoryNameState.name.trim().length > 0,
       categoryTypeState.type !== null,
     ].every(Boolean),
   );

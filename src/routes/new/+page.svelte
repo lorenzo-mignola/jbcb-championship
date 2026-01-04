@@ -13,18 +13,18 @@
 
   const reset = () => {
     athletesState.resetAthletes();
-    categoryNameState.categoryName = '';
+    categoryNameState.name = '';
   };
 
   async function handleCreate() {
-    if (!categoryNameState.categoryName || !categoryTypeState.type) {
+    if (!categoryNameState.name || !categoryTypeState.type) {
       return;
     }
     const newCategoryId = await ky.post<string>('/api/categories', {
       json: {
         athletes: athletesState.athletes,
         duration: durationState.duration,
-        name: categoryNameState.categoryName.trim(),
+        name: categoryNameState.name.trim(),
         tournament: tournamentState.tournament,
         type: categoryTypeState.type,
       },
@@ -37,6 +37,6 @@
 
 <CategoryEdit handleClick={handleCreate}>
   {#snippet labelButton()}
-    Crea Categoria
+    <span>Crea Categoria</span>
   {/snippet}
 </CategoryEdit>

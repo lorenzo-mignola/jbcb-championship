@@ -9,7 +9,7 @@
     placeholder='Categoria'
     title='Nome categoria'
     type='text'
-    bind:value={categoryNameState.categoryName}
+    bind:value={categoryNameState.name}
   />
   <span class='text-sm'>Es. M U18 -60Kg</span>
 </label>
