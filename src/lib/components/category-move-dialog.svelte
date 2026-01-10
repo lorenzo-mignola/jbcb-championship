@@ -11,9 +11,11 @@
   import { base } from '$app/paths';
   import ky from 'ky';
 
-  import { categoriesNotStartedState } from '../state/categories-not-started-state.svelte';
-  import { originalCategoryIdState } from '../state/original-cateogry-id-state.svelte';
-  import { tournamentState } from '../state/tournament-state';
+  import {
+    originalCategoryIdState,
+  } from '../state/category-edit/original-cateogry-id-state.svelte';
+  import { tournamentState } from '../state/settings/tournament-state';
+  import { categoriesNotStartedState } from '../state/utils/categories-not-started-state.svelte';
 
   interface Props {
     athleteId: string;

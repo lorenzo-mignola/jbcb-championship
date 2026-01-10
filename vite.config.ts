@@ -40,6 +40,9 @@ export default defineConfig({
     ),
     devtoolsJson(),
   ],
+  resolve: {
+    conditions: ['browser', 'development'],
+  },
   test: {
     coverage: {
       include: ['src/**/*.{ts,svelte}'],
@@ -50,9 +53,9 @@ export default defineConfig({
       {
         extends: './vite.config.ts',
         test: {
-          environment: 'node',
+          environment: 'happy-dom',
           include: ['src/**/*.{test,spec}.{js,ts}', 'src/**/*-state.svelte.{test,spec}.{js,ts}'],
-          name: 'server',
+          name: 'client',
         },
       },
     ],

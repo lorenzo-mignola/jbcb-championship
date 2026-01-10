@@ -1,7 +1,10 @@
 <script lang='ts'>
   import type { Category } from '$lib/types/category.type';
 
-  import { categoryTypeState, typeToLabel } from '$lib/state/category-type-state.svelte';
+  import {
+    categoryTypeState,
+    typeToLabel,
+  } from '$lib/state/category-edit/category-type-state.svelte';
 
   interface Props {
     disabled?: boolean | undefined;

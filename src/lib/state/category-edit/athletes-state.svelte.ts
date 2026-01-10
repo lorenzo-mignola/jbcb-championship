@@ -1,6 +1,6 @@
 import { nanoid } from 'nanoid';
 
-import type { Judoka } from '../types/judoka.type';
+import type { Judoka } from '../../types/judoka.type';
 
 class AthletesState {
   #athletes = $state<Judoka[]>([]);

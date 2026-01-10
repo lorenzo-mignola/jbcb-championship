@@ -28,13 +28,13 @@ function getNextCoordinate(
   const isOddRound = round % 2 !== 0;
   const loserCoordinate: NextMatchCoordinate = isFirstRound
     ? {
-        match: Math.floor(match / 2),
-        whiteOrBlue,
-      }
+      match: Math.floor(match / 2),
+      whiteOrBlue,
+    }
     : {
-        match: isOddRound ? winnerMatches - 1 - match : match,
-        whiteOrBlue: 'white',
-      };
+      match: isOddRound ? winnerMatches - 1 - match : match,
+      whiteOrBlue: 'white',
+    };
 
   return {
     loser: loserCoordinate,

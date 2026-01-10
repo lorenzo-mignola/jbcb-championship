@@ -2,8 +2,8 @@
   import type { Snippet } from 'svelte';
 
   import LoadingSpinner from '$lib/components/loading-spinner.svelte';
-  import { categoryNameState } from '$lib/state/category-name-state.svelte';
-  import { categoryTypeState } from '$lib/state/category-type-state.svelte';
+  import { categoryNameState } from '$lib/state/category-edit/category-name-state.svelte';
+  import { categoryTypeState } from '$lib/state/category-edit/category-type-state.svelte';
 
   import Athletes from './athletes.svelte';
   import CategoryDuration from './category-duration.svelte';

@@ -226,7 +226,7 @@ describe('getRankingBrackets', () => {
 });
 
 describe('getRankingDoublePool', () => {
-  it(// eslint-disable-next-line style/max-len
+  it(// eslint-disable-next-line style/max-len -- test name
     'should return an array of rankings with the correct order for a single semifinal and final match',
     () => {
       const semifinals

@@ -3,8 +3,8 @@
 
   import Delete from '$lib/icons/delete.svelte';
 
-  import { settingsState } from '../../lib/state/settings-state.svelte';
-  import { tournamentState } from '../../lib/state/tournament-state';
+  import { settingsState } from '../../lib/state/settings/settings-state.svelte';
+  import { tournamentState } from '../../lib/state/settings/tournament-state';
 
   let club = $state('');
 

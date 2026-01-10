@@ -1,8 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { LocalStore } from './local-state.svelte';
+import { PersistLocalStore } from './persist-local-state.svelte';
 
-// Mock localStorage for Node environment
 const localStorageMock = (() => {
   let store: Record<string, string> = {};
 
@@ -23,12 +22,11 @@ const localStorageMock = (() => {
 // @ts-expect-error - Testing in Node environment
 globalThis.localStorage = localStorageMock;
 
-// Mock the $app/environment module
 vi.mock('$app/environment', () => ({
   browser: true,
 }));
 
-describe('localStore', () => {
+describe('persistLocalStore', () => {
   beforeEach(() => {
     localStorage.clear();
     vi.clearAllMocks();
@@ -40,12 +38,12 @@ describe('localStore', () => {
 
   describe('getter - current', () => {
     it('should return the current value', () => {
-      const store = new LocalStore('test-key', 'test-value');
+      const store = new PersistLocalStore('test-key', 'test-value');
       expect(store.current).toBe('test-value');
     });
 
     it('should return the updated value after mutation', () => {
-      const store = new LocalStore('test-key', { count: 0 });
+      const store = new PersistLocalStore('test-key', { count: 0 });
       store.current = { count: 5 };
       expect(store.current).toEqual({ count: 5 });
     });
@@ -53,13 +51,16 @@ describe('localStore', () => {
 
   describe('setter - current', () => {
     it('should update the value', () => {
-      const store = new LocalStore('test-key', 'initial');
+      const store = new PersistLocalStore('test-key', 'initial');
       store.current = 'updated';
       expect(store.current).toBe('updated');
     });
 
     it('should update object values', () => {
-      const store = new LocalStore<{ name: string; value?: number }>('test-key', { name: 'test' });
+      const store = new PersistLocalStore<{ name: string; value?: number }>(
+        'test-key',
+        { name: 'test' },
+      );
       store.current = { name: 'updated', value: 123 };
       expect(store.current).toEqual({ name: 'updated', value: 123 });
     });

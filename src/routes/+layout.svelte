@@ -6,7 +6,7 @@
   import { pwaInfo } from 'virtual:pwa-info';
 
   import Reload from '$lib/icons/reload.svelte';
-  import { toaster } from '$lib/state/toaster-state';
+  import { toaster } from '$lib/state/utils/toaster-state';
 
   import LightSwitch from '../lib/components/light-switch.svelte';
 

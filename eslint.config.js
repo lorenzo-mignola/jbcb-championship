@@ -5,11 +5,12 @@ export default antfu(
   {
     formatters: true,
     rules: {
+      'eslint-comments/require-description': 'error',
       'perfectionist/sort-enums': ['error'],
       'perfectionist/sort-imports': [
         'error',
         {
-          internalPattern: ['^\\$lib(/.*)?$', '^\\$tests(/.*)?$'],
+          internalPattern: ['^\\$lib(/.*)?$', '^\\$tests(/.*)?$', '^\\$routes(/.*)?$'],
           newlinesBetween: 1,
           type: 'alphabetical',
         },
@@ -18,6 +19,9 @@ export default antfu(
       'perfectionist/sort-jsx-props': ['error'],
       'perfectionist/sort-objects': ['error'],
       'style/brace-style': ['error', '1tbs'],
+      'style/indent': ['error', 2, {
+        MemberExpression: 1,
+      }],
       'style/max-len': ['warn', { code: 100 }],
       'unicorn/filename-case': ['error', { case: 'kebabCase' }],
     },
@@ -34,6 +38,7 @@ export default antfu(
     },
     rules: {
       ...betterTailwind.configs.recommended.rules,
+      'better-tailwindcss/no-unregistered-classes': ['error', { detectComponentClasses: true }],
     },
     settings: {
       'better-tailwindcss': {

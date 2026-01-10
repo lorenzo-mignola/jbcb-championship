@@ -3,7 +3,7 @@
 
   import Add from '$lib/icons/add.svelte';
   import Subtract from '$lib/icons/subtract.svelte';
-  import { durationState } from '$lib/state/duration-state.svelte';
+  import { durationState } from '$lib/state/category-edit/duration-state.svelte';
   import { formatTimeString } from '$lib/utils/timer-utils';
 
   const step = 30 * 10;

@@ -1,17 +1,17 @@
 <script lang='ts'>
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
-  // import { onDestroy } from 'svelte';
   import ky from 'ky';
-  import { onDestroy } from 'svelte';
 
-  import { athletesState } from '$lib/state/athletes-state.svelte';
-  import { categoriesNotStartedState } from '$lib/state/categories-not-started-state.svelte';
-  import { categoryNameState } from '$lib/state/category-name-state.svelte';
-  import { categoryTypeState } from '$lib/state/category-type-state.svelte';
-  import { durationState } from '$lib/state/duration-state.svelte';
-  import { toaster } from '$lib/state/toaster-state.js';
-  import { tournamentState } from '$lib/state/tournament-state';
+  import { athletesState } from '$lib/state/category-edit/athletes-state.svelte.js';
+  import { categoryNameState } from '$lib/state/category-edit/category-name-state.svelte.js';
+  import { categoryTypeState } from '$lib/state/category-edit/category-type-state.svelte.js';
+  import { durationState } from '$lib/state/category-edit/duration-state.svelte.js';
+  import { tournamentState } from '$lib/state/settings/tournament-state.js';
+  import {
+    categoriesNotStartedState,
+  } from '$lib/state/utils/categories-not-started-state.svelte.js';
+  import { toaster } from '$lib/state/utils/toaster-state.js';
 
   import CategoryEdit from '../../../new/components/category-edit.svelte';
   import { initializeCategory } from './initialize-category';
@@ -22,12 +22,13 @@
   const category = $derived(data.category);
   const notStartedCategoriesData = $derived(data.notStartedCategories);
 
-  $effect.pre(() => {
+  $effect(() => {
     initializeCategory(category);
-  });
-
-  $effect.pre(() => {
     categoriesNotStartedState.categoriesNotStarted = notStartedCategoriesData;
+
+    return () => {
+      reset();
+    };
   });
 
   async function handleEdit() {
@@ -51,10 +52,6 @@
       console.error((error as { data: any }).data);
     }
   }
-
-  onDestroy(() => {
-    reset();
-  });
 </script>
 
 <CategoryEdit handleClick={handleEdit}>

@@ -1,6 +1,6 @@
 import { browser } from '$app/environment';
 
-export class LocalStore<T> {
+export class PersistLocalStore<T> {
   #value = $state<T>() as T;
   #key = '';
 
@@ -28,7 +28,11 @@ export class LocalStore<T> {
   }
 
   #deserialize(item: string): T {
-    return JSON.parse(item);
+    try {
+      return JSON.parse(item);
+    } catch {
+      return item as unknown as T;
+    }
   }
 
   get current(): T {
@@ -40,6 +44,6 @@ export class LocalStore<T> {
   }
 }
 
-export function localStore<T>(key: string, value: T) {
-  return new LocalStore(key, value);
+export function persistLocalStore<T>(key: string, value: T) {
+  return new PersistLocalStore(key, value);
 }

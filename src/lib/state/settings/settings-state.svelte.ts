@@ -1,7 +1,7 @@
-import { localStore } from './local-state.svelte';
+import { persistLocalStore } from '../utils/persist-local-state.svelte';
 
 class SettingsState {
-  #clubs = localStore<string[]>('jbcb-championship-clubs', []);
+  #clubs = persistLocalStore<string[]>('jbcb-championship-clubs', []);
 
   get clubs() {
     return this.#clubs.current;

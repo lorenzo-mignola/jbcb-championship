@@ -633,7 +633,7 @@ describe('same club', () => {
 
   it('should not have 2 from the same club on first match', () => {
     // return always the first element in the array
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-restricted-globals -- spy
     vi.spyOn(global.Math, 'random').mockReturnValue(0.1);
 
     const athletesWithClub: Judoka[] = [
@@ -661,7 +661,7 @@ describe('same club', () => {
 
   it('should handle brackets with all from the same club', () => {
     // return always the first element in the array
-    // eslint-disable-next-line no-restricted-globals
+    // eslint-disable-next-line no-restricted-globals -- spy
     vi.spyOn(global.Math, 'random').mockReturnValue(0.1);
 
     const athletesWithClub: Judoka[] = [

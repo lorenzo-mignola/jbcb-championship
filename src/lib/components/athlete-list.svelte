@@ -3,7 +3,7 @@
 
   import type { Judoka } from '../types/judoka.type';
 
-  import { categoriesNotStartedState } from '../state/categories-not-started-state.svelte';
+  import { categoriesNotStartedState } from '../state/utils/categories-not-started-state.svelte';
   import MoveButton from './move-button.svelte';
 
   interface $$Slots {

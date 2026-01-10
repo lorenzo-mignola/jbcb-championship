@@ -1,6 +1,6 @@
 <script lang='ts'>
-  import { athletesState } from '../../../lib/state/athletes-state.svelte';
-  import { settingsState } from '../../../lib/state/settings-state.svelte';
+  import { athletesState } from '../../../lib/state/category-edit/athletes-state.svelte';
+  import { settingsState } from '../../../lib/state/settings/settings-state.svelte';
 
   let name = $state('');
   let club = $state('');

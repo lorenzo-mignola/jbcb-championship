@@ -6,10 +6,10 @@ export function resetAthlete(
 ): MatchJudoka | undefined {
   return athlete
     ? {
-        ...athlete,
-        ippon: 0,
-        shido: 0,
-        wazari: 0,
-      }
+      ...athlete,
+      ippon: 0,
+      shido: 0,
+      wazari: 0,
+    }
     : undefined;
 }

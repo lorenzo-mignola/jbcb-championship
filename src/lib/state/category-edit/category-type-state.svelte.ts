@@ -1,4 +1,4 @@
-import type { Category } from '../types/category.type';
+import type { Category } from '../../types/category.type';
 
 export const typeToLabel: Record<Category['type'], string> = {
   brackets: '2 KO',

@@ -1,11 +1,11 @@
 <script lang='ts'>
-  import { athletesState } from '../../../lib/state/athletes-state.svelte';
-  import { categoryTypeState } from '../../../lib/state/category-type-state.svelte';
+  import { athletesState } from '../../../lib/state/category-edit/athletes-state.svelte';
+  import { categoryTypeState } from '../../../lib/state/category-edit/category-type-state.svelte';
   import CategoryTypeButton from './category-type-button.svelte';
 
   const athletesCount = $derived(athletesState.athletes.length);
 
-  $effect.pre(() => {
+  $effect(() => {
     if (categoryTypeState.type === 'brackets' && athletesCount < 6) {
       categoryTypeState.type = null;
     }

@@ -1,7 +1,7 @@
-import { localStore } from './local-state.svelte';
+import { persistLocalStore } from '../utils/persist-local-state.svelte';
 
 class TournamentState {
-  #tournament = localStore('jbcb-championship-tournament', '');
+  #tournament = persistLocalStore('jbcb-championship-tournament', '');
 
   get tournament() {
     return this.#tournament.current;

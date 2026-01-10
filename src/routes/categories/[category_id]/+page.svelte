@@ -7,7 +7,7 @@
   import { isNotByeMatch } from '$lib/models/ranking/category';
   import { formatTimeString } from '$lib/utils/timer-utils';
 
-  import { tournamentState } from '../../../lib/state/tournament-state.js';
+  import { tournamentState } from '../../../lib/state/settings/tournament-state.js';
   import Loading from './components/loading.svelte';
   import Stats from './components/stats.svelte';
 

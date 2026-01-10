@@ -1,6 +1,6 @@
 <script lang='ts'>
   import Card from '$lib/components/card.svelte';
-  import { tournamentState } from '$lib/state/tournament-state';
+  import { tournamentState } from '$lib/state/settings/tournament-state';
 </script>
 
 <div class='flex flex-col gap-4'>

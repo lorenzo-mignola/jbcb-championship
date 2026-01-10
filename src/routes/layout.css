@@ -68,14 +68,24 @@
   @apply base-judoka-card judoka-blue;
 }
 
+@utility play {
+  @apply bg-primary-500 dark:bg-primary-600;
+}
+
+@utility stop {
+  @apply bg-surface-600 dark:bg-surface-500;
+}
+
 @layer utilities {
 }
 
-.text-timer {
-  font-family:
-    'Chivo Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
-  font-optical-sizing: auto;
-  font-style: normal;
+@layer components {
+  .text-timer {
+    font-family:
+      'Chivo Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
 }
 
 @media print {

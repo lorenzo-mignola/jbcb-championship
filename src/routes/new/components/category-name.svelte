@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { categoryNameState } from '../../../lib/state/category-name-state.svelte';
+  import { categoryNameState } from '../../../lib/state/category-edit/category-name-state.svelte';
 </script>
 
 <label class='label'>

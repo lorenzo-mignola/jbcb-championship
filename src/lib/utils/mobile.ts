@@ -1,5 +1,5 @@
-/* eslint-disable eslint-comments/no-unlimited-disable */
-/* eslint-disable  -- copied from internet */
+/* eslint-disable eslint-comments/no-unlimited-disable -- copied from internet */
+/* eslint-disable -- copied from internet */
 // @ts-nocheck
 
 export const isMobile = () => {

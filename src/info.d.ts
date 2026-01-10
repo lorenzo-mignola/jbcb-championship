@@ -1,4 +1,4 @@
-/* eslint-disable style/max-len */
+/* eslint-disable style/max-len -- type file */
 
 declare module 'virtual:pwa-info' {
   export interface PwaInfo {

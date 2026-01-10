@@ -1,7 +1,7 @@
 <script>
   import Card from '$lib/components/card.svelte';
   import Settings from '$lib/icons/settings.svelte';
-  import { tournamentState } from '$lib/state/tournament-state';
+  import { tournamentState } from '$lib/state/settings/tournament-state';
 </script>
 
 <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
