@@ -22,6 +22,9 @@ const defaultMatch: Match = {
 class LocalStorageMatchState {
   #localStorageMatch = persistLocalStore<Match>('jbcb-championship-match', defaultMatch);
   #localStorageCategoryName = persistLocalStore('jbcb-championship-category-name', '');
+  #localStorageTime = persistLocalStore('jbcb-championship-time', 0);
+  #localStorageOsaekomi = persistLocalStore('jbcb-championship-osaekomi', 0);
+  #localStorageGoldenScore = persistLocalStore('jbcb-championship-golden-score', false);
   #localStorageMatchType = persistLocalStore<null | 'medal' | 'repechage'>(
     'jbcb-championship-match-type',
     null,
@@ -32,16 +35,12 @@ class LocalStorageMatchState {
     defaultMatch,
   );
 
-  #localStorageTime = persistLocalStore('jbcb-championship-time', 0);
-
-  #localStorageOsaekomi = persistLocalStore('jbcb-championship-osaekomi', 0);
-
-  #localStorageGoldenScore = persistLocalStore('jbcb-championship-golden-score', false);
-
   #localStorageOsaekomiType = persistLocalStore<JudokaType | ''>(
     'jbcb-championship-osaekomi-type',
     '',
   );
+
+  #errorMatches = persistLocalStore<Match[]>('jbcb-championship-error', []);
 
   get localStorageMatch() {
     return this.#localStorageMatch.current;
@@ -73,6 +72,10 @@ class LocalStorageMatchState {
 
   get localStorageOsaekomiType() {
     return this.#localStorageOsaekomiType.current;
+  }
+
+  get errorMatches() {
+    return this.#errorMatches.current;
   }
 
   resetStorageMatch() {

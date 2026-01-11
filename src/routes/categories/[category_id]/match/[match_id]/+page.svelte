@@ -5,7 +5,9 @@
   import { matchState } from '$lib/state/match/match-state.svelte.js';
   import { timerState } from '$lib/state/match/timer-state.svelte.js';
 
+  import Footer from './components/footer.svelte';
   import PlayPauseButton from './components/play-pause-button.svelte';
+  import SaveButton from './components/save-button.svelte';
   import Timer from './components/timer.svelte';
 
   const { data } = $props();
@@ -66,7 +68,6 @@
 <Timer />
 
 <PlayPauseButton />
-<!--
 
 {#if category?.id && matchData}
   <SaveButton categoryId={category.id} />
@@ -74,7 +75,7 @@
 
 {#if category?.id}
   <Footer categoryId={category.id} {nextMatch} />
-{/if} -->
+{/if}
 
 <style>
   @keyframes pulse-animation {
