@@ -6,6 +6,7 @@
   import { timerState } from '$lib/state/match/timer-state.svelte.js';
 
   import Footer from './components/footer.svelte';
+  import Judoka from './components/judoka/judoka.svelte';
   import PlayPauseButton from './components/play-pause-button.svelte';
   import SaveButton from './components/save-button.svelte';
   import Timer from './components/timer.svelte';
@@ -33,7 +34,7 @@
     }
   });
 
-// const athleteType = ['white', 'blue'] as const;
+  const athleteType = ['white', 'blue'] as const;
 </script>
 
 <div class='flex h-16 max-h-16 items-center justify-between gap-3 text-xl'>
@@ -59,11 +60,11 @@
   {/if}
 </div>
 
-<!-- {#if matchData}
+{#if matchData}
   {#each athleteType as type (type)}
     <Judoka {type} />
   {/each}
-{/if} -->
+{/if}
 
 <Timer />
 

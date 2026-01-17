@@ -3,16 +3,12 @@ import { inc } from 'ramda';
 import type { JudokaType } from '../../types/match.type';
 
 class OsaekomiState {
-  #type = $state<JudokaType | null>(null);
+  type = $state<JudokaType | null>(null);
   #timer = $state(0);
   #isPlaying = $state(false);
   #isExtraTime = $state(false);
 
   #interval: NodeJS.Timeout | null = null;
-
-  get type() {
-    return this.#type;
-  }
 
   get timer() {
     return this.#timer;
@@ -50,7 +46,7 @@ class OsaekomiState {
   resetOsaekomi() {
     this.#isPlaying = false;
     this.#isExtraTime = false;
-    this.#type = null;
+    this.type = null;
     this.#timer = 0;
     if (this.#interval !== null) {
       clearInterval(this.#interval);
