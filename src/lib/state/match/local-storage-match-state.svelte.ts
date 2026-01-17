@@ -42,36 +42,52 @@ class LocalStorageMatchState {
 
   #errorMatches = persistLocalStore<Match[]>('jbcb-championship-error', []);
 
-  get localStorageMatch() {
+  get match() {
     return this.#localStorageMatch.current;
   }
 
-  get localStorageCategoryName() {
+  get categoryName() {
     return this.#localStorageCategoryName.current;
   }
 
-  get localStorageMatchType() {
+  get matchType() {
     return this.#localStorageMatchType.current;
   }
 
-  get localStorageNextMatch() {
+  get nextMatch() {
     return this.#localStorageNextMatch.current;
   }
 
-  get localStorageTime() {
+  get time() {
     return this.#localStorageTime.current;
   }
 
-  get localStorageOsaekomi() {
+  set time(time: number) {
+    this.#localStorageTime.current = time;
+  }
+
+  get osaekomiTime() {
     return this.#localStorageOsaekomi.current;
   }
 
-  get localStorageGoldenScore() {
+  set osaekomiTime(timer: number) {
+    this.#localStorageOsaekomi.current = timer;
+  }
+
+  get goldenScore() {
     return this.#localStorageGoldenScore.current;
   }
 
-  get localStorageOsaekomiType() {
+  set goldenScore(isGoldenScore: boolean) {
+    this.#localStorageGoldenScore.current = isGoldenScore;
+  }
+
+  get osaekomiType() {
     return this.#localStorageOsaekomiType.current;
+  }
+
+  set osaekomiType(type: JudokaType | '') {
+    this.#localStorageOsaekomiType.current = type;
   }
 
   get errorMatches() {

@@ -3,6 +3,7 @@
   import { judokaPointsState } from '$lib/state/match/judoka-points-state.svelte';
   import { matchState } from '$lib/state/match/match-state.svelte';
 
+  import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
   import JudokaNameAndPoints from './judoka-name-and-points.svelte';
 
@@ -17,19 +18,14 @@
   const winner = $derived(matchState.match?.winner);
 
   let edit = $state(false);
-  // let watchRun = false;
 
   const toggleEdit = () => {
     edit = !edit;
   };
 
-// if (browser) {
-  //   $effect(() => {
-  //     watchTimerOsaekomi(type);
-  //     timerWatch();
-  //     watchWinnerOrLoser(type);
-  //   });
-  // }
+  $effect(() => {
+    matchState.watchWinnerOrLoser(type);
+  });
 </script>
 
 <div
@@ -44,7 +40,7 @@
       {#if !edit}
         <JudokaButton end={Boolean(winner)} {type} />
       {:else}
-        <!-- <JudokaButtonEdit {athlete} {toggleEdit} {type} /> -->
+        <JudokaButtonEdit {athlete} {toggleEdit} {type} />
       {/if}
     </div>
     <div>

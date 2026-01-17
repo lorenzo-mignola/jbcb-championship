@@ -1,4 +1,14 @@
+import { produce, setAutoFreeze } from 'immer';
+import { untrack } from 'svelte';
+
 import type { JudokaType, Match } from '../../types/match.type';
+
+import { getOpponentType } from '../../utils/judoka-utils';
+import { judokaPointsState } from './judoka-points-state.svelte';
+import { osaekomiState } from './osaekomi-state.svelte';
+import { timerState } from './timer-state.svelte';
+
+setAutoFreeze(false);
 
 class MatchState {
   match = $state<Match | undefined>(undefined);
@@ -29,6 +39,143 @@ class MatchState {
       return;
     }
     judoka.shido += 1;
+  }
+
+  removeIppon(type: JudokaType) {
+    const judoka = this.#getJudokaByType(type);
+    if (!judoka) {
+      return;
+    }
+    judoka.ippon -= 1;
+    if (this.match?.winner) {
+      this.match.winner = undefined;
+    }
+  }
+
+  removeWazari(type: JudokaType) {
+    const judoka = this.#getJudokaByType(type);
+    if (!judoka) {
+      return;
+    }
+    judoka.wazari -= 1;
+    if (this.match?.winner) {
+      this.match.winner = undefined;
+    }
+  }
+
+  removeShido(type: JudokaType) {
+    const judoka = this.#getJudokaByType(type);
+    if (!judoka) {
+      return;
+    }
+    judoka.shido -= 1;
+    const opponentType = getOpponentType(type);
+    if (this.match?.winner === opponentType) {
+      this.removeIppon(opponentType);
+    }
+  }
+
+  #winner(type: JudokaType) {
+    if (!this.match) {
+      return;
+    }
+
+    const matchUpdated = produce(this.match, (match) => {
+      if (!match?.[type]) {
+        return;
+      }
+      match.winner = type;
+      match.finalTime = timerState.timer;
+      match.goldenScore = timerState.isGoldenScore;
+    });
+    this.match = matchUpdated;
+    this.#stopTimers();
+  }
+
+  #disqualification(type: JudokaType) {
+    const match = this.match;
+    if (!match) {
+      return;
+    }
+
+    const opponentType = getOpponentType(type);
+    if (!opponentType) {
+      return false;
+    }
+
+    const opponent = match[opponentType];
+    if (!opponent) {
+      return;
+    }
+
+    const matchUpdated = produce(this.match, (match) => {
+      if (!match?.[opponentType]) {
+        return;
+      }
+
+      match[opponentType].ippon = 1;
+      match.winner = opponentType;
+      match.finalTime = timerState.timer;
+    });
+
+    this.match = matchUpdated;
+  };
+
+  #stopTimers() {
+    timerState.stopByWinner();
+  };
+
+  #isWinnerByWazari(type: JudokaType) {
+    const match = this.match;
+    if (!match) {
+      return false;
+    }
+
+    const wazari = match[type]?.wazari ?? 0;
+    const opponentType = getOpponentType(type);
+    if (!opponentType) {
+      return false;
+    }
+
+    const wazariOpponent = match[opponentType]?.wazari ?? 0;
+    const ipponOpponent = match[opponentType]?.ippon ?? 0;
+    if (ipponOpponent || wazariOpponent === 2) {
+      return false;
+    }
+    return wazari !== wazariOpponent && wazari >= 1;
+  }
+
+  watchWinnerOrLoser(type: JudokaType) {
+    $effect(() => {
+      const match = this.match;
+      if (match?.winner) {
+        return;
+      }
+
+      const points = judokaPointsState[type];
+      if (points === 10) {
+        untrack(() => {
+          this.#winner(type);
+        });
+        return;
+      }
+
+      const isOverTimer = osaekomiState.isExtraTime || timerState.isGoldenScore;
+      if (isOverTimer && this.#isWinnerByWazari(type)) {
+        untrack(() => {
+          this.#winner(type);
+          timerState.reset();
+        });
+        return;
+      }
+
+      const judoka = match?.[type];
+      if (judoka?.shido === 3) {
+        untrack(() => {
+          this.#disqualification(type);
+        });
+      }
+    });
   }
 }
 

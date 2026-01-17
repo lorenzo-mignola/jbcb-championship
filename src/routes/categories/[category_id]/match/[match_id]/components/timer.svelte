@@ -8,6 +8,10 @@
 
   const min = $derived(getMinutes(timerState.timer));
   const sec = $derived(getSeconds(timerState.timer));
+
+  $effect(() => {
+    timerState.watchTimer();
+  });
 </script>
 
 <WakeLock />

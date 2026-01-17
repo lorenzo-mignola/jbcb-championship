@@ -1,5 +1,4 @@
 <script lang='ts'>
-
   import type { JudokaType } from '$lib/types/match.type';
 
   import Pause from '$lib/icons/pause.svelte';
@@ -20,6 +19,12 @@
     return () => {
       osaekomiState.resetOsaekomi();
     };
+  });
+
+  $effect(() => {
+    if (type) {
+      osaekomiState.watchOsaekomi(type);
+    }
   });
 
   const stopAllTimers = () => {

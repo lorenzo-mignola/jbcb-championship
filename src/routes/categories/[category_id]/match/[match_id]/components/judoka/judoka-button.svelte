@@ -24,7 +24,7 @@
   const isOsaekomi = $derived(osaekomiState.type === type);
   const disableButton = $derived(end || getOpponentType(type) === osaekomiState.type);
   const disableOsaekomi = $derived(
-    (disableButton || timerState.isPlaying) && !osaekomiState.isExtraTime,
+    (disableButton || !timerState.isPlaying) && !osaekomiState.isExtraTime,
   );
 
   const ippon = () => matchState.ippon(type);
