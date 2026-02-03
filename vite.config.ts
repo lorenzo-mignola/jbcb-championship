@@ -56,6 +56,7 @@ export default defineConfig({
           environment: 'happy-dom',
           include: ['src/**/*.{test,spec}.{js,ts}', 'src/**/*-state.svelte.{test,spec}.{js,ts}'],
           name: 'client',
+          setupFiles: ['./tests/setup/testing-library-setup.ts'],
         },
       },
     ],

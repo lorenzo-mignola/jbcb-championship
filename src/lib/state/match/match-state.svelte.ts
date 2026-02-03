@@ -119,6 +119,7 @@ class MatchState {
     });
 
     this.match = matchUpdated;
+    this.#stopTimers();
   };
 
   #stopTimers() {
@@ -136,13 +137,19 @@ class MatchState {
     if (!opponentType) {
       return false;
     }
+    const judoka = match[type]!;
+    const opponent = match[opponentType]!;
+
+    if (judoka.ippon > 0 || opponent.ippon > 0) {
+      return false;
+    }
 
     const wazariOpponent = match[opponentType]?.wazari ?? 0;
     const ipponOpponent = match[opponentType]?.ippon ?? 0;
-    if (ipponOpponent || wazariOpponent === 2) {
+    if (ipponOpponent || wazariOpponent >= 2) {
       return false;
     }
-    return wazari !== wazariOpponent && wazari >= 1;
+    return wazari >= wazariOpponent;
   }
 
   watchWinnerOrLoser(type: JudokaType) {
