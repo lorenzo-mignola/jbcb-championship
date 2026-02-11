@@ -48,15 +48,15 @@ class TimerState {
   };
 
   #play() {
-    if (this.#timer <= 0 && !this.#isGoldenScore) {
+    if (this.#interval !== null) {
+      clearInterval(this.#interval);
+    }
+
+    if (this.#timer === 0) {
       this.#isGoldenScore = true;
     }
 
     this.#isPlaying = true;
-
-    if (this.#interval !== null) {
-      clearInterval(this.#interval);
-    }
 
     // resume osakeomi if is freezed
     if (osaekomiState.type) {

@@ -149,6 +149,11 @@ class MatchState {
     if (ipponOpponent || wazariOpponent >= 2) {
       return false;
     }
+
+    if (wazari === 0) {
+      return false;
+    }
+
     return wazari >= wazariOpponent;
   }
 
