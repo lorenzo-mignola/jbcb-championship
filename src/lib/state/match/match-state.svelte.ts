@@ -154,7 +154,7 @@ class MatchState {
       return false;
     }
 
-    return wazari >= wazariOpponent;
+    return wazari > wazariOpponent;
   }
 
   watchWinnerOrLoser(type: JudokaType) {
@@ -172,7 +172,9 @@ class MatchState {
         return;
       }
 
-      const isOverTimer = osaekomiState.isExtraTime || timerState.isGoldenScore;
+      const isOverTimer = osaekomiState.isExtraTime
+        || timerState.isGoldenScore
+        || timerState.timer === 0;
       if (isOverTimer && this.#isWinnerByWazari(type)) {
         untrack(() => {
           this.#winner(type);

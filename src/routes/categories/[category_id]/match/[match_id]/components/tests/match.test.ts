@@ -89,7 +89,7 @@ describe('play timer', () => {
 
 describe('end match', () => {
   beforeEach(() => {
-    vi.useFakeTimers({ shouldAdvanceTime: true });
+    vi.useFakeTimers();
   });
 
   afterEach(() => {
@@ -97,7 +97,7 @@ describe('end match', () => {
   });
 
   it('after 2 sec timer should show (categoryDuration - 2)', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
     render(Match, { data });
 
     // start play timer
@@ -112,7 +112,7 @@ describe('end match', () => {
   });
 
   it('when time is ended timer should be 00:00', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
     render(Match, { data });
 
     // start play timer
@@ -128,7 +128,7 @@ describe('end match', () => {
   });
 
   it('when time is ended should show play button', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
     render(Match, { data });
 
     // start play timer
@@ -146,7 +146,7 @@ describe('end match', () => {
   it.each([['white', 'blue']] as const)(
     'when time is ended and %s has 1 wazari is the winner',
     async (type) => {
-      const user = userEvent.setup();
+      const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
       const { id } = data.match[type];
       render(Match, { data });
 
@@ -170,7 +170,7 @@ describe('end match', () => {
   );
 
   it('should not set winner when both has 1 wazari', async () => {
-    const user = userEvent.setup();
+    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
     const { blue, white } = data.match;
     const whiteId = white.id;
     const blueId = blue.id;
@@ -191,9 +191,13 @@ describe('end match', () => {
     });
 
     await user.click(playPauseButton);
+    await waitFor(() => {
+      expect(playPauseButton.classList).toContain('stop');
+    });
     await user.click(buttonWazariWhite);
     await user.click(buttonWazariBlue);
-    vi.advanceTimersByTimeAsync(data.category.duration * TIME_CLOCK_MULTIPLIER);
+
+    vi.advanceTimersByTime(data.category.duration * TIME_CLOCK_MULTIPLIER);
 
     await waitFor(() => {
       expect(screen.getByTestId('timer')).toHaveTextContent('00:00');
