@@ -1,0 +1,41 @@
+name: test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CI: true
+  PUBLIC_AUTO_PRINT: false
+  FIREBASE_CERT_PATH: ./cert/firebase.json
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [24.x]
+
+    steps:
+      - uses: actions/checkout@v5
+      - name: Install Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+      - name: Install Deps
+        run: npm ci
+      - name: Create cert directory and Firebase Certificate File
+        run: mkdir -p ./cert
+      - name: Create Firebase Certificate File
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./cert/firebase.json
+      - name: Lint
+        run: npm run lint
+      - name: Svelte Typescript Check
+        run: npm run check
+      - name: Test
+        run: npm run test
+      - name: Build
+        run: npm run build --if-present
