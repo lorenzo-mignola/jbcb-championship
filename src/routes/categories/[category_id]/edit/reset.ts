@@ -3,6 +3,7 @@ import { categoryNameState } from '$lib/state/category-edit/category-name-state.
 import {
   originalCategoryIdState,
 } from '$lib/state/category-edit/original-cateogry-id-state.svelte';
+import { timerState } from '$lib/state/match/timer-state.svelte';
 import { categoriesNotStartedState } from '$lib/state/utils/categories-not-started-state.svelte';
 
 export function reset() {
@@ -10,4 +11,5 @@ export function reset() {
   categoryNameState.name = '';
   originalCategoryIdState.id = '';
   categoriesNotStartedState.categoriesNotStarted = [];
+  timerState.reset();
 }

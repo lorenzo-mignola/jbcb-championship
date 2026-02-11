@@ -14,6 +14,9 @@ import { ONE_SECOND_TIMER } from '$tests/util/constants';
 import Match from '../../+page.svelte';
 
 vi.mock('ky');
+vi.mock('$app/navigation', () => ({
+  goto: vi.fn(),
+}));
 
 const data = {
   category: categoryMock,
@@ -35,12 +38,12 @@ describe('next match', () => {
     const mockedKy = vi.mocked(ky);
     const mockPatch = mockedKy.patch as unknown as MockedFunction<any>;
 
-    mockPatch.mockResolvedValueOnce({
-      data: {
+    mockPatch.mockReturnValueOnce({
+      json: vi.fn().mockResolvedValueOnce({
         ...categoryMock,
         currentMatch: match2Mock.id,
-      },
-    });
+      }),
+    } as any);
 
     const user = userEvent.setup();
     const { id } = data.match.white;

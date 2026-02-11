@@ -1,8 +1,8 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  import { localStorageMatchState } from '$lib/state/match/local-storage-match-state.svelte';
   import { nextMatchesState } from '$lib/state/match/next-matches-state.svelte';
+
 </script>
 
 <Dialog>
@@ -23,7 +23,6 @@
         <header>
           <Dialog.Title class='text-2xl font-bold'>
             <h3 class='h3'>Prossimi incontri</h3>
-            <h2 class='h2'>{localStorageMatchState.categoryName}</h2>
             <hr class='my-3' />
           </Dialog.Title>
         </header>
