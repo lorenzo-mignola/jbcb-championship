@@ -37,10 +37,15 @@
       }}>
       <div class='input-group grid-cols-[1fr_auto]'>
         <label class='label'>
-          <input class='input' placeholder='Nome club' type='text' bind:value={club} />
+          <input
+            class='input rounded-r-none'
+            placeholder='Nome club'
+            type='text'
+            bind:value={club}
+          />
         </label>
         <button
-          class='preset-filled-primary-500'
+          class='preset-filled-primary-500 px-3'
           disabled={!club}
           type='button'
           onclick={handleAdd}>Aggiungi</button
