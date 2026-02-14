@@ -26,18 +26,10 @@ jobs:
       - name: Pull Vercel Environment Information
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
-      - name: Create cert directory
-        run: mkdir -p ./cert
-
       - name: Create Firebase Certificate File
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
-            echo "No FIREBASE_SERVICE_ACCOUNT secret provided, skipping certificate creation";
-          else
-            echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${{ env.FIREBASE_CERT_PATH }}
-          fi
+          mkdir -p ./cert
+          printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./cert/firebase.json
 
       - name: Build Project Artifacts
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}

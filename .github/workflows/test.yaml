@@ -22,7 +22,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [22.x, 24.x]
+        node-version: [24.x]
 
     steps:
       - uses: actions/checkout@v5
@@ -42,18 +42,10 @@ jobs:
       - name: Install Deps
         run: pnpm install --frozen-lockfile
 
-      - name: Create cert directory
-        run: mkdir -p ./cert
-
       - name: Create Firebase Certificate File
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
         run: |
-          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
-            echo "No FIREBASE_SERVICE_ACCOUNT secret provided, skipping certificate creation";
-          else
-            echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${{ env.FIREBASE_CERT_PATH }}
-          fi
+          mkdir -p ./cert
+          printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./cert/firebase.json
 
       - name: Lint
         run: pnpm run lint
@@ -64,5 +56,5 @@ jobs:
       - name: Test
         run: pnpm run test
 
-      - name: Build (if present)
-        run: pnpm run build --if-present
+      - name: Build
+        run: pnpm run build
