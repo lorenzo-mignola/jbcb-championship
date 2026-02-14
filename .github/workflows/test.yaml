@@ -14,7 +14,7 @@ concurrency:
 env:
   CI: true
   PUBLIC_AUTO_PRINT: false
-  FIREBASE_CERT_PATH: ./cert/firebase.json
+  FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
 jobs:
   build:
@@ -29,8 +29,6 @@ jobs:
 
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
-        with:
-          version: 10
 
       - name: Setup Node
         uses: actions/setup-node@v6
@@ -41,11 +39,6 @@ jobs:
 
       - name: Install Deps
         run: pnpm install --frozen-lockfile
-
-      - name: Create Firebase Certificate File
-        run: |
-          mkdir -p ./cert
-          printf '%s' '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./cert/firebase.json
 
       - name: Lint
         run: pnpm run lint

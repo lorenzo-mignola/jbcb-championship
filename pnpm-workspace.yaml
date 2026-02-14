@@ -8,6 +8,9 @@ trustPolicyExclude:
   - jose@4.15.9
   - semver@6.3.1
 
+packages:
+  - .
+
 onlyBuiltDependencies:
   - '@firebase/util'
   - esbuild
