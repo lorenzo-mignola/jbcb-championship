@@ -42,7 +42,7 @@
   {#if !view}
     Osae-komi
   {/if}
-  <p class='text-timer text-xl' class:view>{timer}</p>
+  <p class='text-timer text-xl' class:local-view={view}>{timer}</p>
 </div>
 
 {#if osaekomiState.isPlaying}
@@ -67,7 +67,7 @@
   div {
     text-wrap: nowrap;
   }
-  .view {
+  .local-view {
     @apply p-3 text-4xl;
   }
 </style>

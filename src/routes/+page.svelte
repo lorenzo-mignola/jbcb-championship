@@ -4,8 +4,7 @@
   import { tournamentState } from '$lib/state/settings/tournament-state';
 </script>
 
-<!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-<div class='home-container'>
+<div class='local-home-container'>
   <Card
     link='/new'
     text='✨ Crea categoria ✨'
@@ -20,8 +19,7 @@
     text='🖨️ Stampa 🖨'
   />
 
-  <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-  <a class='settings btn preset-outlined-primary-500' href='/settings'>
+  <a class='local-settings btn preset-outlined-primary-500' href='/settings'>
     <span><Settings /></span>
     <span>Impostazioni</span>
   </a>
@@ -31,12 +29,12 @@
   @reference "tailwindcss";
   @reference '@skeletonlabs/skeleton';
 
-  .home-container {
+  .local-home-container {
     @apply flex flex-col gap-4;
     @apply lg:grid lg:h-[80vh] lg:grid-cols-3 lg:grid-rows-[6fr_1fr];
   }
 
-  .settings {
+  .local-settings {
     grid-area: 2 / 1 / 3 / 4;
   }
 </style>

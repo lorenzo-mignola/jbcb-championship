@@ -17,16 +17,16 @@ export const isNotByeMatch = complement(isByeMatch);
 
 export function getRankingIcon(rankValue: number) {
   switch (rankValue) {
-  case 1:
-    return '🥇';
-  case 2:
-    return '🥈';
-  case 3:
-  case 4:
-    return '🥉';
+    case 1:
+      return '🥇';
+    case 2:
+      return '🥈';
+    case 3:
+    case 4:
+      return '🥉';
 
-  default:
-    return `#${rankValue.toString()}`;
+    default:
+      return `#${rankValue.toString()}`;
   }
 }
 

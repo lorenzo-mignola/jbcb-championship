@@ -35,7 +35,7 @@
       <button
         class='btn w-full card p-4 text-xl'
         class:preset-filled-primary-500={category.currentMatch}
-        class:notCurrentMatch={!category.currentMatch}
+        class:local-notCurrentMatch={!category.currentMatch}
         type='button'
       >
         {category.name}
@@ -55,7 +55,7 @@
   @reference "tailwindcss";
   @reference '@skeletonlabs/skeleton';
 
-  .notCurrentMatch {
+  .local-notCurrentMatch {
     @apply border border-primary-500;
     @apply preset-tonal-primary border border-primary-500;
   }

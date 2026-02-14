@@ -20,14 +20,13 @@
           <span class='mr-1' data-testid='shido-yellow'>🟨</span>
         {/each}
       {/if}
-      <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-      <span class='points' data-testid='judoka-score'>{points}</span>
+      <span class='local-points' data-testid='judoka-score'>{points}</span>
     </span>
   {/if}
 </div>
 
 <style lang='postcss'>
-  .points {
+  .local-points {
     letter-spacing: 0.8rem;
   }
 </style>

@@ -1,13 +1,12 @@
 <span class='flex items-center justify-center'>
-  <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-  <span class='loader'></span>
+  <span class='local-loader'></span>
 </span>
 
 <style lang='postcss'>
   @reference "tailwindcss";
   @reference '@skeletonlabs/skeleton';
 
-  .loader {
+  .local-loader {
     @apply h-7 w-7 border-4 border-surface-400 border-b-secondary-800;
     @apply dark:border-white dark:border-b-secondary-400;
     border-radius: 50%;

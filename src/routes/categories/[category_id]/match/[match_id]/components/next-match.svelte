@@ -15,7 +15,6 @@
       mb-4 card preset-outlined p-2 wrap-break-word
       md:mb-0
     '
-    class:spacer={view}
     class:text-5xl={view}
     data-testid='next-match'
   >
@@ -25,13 +24,13 @@
     </p>
   </div>
 {:else}
-  <div class:spacerView={view}></div>
+  <div class:local-spacerView={view}></div>
 {/if}
 
 <style lang='postcss'>
   @reference "tailwindcss";
 
-  .spacerView {
+  .local-spacerView {
     @apply h-18;
   }
 </style>

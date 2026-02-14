@@ -14,8 +14,8 @@
     xl:text-2xl
     dark:bg-primary-600
   '
-  class:disabled
-  class:enabled={!disabled}
+  class:local-disabled={disabled}
+  class:local-enabled={!disabled}
   href={!disabled ? link : '/'}>{text}</a
 >
 
@@ -23,12 +23,12 @@
   @reference "tailwindcss";
   @reference '@skeletonlabs/skeleton';
 
-  .enabled {
+  .local-enabled {
   }
-  .enabled:hover {
+  .local-enabled:hover {
     @apply shadow-xs shadow-primary-500;
   }
-  .disabled {
+  .local-disabled {
     @apply cursor-not-allowed opacity-50!;
   }
 </style>

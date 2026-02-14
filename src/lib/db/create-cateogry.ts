@@ -13,14 +13,14 @@ function generateCategory({
   type,
 }: Pick<Category, 'name' | 'athletes' | 'type' | 'duration' | 'tournament'>) {
   switch (type) {
-  case 'pool':
-    return createSinglePool(name, athletes, duration, tournament);
-  case 'brackets':
-    return createBrackets(name, athletes, duration, tournament);
-  case 'double_pool':
-    return createDoublePool(name, athletes, duration, tournament);
-  default:
-    throw new Error(`No type found`);
+    case 'pool':
+      return createSinglePool(name, athletes, duration, tournament);
+    case 'brackets':
+      return createBrackets(name, athletes, duration, tournament);
+    case 'double_pool':
+      return createDoublePool(name, athletes, duration, tournament);
+    default:
+      throw new Error(`No type found`);
   }
 }
 

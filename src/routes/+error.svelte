@@ -31,7 +31,8 @@
       <Accordion.ItemTrigger class='
         bg-gray-100
         hover:bg-gray-200
-        dark:bg-gray-800 dark:hover:bg-gray-700 dark:hover:text-white
+        dark:bg-gray-800
+        dark:hover:bg-gray-700 dark:hover:text-white
       '>Dettagli</Accordion.ItemTrigger>
       <Accordion.ItemContent>{error?.message}</Accordion.ItemContent>
     </Accordion.Item>

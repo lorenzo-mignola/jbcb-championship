@@ -28,8 +28,7 @@
     {#each matches as match, index (match.id)}
       <tr>
         <MatchRow judoka={match.white} winner={match.winner === 'white'} />
-        <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-        <td class='time text-center' rowspan='2'
+        <td class='local-time text-center' rowspan='2'
         >{formatWithDuration(match.finalTime, match.goldenScore)}</td
         >
       </tr>
@@ -37,18 +36,17 @@
         <MatchRow judoka={match.blue} winner={match.winner === 'blue'} />
       </tr>
       {#if index !== matches.length - 1}
-        <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-        <tr class='spacer'></tr>
+        <tr class='local-spacer'></tr>
       {/if}
     {/each}
   </tbody>
 </table>
 
 <style lang='postcss'>
-  .time {
+  .local-time {
     vertical-align: middle;
   }
-  .spacer {
+  .local-spacer {
     height: 10px;
   }
 

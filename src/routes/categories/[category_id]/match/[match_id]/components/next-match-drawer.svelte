@@ -34,10 +34,8 @@
           {#each nextMatchesState.nextMatches as nextMatch (nextMatch.id)}
             <li>
               <div class='mx-2 mb-3 flex flex-col'>
-                <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-                <span class='judoka-next judoka-white'>{nextMatch.white?.name}</span>
-                <!-- eslint-disable-next-line better-tailwindcss/no-unregistered-classes -->
-                <span class='judoka-next judoka-blue'>{nextMatch.blue?.name}</span>
+                <span class='local-judoka-next judoka-white'>{nextMatch.white?.name}</span>
+                <span class='local-judoka-next judoka-blue'>{nextMatch.blue?.name}</span>
               </div>
             </li>
           {/each}
@@ -50,7 +48,7 @@
 <style lang='postcss'>
   @reference "tailwindcss";
 
-  .judoka-next {
+  .local-judoka-next {
     @apply mb-1 rounded-sm p-1;
   }
 </style>
