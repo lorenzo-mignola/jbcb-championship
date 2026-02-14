@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main]
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 env:
   CI: true
   PUBLIC_AUTO_PRINT: false
@@ -17,25 +21,47 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [24.x]
+        node-version: [22.x, 24.x]
 
     steps:
       - uses: actions/checkout@v5
-      - name: Install Node
+
+      - name: Setup Node
         uses: actions/setup-node@v6
         with:
-          node-version: 24.x
+          node-version: ${{ matrix.node-version }}
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
       - name: Install Deps
-        run: npm ci
-      - name: Create cert directory and Firebase Certificate File
+        run: pnpm install --frozen-lockfile
+
+      - name: Create cert directory
         run: mkdir -p ./cert
+
       - name: Create Firebase Certificate File
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./cert/firebase.json
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        run: |
+          if [ -z "$FIREBASE_SERVICE_ACCOUNT" ]; then
+            echo "No FIREBASE_SERVICE_ACCOUNT secret provided, skipping certificate creation";
+          else
+            echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ${{ env.FIREBASE_CERT_PATH }}
+          fi
+
       - name: Lint
-        run: npm run lint
+        run: pnpm run lint
+
       - name: Svelte Typescript Check
-        run: npm run check
+        run: pnpm run check
+
       - name: Test
-        run: npm run test
-      - name: Build
-        run: npm run build --if-present
+        run: pnpm run test
+
+      - name: Build (if present)
+        run: pnpm run build --if-present
