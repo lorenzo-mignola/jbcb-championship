@@ -3,26 +3,34 @@ import { T } from 'ramda';
 import type { Judoka } from '$lib/types/judoka.type';
 import type { Match } from '$lib/types/match.type';
 import type { Rounds } from '$lib/types/rounds.type';
-import { getRandomElement } from '$lib/utils/match';
 
+import { getRandomElement } from '../../../utils/match-utils';
 import { createMatch } from '../../match';
 import { removeAthlete } from './remove-athlete';
 
-const pickAthlete = (athletesNotPicket: (Judoka | undefined)[], otherAthleteClub?: string) => {
+function pickAthlete(
+  athletesNotPicket: (Judoka | undefined)[],
+  otherAthleteClub?: string,
+) {
   const filterFn = otherAthleteClub
     ? (athlete: Judoka | undefined) => athlete?.club !== otherAthleteClub
     : undefined;
   const athletesToPick = athletesNotPicket.filter(filterFn ?? T);
-  const athlete = getRandomElement(athletesToPick.length < 2 ? athletesNotPicket : athletesToPick);
+  const athlete = getRandomElement(
+    athletesToPick.length < 2 ? athletesNotPicket : athletesToPick,
+  );
   const remain = removeAthlete(athletesNotPicket)(athlete);
   return { athlete, remain };
-};
+}
 
-export const getMatches = (rounds: Rounds) =>
-  rounds.flatMap(({ loser, winner, repechage }) => [loser, winner, repechage]).flat();
+export function getMatches(rounds: Rounds) {
+  return rounds
+    .flatMap(({ loser, repechage, winner }) => [loser, winner, repechage])
+    .flat();
+}
 
-const getEvenOrOddMatches =
-  (matchInRound: number) => (athletes: (Judoka | undefined)[] | undefined) => {
+function getEvenOrOddMatches(matchInRound: number) {
+  return (athletes: (Judoka | undefined)[] | undefined) => {
     const matches: Match[] = [];
     let athletesNotPicket = athletes;
     for (let index = 0; index < matchInRound / 2; index++) {
@@ -35,47 +43,55 @@ const getEvenOrOddMatches =
         break;
       }
 
-      const { athlete: white, remain: remainAthletesNotPicketAfterWhite } =
-        pickAthlete(athletesNotPicket);
+      const { athlete: white, remain: remainAthletesNotPicketAfterWhite }
+        = pickAthlete(athletesNotPicket);
       athletesNotPicket = remainAthletesNotPicketAfterWhite;
 
-      const { athlete: blue, remain: remainAthletesNotPicketAfterBlue } = pickAthlete(
-        athletesNotPicket,
-        white?.club
-      );
+      const { athlete: blue, remain: remainAthletesNotPicketAfterBlue }
+        = pickAthlete(athletesNotPicket, white?.club);
       athletesNotPicket = remainAthletesNotPicketAfterBlue;
 
       matches.push(createMatch(white, blue));
     }
     return {
+      athletesNotPicket,
       matches,
-      athletesNotPicket
     };
   };
+}
 
-export const createMatches =
-  (matchInRound: number) =>
-  (athletes?: (Judoka | undefined)[], byeAthletes?: (Judoka | undefined)[]) =>
-  () => {
-    const { matches: oddMatches, athletesNotPicket } = getEvenOrOddMatches(matchInRound)(athletes);
-    const { matches: evenMatches } = getEvenOrOddMatches(matchInRound)(athletesNotPicket);
+export function createMatches(matchInRound: number) {
+  return (
+    athletes?: (Judoka | undefined)[],
+    byeAthletes?: (Judoka | undefined)[],
+  ) =>
+    () => {
+      const { athletesNotPicket, matches: oddMatches }
+        = getEvenOrOddMatches(matchInRound)(athletes);
+      const { matches: evenMatches }
+        = getEvenOrOddMatches(matchInRound)(athletesNotPicket);
 
-    const matches = [];
-    let byeNotPicked = byeAthletes ?? [];
-    for (let index = 0; index < matchInRound; index++) {
-      const even = index % 2 === 0;
-      const indexInArray = Math.floor(index / 2);
-      const match = even ? evenMatches[indexInArray] : oddMatches[indexInArray];
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, svelte/@typescript-eslint/no-unnecessary-condition -- index can cause overflow
-      if (!match) {
-        const { athlete: byeAthlete, remain: byeRemain } = pickAthlete(byeNotPicked);
-        byeNotPicked = byeRemain;
-        matches.push(createMatch(byeAthlete, undefined));
-        continue;
+      const matches = [];
+      let byeNotPicked = byeAthletes ?? [];
+      for (let index = 0; index < matchInRound; index++) {
+        const even = index % 2 === 0;
+        const indexInArray = Math.floor(index / 2);
+        const match = even
+          ? evenMatches[indexInArray]
+          : oddMatches[indexInArray];
+        if (!match) {
+          const { athlete: byeAthlete, remain: byeRemain }
+            = pickAthlete(byeNotPicked);
+          byeNotPicked = byeRemain;
+          matches.push(createMatch(byeAthlete, undefined));
+          continue;
+        }
+
+        matches.push(
+          even ? evenMatches[indexInArray] : oddMatches[indexInArray],
+        );
       }
 
-      matches.push(even ? evenMatches[indexInArray] : oddMatches[indexInArray]);
-    }
-
-    return matches;
-  };
+      return matches;
+    };
+}

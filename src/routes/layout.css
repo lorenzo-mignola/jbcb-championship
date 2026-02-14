@@ -1,0 +1,95 @@
+@import 'tailwindcss';
+@plugin '@tailwindcss/forms';
+@plugin '@tailwindcss/typography';
+@import '@skeletonlabs/skeleton';
+@import '@skeletonlabs/skeleton-svelte';
+
+@import './jbcb.css';
+
+@custom-variant dark (&:where([data-mode=dark], [data-mode=dark] *));
+
+@utility judoka-white {
+  @apply bg-gray-100 text-black dark:bg-gray-200 dark:text-black;
+
+  & button.active {
+    @apply bg-gray-800 text-white dark:bg-gray-800 dark:text-white;
+    @apply hover:brightness-[1.15];
+  }
+
+  & hr {
+    @apply my-2;
+    border-color: rgba(var(--color-surface-900), 0.3);
+  }
+}
+
+@utility judoka-blue {
+  @apply bg-blue-900 text-white dark:bg-blue-900 dark:text-white;
+
+  & hr {
+    @apply my-2;
+    border-color: rgba(var(--color-surface-100), 0.3);
+  }
+
+  & button {
+    @apply ring-white dark:ring-white;
+  }
+
+  & button.active {
+    @apply bg-gray-100 text-blue-800 dark:bg-gray-100 dark:text-blue-800;
+    @apply hover:brightness-[1.15];
+  }
+}
+
+@utility judoka-blue-light {
+  @apply bg-blue-500 text-white dark:bg-blue-500 dark:text-white;
+}
+
+@utility active {
+  .judoka-white &button {
+    @apply bg-gray-800 text-white dark:bg-gray-800 dark:text-white;
+    @apply hover:brightness-[1.15];
+  }
+
+  .judoka-blue &button {
+    @apply bg-gray-100 text-blue-800 dark:bg-gray-100 dark:text-blue-800;
+    @apply hover:brightness-[1.15];
+  }
+}
+
+@utility base-judoka-card {
+  @apply my-2 rounded-md p-4 text-xl font-semibold shadow-md md:text-3xl;
+}
+
+@utility judoka-white-card {
+  @apply base-judoka-card judoka-white;
+}
+
+@utility judoka-blue-card {
+  @apply base-judoka-card judoka-blue;
+}
+
+@utility play {
+  @apply bg-primary-500 dark:bg-primary-600;
+}
+
+@utility stop {
+  @apply bg-surface-600 dark:bg-surface-500;
+}
+
+@layer utilities {
+}
+
+@layer components {
+  .text-timer {
+    font-family:
+      'Chivo Mono', ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, Consolas, 'DejaVu Sans Mono', monospace;
+    font-optical-sizing: auto;
+    font-style: normal;
+  }
+}
+
+@media print {
+  * {
+    color: black !important;
+  }
+}

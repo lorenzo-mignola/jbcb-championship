@@ -1,55 +1,63 @@
-import { error, json, type RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
+
+import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
 
-import { editCategory } from '../../../lib/server/edit-category';
-import { getCategory } from '../../../lib/server/get-category';
-import type { Category } from '../../../lib/types/category.type';
-import { type Judoka } from '../../../lib/types/judoka.type';
+import type { Category } from '$lib/types/category.type';
+import type { Judoka } from '$lib/types/judoka.type';
+
+import { editCategory, getCategory } from '$lib/db';
 
 const pathAthleteSchema = z.object({
-  originalCategory: z.string(),
+  athlete: z.string(),
   newCategory: z.string(),
-  athlete: z.string()
+  originalCategory: z.string(),
 });
 
-const updateNewCategory = (athlete: Judoka) => async (newCategoryId: string) => {
-  const newCategory = await getCategory(newCategoryId);
+function updateNewCategory(athlete: Judoka) {
+  return async (newCategoryId: string) => {
+    const newCategory = await getCategory(newCategoryId);
 
-  if (!newCategory) {
-    return;
-  }
+    if (!newCategory) {
+      return;
+    }
 
-  const { name, athletes, type, duration, tournament } = newCategory;
-  const athletesUpdated = [...athletes, athlete];
+    const { athletes, duration, name, tournament, type } = newCategory;
+    const athletesUpdated = [...athletes, athlete];
 
-  return editCategory(newCategoryId, {
-    name,
-    athletes: athletesUpdated,
-    type,
-    duration,
-    tournament
-  });
-};
+    return editCategory(newCategoryId, {
+      athletes: athletesUpdated,
+      duration,
+      name,
+      tournament,
+      type,
+    });
+  };
+}
 
-const updateOriginalCategory = (athleteId: string) => async (originalCategory: Category) => {
-  const { name, athletes, type, duration, tournament, id } = originalCategory;
-  const athletesFiltered = athletes.filter((athlete) => athlete.id !== athleteId);
+function updateOriginalCategory(athleteId: string) {
+  return async (originalCategory: Category) => {
+    const { athletes, duration, id, name, tournament, type } = originalCategory;
+    const athletesFiltered = athletes.filter(
+      athlete => athlete.id !== athleteId,
+    );
 
-  return editCategory(id, {
-    name,
-    athletes: athletesFiltered,
-    type,
-    duration,
-    tournament
-  });
-};
+    return editCategory(id, {
+      athletes: athletesFiltered,
+      duration,
+      name,
+      tournament,
+      type,
+    });
+  };
+}
 
 export const PATCH: RequestHandler = async ({ request }) => {
   const requestData = (await request.json()) as unknown;
   const {
-    originalCategory: originalCategoryId,
+    athlete: athleteId,
     newCategory: newCategoryId,
-    athlete: athleteId
+    originalCategory: originalCategoryId,
   } = pathAthleteSchema.parse(requestData);
 
   const originalCategory = await getCategory(originalCategoryId);
@@ -58,24 +66,27 @@ export const PATCH: RequestHandler = async ({ request }) => {
     error(500, 'Original category not found');
   }
 
-  const athleteToUpdate = originalCategory.athletes.find((athlete) => athlete.id === athleteId);
+  const athleteToUpdate = originalCategory.athletes.find(
+    athlete => athlete.id === athleteId,
+  );
 
   if (!athleteToUpdate) {
     error(500, 'Athlete not found');
   }
 
-  const originalCategoryIdUpdated = await updateOriginalCategory(athleteToUpdate.id)(
-    originalCategory
-  );
+  const originalCategoryIdUpdated = await updateOriginalCategory(
+    athleteToUpdate.id,
+  )(originalCategory);
 
-  const newCategoryIdUpdated = await updateNewCategory(athleteToUpdate)(newCategoryId);
+  const newCategoryIdUpdated
+    = await updateNewCategory(athleteToUpdate)(newCategoryId);
 
   if (!originalCategoryIdUpdated) {
     error(500, 'Original category not found');
   }
 
   return json({
+    newCategoryId: newCategoryIdUpdated,
     originalCategoryId: originalCategoryIdUpdated,
-    newCategoryId: newCategoryIdUpdated
   });
 };

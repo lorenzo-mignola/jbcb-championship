@@ -1,8 +1,10 @@
 import { map, pipe } from 'ramda';
 
-import { getAllCategories } from '../../lib/server/methods';
-import type { Category } from '../../lib/types/category.type';
-import { sortCategories } from '../../lib/utils/categories';
+import type { Category } from '$lib/types/category.type';
+
+import { getAllCategories } from '$lib/db';
+import { sortCategories } from '$lib/utils/categories-utils';
+
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -12,11 +14,13 @@ export const load: PageServerLoad = async ({ url }) => {
   return {
     categories: pipe(
       sortCategories,
-      map<Category, Pick<Category, 'id' | 'name' | 'currentMatch'>>((category) => ({
-        id: category.id,
-        name: category.name,
-        currentMatch: category.currentMatch
-      }))
-    )(categories)
+      map<Category, Pick<Category, 'id' | 'name' | 'currentMatch'>>(
+        category => ({
+          currentMatch: category.currentMatch,
+          id: category.id,
+          name: category.name,
+        }),
+      ),
+    )(categories),
   };
 };

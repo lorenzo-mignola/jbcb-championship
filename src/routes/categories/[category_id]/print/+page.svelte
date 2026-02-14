@@ -1,14 +1,14 @@
-<script lang="ts" strictEvents>
+<script lang='ts'>
+  import { browser } from '$app/environment';
   import { onMount } from 'svelte';
 
-  import { browser } from '$app/environment';
   import PrintButton from '$lib/components/print-button.svelte';
   import { isMobile } from '$lib/utils/mobile';
 
-  import PrintCategory from '../../../../lib/components/category/print-category.svelte';
+  import PrintCategory from '../../print/components/print-category.svelte';
 
-  export let data;
-  const category = data.category;
+  const { data } = $props();
+  const category = $derived(data.category);
 
   onMount(() => {
     if (browser && !isMobile()) {
@@ -17,7 +17,10 @@
   });
 </script>
 
-<div class="mb-10 print:hidden">
+<div class='
+  mb-10
+  print:hidden
+'>
   <PrintButton />
 </div>
 

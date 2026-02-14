@@ -2,6 +2,7 @@ import { complement } from 'ramda';
 
 import type { Category, RankingAthlete } from '../../types/category.type';
 import type { Match } from '../../types/match.type';
+
 import { getRankingBrackets } from './ranking-brackets';
 import { getRankingDoublePool } from './ranking-double-pool';
 import { getRankingPool } from './ranking-single-pool';
@@ -10,11 +11,11 @@ export { getRankingBrackets } from './ranking-brackets';
 export { getRankingDoublePool } from './ranking-double-pool';
 export { getRankingPool } from './ranking-single-pool';
 
-export const isByeMatch = ({ white, blue }: Match) => !white || !blue;
+export const isByeMatch = ({ blue, white }: Match) => !white || !blue;
 
 export const isNotByeMatch = complement(isByeMatch);
 
-export const getRankingIcon = (rankValue: number) => {
+export function getRankingIcon(rankValue: number) {
   switch (rankValue) {
     case 1:
       return '🥇';
@@ -27,14 +28,14 @@ export const getRankingIcon = (rankValue: number) => {
     default:
       return `#${rankValue.toString()}`;
   }
-};
+}
 
-export const shuffleArray = <T>(originalArray: T[]) => {
+export function shuffleArray<T>(originalArray: T[]) {
   const array = JSON.parse(JSON.stringify(originalArray)) as T[];
   return array.sort(() => Math.random() - 0.5);
-};
+}
 
-export const getRanking = (category?: Category): RankingAthlete[] => {
+export function getRanking(category?: Category): RankingAthlete[] {
   if (!category) {
     return [];
   }
@@ -50,9 +51,8 @@ export const getRanking = (category?: Category): RankingAthlete[] => {
   if (category.type === 'double_pool') {
     return getRankingDoublePool(category.semifinals, category.finalMatch);
   }
-  // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- used as switch case
   if (category.type === 'brackets') {
     return getRankingBrackets(category.matches);
   }
   return [];
-};
+}

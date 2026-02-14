@@ -1,20 +1,20 @@
 import type { Judoka } from '$lib/types/judoka.type';
 import type { Rounds } from '$lib/types/rounds.type';
-import { getRandomElement } from '$lib/utils/match';
 
+import { getRandomElement } from '../../../utils/match-utils';
 import { createMatches } from './create-matches';
 import { removeAthlete } from './remove-athlete';
 
-const getCountsAndFirstRound = (athletes: Judoka[]) => {
+function getCountsAndFirstRound(athletes: Judoka[]) {
   const athletesCount = athletes.length;
   const winnerRounds = Math.log2(athletesCount);
 
   if (winnerRounds === Math.floor(winnerRounds)) {
     return {
-      athletesCount,
-      winnerRounds,
       athleteFirstRound: athletes,
-      byeAthletes: []
+      athletesCount,
+      byeAthletes: [],
+      winnerRounds,
     };
   }
 
@@ -23,7 +23,7 @@ const getCountsAndFirstRound = (athletes: Judoka[]) => {
   let remainAthletes = athletes;
   const athletesToPick = athletesCount - (athletesCountCeil - athletesCount);
   const athleteFirstRound = Array.from({
-    length: athletesToPick
+    length: athletesToPick,
   }).map(() => {
     const picked = getRandomElement(remainAthletes);
     remainAthletes = removeAthlete(remainAthletes)(picked);
@@ -31,16 +31,16 @@ const getCountsAndFirstRound = (athletes: Judoka[]) => {
   });
 
   return {
-    winnerRounds: nextWinnerRounds,
-    athletesCount: athletesCountCeil,
     athleteFirstRound,
-    byeAthletes: remainAthletes
+    athletesCount: athletesCountCeil,
+    byeAthletes: remainAthletes,
+    winnerRounds: nextWinnerRounds,
   };
-};
+}
 
-export const createRounds = (athletes: Judoka[]): Rounds => {
-  const { athletesCount, winnerRounds, athleteFirstRound, byeAthletes } =
-    getCountsAndFirstRound(athletes);
+export function createRounds(athletes: Judoka[]): Rounds {
+  const { athleteFirstRound, athletesCount, byeAthletes, winnerRounds }
+    = getCountsAndFirstRound(athletes);
 
   const rounds: Rounds = [];
 
@@ -55,13 +55,17 @@ export const createRounds = (athletes: Judoka[]): Rounds => {
     const isFirstOrLast = isFirstRound || isLastRound;
 
     const roundMatch = {
+      loser: isFirstOrLast
+        ? []
+        : create().map(match => ({ ...match, isRepechage: true })),
+      repechage: isFirstOrLast
+        ? []
+        : create().map(match => ({ ...match, isRepechage: true })),
       winner: create(),
-      loser: isFirstOrLast ? [] : create().map((match) => ({ ...match, isRepechage: true })),
-      repechage: isFirstOrLast ? [] : create().map((match) => ({ ...match, isRepechage: true }))
     };
     rounds.push(roundMatch);
     winnerAthletesCount /= 2;
   }
 
   return rounds;
-};
+}

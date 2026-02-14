@@ -3,17 +3,18 @@ import { descend, prop, sortWith } from 'ramda';
 import type { RankingAthlete } from '../../types/category.type';
 import type { Judoka } from '../../types/judoka.type';
 import type { Match, MatchWithWinner } from '../../types/match.type';
-import { getOpponentType } from '../../utils/judoka';
+
+import { getOpponentType } from '../../utils/judoka-utils';
 
 interface RankingWithEven {
-  opponentWin: string[];
-  remainingTimeInWin: number;
-  matchPoint: number;
   evaluationPoint: number;
   id: string;
+  matchPoint: number;
+  opponentWin: string[];
+  remainingTimeInWin: number;
 }
 
-const sortByDirect = (a: RankingWithEven, b: RankingWithEven) => {
+function sortByDirect(a: RankingWithEven, b: RankingWithEven) {
   const aIsWinnerDirect = a.opponentWin.includes(b.id);
   if (aIsWinnerDirect) {
     return -1;
@@ -24,28 +25,32 @@ const sortByDirect = (a: RankingWithEven, b: RankingWithEven) => {
   }
 
   return 0;
-};
+}
 
-const getLosersOf = (allRankings: RankingWithEven[]) => (id: string) =>
-  allRankings.find((rank) => rank.id === id);
+function getLosersOf(allRankings: RankingWithEven[]) {
+  return (id: string) => allRankings.find(rank => rank.id === id);
+}
 
 // check if there's a circle of beating (A->B, B->C, C->A)
-const isCircle =
-  (getLoserFn: (id: string) => RankingWithEven | undefined) =>
-  (evaluationPoints: number, matchPoints: number) =>
-  (id: string, opponentId: string) => {
-    const losers = getLoserFn(id);
-    if (!losers) {
-      return;
-    }
-    if (losers.evaluationPoint !== evaluationPoints || losers.matchPoint !== matchPoints) {
-      return false;
-    }
-    return losers.opponentWin.includes(opponentId);
-  };
+function isCircle(getLoserFn: (id: string) => RankingWithEven | undefined) {
+  return (evaluationPoints: number, matchPoints: number) =>
+    (id: string, opponentId: string) => {
+      const losers = getLoserFn(id);
+      if (!losers) {
+        return;
+      }
+      if (
+        losers.evaluationPoint !== evaluationPoints
+        || losers.matchPoint !== matchPoints
+      ) {
+        return false;
+      }
+      return losers.opponentWin.includes(opponentId);
+    };
+}
 
-const isCircleOfBeating =
-  (allRankings: RankingWithEven[]) => (a: RankingWithEven, b: RankingWithEven) => {
+function isCircleOfBeating(allRankings: RankingWithEven[]) {
+  return (a: RankingWithEven, b: RankingWithEven) => {
     const aWinAgainstB = a.opponentWin.includes(b.id);
     const bWinAgainstA = b.opponentWin.includes(a.id);
 
@@ -54,15 +59,23 @@ const isCircleOfBeating =
     }
 
     const { evaluationPoint, matchPoint } = a;
-    const isCircleBy = isCircle(getLosersOf(allRankings))(evaluationPoint, matchPoint);
+    const isCircleBy = isCircle(getLosersOf(allRankings))(
+      evaluationPoint,
+      matchPoint,
+    );
 
-    const isCircleByB = b.opponentWin.some((idWinB) => isCircleBy(idWinB, a.id));
-    const isCircleByA = a.opponentWin.some((idWinA) => isCircleBy(idWinA, b.id));
+    const isCircleByB = b.opponentWin.some(idWinB =>
+      isCircleBy(idWinB, a.id),
+    );
+    const isCircleByA = a.opponentWin.some(idWinA =>
+      isCircleBy(idWinA, b.id),
+    );
 
     return isCircleByA || isCircleByB;
   };
+}
 
-export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
+export function getRankingPool(matches: Match[], athletes: Judoka[]) {
   const athleteMap: Record<
     string,
     { matchPoint: number; evaluationPoint: number; remainingTimeInWin: number }
@@ -70,7 +83,7 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
     const { id } = athlete;
     return {
       ...map,
-      [id]: { matchPoint: 0, evaluationPoint: 0, remainingTimeInWin: 0 }
+      [id]: { evaluationPoint: 0, matchPoint: 0, remainingTimeInWin: 0 },
     };
   }, {});
 
@@ -104,8 +117,7 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
       });
 
       const opponentWin = win
-        // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- checked before
-        .map((winMatch) => winMatch[getOpponentType(winMatch.winner)!]?.id)
+        .map(winMatch => winMatch[getOpponentType(winMatch.winner)!]?.id)
         .filter((id): id is string => Boolean(id));
       return { ...athleteRank, opponentWin };
     });
@@ -122,13 +134,13 @@ export const getRankingPool = (matches: Match[], athletes: Judoka[]) => {
   const sorted = sortWith<RankingWithEven>([
     descend(prop('matchPoint')),
     descend(prop('evaluationPoint')),
-    sortByDirectOrTime
+    sortByDirectOrTime,
   ])(rankingWithEven);
 
   return sorted.map<RankingAthlete>((athleteRank, index) => ({
+    evaluationPoint: athleteRank.evaluationPoint,
     id: athleteRank.id,
-    rank: index + 1,
     matchPoint: athleteRank.matchPoint,
-    evaluationPoint: athleteRank.evaluationPoint
+    rank: index + 1,
   }));
-};
+}

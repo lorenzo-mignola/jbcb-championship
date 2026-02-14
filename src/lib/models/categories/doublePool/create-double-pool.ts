@@ -1,11 +1,12 @@
 import type { DoublePoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';
+
 import { createMatch } from '../../match';
 import { shuffleArray } from '../../ranking/category';
 import { createMatchesPool } from '../singlePool/create-single-pool';
 
-const createPools = (athletes: Judoka[]) => {
+function createPools(athletes: Judoka[]) {
   const aAthletes: Judoka[] = [];
   const bAthletes: Judoka[] = [];
 
@@ -21,55 +22,56 @@ const createPools = (athletes: Judoka[]) => {
 
   return {
     A: createMatchesPool(aAthletes),
-    B: createMatchesPool(bAthletes),
     aAthletes,
-    bAthletes
+    B: createMatchesPool(bAthletes),
+    bAthletes,
   };
-};
+}
 
-const getMatches = (
+function getMatches(
   pools: DoublePoolCategory['pools'],
   semifinals: DoublePoolCategory['semifinals'],
-  finalMatch: DoublePoolCategory['finalMatch']
-) => {
+  finalMatch: DoublePoolCategory['finalMatch'],
+) {
   const poolsMatch: Match[] = [];
   const { A, B } = pools;
   for (let index = 0; index < Math.max(A.length, B.length); index++) {
     const aMatch = A[index];
-    // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- array overflow
     if (aMatch) {
       poolsMatch.push(aMatch);
     }
     const bMatch = B[index];
-    // eslint-disable-next-line svelte/@typescript-eslint/no-unnecessary-condition, @typescript-eslint/no-unnecessary-condition -- array overflow
     if (bMatch) {
       poolsMatch.push(bMatch);
     }
   }
   return [...poolsMatch, ...semifinals, finalMatch];
-};
+}
 
-export const createDoublePool = (
+export function createDoublePool(
   name: string,
   athletes: Judoka[],
   duration: number,
-  tournament = ''
-): Omit<DoublePoolCategory, 'id'> => {
+  tournament = '',
+): Omit<DoublePoolCategory, 'id'> {
   const pools = createPools(athletes);
-  const semifinals: DoublePoolCategory['semifinals'] = [createMatch(), createMatch()];
+  const semifinals: DoublePoolCategory['semifinals'] = [
+    createMatch(),
+    createMatch(),
+  ];
   const finalMatch = createMatch();
   const matches = getMatches(pools, semifinals, finalMatch);
 
   return {
-    type: 'double_pool',
-    name,
-    tournament,
     athletes,
-    matches,
     currentMatch: matches[0].id,
     duration,
+    finalMatch,
+    matches,
+    name,
     pools,
     semifinals,
-    finalMatch
+    tournament,
+    type: 'double_pool',
   };
-};
+}

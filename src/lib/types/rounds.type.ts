@@ -3,9 +3,9 @@ import { z } from 'zod';
 import { MatchSchema } from './match.type';
 
 const BracketRoundSchema = z.object({
-  winner: z.array(MatchSchema),
   loser: z.array(MatchSchema),
-  repechage: z.array(MatchSchema)
+  repechage: z.array(MatchSchema),
+  winner: z.array(MatchSchema),
 });
 
 export const RoundsSchema = z.array(BracketRoundSchema);

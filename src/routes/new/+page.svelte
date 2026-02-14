@@ -1,33 +1,34 @@
-<script lang="ts" strictEvents>
-  import axios from 'axios';
-
+<script lang='ts'>
   import { goto } from '$app/navigation';
   import { base } from '$app/paths';
-  import CategoryEdit from '$lib/components/new/category-edit.svelte';
-  import { athletes, resetAthletes } from '$lib/store/$athletes';
-  import { categoryName } from '$lib/store/$category-name';
-  import { duration } from '$lib/store/$duration';
-  import { type } from '$lib/store/$type';
+  import ky from 'ky';
 
-  import { tournament } from '../../lib/store/$tournament';
+  import { athletesState } from '$lib/state/category-edit/athletes-state.svelte';
+  import { categoryNameState } from '$lib/state/category-edit/category-name-state.svelte';
+  import { categoryTypeState } from '$lib/state/category-edit/category-type-state.svelte';
+  import { durationState } from '$lib/state/category-edit/duration-state.svelte';
+  import { tournamentState } from '$lib/state/settings/tournament-state';
+
+  import CategoryEdit from './components/category-edit.svelte';
 
   const reset = () => {
-    resetAthletes();
-    categoryName.set('');
+    athletesState.resetAthletes();
+    categoryNameState.name = '';
   };
 
   async function handleCreate() {
-    if (!$categoryName || !$type) {
+    if (!categoryNameState.name || !categoryTypeState.type) {
       return;
     }
-
-    const { data: newCategoryId } = await axios.post<string>('/api/categories', {
-      name: $categoryName.trim(),
-      athletes: $athletes,
-      type: $type,
-      duration: $duration,
-      tournament: $tournament
-    });
+    const newCategoryId = await ky.post<string>('/api/categories', {
+      json: {
+        athletes: athletesState.athletes,
+        duration: durationState.duration,
+        name: categoryNameState.name.trim(),
+        tournament: tournamentState.tournament,
+        type: categoryTypeState.type,
+      },
+    }).json();
 
     reset();
     goto(`${base}/categories/${newCategoryId}`);
@@ -35,5 +36,7 @@
 </script>
 
 <CategoryEdit handleClick={handleCreate}>
-  <span slot="label-button">Crea categoria</span>
+  {#snippet labelButton()}
+    <span>Crea Categoria</span>
+  {/snippet}
 </CategoryEdit>

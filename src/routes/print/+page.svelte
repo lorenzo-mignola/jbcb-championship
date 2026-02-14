@@ -1,24 +1,24 @@
-<script lang="ts" strictEvents>
+<script lang='ts'>
   import Card from '$lib/components/card.svelte';
-  import { tournament } from '$lib/store/$tournament';
+  import { tournamentState } from '$lib/state/settings/tournament-state';
 </script>
 
-<div class="flex flex-col gap-4">
+<div class='flex flex-col gap-4'>
   <Card
-    disabled={!$tournament}
-    link={`/categories/print/registered?tournament=${$tournament}`}
-    text="📋 Iscrizioni categorie 📋"
+    disabled={!tournamentState.tournament}
+    link={`/categories/print/registered?tournament=${tournamentState.tournament}`}
+    text='📋 Iscrizioni categorie 📋'
   />
 
   <Card
-    disabled={!$tournament}
-    link={`/club-ranking?tournament=${$tournament}`}
-    text="🎊 Classifica club 🎊"
+    disabled={!tournamentState.tournament}
+    link={`/club-ranking?tournament=${tournamentState.tournament}`}
+    text='🎊 Classifica club 🎊'
   />
 
   <Card
-    disabled={!$tournament}
-    link={`/categories/print/summary?tournament=${$tournament}`}
-    text="🏅 Classifiche categorie 🏅"
+    disabled={!tournamentState.tournament}
+    link={`/categories/print/summary?tournament=${tournamentState.tournament}`}
+    text='🏅 Classifiche categorie 🏅'
   />
 </div>

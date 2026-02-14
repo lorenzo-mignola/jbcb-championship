@@ -1,12 +1,20 @@
+<script lang='ts'>
+  interface Props {
+    [key: string]: any;
+  }
+
+  const { ...props }: Props = $props();
+</script>
+
 <svg
-  data-testid="play-icon"
-  height="1em"
-  viewBox="0 0 20 20"
-  width="1em"
-  xmlns="http://www.w3.org/2000/svg"
-  {...$$props}
-  ><path
-    d="M4.55 19A1 1 0 0 1 3 18.13V1.87A1 1 0 0 1 4.55 1l12.2 8.13a1 1 0 0 1 0 1.7z"
-    fill="currentColor"
-  /></svg
+  data-testid='play-icon'
+  height='1em'
+  viewBox='0 0 20 20'
+  width='1em'
+  xmlns='http://www.w3.org/2000/svg'
+  {...props}
+><path
+  d='M4.55 19A1 1 0 0 1 3 18.13V1.87A1 1 0 0 1 4.55 1l12.2 8.13a1 1 0 0 1 0 1.7z'
+  fill='currentColor'
+/></svg
 >

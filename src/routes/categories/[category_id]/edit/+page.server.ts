@@ -1,9 +1,10 @@
 import { equals, filter, map, not, pick, pipe, prop } from 'ramda';
 
-import { getCategory, getNotStartedCategory } from '$lib/server/methods';
+import type { Category } from '$lib/types/category.type';
 
-import type { Category } from '../../../../lib/types/category.type';
-import { sortCategories } from '../../../../lib/utils/categories';
+import { getCategory, getNotStartedCategory } from '$lib/db';
+import { sortCategories } from '$lib/utils/categories-utils';
+
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ params, url }) => {
@@ -16,11 +17,11 @@ export const load: PageServerLoad = async ({ params, url }) => {
   return {
     category,
     notStartedCategories: pipe(
-      filter<Category>((categoryNotStarted) =>
-        not(equals(prop('id')(categoryNotStarted), categoryId))
+      filter<Category>(categoryNotStarted =>
+        not(equals(prop('id')(categoryNotStarted), categoryId)),
       ),
       sortCategories,
-      map(pick(['id', 'name']))
-    )(notStartedCategories)
+      map(pick(['id', 'name'])),
+    )(notStartedCategories),
   };
 };

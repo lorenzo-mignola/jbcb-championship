@@ -1,39 +1,64 @@
 import { sveltekit } from '@sveltejs/kit/vite';
+import tailwindcss from '@tailwindcss/vite';
 import { SvelteKitPWA } from '@vite-pwa/sveltekit';
-import { defineConfig } from 'vite';
-import { purgeCss } from 'vite-plugin-tailwind-purgecss';
+import devtoolsJson from 'vite-plugin-devtools-json';
+import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     sveltekit(),
-    purgeCss(),
-    SvelteKitPWA({
-      scope: '/',
-      base: '/',
-      manifest: {
-        short_name: 'JBCB Championship',
-        name: 'JBCB Championship',
-        theme_color: '#7f2f3b',
-        background_color: '#7f2f3b',
-        icons: [
-          {
-            src: '/192.png',
-            sizes: '192x192',
-            type: 'image/png'
-          },
-          {
-            src: '/512.png',
-            sizes: '512x512',
-            type: 'image/png'
-          },
-          {
-            src: '/512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable'
-          }
-        ]
-      }
-    })
-  ]
+    SvelteKitPWA(
+      {
+        base: '/',
+        manifest: {
+          background_color: '#7f2f3b',
+          icons: [
+            {
+              sizes: '192x192',
+              src: '/192.png',
+              type: 'image/png',
+            },
+            {
+              sizes: '512x512',
+              src: '/512.png',
+              type: 'image/png',
+            },
+            {
+              purpose: 'any maskable',
+              sizes: '512x512',
+              src: '/512.png',
+              type: 'image/png',
+            },
+          ],
+          name: 'JBCB Championship',
+          short_name: 'JBCB Championship',
+          theme_color: '#7f2f3b',
+        },
+        scope: '/',
+      },
+    ),
+    devtoolsJson(),
+  ],
+  resolve: {
+    conditions: ['browser', 'development'],
+  },
+  test: {
+    coverage: {
+      include: ['src/**/*.{ts,svelte}'],
+      provider: 'v8',
+    },
+    expect: { requireAssertions: true },
+    projects: [
+      {
+        extends: './vite.config.ts',
+        test: {
+          environment: 'happy-dom',
+          include: ['src/**/*.{test,spec}.{js,ts}', 'src/**/*-state.svelte.{test,spec}.{js,ts}'],
+          name: 'client',
+          setupFiles: ['./tests/setup/testing-library-setup.ts'],
+        },
+      },
+    ],
+  },
 });

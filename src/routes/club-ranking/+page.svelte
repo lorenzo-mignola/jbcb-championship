@@ -1,24 +1,24 @@
-<script lang="ts" strictEvents>
+<script lang='ts'>
   import PrintButton from '$lib/components/print-button.svelte';
 
-  export let data;
-  $: ranking = data.ranking;
+  const { data } = $props();
+  const ranking = $derived(data.ranking);
 </script>
 
-<div class="flex justify-between">
-  <h2 class="h2">Classifica per club</h2>
+<div class='flex justify-between'>
+  <h2 class='h2'>Classifica per club</h2>
   <PrintButton />
 </div>
 
-<div class="table-container mt-5">
-  <table class="table table-hover text-center">
+<div class='mt-5 table-wrap'>
+  <table class='table text-center'>
     <thead>
       <tr>
-        <th class="w-3/4">Club</th>
-        <th class=" text-center text-xl">🥇</th>
-        <th class="text-center text-xl">🥈</th>
-        <th class="text-center text-xl">🥉</th>
-        <th class="text-center">Tot</th>
+        <th class='w-3/4'>Club</th>
+        <th class='text-center text-xl'>🥇</th>
+        <th class='text-center text-xl'>🥈</th>
+        <th class='text-center text-xl'>🥉</th>
+        <th class='text-center'>Tot</th>
       </tr>
     </thead>
     <tbody>
@@ -35,7 +35,9 @@
   </table>
 </div>
 
-<style lang="postcss">
+<style lang='postcss'>
+  @reference "tailwindcss";
+
   tr > td:nth-child(1) {
     @apply text-left;
   }

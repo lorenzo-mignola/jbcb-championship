@@ -1,20 +1,21 @@
-import { getCategory } from '$lib/server/methods';
+import type { Category } from '$lib/types/category.type';
+import type { Match } from '$lib/types/match.type';
 
-import { isNotByeMatch } from '../../../../../lib/models/ranking/category';
-import type { Category } from '../../../../../lib/types/category.type';
-import type { Match } from '../../../../../lib/types/match.type';
+import { getCategory } from '$lib/db';
+import { isNotByeMatch } from '$lib/models/ranking/category';
+
 import type { PageServerLoad } from './$types';
 
-type Output =
+type Output
+  = | {
+    category: undefined;
+  }
   | {
-      category: undefined;
-    }
-  | {
-      category: Pick<Category, 'name' | 'duration'> & { id: string };
-      match: Match;
-      nextMatch: Match | undefined;
-      isMedalMatch: boolean;
-    };
+    category: Pick<Category, 'name' | 'duration'> & { id: string };
+    match: Match;
+    nextMatch: Match | undefined;
+    isMedalMatch: boolean;
+  };
 
 export const load: PageServerLoad = async ({ params }): Promise<Output> => {
   const { category_id, match_id } = params;
@@ -22,30 +23,35 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
 
   if (!category) {
     return {
-      category
+      category,
     };
   }
 
-  const matchIndex = category.matches.findIndex((match) => match.id === match_id);
+  const matchIndex = category.matches.findIndex(
+    match => match.id === match_id,
+  );
 
   if (matchIndex === -1) {
     return {
-      category: undefined
+      category: undefined,
     };
   }
 
-  const isMedalMatch = category.type !== 'pool' ? category.matches.length - matchIndex <= 3 : false;
+  const isMedalMatch
+    = category.type !== 'pool'
+      ? category.matches.length - matchIndex <= 3
+      : false;
   const match = category.matches[matchIndex];
   const nextMatch = category.matches.slice(matchIndex + 1).find(isNotByeMatch);
 
   return {
     category: {
+      duration: category.duration,
       id: category.id.toString(),
       name: category.name,
-      duration: category.duration
     },
+    isMedalMatch,
     match,
     nextMatch,
-    isMedalMatch
   };
 };

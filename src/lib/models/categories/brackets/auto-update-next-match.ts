@@ -1,23 +1,26 @@
 import type { Category } from '../../../types/category.type';
 import type { Match } from '../../../types/match.type';
+
 import { isByeMatch } from '../../ranking/category';
 
-export const needSkipMatch = (category: Category) => {
+export function needSkipMatch(category: Category) {
   if (!category.currentMatch) {
     return;
   }
 
-  const nextMatch = category.matches.find((match) => match.id === category.currentMatch);
+  const nextMatch = category.matches.find(
+    match => match.id === category.currentMatch,
+  );
 
   if (!nextMatch) {
     return false;
   }
 
   return isByeMatch(nextMatch);
-};
+}
 
-export const getByeWinner = (match: Match) => {
-  const { white, blue } = match;
+export function getByeWinner(match: Match) {
+  const { blue, white } = match;
   if (white) {
     return 'white';
   }
@@ -25,4 +28,4 @@ export const getByeWinner = (match: Match) => {
     return 'blue';
   }
   return undefined;
-};
+}

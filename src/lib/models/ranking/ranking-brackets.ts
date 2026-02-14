@@ -1,7 +1,8 @@
 import type { Match } from '../../types/match.type';
-import { getOpponentType } from '../../utils/judoka';
 
-export const getRankingBrackets = (matches: Match[]) => {
+import { getOpponentType } from '../../utils/judoka-utils';
+
+export function getRankingBrackets(matches: Match[]) {
   const lastMatchIndex = matches.length - 1;
   if (lastMatchIndex < 0) {
     return [];
@@ -14,38 +15,35 @@ export const getRankingBrackets = (matches: Match[]) => {
 
   if (goldFinal.winner) {
     ranking.push({
+      id: goldFinal[goldFinal.winner]?.id,
       rank: 1,
-      id: goldFinal[goldFinal.winner]?.id
     });
     ranking.push({
+      id: goldFinal[getOpponentType(goldFinal.winner)!]?.id,
       rank: 2,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
-      id: goldFinal[getOpponentType(goldFinal.winner)!]?.id
     });
   }
 
   if (firstBronzeFinal.winner) {
     ranking.push({
+      id: firstBronzeFinal[firstBronzeFinal.winner]?.id,
       rank: 3,
-      id: firstBronzeFinal[firstBronzeFinal.winner]?.id
     });
     ranking.push({
+      id: firstBronzeFinal[getOpponentType(firstBronzeFinal.winner)!]?.id,
       rank: 5,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
-      id: firstBronzeFinal[getOpponentType(firstBronzeFinal.winner)!]?.id
     });
   }
   if (secondBronzeFinal.winner) {
     ranking.push({
+      id: secondBronzeFinal[secondBronzeFinal.winner]?.id,
       rank: 3,
-      id: secondBronzeFinal[secondBronzeFinal.winner]?.id
     });
     ranking.push({
+      id: secondBronzeFinal[getOpponentType(secondBronzeFinal.winner)!]?.id,
       rank: 5,
-      // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
-      id: secondBronzeFinal[getOpponentType(secondBronzeFinal.winner)!]?.id
     });
   }
 
   return ranking.sort((a, b) => a.rank - b.rank);
-};
+}

@@ -81,7 +81,8 @@ Dopo 3 shido viene assegnata la vittoria all'avversario. Per assegnare hansoku-m
 
 ### Osae-komi / Toketa
 
-Questi pulsanti sono attivi solo mentre il timer dell'incontro è attivo. Quando viene premuto la prima volta viene attivato il timer per l'osae-komi, se premuto la seconda volta (toketa) il timer per l'osae-komi si interrompe. Dopo 10 secondi viene assegnato 1 waza-ari, dopo 20 viene assegnato l'ippon
+Questi pulsanti sono attivi solo mentre il timer dell'incontro è attivo. Quando viene premuto la prima volta viene attivato il timer per l'osae-komi, se premuto la seconda volta (toketa) il timer per l'osae-komi si interrompe.
+Dopo 10 secondi viene assegnato 1 waza-ari, dopo 20 viene assegnato l'ippon
 
 ![osaekomi](./docs/assets/osaekomi.png)
 ![toketa](./docs/assets/toketa.png)

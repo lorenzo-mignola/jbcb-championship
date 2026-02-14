@@ -1,35 +1,46 @@
-<script lang="ts" strictEvents>
+<script lang='ts'>
   import { browser } from '$app/environment';
 
-  import { categoriesNotStarted } from '../store/$categories-not-started';
   import type { Judoka } from '../types/judoka.type';
-  import MoveButton from './move-athlete/move-button.svelte';
+
+  import { categoriesNotStartedState } from '../state/utils/categories-not-started-state.svelte';
+  import MoveButton from './move-button.svelte';
 
   interface $$Slots {
     icon: Record<string, never>;
   }
 
-  export let athletes: Judoka[];
-  export let iconActionTitle: string = '';
-  // eslint-disable-next-line no-unused-vars -- type declaration
-  export let iconAction: ((id: string) => void) | null = null;
-  export let showTitle = true;
+  interface Props {
+    athletes: Judoka[];
+    icon?: import('svelte').Snippet;
+    iconAction?: ((id: string) => void) | null;
+    iconActionTitle?: string;
+    showTitle?: boolean;
+  }
+
+  const {
+    athletes,
+    icon,
+    iconAction = null,
+    iconActionTitle = '',
+    showTitle = true,
+  }: Props = $props();
 
   const editPage = browser ? window.location.href.includes('/edit') : false;
-  $: edit = editPage && $categoriesNotStarted.length > 0;
+  const edit = $derived(editPage && categoriesNotStartedState.length() > 0);
 </script>
 
 {#if showTitle && athletes.length > 0}
-  <h2 class="h3">Judoka</h2>
+  <h2 class='h4'>Judoka</h2>
 {/if}
-<ul class="list my-2 break-inside-avoid-page">
+<ul class='my-2 break-inside-avoid-page'>
   {#each athletes as athlete (athlete.id)}
     <hr />
-    <li>
-      <span class="flex flex-auto flex-col">
-        <span class="text-lg">{athlete.name}</span>
+    <li class='flex p-2'>
+      <span class='flex flex-auto flex-col'>
+        <span class='text-lg'>{athlete.name}</span>
         {#if athlete.club}
-          <span class="italic">{athlete.club}</span>
+          <span class='italic'>{athlete.club}</span>
         {/if}
       </span>
       {#if edit}
@@ -37,10 +48,13 @@
       {/if}
       {#if iconAction !== null}
         <button
-          class="variant-filled-primary btn-icon text-white [&>*]:pointer-events-none"
+          class='
+            btn-icon preset-filled-primary-500 text-white
+            *:pointer-events-none
+          '
           title={iconActionTitle}
-          type="button"
-          on:click|preventDefault={() => iconAction?.(athlete.id)}><slot name="icon" /></button
+          type='button'
+          onclick={() => iconAction?.(athlete.id)}>{@render icon?.()}</button
         >
       {/if}
     </li>

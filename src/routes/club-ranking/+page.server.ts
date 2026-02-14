@@ -1,5 +1,6 @@
-import { getClubRaking } from '../../lib/models/ranking/club-ranking';
-import { getAllEndedCategories } from '../../lib/server/methods';
+import { getAllEndedCategories } from '$lib/db';
+import { getClubRaking } from '$lib/models/ranking/club-ranking';
+
 import type { PageServerLoad } from './$types';
 
 export const load: PageServerLoad = async ({ url }) => {
@@ -9,6 +10,6 @@ export const load: PageServerLoad = async ({ url }) => {
   const ranking = getClubRaking(categories);
 
   return {
-    ranking
+    ranking,
   };
 };

@@ -1,63 +1,61 @@
-<script lang="ts" strictEvents>
-  import { getToastStore, type ToastSettings } from '@skeletonlabs/skeleton';
-  import axios from 'axios';
-  import { onDestroy } from 'svelte';
-
+<script lang='ts'>
   import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
-  import CategoryEdit from '$lib/components/new/category-edit.svelte';
-  import { athletes } from '$lib/store/$athletes';
-  import { categoryName } from '$lib/store/$category-name';
-  import { duration } from '$lib/store/$duration';
-  import { tournament } from '$lib/store/$tournament';
-  import { type } from '$lib/store/$type';
+  import { resolve } from '$app/paths';
+  import ky from 'ky';
 
-  import { categoriesNotStarted } from '../../../../lib/store/$categories-not-started';
+  import { athletesState } from '$lib/state/category-edit/athletes-state.svelte.js';
+  import { categoryNameState } from '$lib/state/category-edit/category-name-state.svelte.js';
+  import { categoryTypeState } from '$lib/state/category-edit/category-type-state.svelte.js';
+  import { durationState } from '$lib/state/category-edit/duration-state.svelte.js';
+  import { tournamentState } from '$lib/state/settings/tournament-state.js';
+  import {
+    categoriesNotStartedState,
+  } from '$lib/state/utils/categories-not-started-state.svelte.js';
+  import { toaster } from '$lib/state/utils/toaster-state.js';
+
+  import CategoryEdit from '../../../new/components/category-edit.svelte';
   import { initializeCategory } from './initialize-category';
   import { reset } from './reset';
 
-  export let data;
+  const { data } = $props();
 
-  $: category = data.category;
-  $: notStartedCategoriesData = data.notStartedCategories;
+  const category = $derived(data.category);
+  const notStartedCategoriesData = $derived(data.notStartedCategories);
 
-  $: initializeCategory(category);
-  $: categoriesNotStarted.set(notStartedCategoriesData);
+  $effect(() => {
+    initializeCategory(category);
+    categoriesNotStartedState.categoriesNotStarted = notStartedCategoriesData;
 
-  const toastStore = getToastStore();
-  const errorToast: ToastSettings = {
-    message: 'Errore durante il salvataggio delle modifiche',
-    background: 'variant-filled-error'
-  };
+    return () => {
+      reset();
+    };
+  });
 
   async function handleEdit() {
-    if (!$categoryName || !$type || !category) {
+    if (categoryNameState.name || categoryTypeState.type || !category) {
       return;
     }
 
     try {
-      const { data: idNewCategory } = await axios.patch<string>(`/api/categories/${category.id}`, {
-        name: $categoryName.trim(),
-        athletes: $athletes,
-        type: $type,
-        duration: $duration,
-        tournament: $tournament
-      });
+      const idNewCategory = await ky.patch<string>(`/api/categories/${category.id}`, { json: {
+        athletes: athletesState.athletes,
+        duration: durationState.duration,
+        name: categoryNameState.name.trim(),
+        tournament: tournamentState.tournament,
+        type: categoryTypeState.type,
+      } }).json();
 
       reset();
-      goto(`${base}/categories/${idNewCategory}`);
+      goto(resolve(`/categories/${idNewCategory}`));
     } catch (error) {
-      toastStore.trigger(errorToast);
-      // eslint-disable-next-line no-console -- console error
+      toaster.error({ title: 'Errore durante il salvataggio delle modifiche' });
       console.error((error as { data: any }).data);
     }
   }
-
-  onDestroy(() => {
-    reset();
-  });
 </script>
 
 <CategoryEdit handleClick={handleEdit}>
-  <span slot="label-button">Modifica categoria</span>
+  {#snippet labelButton()}
+    <span>Modifica categoria</span>
+  {/snippet}
 </CategoryEdit>

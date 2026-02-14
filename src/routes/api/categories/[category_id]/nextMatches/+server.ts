@@ -1,7 +1,9 @@
-import { json, type RequestHandler } from '@sveltejs/kit';
+import type { RequestHandler } from '@sveltejs/kit';
+
+import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
-import { getCategory } from '../../../../../lib/server/get-category';
+import { getCategory } from '$lib/db';
 
 export const GET: RequestHandler = async ({ params }) => {
   const categoryId = z.string().parse(params.category_id);
@@ -13,7 +15,7 @@ export const GET: RequestHandler = async ({ params }) => {
   }
 
   // keep only not done match
-  const nextMatches = category.matches.filter((match) => !match.winner);
+  const nextMatches = category.matches.filter(match => !match.winner);
 
   return json(nextMatches);
 };

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { DoublePoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
+
 import { resetAthlete } from '../brackets/reset-athlete';
 import { createDoublePool } from './create-double-pool';
 import { updateDoublePool } from './update-double-pool';
@@ -19,7 +20,7 @@ const athletes: Judoka[] = [
   { id: '10', name: '10' },
   { id: '11', name: '11' },
   { id: '12', name: '12' },
-  { id: '13', name: '13' }
+  { id: '13', name: '13' },
 ];
 
 describe('createDoublePool', () => {
@@ -43,7 +44,7 @@ describe('createDoublePool', () => {
   it('should have currentMatch as Pool A first match', () => {
     const doublePool = createDoublePool('test', athletes, 0);
 
-    const { pools, currentMatch, matches } = doublePool;
+    const { currentMatch, matches, pools } = doublePool;
 
     expect(currentMatch).toBe(pools.A[0].id);
     expect(matches[0].id).toBe(pools.A[0].id);
@@ -54,9 +55,9 @@ describe('createDoublePool', () => {
 
     const poolUpdated = updateDoublePool(doublePool as DoublePoolCategory, {
       ...doublePool.matches[0],
-      winner: 'white'
+      winner: 'white',
     });
-    const { pools, currentMatch, matches } = poolUpdated;
+    const { currentMatch, matches, pools } = poolUpdated;
 
     expect(matches[0].winner).toBe('white');
     expect(poolUpdated.pools.A[0].winner).toBe('white');
@@ -68,19 +69,17 @@ describe('createDoublePool', () => {
     const lastMatchIndex = 21 + 15 - 1;
     const lastMatchPool = doublePool.matches[lastMatchIndex];
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!lastMatchPool.white || !lastMatchPool.blue) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
       { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
       {
         ...lastMatchPool,
-        winner: 'white'
-      }
+        winner: 'white',
+      },
     );
-    const { semifinals, currentMatch, matches } = poolUpdated;
+    const { currentMatch, matches, semifinals } = poolUpdated;
 
     expect(matches[lastMatchIndex].winner).toBe('white');
     expect(currentMatch).toBe(semifinals[0].id);
@@ -91,30 +90,32 @@ describe('createDoublePool', () => {
     const lastMatchIndex = 21 + 15 - 1;
     const lastMatchPool = doublePool.matches[lastMatchIndex];
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!lastMatchPool.white || !lastMatchPool.blue) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
       { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
       {
         ...lastMatchPool,
-        winner: 'white'
-      }
+        winner: 'white',
+      },
     );
     const {
+      pools: { A, B },
       semifinals,
-      pools: { A, B }
     } = poolUpdated;
 
     const [firstSemifinal] = semifinals;
 
     // firstSemifinal
     expect(firstSemifinal.white).toBeDefined();
-    expect(A.flatMap((m) => [m.white?.id, m.blue?.id])).contains(firstSemifinal.white?.id);
+    expect(A.flatMap(m => [m.white?.id, m.blue?.id])).contains(
+      firstSemifinal.white?.id,
+    );
     expect(firstSemifinal.blue).toBeDefined();
-    expect(B.flatMap((m) => [m.white?.id, m.blue?.id])).contains(firstSemifinal.blue?.id);
+    expect(B.flatMap(m => [m.white?.id, m.blue?.id])).contains(
+      firstSemifinal.blue?.id,
+    );
   });
 
   it('should have semifinals set (expect second semifinal)', () => {
@@ -122,48 +123,48 @@ describe('createDoublePool', () => {
     const lastMatchIndex = 21 + 15 - 1;
     const lastMatchPool = doublePool.matches[lastMatchIndex];
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!lastMatchPool.white || !lastMatchPool.blue) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
       expect.fail('not last match pool');
     }
     const poolUpdated = updateDoublePool(
       { ...doublePool, currentMatch: lastMatchPool.id } as DoublePoolCategory,
       {
         ...lastMatchPool,
-        winner: 'white'
-      }
+        winner: 'white',
+      },
     );
     const {
+      pools: { A, B },
       semifinals,
-      pools: { A, B }
     } = poolUpdated;
 
     const [_, secondSemifinal] = semifinals;
 
     // secondSemifinal
     expect(secondSemifinal.white).toBeDefined();
-    expect(B.flatMap((m) => [m.white?.id, m.blue?.id])).contains(secondSemifinal.white?.id);
+    expect(B.flatMap(m => [m.white?.id, m.blue?.id])).contains(
+      secondSemifinal.white?.id,
+    );
     expect(secondSemifinal.blue).toBeDefined();
-    expect(A.flatMap((m) => [m.white?.id, m.blue?.id])).contains(secondSemifinal.blue?.id);
+    expect(A.flatMap(m => [m.white?.id, m.blue?.id])).contains(
+      secondSemifinal.blue?.id,
+    );
   });
 
   it('should update first semifinal', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdated = updateDoublePool(
       { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
-        winner: 'white'
-      }
+        winner: 'white',
+      },
     );
 
     expect(poolUpdated.semifinals[0].winner).toBe('white');
@@ -173,18 +174,16 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const secondSemifinal = doublePool.matches.at(-2);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdated = updateDoublePool(
       { ...doublePool, currentMatch: secondSemifinal.id } as DoublePoolCategory,
       {
         ...secondSemifinal,
-        winner: 'white'
-      }
+        winner: 'white',
+      },
     );
 
     expect(poolUpdated.semifinals[1].winner).toBe('white');
@@ -195,47 +194,43 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdatedFirstSemi = updateDoublePool(
       { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
-        white: resetAthlete({
-          id: '1',
-          name: '1'
-        }),
         blue: resetAthlete({
           id: '2',
-          name: '2'
+          name: '2',
         }),
-        winner: 'white'
-      }
+        white: resetAthlete({
+          id: '1',
+          name: '1',
+        }),
+        winner: 'white',
+      },
     );
 
     const secondSemifinal = poolUpdatedFirstSemi.matches.at(-2);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdated = updateDoublePool(poolUpdatedFirstSemi, {
       ...secondSemifinal,
-      white: resetAthlete({
-        id: '3',
-        name: '3'
-      }),
       blue: resetAthlete({
         id: '4',
-        name: '4'
+        name: '4',
       }),
-      winner: 'white'
+      white: resetAthlete({
+        id: '3',
+        name: '3',
+      }),
+      winner: 'white',
     });
 
     expect(poolUpdated.finalMatch.white).toBeDefined();
@@ -248,52 +243,48 @@ describe('createDoublePool', () => {
     const doublePool = createDoublePool('test', athletes, 0);
     const firstSemifinal = doublePool.matches.at(-3);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdatedFirstSemi = updateDoublePool(
       { ...doublePool, currentMatch: firstSemifinal.id } as DoublePoolCategory,
       {
         ...firstSemifinal,
-        white: resetAthlete({
-          id: '1',
-          name: '1'
-        }),
         blue: resetAthlete({
           id: '2',
-          name: '2'
+          name: '2',
         }),
-        winner: 'white'
-      }
+        white: resetAthlete({
+          id: '1',
+          name: '1',
+        }),
+        winner: 'white',
+      },
     );
 
     const secondSemifinal = poolUpdatedFirstSemi.matches.at(-2);
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!secondSemifinal) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("Semifinal can't be undefined");
+      expect.fail('Semifinal can\'t be undefined');
     }
 
     const poolUpdatedSecondSemi = updateDoublePool(poolUpdatedFirstSemi, {
       ...secondSemifinal,
-      white: resetAthlete({
-        id: '3',
-        name: '3'
-      }),
       blue: resetAthlete({
         id: '4',
-        name: '4'
+        name: '4',
       }),
-      winner: 'white'
+      white: resetAthlete({
+        id: '3',
+        name: '3',
+      }),
+      winner: 'white',
     });
 
     const poolUpdated = updateDoublePool(poolUpdatedSecondSemi, {
       ...poolUpdatedSecondSemi.finalMatch,
-      winner: 'white'
+      winner: 'white',
     });
 
     expect(poolUpdated.finalMatch.winner).toBe('white');

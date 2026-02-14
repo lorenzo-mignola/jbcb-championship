@@ -1,15 +1,16 @@
 import { json } from '@sveltejs/kit';
 
-import { createCategory } from '../../../lib/server/methods';
-import { CategoryBaseSchema } from '../../../lib/types/category.type';
+import { createCategory } from '$lib/db';
+import { CategoryBaseSchema } from '$lib/types/category.type';
+
 import type { RequestHandler } from './$types';
 
 const schemaCreate = CategoryBaseSchema.pick({
-  name: true,
   athletes: true,
-  type: true,
   duration: true,
-  tournament: true
+  name: true,
+  tournament: true,
+  type: true,
 });
 
 export const POST: RequestHandler = async ({ request }) => {

@@ -5,6 +5,7 @@ import double from '$tests/mock/double-pool.json';
 import single from '$tests/mock/single-pool.json';
 
 import type { Category } from '../../types/category.type';
+
 import { getClubRaking } from './club-ranking';
 
 describe('getClubRaking', () => {
@@ -12,7 +13,7 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const clubs = rank.map((r) => r.name);
+    const clubs = rank.map(r => r.name);
 
     expect(clubs).toContain('Club 1');
     expect(clubs).toContain('Club 2');
@@ -23,7 +24,7 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club1 = rank.find((r) => r.name === 'Club 1');
+    const club1 = rank.find(r => r.name === 'Club 1');
 
     expect(club1).toHaveProperty('gold');
     expect(club1).toHaveProperty('silver');
@@ -34,7 +35,7 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club1 = rank.find((r) => r.name === 'Club 2');
+    const club1 = rank.find(r => r.name === 'Club 2');
 
     expect(club1?.gold).toBe(2);
   });
@@ -43,7 +44,7 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club3 = rank.find((r) => r.name === 'Club 3');
+    const club3 = rank.find(r => r.name === 'Club 3');
 
     expect(club3?.silver).toBe(1);
   });
@@ -52,7 +53,7 @@ describe('getClubRaking', () => {
     const categories = [ko, double, single] as Category[];
     const rank = getClubRaking(categories);
 
-    const club1 = rank.find((r) => r.name === 'Club 1');
+    const club1 = rank.find(r => r.name === 'Club 1');
 
     expect(club1?.bronze).toBe(2);
   });

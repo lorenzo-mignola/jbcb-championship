@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/no-non-null-assertion -- test fail if is null*/
 import { afterEach, describe, expect, it, vi } from 'vitest';
 
 import type { BracketsCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';
+
 import { createBrackets, updateBrackets } from './brackets';
 import { getCurrentMatch } from './get-current-match';
 
@@ -39,7 +39,7 @@ const athletes: Judoka[] = [
   { id: '29', name: '29' },
   { id: '30', name: '30' },
   { id: '31', name: '31' },
-  { id: '32', name: '32' }
+  { id: '32', name: '32' },
 ];
 
 describe('createBrackets', () => {
@@ -53,7 +53,7 @@ describe('createBrackets', () => {
     [athletes.slice(0, 14), 27],
     [athletes, 59],
     [athletes.slice(0, 19), 59],
-    [athletes.slice(0, 24), 59]
+    [athletes.slice(0, 24), 59],
   ])('should create matches in brackets', (athleteSlice, totalMatches) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -64,37 +64,47 @@ describe('createBrackets', () => {
     [athletes.slice(0, 4), 2],
     [athletes.slice(0, 8), 4],
     [athletes.slice(0, 16), 8],
-    [athletes, 16]
-  ])('should create matches for the first round', (athleteSlice, nrFirstRoundMatch) => {
-    const brackets = createBrackets('test', athleteSlice, 0);
-    const { matches } = brackets;
-    const firstRoundMatches = matches.slice(0, nrFirstRoundMatch);
-    const otherMatches = matches.slice(nrFirstRoundMatch);
+    [athletes, 16],
+  ])(
+    'should create matches for the first round',
+    (athleteSlice, nrFirstRoundMatch) => {
+      const brackets = createBrackets('test', athleteSlice, 0);
+      const { matches } = brackets;
+      const firstRoundMatches = matches.slice(0, nrFirstRoundMatch);
+      const otherMatches = matches.slice(nrFirstRoundMatch);
 
-    expect(firstRoundMatches.every((match) => match.white && match.blue)).toBeTruthy();
-    expect(otherMatches.every((match) => !match.white && !match.blue)).toBeTruthy();
-  });
+      expect(
+        firstRoundMatches.every(match => match.white && match.blue),
+      ).toBeTruthy();
+      expect(
+        otherMatches.every(match => !match.white && !match.blue),
+      ).toBeTruthy();
+    },
+  );
 
   it.each([
     [athletes.slice(0, 4)],
     [athletes.slice(0, 7)],
     [athletes.slice(0, 8)],
     [athletes.slice(0, 16)],
-    [athletes]
-  ])('should create matches for the first round with every athlete', (athleteSlice) => {
-    const brackets = createBrackets('test', athleteSlice, 0);
-    const { rounds } = brackets;
-    const firstRoundMatches = rounds[0];
+    [athletes],
+  ])(
+    'should create matches for the first round with every athlete',
+    (athleteSlice) => {
+      const brackets = createBrackets('test', athleteSlice, 0);
+      const { rounds } = brackets;
+      const firstRoundMatches = rounds[0];
 
-    const ids = firstRoundMatches.winner
-      .flatMap((match) => [match.blue?.id, match.white?.id])
-      .filter((id): id is string => Boolean(id));
+      const ids = firstRoundMatches.winner
+        .flatMap(match => [match.blue?.id, match.white?.id])
+        .filter((id): id is string => Boolean(id));
 
-    const setIds = new Set(ids);
-    const athleteId = athleteSlice.map((athlete) => athlete.id);
+      const setIds = new Set(ids);
+      const athleteId = athleteSlice.map(athlete => athlete.id);
 
-    expect(setIds.size).toBe(athleteId.length);
-  });
+      expect(setIds.size).toBe(athleteId.length);
+    },
+  );
 
   it.each([
     [athletes.slice(0, 5), 3],
@@ -102,22 +112,24 @@ describe('createBrackets', () => {
     [athletes.slice(0, 7), 1],
     [athletes.slice(0, 9), 7],
     [athletes.slice(0, 11), 5],
-    [athletes.slice(0, 15), 1]
-  ])('should create brackets in with missing matches', (athleteSlice, missingMatch) => {
-    const brackets = createBrackets('test', athleteSlice, 0);
+    [athletes.slice(0, 15), 1],
+  ])(
+    'should create brackets in with missing matches',
+    (athleteSlice, missingMatch) => {
+      const brackets = createBrackets('test', athleteSlice, 0);
 
-    const { rounds } = brackets;
-    const [firstRound] = rounds;
-    const missingRounds = firstRound.winner.filter(({ blue, white }) => {
-      if (!blue && !white) {
-        // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-        expect.fail("A match in first round can't be empty");
-      }
-      return !blue || !white;
-    });
+      const { rounds } = brackets;
+      const [firstRound] = rounds;
+      const missingRounds = firstRound.winner.filter(({ blue, white }) => {
+        if (!blue && !white) {
+          expect.fail('A match in first round can\'t be empty');
+        }
+        return !blue || !white;
+      });
 
-    expect(missingRounds).toHaveLength(missingMatch);
-  });
+      expect(missingRounds).toHaveLength(missingMatch);
+    },
+  );
 
   it.each([
     [athletes.slice(0, 5)],
@@ -133,7 +145,7 @@ describe('createBrackets', () => {
     [athletes.slice(0, 21)],
     [athletes.slice(0, 22)],
     [athletes.slice(0, 23)],
-    [athletes.slice(0, 24)]
+    [athletes.slice(0, 24)],
   ])('should create brackets only odd match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -142,7 +154,7 @@ describe('createBrackets', () => {
     const evenMatch = firstRound.winner.filter((_, index) => {
       return index % 2 === 0;
     });
-    const byeEvenMatch = evenMatch.filter(({ white, blue }) => !white && !blue);
+    const byeEvenMatch = evenMatch.filter(({ blue, white }) => !white && !blue);
 
     expect(byeEvenMatch).toHaveLength(0);
   });
@@ -164,11 +176,11 @@ describe('updateBrackets', () => {
     [athletes.slice(0, 9)],
     [athletes.slice(0, 11)],
     [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)]
+    [athletes.slice(0, 16)],
   ])('should set winner second match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
-      ({ white, blue }) => Boolean(white) || Boolean(blue)
+      ({ blue, white }) => Boolean(white) || Boolean(blue),
     ).length;
 
     const firstMatch = brackets.rounds[0].winner[1];
@@ -177,12 +189,15 @@ describe('updateBrackets', () => {
 
     const secondMatchUpdated: Match = {
       ...firstMatch,
-      winner
+      winner,
     };
 
-    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, secondMatchUpdated);
+    const bracketsUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      secondMatchUpdated,
+    );
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
-      ({ white, blue }) => Boolean(white) || Boolean(blue)
+      ({ blue, white }) => Boolean(white) || Boolean(blue),
     ).length;
 
     expect(bracketsUpdated.rounds[0].winner[1].winner).toBe('blue');
@@ -200,37 +215,38 @@ describe('updateBrackets', () => {
     [athletes.slice(0, 9)],
     [athletes.slice(0, 11)],
     [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)]
+    [athletes.slice(0, 16)],
   ])('should set winner first match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
-      ({ white, blue }) => Boolean(white) || Boolean(blue)
+      ({ blue, white }) => Boolean(white) || Boolean(blue),
     ).length;
 
     const firstMatch = brackets.rounds[0].winner[0];
     const { white: whiteFirst } = firstMatch;
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!whiteFirst) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("white can't be undefined");
+      expect.fail('white can\'t be undefined');
     }
     const winner = 'white';
 
     const firstMatchUpdated: Match = {
       ...firstMatch,
+      finalTime: 1,
       white: {
         ...whiteFirst,
         ippon: 1,
+        shido: 1,
         wazari: 1,
-        shido: 1
       },
-      finalTime: 1,
-      winner
+      winner,
     };
 
-    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
+    const bracketsUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      firstMatchUpdated,
+    );
     const updatedMatchesSetLengths = bracketsUpdated.matches.filter(
-      ({ white, blue }) => Boolean(white) || Boolean(blue)
+      ({ blue, white }) => Boolean(white) || Boolean(blue),
     ).length;
 
     expect(bracketsUpdated.rounds[0].winner[0].winner).toBe('white');
@@ -239,14 +255,13 @@ describe('updateBrackets', () => {
 
     expect(bracketsUpdated.rounds[1].winner[0].white!).toStrictEqual({
       id: whiteFirst.id,
-      name: whiteFirst.name,
       ippon: 0,
+      name: whiteFirst.name,
+      shido: 0,
       wazari: 0,
-      shido: 0
     });
 
     expect(bracketsUpdated.rounds[1].winner[0].finalTime).toBeNull();
-    // eslint-disable-next-line vitest/max-expects -- many test to test part of data
     expect(bracketsUpdated.rounds[1].winner[0].blue).toBeUndefined();
   });
 
@@ -259,7 +274,7 @@ describe('updateBrackets', () => {
     [athletes.slice(0, 9)],
     [athletes.slice(0, 11)],
     [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)]
+    [athletes.slice(0, 16)],
   ])('should set winner last match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -270,12 +285,16 @@ describe('updateBrackets', () => {
 
     const lastMatchUpdated: Match = {
       ...lastMatch,
-      winner
+      winner,
     };
 
-    const bracketsUpdated = updateBrackets(brackets as BracketsCategory, lastMatchUpdated);
+    const bracketsUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      lastMatchUpdated,
+    );
     const secondRound = bracketsUpdated.rounds[1];
-    const lastMatchSecondRound = secondRound.winner[secondRound.winner.length - 1];
+    const lastMatchSecondRound
+      = secondRound.winner[secondRound.winner.length - 1];
 
     expect(lastMatchSecondRound.blue!.id).toBe(white!.id);
   });
@@ -288,21 +307,21 @@ describe('updateBrackets', () => {
     [athletes.slice(0, 9)],
     [athletes.slice(0, 11)],
     [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)]
+    [athletes.slice(0, 16)],
   ])('should set winner first match in second round', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
     const firstMatch = brackets.rounds[0].winner[0];
     const bracketsUpdatedFirst = updateBrackets(brackets as BracketsCategory, {
       ...firstMatch,
-      winner: 'white'
+      winner: 'white',
     });
 
     const secondMatch = bracketsUpdatedFirst.rounds[1].winner[0];
     const { white } = secondMatch;
     const bracketsUpdated = updateBrackets(bracketsUpdatedFirst, {
       ...secondMatch,
-      winner: 'white'
+      winner: 'white',
     });
 
     expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
@@ -320,13 +339,16 @@ describe('updateBrackets', () => {
 
       const firstMatchUpdated: Match = {
         ...firstMatch,
-        winner
+        winner,
       };
 
-      const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
+      const bracketsUpdated = updateBrackets(
+        brackets as BracketsCategory,
+        firstMatchUpdated,
+      );
 
       expect(bracketsUpdated.rounds[1].loser[0].white!.id).toBe(white!.id);
-    }
+    },
   );
 
   it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
@@ -336,32 +358,39 @@ describe('updateBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
-        ...firstMatchWhite,
-        winner: 'white'
-      });
-      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
-        ...firstMatchBlue,
-        winner: 'white'
-      });
+      const bracketsUpdatedFirstWhite = updateBrackets(
+        brackets as BracketsCategory,
+        {
+          ...firstMatchWhite,
+          winner: 'white',
+        },
+      );
+      const bracketsUpdatedFirstBlue = updateBrackets(
+        bracketsUpdatedFirstWhite,
+        {
+          ...firstMatchBlue,
+          winner: 'white',
+        },
+      );
 
       const secondMatch = bracketsUpdatedFirstBlue.rounds[1].winner[0];
-      const { white, blue } = secondMatch;
+      const { blue, white } = secondMatch;
       const bracketsUpdated = updateBrackets(bracketsUpdatedFirstBlue, {
         ...secondMatch,
-        winner: 'white'
+        winner: 'white',
       });
 
       const secondRoundUpdated = bracketsUpdated.rounds[1];
-      const repechageMatch = secondRoundUpdated.repechage[secondRoundUpdated.repechage.length - 1];
+      const repechageMatch
+        = secondRoundUpdated.repechage[secondRoundUpdated.repechage.length - 1];
       const repechageMatchInArray = bracketsUpdated.matches.find(
-        (match) => match.id === repechageMatch.id
+        match => match.id === repechageMatch.id,
       );
 
       expect(bracketsUpdated.rounds[2].winner[0].white!.id).toBe(white!.id);
       expect(repechageMatch.white!.id).toBe(blue!.id);
       expect(repechageMatchInArray!.white!.id).toBe(blue!.id);
-    }
+    },
   );
 });
 
@@ -373,25 +402,31 @@ describe('updateLoserBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
-        ...firstMatchWhite,
-        winner: 'white'
-      });
-      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
-        ...firstMatchBlue,
-        winner: 'white'
-      });
+      const bracketsUpdatedFirstWhite = updateBrackets(
+        brackets as BracketsCategory,
+        {
+          ...firstMatchWhite,
+          winner: 'white',
+        },
+      );
+      const bracketsUpdatedFirstBlue = updateBrackets(
+        bracketsUpdatedFirstWhite,
+        {
+          ...firstMatchBlue,
+          winner: 'white',
+        },
+      );
 
       const white = firstMatchWhite.blue;
       const blue = firstMatchBlue.blue;
       const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
       const bracketsUpdated = updateBrackets(bracketsUpdatedFirstBlue, {
         ...loserMatch,
-        winner: 'white'
+        winner: 'white',
       });
 
       const repechageInMatches = bracketsUpdated.matches.find(
-        (match) => match.id === bracketsUpdated.rounds[1].repechage[0].id
+        match => match.id === bracketsUpdated.rounds[1].repechage[0].id,
       );
 
       expect(loserMatch.white!.id).toBe(white!.id);
@@ -399,7 +434,7 @@ describe('updateLoserBrackets', () => {
       expect(bracketsUpdated.rounds[1].loser[0].winner).toBe('white');
       expect(bracketsUpdated.rounds[1].repechage[0].blue!.id).toBe(white!.id);
       expect(repechageInMatches?.blue?.id).toBe(white!.id);
-    }
+    },
   );
 
   it.each([[athletes.slice(0, 16)], [athletes]])(
@@ -409,96 +444,116 @@ describe('updateLoserBrackets', () => {
 
       const firstMatchWhite = brackets.rounds[0].winner[0];
       const firstMatchBlue = brackets.rounds[0].winner[1];
-      const bracketsUpdatedFirstWhite = updateBrackets(brackets as BracketsCategory, {
-        ...firstMatchWhite,
-        winner: 'white'
-      });
-      const bracketsUpdatedFirstBlue = updateBrackets(bracketsUpdatedFirstWhite, {
-        ...firstMatchBlue,
-        winner: 'white'
-      });
+      const bracketsUpdatedFirstWhite = updateBrackets(
+        brackets as BracketsCategory,
+        {
+          ...firstMatchWhite,
+          winner: 'white',
+        },
+      );
+      const bracketsUpdatedFirstBlue = updateBrackets(
+        bracketsUpdatedFirstWhite,
+        {
+          ...firstMatchBlue,
+          winner: 'white',
+        },
+      );
 
       const loserMatch = bracketsUpdatedFirstBlue.rounds[1].loser[0];
       const bracketsUpdatedLoser = updateBrackets(bracketsUpdatedFirstBlue, {
         ...loserMatch,
-        winner: 'white'
+        winner: 'white',
       });
 
       const repechageMatch = bracketsUpdatedLoser.rounds[1].repechage[0];
       const { blue } = repechageMatch;
       const bracketsUpdated = updateBrackets(bracketsUpdatedLoser, {
         ...repechageMatch,
-        winner: 'blue'
+        winner: 'blue',
       });
 
       expect(bracketsUpdated.rounds[2].loser[0].white!.id).toBe(blue!.id);
       expect(bracketsUpdated.rounds[1].loser[0].id).toBe(loserMatch.id);
-    }
+    },
   );
 });
 
 describe('update bye', () => {
-  it.each([[athletes.slice(0, 5)], [athletes.slice(0, 9)], [athletes.slice(0, 17)]])(
-    'should handle bye match in winner',
-    (athleteSlice) => {
-      const brackets = createBrackets('test', athleteSlice, 0);
+  it.each([
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 17)],
+  ])('should handle bye match in winner', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice, 0);
 
-      const firstMatch = brackets.rounds[0].winner[0];
-      const { white, blue } = firstMatch;
-      const winner = 'white';
+    const firstMatch = brackets.rounds[0].winner[0];
+    const { blue, white } = firstMatch;
+    const winner = 'white';
 
-      const firstMatchUpdated: Match = {
+    const firstMatchUpdated: Match = {
+      ...firstMatch,
+      winner,
+    };
+
+    expect(blue).toBeUndefined();
+
+    const bracketsUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      firstMatchUpdated,
+    );
+
+    expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
+    expect(bracketsUpdated.rounds[1].loser[0].blue).toBeUndefined();
+  });
+
+  it.each([
+    [athletes.slice(0, 5)],
+    [athletes.slice(0, 9)],
+    [athletes.slice(0, 17)],
+  ])('should handle bye match in loser', (athleteSlice) => {
+    const brackets = createBrackets('test', athleteSlice, 0);
+
+    const firstMatch = brackets.rounds[0].winner[1];
+
+    const bracketsFirstMatchUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      {
         ...firstMatch,
-        winner
-      };
+        winner: 'blue',
+      },
+    );
 
-      expect(blue).toBeUndefined();
+    const loserMatch = bracketsFirstMatchUpdated.rounds[1].loser[0];
 
-      const bracketsUpdated = updateBrackets(brackets as BracketsCategory, firstMatchUpdated);
+    const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, {
+      ...loserMatch,
+      winner: 'blue',
+    });
 
-      expect(bracketsUpdated.rounds[1].winner[0].white!.id).toBe(white!.id);
-      expect(bracketsUpdated.rounds[1].loser[0].blue).toBeUndefined();
-    }
-  );
+    const repechageMatch = bracketsUpdated.rounds[1].repechage[0];
 
-  it.each([[athletes.slice(0, 5)], [athletes.slice(0, 9)], [athletes.slice(0, 17)]])(
-    'should handle bye match in loser',
-    (athleteSlice) => {
-      const brackets = createBrackets('test', athleteSlice, 0);
-
-      const firstMatch = brackets.rounds[0].winner[1];
-
-      const bracketsFirstMatchUpdated = updateBrackets(brackets as BracketsCategory, {
-        ...firstMatch,
-        winner: 'blue'
-      });
-
-      const loserMatch = bracketsFirstMatchUpdated.rounds[1].loser[0];
-
-      const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, {
-        ...loserMatch,
-        winner: 'blue'
-      });
-
-      const repechageMatch = bracketsUpdated.rounds[1].repechage[0];
-
-      expect(repechageMatch.blue!.id).toBe(loserMatch.blue!.id);
-    }
-  );
+    expect(repechageMatch.blue!.id).toBe(loserMatch.blue!.id);
+  });
 
   it('should handle bye match in loser even if no match', () => {
     const brackets = createBrackets('test', athletes.slice(0, 5), 0);
 
     const firstMatch = brackets.rounds[0].winner[1];
 
-    const bracketsFirstMatchUpdated = updateBrackets(brackets as BracketsCategory, {
-      ...firstMatch,
-      winner: 'blue'
-    });
+    const bracketsFirstMatchUpdated = updateBrackets(
+      brackets as BracketsCategory,
+      {
+        ...firstMatch,
+        winner: 'blue',
+      },
+    );
 
     const loserMatch = bracketsFirstMatchUpdated.rounds[1].loser[1];
 
-    const bracketsUpdated = updateBrackets(bracketsFirstMatchUpdated, loserMatch);
+    const bracketsUpdated = updateBrackets(
+      bracketsFirstMatchUpdated,
+      loserMatch,
+    );
 
     expect(bracketsUpdated.currentMatch).toBeDefined();
     expect(bracketsUpdated.currentMatch).toBe(brackets.rounds[1].winner[0].id);
@@ -516,20 +571,20 @@ describe('currentMatch', () => {
     [athletes.slice(0, 14)],
     [athletes],
     [athletes.slice(0, 19)],
-    [athletes.slice(0, 24)]
+    [athletes.slice(0, 24)],
   ])('should update currentMatch', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
-    const firstMatch = brackets.matches.find((match) => match.id === brackets.currentMatch);
+    const firstMatch = brackets.matches.find(
+      match => match.id === brackets.currentMatch,
+    );
 
-    // eslint-disable-next-line vitest/no-conditional-in-test -- if used for fail
     if (!firstMatch) {
-      // eslint-disable-next-line vitest/no-conditional-expect -- if used for fail
-      expect.fail("currentMatch can't be undefined");
+      expect.fail('currentMatch can\'t be undefined');
     }
 
     const bracketsUpdated = updateBrackets(brackets as BracketsCategory, {
       ...firstMatch,
-      winner: 'white'
+      winner: 'white',
     });
 
     expect(bracketsUpdated.currentMatch).toBeDefined();
@@ -546,7 +601,7 @@ describe('currentMatch', () => {
     [athletes.slice(0, 14)],
     [athletes],
     [athletes.slice(0, 19)],
-    [athletes.slice(0, 24)]
+    [athletes.slice(0, 24)],
   ])('should not get currentMatch because is last', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const lastMatch = brackets.matches[brackets.matches.length - 1];
@@ -571,25 +626,26 @@ describe('repechage', () => {
 });
 
 describe('same club', () => {
-  // eslint-disable-next-line vitest/no-hooks -- reset mocks
   afterEach(() => {
     vi.clearAllMocks();
     vi.resetAllMocks();
   });
 
   it('should not have 2 from the same club on first match', () => {
-    vi.spyOn(global.Math, 'random').mockReturnValue(0.1); // return always the first element in the array
+    // return always the first element in the array
+    // eslint-disable-next-line no-restricted-globals -- spy
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.1);
 
     const athletesWithClub: Judoka[] = [
-      { id: '1', name: '1', club: 'A' },
-      { id: '2', name: '2', club: 'A' },
-      { id: '3', name: '3', club: 'B' },
-      { id: '4', name: '4', club: 'B' }
+      { club: 'A', id: '1', name: '1' },
+      { club: 'A', id: '2', name: '2' },
+      { club: 'B', id: '3', name: '3' },
+      { club: 'B', id: '4', name: '4' },
     ];
 
     const brackets = createBrackets('test', athletesWithClub, 0);
     const getAthlete = (athleteToFind: Match['white']) =>
-      athletesWithClub.find((athlete) => athlete.id === athleteToFind?.id);
+      athletesWithClub.find(athlete => athlete.id === athleteToFind?.id);
 
     const [firstMatch, secondMatch] = brackets.matches;
     const firstMatchAthleteWhite = getAthlete(firstMatch.white);
@@ -598,22 +654,26 @@ describe('same club', () => {
     const secondMatchAthleteBlue = getAthlete(secondMatch.blue);
 
     expect(firstMatchAthleteWhite!.club).not.toBe(firstMatchAthleteBlue!.club);
-    expect(secondMatchAthleteWhite!.club).not.toBe(secondMatchAthleteBlue!.club);
+    expect(secondMatchAthleteWhite!.club).not.toBe(
+      secondMatchAthleteBlue!.club,
+    );
   });
 
   it('should handle brackets with all from the same club', () => {
-    vi.spyOn(global.Math, 'random').mockReturnValue(0.1); // return always the first element in the array
+    // return always the first element in the array
+    // eslint-disable-next-line no-restricted-globals -- spy
+    vi.spyOn(global.Math, 'random').mockReturnValue(0.1);
 
     const athletesWithClub: Judoka[] = [
-      { id: '1', name: '1', club: 'A' },
-      { id: '2', name: '2', club: 'A' },
-      { id: '3', name: '3', club: 'A' },
-      { id: '4', name: '4', club: 'A' }
+      { club: 'A', id: '1', name: '1' },
+      { club: 'A', id: '2', name: '2' },
+      { club: 'A', id: '3', name: '3' },
+      { club: 'A', id: '4', name: '4' },
     ];
 
     const brackets = createBrackets('test', athletesWithClub, 0);
     const getAthlete = (athleteToFind: Match['white']) =>
-      athletesWithClub.find((athlete) => athlete.id === athleteToFind?.id);
+      athletesWithClub.find(athlete => athlete.id === athleteToFind?.id);
 
     const [firstMatch, secondMatch] = brackets.matches;
     const firstMatchAthleteWhite = getAthlete(firstMatch.white);

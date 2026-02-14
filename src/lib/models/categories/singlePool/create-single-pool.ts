@@ -3,10 +3,14 @@ import { clone, reverse } from 'ramda';
 import type { PoolCategory } from '../../../types/category.type';
 import type { Judoka } from '../../../types/judoka.type';
 import type { Match } from '../../../types/match.type';
+
 import { createMatch } from '../../match';
 import { isNotByeMatch } from '../../ranking/category';
 
-const getRound = (groupA: (Judoka | undefined)[], groupB: (Judoka | undefined)[]) => {
+function getRound(
+  groupA: (Judoka | undefined)[],
+  groupB: (Judoka | undefined)[],
+) {
   const total: Match[] = [];
   groupA.forEach((p, i) => {
     const white = groupA[i];
@@ -15,9 +19,9 @@ const getRound = (groupA: (Judoka | undefined)[], groupB: (Judoka | undefined)[]
     total.push(match);
   });
   return total;
-};
+}
 
-export const createMatchesPool = (athletes: Judoka[]) => {
+export function createMatchesPool(athletes: Judoka[]) {
   const matches: Match[] = [];
 
   const athletesArray = clone<(Judoka | undefined)[]>(athletes);
@@ -40,26 +44,26 @@ export const createMatchesPool = (athletes: Judoka[]) => {
     }
     getRound(groupA, groupB)
       .filter(isNotByeMatch)
-      .forEach((match) => matches.push(match));
+      .forEach(match => matches.push(match));
   }
 
   return matches;
-};
+}
 
-export const createSinglePool = (
+export function createSinglePool(
   name: string,
   athletes: Judoka[],
   duration: number,
-  tournament = ''
-): Omit<PoolCategory, 'id'> => {
+  tournament = '',
+): Omit<PoolCategory, 'id'> {
   const matches = createMatchesPool(athletes);
   return {
-    type: 'pool',
+    athletes,
+    currentMatch: matches.length > 0 ? matches[0].id : null,
+    duration,
+    matches,
     name,
     tournament,
-    athletes,
-    matches,
-    currentMatch: matches.length > 0 ? matches[0].id : null,
-    duration
+    type: 'pool',
   };
-};
+}

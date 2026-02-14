@@ -1,18 +1,20 @@
-import { athletes } from '$lib/store/$athletes';
-import { categoryName } from '$lib/store/$category-name';
-import { duration } from '$lib/store/$duration';
-import { type } from '$lib/store/$type';
 import type { Category } from '$lib/types/category.type';
 
-import { originalCategoryId } from '../../../../lib/store/$original-category-id';
+import { athletesState } from '$lib/state/category-edit/athletes-state.svelte';
+import { categoryNameState } from '$lib/state/category-edit/category-name-state.svelte';
+import { categoryTypeState } from '$lib/state/category-edit/category-type-state.svelte';
+import { durationState } from '$lib/state/category-edit/duration-state.svelte';
+import {
+  originalCategoryIdState,
+} from '$lib/state/category-edit/original-cateogry-id-state.svelte';
 
-export const initializeCategory = (category?: Category) => {
+export function initializeCategory(category?: Category) {
   if (!category) {
     return;
   }
-  type.set(category.type);
-  duration.set(category.duration);
-  athletes.set(category.athletes);
-  categoryName.set(category.name);
-  originalCategoryId.set(category.id);
-};
+  categoryTypeState.type = category.type;
+  durationState.duration = category.duration;
+  athletesState.athletes = category.athletes;
+  categoryNameState.name = category.name;
+  originalCategoryIdState.id = category.id;
+}

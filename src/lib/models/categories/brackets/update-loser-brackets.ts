@@ -7,13 +7,13 @@ import type { BracketRound } from '$lib/types/rounds.type';
 import { getMatchIndex, isWhiteOrBlueNext } from './find-round-and-match';
 import { resetAthlete } from './reset-athlete';
 
-export const updateLoserBrackets = (
+export function updateLoserBrackets(
   brackets: BracketsCategory,
   round: BracketRound,
   roundIndex: number,
   match: Match,
-  type: 'loser' | 'repechage'
-) => {
+  type: 'loser' | 'repechage',
+) {
   if (!match.winner) {
     return brackets.rounds;
   }
@@ -25,7 +25,8 @@ export const updateLoserBrackets = (
 
   const winner = match[match.winner];
 
-  const nextMatchIndex = type === 'loser' ? matchIndex : Math.floor(matchIndex / 2);
+  const nextMatchIndex
+    = type === 'loser' ? matchIndex : Math.floor(matchIndex / 2);
 
   const currentRoundUpdated = produce(round, (currentRound) => {
     if (type === 'loser') {
@@ -35,19 +36,22 @@ export const updateLoserBrackets = (
   });
 
   const nextRoundIndex = roundIndex + 1;
-  const nextRoundUpdated = produce(brackets.rounds[nextRoundIndex], (nextRound) => {
-    if (type === 'loser') {
-      return;
-    }
-    const isLastRound = nextRoundIndex === brackets.rounds.length - 1;
-    if (!isLastRound) {
-      const whiteOrBlue = isWhiteOrBlueNext(matchIndex);
-      nextRound.loser[nextMatchIndex][whiteOrBlue] = resetAthlete(winner);
-    }
-  });
+  const nextRoundUpdated = produce(
+    brackets.rounds[nextRoundIndex],
+    (nextRound) => {
+      if (type === 'loser') {
+        return;
+      }
+      const isLastRound = nextRoundIndex === brackets.rounds.length - 1;
+      if (!isLastRound) {
+        const whiteOrBlue = isWhiteOrBlueNext(matchIndex);
+        nextRound.loser[nextMatchIndex][whiteOrBlue] = resetAthlete(winner);
+      }
+    },
+  );
 
   return produce(brackets.rounds, (rounds) => {
     rounds[roundIndex] = currentRoundUpdated;
     rounds[roundIndex + 1] = nextRoundUpdated;
   });
-};
+}

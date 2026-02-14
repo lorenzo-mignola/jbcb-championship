@@ -1,16 +1,16 @@
 import type { DoublePoolCategory } from '$lib/types/category.type';
 import type { Rounds } from '$lib/types/rounds.type';
 
-export const mapFinalsToRounds = (category: DoublePoolCategory): Rounds => {
+export function mapFinalsToRounds(category: DoublePoolCategory): Rounds {
   const firstRound = {
-    winner: category.semifinals,
     loser: [],
-    repechage: []
+    repechage: [],
+    winner: category.semifinals,
   };
   const secondRound = {
-    winner: [category.finalMatch],
     loser: [],
-    repechage: []
+    repechage: [],
+    winner: [category.finalMatch],
   };
   return [firstRound, secondRound];
-};
+}

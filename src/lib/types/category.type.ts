@@ -7,39 +7,42 @@ import { RoundsSchema } from './rounds.type';
 const CategoryTypeSchema = z.enum(['pool', 'double_pool', 'brackets']);
 
 export const CategoryBaseSchema = z.object({
-  id: z.string(),
-  name: z.string(),
   athletes: z.array(JudokaSchema),
-  matches: z.array(MatchSchema),
   currentMatch: z.string().or(z.null()),
   duration: z.coerce.number(),
+  id: z.string(),
+  matches: z.array(MatchSchema),
+  name: z.string(),
+  tournament: z.string().default(''),
   type: CategoryTypeSchema,
-  tournament: z.string().default('')
 });
 
+// eslint-disable-next-line unused-imports/no-unused-vars -- used for type
 const PoolCategorySchema = CategoryBaseSchema.extend({
-  type: z.literal(CategoryTypeSchema.enum.pool)
+  type: z.literal(CategoryTypeSchema.enum.pool),
 });
 
 export type PoolCategory = z.infer<typeof PoolCategorySchema>;
 
+// eslint-disable-next-line unused-imports/no-unused-vars  -- used for type
 const BracketsCategorySchema = CategoryBaseSchema.extend({
+  rounds: RoundsSchema,
   type: z.literal(CategoryTypeSchema.enum.brackets),
-  rounds: RoundsSchema
 });
 
 export type BracketsCategory = z.infer<typeof BracketsCategorySchema>;
 
+// eslint-disable-next-line unused-imports/no-unused-vars -- used for type
 const DoublePoolCategorySchema = CategoryBaseSchema.extend({
-  type: z.literal(CategoryTypeSchema.enum.double_pool),
+  finalMatch: MatchSchema,
   pools: z.object({
     A: z.array(MatchSchema),
-    B: z.array(MatchSchema),
     aAthletes: z.array(JudokaSchema),
-    bAthletes: z.array(JudokaSchema)
+    B: z.array(MatchSchema),
+    bAthletes: z.array(JudokaSchema),
   }),
   semifinals: z.tuple([MatchSchema, MatchSchema]),
-  finalMatch: MatchSchema
+  type: z.literal(CategoryTypeSchema.enum.double_pool),
 });
 
 export type DoublePoolCategory = z.infer<typeof DoublePoolCategorySchema>;
@@ -47,8 +50,8 @@ export type DoublePoolCategory = z.infer<typeof DoublePoolCategorySchema>;
 export type Category = PoolCategory | BracketsCategory | DoublePoolCategory;
 
 export interface RankingAthlete {
-  id?: string;
-  rank: number;
-  matchPoint?: number;
   evaluationPoint?: number;
+  id?: string;
+  matchPoint?: number;
+  rank: number;
 }

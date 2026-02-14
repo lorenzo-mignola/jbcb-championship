@@ -1,29 +1,42 @@
 <script>
-  import { Accordion, AccordionItem } from '@skeletonlabs/skeleton';
+  import { Accordion } from '@skeletonlabs/skeleton-svelte';
+  import { page } from '$app/state';
 
-  import { page } from '$app/stores';
+  const emoji = page.status === 404 ? '🤷🏻‍♂️' : '😢';
+  const header
+    = page.status === 404 ? 'Pagina non trovata' : 'C\'è stato un errore nell\'applicazione';
 
-  const emoji = $page.status === 404 ? '🤷🏻‍♂️' : '😢';
-  const header =
-    $page.status === 404 ? 'Pagina non trovata' : "C'è stato un errore nell'applicazione";
-  $: ({ error } = $page);
+  const error = $derived(page.error);
 </script>
 
-<div class="flex items-center justify-center">
-  <h1 class="h1 flex items-center gap-4">
-    <span class="text-4xl md:text-8xl">{emoji}</span>
+<div class='flex items-center justify-center'>
+  <h1 class='flex items-center text-center h1'>
+    <span class='
+      mr-4 text-2xl
+      md:text-5xl
+    '>
+      {emoji}
+    </span>
     {header}
-    <span class="hidden text-4xl md:block md:text-8xl">{emoji}</span>
+    <span class='
+      ml-4 hidden text-2xl
+      md:block md:text-5xl
+    '>{emoji}</span>
   </h1>
 </div>
 
-<div class="card my-10">
+<div class='m-8 mr-0 ml-0 card'>
   <Accordion>
-    <AccordionItem>
-      <svelte:fragment slot="summary">Dettagli</svelte:fragment>
-      <svelte:fragment slot="content">{error?.message}</svelte:fragment>
-    </AccordionItem>
+    <Accordion.Item value='error-details'>
+      <Accordion.ItemTrigger class='
+        bg-gray-100
+        hover:bg-gray-200
+        dark:bg-gray-800
+        dark:hover:bg-gray-700 dark:hover:text-white
+      '>Dettagli</Accordion.ItemTrigger>
+      <Accordion.ItemContent>{error?.message}</Accordion.ItemContent>
+    </Accordion.Item>
   </Accordion>
 </div>
 
-<a class="variant-filled-secondary btn shadow-sm" href="/">🏠 Torna alla home</a>
+<a class='btn preset-filled-secondary-500 shadow-sm' href='/'>🏠 Torna alla home</a>

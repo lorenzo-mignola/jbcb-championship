@@ -1,16 +1,16 @@
 import type { DoublePoolCategory } from '../../types/category.type';
-import { getOpponentType } from '../../utils/judoka';
 
-export const getRankingDoublePool = (
+import { getOpponentType } from '../../utils/judoka-utils';
+
+export function getRankingDoublePool(
   semifinals: DoublePoolCategory['semifinals'],
-  finalMatch: DoublePoolCategory['finalMatch']
-) => {
+  finalMatch: DoublePoolCategory['finalMatch'],
+) {
   const winnerFinal = finalMatch.winner;
   if (!winnerFinal) {
     return [];
   }
   const gold = finalMatch[winnerFinal];
-  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion -- type is present
   const silver = finalMatch[getOpponentType(winnerFinal)!];
   const [firstSemi, secondSemi] = semifinals;
   const firstSemiLoser = getOpponentType(firstSemi.winner ?? null);
@@ -25,31 +25,31 @@ export const getRankingDoublePool = (
 
   if (gold) {
     ranking.push({
+      id: gold.id,
       rank: 1,
-      id: gold.id
     });
   }
 
   if (silver) {
     ranking.push({
+      id: silver.id,
       rank: 2,
-      id: silver.id
     });
   }
 
   if (bronze1) {
     ranking.push({
+      id: bronze1.id,
       rank: 3,
-      id: bronze1.id
     });
   }
 
   if (bronze2) {
     ranking.push({
+      id: bronze2.id,
       rank: 3,
-      id: bronze2.id
     });
   }
 
   return ranking.sort((a, b) => a.rank - b.rank);
-};
+}

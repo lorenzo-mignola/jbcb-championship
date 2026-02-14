@@ -1,10 +1,14 @@
-<span class="flex items-center justify-center">
-  <span class="loader"></span>
+<span class='flex items-center justify-center'>
+  <span class='local-loader'></span>
 </span>
 
-<style lang="postcss">
-  .loader {
-    @apply h-7 w-7 border-4 border-surface-400 border-b-secondary-800 dark:border-white dark:border-b-secondary-400;
+<style lang='postcss'>
+  @reference "tailwindcss";
+  @reference '@skeletonlabs/skeleton';
+
+  .local-loader {
+    @apply h-7 w-7 border-4 border-surface-400 border-b-secondary-800;
+    @apply dark:border-white dark:border-b-secondary-400;
     border-radius: 50%;
     display: inline-block;
     box-sizing: border-box;
