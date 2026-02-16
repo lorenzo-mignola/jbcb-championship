@@ -35,6 +35,6 @@
   ' />
   <div>
     <NextMatch {nextMatch} />
-    <NextMatchDrawer />
+    <NextMatchDrawer {categoryId} />
   </div>
 </footer>
