@@ -4,7 +4,11 @@ import { FIREBASE_SERVICE_ACCOUNT } from '$env/static/private';
 import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
+import type { AllowedUser } from '../types/allowed-user.type';
 import type { Category } from '../types/category.type';
+
+export const CATEGORIES_COLLECTION = 'categories';
+export const ALLOWED_ACCOUNTS_COLLECTION = 'allowed_accounts';
 
 if (getApps().length === 0) {
   const serviceAccount = JSON.parse(FIREBASE_SERVICE_ACCOUNT) as ServiceAccount;
@@ -20,7 +24,12 @@ export const categoryConverter = {
   toFirestore: (data: Omit<Category, 'id'>) => data,
 };
 
+export const allowedUserConverter = {
+  fromFirestore: (snap: FirebaseFirestore.QueryDocumentSnapshot) =>
+    snap.data() as Omit<AllowedUser, 'id'>,
+  toFirestore: (data: Omit<AllowedUser, 'id'>) => data,
+};
+
 export const db = getFirestore();
 
 db.settings({ ignoreUndefinedProperties: true });
-export const CATEGORIES_COLLECTION = 'categories';

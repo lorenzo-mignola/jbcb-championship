@@ -5,6 +5,8 @@ import { svelteKitHandler } from 'better-auth/svelte-kit';
 
 import { auth } from '$lib/auth/auth';
 
+import { isEmailAllowed } from './lib/db/allowed-account';
+
 export const handle: Handle = async ({ event, resolve }) => {
   const session = await auth.api.getSession({
     headers: event.request.headers,
@@ -17,7 +19,9 @@ export const handle: Handle = async ({ event, resolve }) => {
 
   // Protect API routes (except /api/auth/*)
   if (event.url.pathname.startsWith('/api/') && !event.url.pathname.startsWith('/api/auth/')) {
-    if (!event.locals.user) {
+    const isAllowed = await isEmailAllowed(event.locals.user?.email || '');
+
+    if (!event.locals.user || !isAllowed) {
       return new Response(JSON.stringify({ error: 'Unauthorized' }), {
         headers: { 'Content-Type': 'application/json' },
         status: 401,
