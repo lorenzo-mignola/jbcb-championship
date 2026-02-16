@@ -7,9 +7,10 @@ trustPolicyExclude:
   - undici-types@6.21.0
   - jose@4.15.9
   - semver@6.3.1
-
 packages:
   - .
+patchedDependencies:
+  better-auth-firestore@1.1.2: patches/better-auth-firestore@1.1.2.patch
 
 onlyBuiltDependencies:
   - '@firebase/util'

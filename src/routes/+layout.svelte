@@ -8,6 +8,7 @@
   import Reload from '$lib/icons/reload.svelte';
   import { toaster } from '$lib/state/utils/toaster-state';
 
+  import Avatar from '../lib/auth/avatar.svelte';
   import LightSwitch from '../lib/components/light-switch.svelte';
 
   const { children } = $props();
@@ -32,7 +33,8 @@
         md:text-3xl
       '>{title}</h1></a>
     </AppBar.Lead>
-    <AppBar.Trail>
+    <AppBar.Trail class='flex items-center'>
+      <Avatar />
       <button
         class='
           btn-icon
@@ -50,7 +52,7 @@
   </AppBar.Toolbar>
 </AppBar>
 
-<div class='container mx-auto h-full w-full p-8'>
+<div class='container mx-auto size-full p-8'>
   {@render children()}
 
   <Toast.Group {toaster}>
