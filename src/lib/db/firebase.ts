@@ -21,4 +21,6 @@ export const categoryConverter = {
 };
 
 export const db = getFirestore();
+
+db.settings({ ignoreUndefinedProperties: true });
 export const CATEGORIES_COLLECTION = 'categories';

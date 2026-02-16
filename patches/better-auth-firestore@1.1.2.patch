@@ -1,0 +1,71 @@
+diff --git a/dist/firebase-adapter.js b/dist/firebase-adapter.js
+index e80ba651c04af89b755e8386114a248516d28b42..758211d6c136f193f241bb4ad1cac970b36447aa 100644
+--- a/dist/firebase-adapter.js
++++ b/dist/firebase-adapter.js
+@@ -1,6 +1,6 @@
+ import { createAdapterFactory, } from "better-auth/adapters";
+ import { FieldPath, Timestamp } from "firebase-admin/firestore";
+-import { initFirestore } from "./firestore";
++import { initFirestore } from "./firestore.js";
+ const MAP_TO_FIRESTORE = {
+     userId: "user_id",
+     sessionToken: "session_token",
+@@ -564,15 +564,15 @@ export const firestoreAdapter = (config = {}) => {
+                                 let results = docs
+                                     .filter((doc) => doc.exists)
+                                     .map((doc) => {
+-                                    const data = doc.data();
+-                                    if (!data)
+-                                        return null;
+-                                    const result = { id: doc.id };
+-                                    for (const [k, v] of Object.entries(data)) {
+-                                        result[mapper.fromDb(k)] = convertTimestamp(v);
+-                                    }
+-                                    return result;
+-                                })
++                                        const data = doc.data();
++                                        if (!data)
++                                            return null;
++                                        const result = { id: doc.id };
++                                        for (const [k, v] of Object.entries(data)) {
++                                            result[mapper.fromDb(k)] = convertTimestamp(v);
++                                        }
++                                        return result;
++                                    })
+                                     .filter((r) => r !== null);
+                                 // Apply additional filtering for other conditions if any
+                                 const otherConditions = where.filter((w) => w.field !== "id");
+@@ -622,13 +622,13 @@ export const firestoreAdapter = (config = {}) => {
+                                 let results = snap.docs
+                                     .filter((doc) => !excludedIds.includes(doc.id))
+                                     .map((doc) => {
+-                                    const data = doc.data();
+-                                    const result = { id: doc.id };
+-                                    for (const [k, v] of Object.entries(data)) {
+-                                        result[mapper.fromDb(k)] = convertTimestamp(v);
+-                                    }
+-                                    return result;
+-                                });
++                                        const data = doc.data();
++                                        const result = { id: doc.id };
++                                        for (const [k, v] of Object.entries(data)) {
++                                            result[mapper.fromDb(k)] = convertTimestamp(v);
++                                        }
++                                        return result;
++                                    });
+                                 // Apply other conditions
+                                 const otherConditions = where.filter((w) => w.field !== "id");
+                                 if (otherConditions.length > 0) {
+diff --git a/dist/index.js b/dist/index.js
+index 45b8e6603106b9c57571ebb98f534013d685f9e2..94bd5995a613cbbccfaa60c8e5effabc6cc165ae 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -1,4 +1,4 @@
+-export { firestoreAdapter } from "./firebase-adapter";
+-export { initFirestore } from "./firestore";
+-export { generateIndexSetupUrl, getIndexConfig } from "./setup";
+-export * from "./types";
++export { firestoreAdapter } from "./firebase-adapter.js";
++export { initFirestore } from "./firestore.js";
++export { generateIndexSetupUrl, getIndexConfig } from "./setup.js";
++export * from "./types.js";
