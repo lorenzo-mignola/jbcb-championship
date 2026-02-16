@@ -32,7 +32,8 @@
   });
 
   async function handleEdit() {
-    if (categoryNameState.name || categoryTypeState.type || !category) {
+    if (!categoryNameState.name || !categoryTypeState.type || !category) {
+      toaster.error({ title: 'Compila tutti i campi' });
       return;
     }
 
@@ -48,8 +49,8 @@
       reset();
       goto(resolve(`/categories/${idNewCategory}`));
     } catch (error) {
-      toaster.error({ title: 'Errore durante il salvataggio delle modifiche' });
       console.error((error as { data: any }).data);
+      toaster.error({ title: 'Errore durante il salvataggio delle modifiche' });
     }
   }
 </script>

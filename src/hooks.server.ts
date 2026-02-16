@@ -15,5 +15,15 @@ export const handle: Handle = async ({ event, resolve }) => {
     event.locals.user = session.user;
   }
 
+  // Protect API routes (except /api/auth/*)
+  if (event.url.pathname.startsWith('/api/') && !event.url.pathname.startsWith('/api/auth/')) {
+    if (!event.locals.user) {
+      return new Response(JSON.stringify({ error: 'Unauthorized' }), {
+        headers: { 'Content-Type': 'application/json' },
+        status: 401,
+      });
+    }
+  }
+
   return svelteKitHandler({ auth, building, event, resolve });
 };
