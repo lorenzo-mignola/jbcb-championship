@@ -1,6 +1,6 @@
 # JBCB Championship
 
-![Logo](static/512.png)
+![Logo](static/android-chrome-512x512.png)
 
 ## Aprire l'app e configurare il torneo
 

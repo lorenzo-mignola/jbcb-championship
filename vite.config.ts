@@ -16,18 +16,18 @@ export default defineConfig({
           icons: [
             {
               sizes: '192x192',
-              src: '/192.png',
+              src: '/android-chrome-192x192.png',
               type: 'image/png',
             },
             {
               sizes: '512x512',
-              src: '/512.png',
+              src: '/android-chrome-512x512.png',
               type: 'image/png',
             },
             {
               purpose: 'any maskable',
               sizes: '512x512',
-              src: '/512.png',
+              src: '/android-chrome-512x512.png',
               type: 'image/png',
             },
           ],
