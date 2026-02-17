@@ -18,7 +18,7 @@ const data = {
 describe('ippon shortcut', () => {
   it.each([
     ['white', 'A'],
-    ['blue', 'H'],
+    ['blue', 'J'],
   ] as const)(
     'should set ippon for %s when "%s" is pressed',
     async (type, key) => {
@@ -36,7 +36,7 @@ describe('ippon shortcut', () => {
 
   it.each([
     ['white', 'A'],
-    ['blue', 'H'],
+    ['blue', 'J'],
   ] as const)(
     'should not set ippon for %s when "%s" is pressed because button is disabled',
     async (type, key) => {

@@ -33,8 +33,8 @@ export async function setupOsaekomiTest(user: UserEvent, id: string) {
 }
 
 describe.each([
-  ['white', 'F'],
-  ['blue', 'L'],
+  ['white', 'G'],
+  ['blue', 'H'],
 ] as const)('osaekomi for %s when "%s" is pressed', (type, key) => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });

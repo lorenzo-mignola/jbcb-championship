@@ -3,6 +3,7 @@
   import OsaekomiShortcut from '$lib/components/shortcuts/osaekomi-shortcut.svelte';
   import ShidoShortcut from '$lib/components/shortcuts/shido-shortcut.svelte';
   import WazariShortcut from '$lib/components/shortcuts/wazari-shortcut.svelte';
+  import YukoShortcut from '$lib/components/shortcuts/yuko-shortcut.svelte';
   import HandRaisedBack from '$lib/icons/hand-raised-back.svelte';
   import HandRaised from '$lib/icons/hand-raised.svelte';
   import IndexPointing from '$lib/icons/index-pointing.svelte';
@@ -30,6 +31,7 @@
   const ippon = () => matchState.ippon(type);
   const wazari = () => matchState.wazari(type);
   const shido = () => matchState.shido(type);
+  const yuko = () => matchState.yuko(type);
   const oasekomi = () => {
     if (osaekomiState.type) {
       osaekomiState.type = null;
@@ -50,6 +52,13 @@
   <PalmDown /> Waza-ari
   {#snippet shortcut()}
     <WazariShortcut callback={wazari} disabled={disableButton} {type} />
+  {/snippet}
+</PointButton>
+
+<PointButton action={yuko} disabled={disableButton}>
+  <span class='rotate-45'><PalmDown /></span> Yuko
+  {#snippet shortcut()}
+    <YukoShortcut callback={yuko} disabled={disableButton} {type} />
   {/snippet}
 </PointButton>
 

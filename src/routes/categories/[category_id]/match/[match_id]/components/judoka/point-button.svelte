@@ -19,7 +19,7 @@
 <button
   class='
     mb-1 btn gap-1 preset-outlined
-    hover:shadow-md hover:brightness-100 hover:filter-none
+    hover:shadow-lg hover:brightness-100! hover:filter-none
     md:mb-0 md:btn-lg
   '
   class:active

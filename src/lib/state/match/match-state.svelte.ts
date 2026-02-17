@@ -33,6 +33,14 @@ class MatchState {
     judoka.wazari += 1;
   }
 
+  yuko(type: JudokaType) {
+    const judoka = this.#getJudokaByType(type);
+    if (!judoka) {
+      return;
+    }
+    judoka.yuko += 1;
+  }
+
   shido(type: JudokaType) {
     const judoka = this.#getJudokaByType(type);
     if (!judoka) {

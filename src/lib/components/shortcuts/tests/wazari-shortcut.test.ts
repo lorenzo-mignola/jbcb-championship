@@ -17,7 +17,7 @@ const data = {
 describe('ippon shortcut', () => {
   it.each([
     ['white', 'S'],
-    ['blue', 'J'],
+    ['blue', 'K'],
   ] as const)(
     'should set wazari for %s when "%s" is pressed',
     async (type, key) => {
@@ -35,7 +35,7 @@ describe('ippon shortcut', () => {
 
   it.each([
     ['white', 'S'],
-    ['blue', 'J'],
+    ['blue', 'K'],
   ] as const)(
     'should not set wazari for %s when "%s" is pressed because button is disabled',
     async (type, key) => {

@@ -1,24 +1,28 @@
 import type { JudokaType } from '../../types/match.type';
 
-type ShortcutJudokaType = 'ippon' | 'wazari' | 'shido' | 'osaekomi';
+type ShortcutJudokaType = 'ippon' | 'wazari' | 'yuko' | 'shido' | 'osaekomi';
 type ShortcutType = 'play' | ShortcutJudokaType;
 
 const keys: Record<ShortcutJudokaType, Record<JudokaType, string>> = {
   ippon: {
-    blue: 'H',
+    blue: 'J',
     white: 'A',
   },
   osaekomi: {
-    blue: 'L',
-    white: 'F',
+    blue: 'H',
+    white: 'G',
   },
   shido: {
-    blue: 'K',
-    white: 'D',
+    blue: 'P',
+    white: 'Q',
   },
   wazari: {
-    blue: 'J',
+    blue: 'K',
     white: 'S',
+  },
+  yuko: {
+    blue: 'L',
+    white: 'D',
   },
 };
 
