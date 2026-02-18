@@ -3,7 +3,7 @@ import { describe, expect, it } from 'vitest';
 
 import type { Match } from '../../types/match.type';
 
-import { judokaPointsState } from '../match/judoka-points-state.svelte';
+import { judokaPointsState, pointsToString } from '../match/judoka-points-state.svelte';
 import { matchState } from '../match/match-state.svelte';
 
 const baseMatch: Match = {
@@ -13,6 +13,7 @@ const baseMatch: Match = {
     name: 'blue',
     shido: 0,
     wazari: 0,
+    yuko: 0,
   },
   finalTime: null,
   goldenScore: null,
@@ -23,6 +24,7 @@ const baseMatch: Match = {
     name: 'white',
     shido: 0,
     wazari: 0,
+    yuko: 0,
   },
 };
 
@@ -30,16 +32,16 @@ describe('judokaPoints', () => {
   it('should return 0 - 0 when match is undefined', () => {
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(0);
-    expect(blue).toBe(0);
+    expect(pointsToString(white)).toBe('0 0');
+    expect(pointsToString(blue)).toBe('0 0');
   });
 
   it('should return 0 - 0', () => {
     matchState.match = baseMatch;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(0);
-    expect(blue).toBe(0);
+    expect(pointsToString(white)).toBe('0 0');
+    expect(pointsToString(blue)).toBe('0 0');
   });
 
   it('should return 1 - 0', () => {
@@ -51,8 +53,8 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(1);
-    expect(blue).toBe(0);
+    expect(pointsToString(white)).toBe('1 0');
+    expect(pointsToString(blue)).toBe('0 0');
   });
 
   it('should return 0 - 1', () => {
@@ -64,8 +66,8 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(0);
-    expect(blue).toBe(1);
+    expect(pointsToString(white)).toBe('0 0');
+    expect(pointsToString(blue)).toBe('1 0');
   });
 
   it('should return 1 - 1', () => {
@@ -80,8 +82,8 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(1);
-    expect(blue).toBe(1);
+    expect(pointsToString(white)).toBe('1 0');
+    expect(pointsToString(blue)).toBe('1 0');
   });
 
   it('should return 10 - 0', () => {
@@ -93,8 +95,8 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(10);
-    expect(blue).toBe(0);
+    expect(pointsToString(white)).toBe('1 0 0');
+    expect(pointsToString(blue)).toBe('0 0');
   });
 
   it('should return 0 - 10', () => {
@@ -106,7 +108,7 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(white).toBe(0);
-    expect(blue).toBe(10);
+    expect(pointsToString(white)).toBe('0 0');
+    expect(pointsToString(blue)).toBe('1 0 0');
   });
 });

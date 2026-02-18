@@ -38,7 +38,8 @@ class MatchState {
     if (!judoka) {
       return;
     }
-    judoka.yuko += 1;
+    const yuko = judoka.yuko ?? 0;
+    judoka.yuko = yuko + 1;
   }
 
   shido(type: JudokaType) {
@@ -173,7 +174,7 @@ class MatchState {
       }
 
       const points = judokaPointsState[type];
-      if (points === 10) {
+      if (points.ippon === 1 || points.wazari === 2) {
         untrack(() => {
           this.#winner(type);
         });

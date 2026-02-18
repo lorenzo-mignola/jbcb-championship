@@ -1,32 +1,45 @@
-import type { MatchJudoka } from '../../types/match.type';
+import type { MatchJudoka, Points } from '../../types/match.type';
 
 import { matchState } from './match-state.svelte';
 
-export function getPoints(athlete?: MatchJudoka) {
-  if (athlete?.ippon) {
-    return 10;
-  }
-  if (athlete?.wazari === 2) {
-    return 10;
-  }
-  return athlete?.wazari ?? 0;
+const defaultPoints: Points = {
+  ippon: 0,
+  wazari: 0,
+  yuko: 0,
+};
+
+export function pointsToString(points: Points) {
+  const { ippon, wazari, yuko } = points;
+
+  const ipponString = ippon || wazari === 2 ? '1' : '';
+  const wazariString = wazari === 1 ? '1' : '0';
+  const yukoString = `${yuko}`;
+  return [ipponString, wazariString, yukoString].filter(Boolean).join(' ');
+}
+
+function getPoints(athlete?: MatchJudoka): Points {
+  return {
+    ippon: athlete?.ippon ?? defaultPoints.ippon,
+    wazari: athlete?.wazari ?? defaultPoints.wazari,
+    yuko: athlete?.yuko ?? defaultPoints.yuko,
+  };
 }
 
 class JudokaPointsState {
-  get white() {
+  get white(): Points {
     const match = matchState.match;
     if (!match) {
-      return 0;
+      return defaultPoints;
     }
 
     const { white } = match;
     return getPoints(white);
   };
 
-  get blue() {
+  get blue(): Points {
     const match = matchState.match;
     if (!match) {
-      return 0;
+      return defaultPoints;
     }
 
     const { blue } = match;

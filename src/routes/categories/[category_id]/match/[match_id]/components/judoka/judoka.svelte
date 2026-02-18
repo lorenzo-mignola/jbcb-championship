@@ -26,6 +26,13 @@
   $effect(() => {
     matchState.watchWinnerOrLoser(type);
   });
+
+  const showEdit = $derived.by(() => {
+    if (!athlete) {
+      return false;
+    }
+    return points.ippon > 0 || points.wazari > 0 || points.yuko > 0 || athlete.shido > 0;
+  });
 </script>
 
 <div
@@ -45,7 +52,7 @@
     </div>
     <div>
       {#if athlete}
-        {#if points > 0 || athlete.shido > 0}
+        {#if showEdit}
           <button
             class='
               btn-icon btn-icon-sm text-inherit

@@ -18,14 +18,16 @@ export const CategoryBaseSchema = z.object({
 });
 
 // eslint-disable-next-line unused-imports/no-unused-vars -- used for type
-const PoolCategorySchema = CategoryBaseSchema.extend({
+const PoolCategorySchema = z.object({
+  ...CategoryBaseSchema.shape,
   type: z.literal(CategoryTypeSchema.enum.pool),
 });
 
 export type PoolCategory = z.infer<typeof PoolCategorySchema>;
 
 // eslint-disable-next-line unused-imports/no-unused-vars  -- used for type
-const BracketsCategorySchema = CategoryBaseSchema.extend({
+const BracketsCategorySchema = z.object({
+  ...CategoryBaseSchema.shape,
   rounds: RoundsSchema,
   type: z.literal(CategoryTypeSchema.enum.brackets),
 });
@@ -33,7 +35,8 @@ const BracketsCategorySchema = CategoryBaseSchema.extend({
 export type BracketsCategory = z.infer<typeof BracketsCategorySchema>;
 
 // eslint-disable-next-line unused-imports/no-unused-vars -- used for type
-const DoublePoolCategorySchema = CategoryBaseSchema.extend({
+const DoublePoolCategorySchema = z.object({
+  ...CategoryBaseSchema.shape,
   finalMatch: MatchSchema,
   pools: z.object({
     A: z.array(MatchSchema),
