@@ -38,6 +38,8 @@
 <div
   class:judoka-blue-card={type === 'blue'}
   class:judoka-white-card={type === 'white'}
+  class:local-winner={winner === type}
+  class='border-2 border-transparent'
   data-testid={`judoka-card-${athlete?.id ?? 'null'}`}
 >
   <JudokaNameAndPoints {athlete} points={points} />
@@ -69,3 +71,12 @@
     </div>
   </div>
 </div>
+
+<style lang='postcss'>
+  @reference "tailwindcss";
+  @reference '@skeletonlabs/skeleton';
+
+  .local-winner {
+    @apply shadow-yellow-500/50 shadow-lg border-2 border-yellow-500;
+  }
+</style>
