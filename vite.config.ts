@@ -45,6 +45,7 @@ export default defineConfig({
   },
   test: {
     coverage: {
+      exclude: ['src/**/.svelte-kit/*'],
       include: ['src/**/*.{ts,svelte}'],
       provider: 'v8',
     },

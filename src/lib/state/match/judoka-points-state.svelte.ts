@@ -1,3 +1,5 @@
+import { toString } from 'ramda';
+
 import type { MatchJudoka, Points } from '../../types/match.type';
 
 import { matchState } from './match-state.svelte';
@@ -10,11 +12,7 @@ const defaultPoints: Points = {
 
 export function pointsToString(points: Points) {
   const { ippon, wazari, yuko } = points;
-
-  const ipponString = ippon || wazari === 2 ? '1' : '';
-  const wazariString = wazari === 1 ? '1' : '0';
-  const yukoString = `${yuko}`;
-  return [ipponString, wazariString, yukoString].filter(Boolean).join(' ');
+  return [ippon, wazari, yuko].map(toString).filter(Boolean).join(' ');
 }
 
 function getPoints(athlete?: MatchJudoka): Points {

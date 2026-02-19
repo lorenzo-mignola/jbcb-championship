@@ -30,7 +30,7 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('10');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('1 0 0');
     },
   );
 
@@ -55,7 +55,7 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('0');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('0 0 0');
     },
   );
 });

@@ -19,7 +19,7 @@ const data = {
 };
 
 describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop', (type) => {
-  it('should set 10 when ippon', async () => {
+  it('should set 1 0 0 when ippon', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -31,10 +31,10 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     });
     await user.click(buttonIppon);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1 0 0');
   });
 
-  it('should set 1 when wazari', async () => {
+  it('should set 0 1 0 when wazari', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -46,11 +46,11 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     });
     await user.click(buttonWazari);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 1 0');
     expect(matchState.match?.winner).toBeUndefined();
   });
 
-  it('should set 10 when 2 wazari', async () => {
+  it('should set 0 2 0 when 2 wazari', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -63,7 +63,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonWazari);
     await user.click(buttonWazari);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 2 0');
   });
 
   it('should set winner when ippon', async () => {
@@ -164,7 +164,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
     await user.click(buttonShido);
     await user.click(buttonShido);
 
-    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('1 0 0');
   });
 
   it('should set opponent as when is 3 shido', async () => {
@@ -194,7 +194,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     vi.restoreAllMocks();
   });
 
-  it('should set 10 when ippon', async () => {
+  it('should set 1 0 0 when ippon', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -212,10 +212,10 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await waitFor(() => {
       expect(playPauseButton.classList).toContain('play');
     });
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1 0 0');
   });
 
-  it('should set 1 when wazari', async () => {
+  it('should set 0 1 0 when wazari', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -230,11 +230,11 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
     await user.click(buttonWazari);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 1 0');
     expect(matchState.match?.winner).toBeUndefined();
   });
 
-  it('should set 10 when 2 wazari', async () => {
+  it('should set 0 2 0 when 2 wazari', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     render(Match, { data });
@@ -251,7 +251,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     vi.advanceTimersByTime(3 * ONE_SECOND_TIMER);
     await user.click(buttonWazari);
 
-    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 2 0');
   });
 
   it('should set winner when ippon', async () => {
@@ -364,7 +364,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     expect(within(card).queryAllByTestId('shido-red')).toHaveLength(1);
   });
 
-  it('should set 10 to opponent when is 3 shido', async () => {
+  it('should set 1 0 0 to opponent when is 3 shido', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     const { id: opponentId } = data.match[getOpponentType(type)!];
@@ -388,7 +388,7 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play
     await waitFor(() => {
       expect(playPauseButton.classList).toContain('play');
     });
-    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('10');
+    expect(within(opponentCard).getByTestId('judoka-score')).toHaveTextContent('1 0 0');
   });
 
   it('should set opponent as when is 3 shido', async () => {

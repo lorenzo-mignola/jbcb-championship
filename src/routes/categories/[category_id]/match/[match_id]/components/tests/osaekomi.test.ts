@@ -113,7 +113,7 @@ describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
     vi.advanceTimersByTime(10 * ONE_SECOND_TIMER);
 
     await waitFor(() => {
-      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1');
+      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 1 0');
     });
   });
 
@@ -140,15 +140,16 @@ describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
     vi.advanceTimersByTime(10 * ONE_SECOND_TIMER);
 
     await waitFor(() => {
-      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('1 0 0');
     });
 
     await waitFor(() => {
-      expect(matchState.match?.[type]?.wazari).toBe(2);
+      expect(matchState.match?.[type]?.wazari).toBe(0);
+      expect(matchState.match?.[type]?.ippon).toBe(1);
     });
   });
 
-  it('when 1 wazari is set after 10 seconds should have 1 ippon', async () => {
+  it('when 1 wazari is set after 10 seconds should have 2 wazari', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
     const { card } = await setupOsaekomi(user, id);
@@ -162,7 +163,13 @@ describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
     vi.advanceTimersByTime(10 * ONE_SECOND_TIMER);
 
     await waitFor(() => {
-      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('10');
+      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 2 0');
+    });
+
+    await waitFor(() => {
+      expect(matchState.match?.[type]?.wazari).toBe(2);
+      expect(matchState.match?.[type]?.ippon).toBe(0);
+      expect(matchState.match?.winner).toBe(type);
     });
   });
 });

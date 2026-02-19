@@ -29,22 +29,22 @@ const baseMatch: Match = {
 };
 
 describe('judokaPoints', () => {
-  it('should return 0 - 0 when match is undefined', () => {
+  it('should return "0 0 0" for both judokas when match is undefined', () => {
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('0 0');
-    expect(pointsToString(blue)).toBe('0 0');
+    expect(pointsToString(white)).toBe('0 0 0');
+    expect(pointsToString(blue)).toBe('0 0 0');
   });
 
-  it('should return 0 - 0', () => {
+  it('should return "0 0 0" for both judokas when scores are zero', () => {
     matchState.match = baseMatch;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('0 0');
-    expect(pointsToString(blue)).toBe('0 0');
+    expect(pointsToString(white)).toBe('0 0 0');
+    expect(pointsToString(blue)).toBe('0 0 0');
   });
 
-  it('should return 1 - 0', () => {
+  it('should return "0 1 0" for white when white has one wazari', () => {
     const matchUpdated = produce(baseMatch, (draft) => {
       if (draft.white) {
         draft.white.wazari = 1;
@@ -53,11 +53,11 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('1 0');
-    expect(pointsToString(blue)).toBe('0 0');
+    expect(pointsToString(white)).toBe('0 1 0');
+    expect(pointsToString(blue)).toBe('0 0 0');
   });
 
-  it('should return 0 - 1', () => {
+  it('should return "0 1 0" for blue when blue has one wazari', () => {
     const matchUpdated = produce(baseMatch, (draft) => {
       if (draft.blue) {
         draft.blue.wazari = 1;
@@ -66,27 +66,25 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('0 0');
-    expect(pointsToString(blue)).toBe('1 0');
+    expect(pointsToString(white)).toBe('0 0 0');
+    expect(pointsToString(blue)).toBe('0 1 0');
   });
 
-  it('should return 1 - 1', () => {
+  it('should return "0 1 0" for both when both have one wazari', () => {
     const matchUpdated = produce(baseMatch, (draft) => {
-      if (draft.white) {
+      if (draft.white)
         draft.white.wazari = 1;
-      }
-      if (draft.blue) {
+      if (draft.blue)
         draft.blue.wazari = 1;
-      }
     });
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('1 0');
-    expect(pointsToString(blue)).toBe('1 0');
+    expect(pointsToString(white)).toBe('0 1 0');
+    expect(pointsToString(blue)).toBe('0 1 0');
   });
 
-  it('should return 10 - 0', () => {
+  it('should return "1 0 0" for white when white has one ippon', () => {
     const matchUpdated = produce(baseMatch, (draft) => {
       if (draft.white) {
         draft.white.ippon = 1;
@@ -96,10 +94,10 @@ describe('judokaPoints', () => {
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
     expect(pointsToString(white)).toBe('1 0 0');
-    expect(pointsToString(blue)).toBe('0 0');
+    expect(pointsToString(blue)).toBe('0 0 0');
   });
 
-  it('should return 0 - 10', () => {
+  it('should return "1 0 0" for blue when blue has one ippon', () => {
     const matchUpdated = produce(baseMatch, (draft) => {
       if (draft.blue) {
         draft.blue.ippon = 1;
@@ -108,7 +106,59 @@ describe('judokaPoints', () => {
     matchState.match = matchUpdated;
     const white = judokaPointsState.white;
     const blue = judokaPointsState.blue;
-    expect(pointsToString(white)).toBe('0 0');
+    expect(pointsToString(white)).toBe('0 0 0');
     expect(pointsToString(blue)).toBe('1 0 0');
+  });
+
+  it('should return "0 2 0" for white when white has two wazari', () => {
+    const matchUpdated = produce(baseMatch, (draft) => {
+      if (draft.white) {
+        draft.white.wazari = 2;
+      }
+    });
+    matchState.match = matchUpdated;
+    const white = judokaPointsState.white;
+    const blue = judokaPointsState.blue;
+    expect(pointsToString(white)).toBe('0 2 0');
+    expect(pointsToString(blue)).toBe('0 0 0');
+  });
+
+  it('should return "0 2 0" for blue when blue has two wazari', () => {
+    const matchUpdated = produce(baseMatch, (draft) => {
+      if (draft.blue) {
+        draft.blue.wazari = 2;
+      }
+    });
+    matchState.match = matchUpdated;
+    const white = judokaPointsState.white;
+    const blue = judokaPointsState.blue;
+    expect(pointsToString(white)).toBe('0 0 0');
+    expect(pointsToString(blue)).toBe('0 2 0');
+  });
+
+  it('should return "0 0 1" for white when white has one yuko', () => {
+    const matchUpdated = produce(baseMatch, (draft) => {
+      if (draft.white) {
+        draft.white.yuko = 1;
+      }
+    });
+    matchState.match = matchUpdated;
+    const white = judokaPointsState.white;
+    const blue = judokaPointsState.blue;
+    expect(pointsToString(white)).toBe('0 0 1');
+    expect(pointsToString(blue)).toBe('0 0 0');
+  });
+
+  it('should return "0 0 1" for blue when blue has one yuko', () => {
+    const matchUpdated = produce(baseMatch, (draft) => {
+      if (draft.blue) {
+        draft.blue.yuko = 1;
+      }
+    });
+    matchState.match = matchUpdated;
+    const white = judokaPointsState.white;
+    const blue = judokaPointsState.blue;
+    expect(pointsToString(white)).toBe('0 0 0');
+    expect(pointsToString(blue)).toBe('0 0 1');
   });
 });
