@@ -29,7 +29,7 @@
 
 <style lang='postcss'>
   .local-points {
-    letter-spacing: 0.8rem;
+    letter-spacing: 0.4rem;
     font-family: 'Azeret Mono', ui-monospace, monospace;
   }
 </style>
