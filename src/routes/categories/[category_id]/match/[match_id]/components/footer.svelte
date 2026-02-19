@@ -18,7 +18,10 @@
   flex flex-col-reverse items-end justify-between py-14
   md:flex-row
 '>
-  <div class='block'>
+  <div class='
+    flex w-full
+    md:block
+  '>
     <div>
       <a class='btn preset-filled-secondary-500 shadow-md' href={`/categories/${categoryId}`}>
         <span><Back /></span>
@@ -26,8 +29,12 @@
       </a>
     </div>
   </div>
+  <hr class='
+    my-5 hr
+    md:hidden
+  ' />
   <div>
     <NextMatch {nextMatch} />
-    <NextMatchDrawer />
+    <NextMatchDrawer {categoryId} />
   </div>
 </footer>

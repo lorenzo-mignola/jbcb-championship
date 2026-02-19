@@ -16,7 +16,7 @@ const data = {
 
 describe('ippon shortcut', () => {
   it.each([
-    ['white', 'S'],
+    ['white', 'A'],
     ['blue', 'J'],
   ] as const)(
     'should set wazari for %s when "%s" is pressed',
@@ -29,13 +29,13 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('1');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('1 0 0');
     },
   );
 
   it.each([
     ['white', 'S'],
-    ['blue', 'J'],
+    ['blue', 'K'],
   ] as const)(
     'should not set wazari for %s when "%s" is pressed because button is disabled',
     async (type, key) => {
@@ -54,7 +54,7 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('0');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('0 0 0');
     },
   );
 });

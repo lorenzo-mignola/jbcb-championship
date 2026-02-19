@@ -16,8 +16,8 @@ const data = {
 
 describe('shido shortcut', () => {
   it.each([
-    ['white', 'D'],
-    ['blue', 'K'],
+    ['white', 'Q'],
+    ['blue', 'P'],
   ] as const)(
     'should set shido for %s when "%s" is pressed',
     async (type, key) => {
@@ -34,8 +34,8 @@ describe('shido shortcut', () => {
   );
 
   it.each([
-    ['white', 'D'],
-    ['blue', 'K'],
+    ['white', 'Q'],
+    ['blue', 'P'],
   ] as const)(
     'should not set shido for %s when "%s" is pressed because button is disabled',
     async (type, key) => {

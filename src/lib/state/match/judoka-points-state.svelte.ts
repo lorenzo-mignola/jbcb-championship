@@ -1,61 +1,43 @@
-import type { MatchJudoka } from '../../types/match.type';
+import { toString } from 'ramda';
+
+import type { MatchJudoka, Points } from '../../types/match.type';
 
 import { matchState } from './match-state.svelte';
 
-// export function getPoints(athlete?: MatchJudoka) {
-//   if (athlete?.ippon) {
-//     return 10;
-//   }
-//   if (athlete?.wazari === 2) {
-//     return 10;
-//   }
-//   return athlete?.wazari ?? 0;
-// }
+const defaultPoints: Points = {
+  ippon: 0,
+  wazari: 0,
+  yuko: 0,
+};
 
-// export const judokasPoints = $derived.by(() => {
-//   const match = matchState.match;
-//   if (!match) {
-//     return {
-//       blue: 0,
-//       white: 0,
-//     };
-//   }
+export function pointsToString(points: Points) {
+  const { ippon, wazari, yuko } = points;
+  return [ippon, wazari, yuko].map(toString).filter(Boolean).join(' ');
+}
 
-//   const { blue, white } = match;
-//   return {
-//     blue: getPoints(blue),
-//     white: getPoints(white),
-//   };
-// });
-
-// export const whitePoints = $derived(judokasPoints.white);
-// export const bluePoints = $derived(judokasPoints.blue);
-
-export function getPoints(athlete?: MatchJudoka) {
-  if (athlete?.ippon) {
-    return 10;
-  }
-  if (athlete?.wazari === 2) {
-    return 10;
-  }
-  return athlete?.wazari ?? 0;
+function getPoints(athlete?: MatchJudoka): Points {
+  return {
+    ippon: athlete?.ippon ?? defaultPoints.ippon,
+    wazari: athlete?.wazari ?? defaultPoints.wazari,
+    yuko: athlete?.yuko ?? defaultPoints.yuko,
+  };
 }
 
 class JudokaPointsState {
-  get white() {
+  get white(): Points {
     const match = matchState.match;
     if (!match) {
-      return 0;
+      return defaultPoints;
     }
 
     const { white } = match;
     return getPoints(white);
   };
 
-  get blue() {
+  get blue(): Points {
     const match = matchState.match;
     if (!match) {
-      return 0;
+      return defaultPoints;
     }
 
     const { blue } = match;

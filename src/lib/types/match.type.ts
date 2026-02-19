@@ -6,10 +6,22 @@ const JudokaTypeSchema = z.enum(['white', 'blue']);
 
 export type JudokaType = z.infer<typeof JudokaTypeSchema>;
 
-export const MatchJudokaSchema = JudokaSchema.extend({
+const PointsSchema = z.object({
   ippon: z.number(),
-  shido: z.number(),
   wazari: z.number(),
+  yuko: z.number(),
+});
+
+const PointsAndShidoSchema = z.object({
+  ...PointsSchema.shape,
+  shido: z.number(),
+});
+
+export type Points = z.infer<typeof PointsSchema>;
+
+export const MatchJudokaSchema = z.object({
+  ...JudokaSchema.shape,
+  ...PointsAndShidoSchema.shape,
 }).or(z.null());
 
 export type MatchJudoka = z.infer<typeof MatchJudokaSchema>;

@@ -8,7 +8,7 @@
     useListCollection,
   } from '@skeletonlabs/skeleton-svelte';
   import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
   import ky from 'ky';
 
   import {
@@ -57,7 +57,7 @@
       originalCategoryIdState.id = data.originalCategoryId;
 
       const editUrl = new URL(
-        `${base}/categories/${data.originalCategoryId}/edit`,
+        resolve(`/categories/${data.originalCategoryId}/edit`),
       );
       editUrl.searchParams.set('tournament', tournamentState.tournament);
 

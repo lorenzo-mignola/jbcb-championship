@@ -26,7 +26,10 @@
   data-testid='play-pause'
   {disabled}
   type='button'
-  onclick={() => timerState.togglePlay()}
+  onclick={(e) => {
+    (e.currentTarget as HTMLButtonElement).blur();
+    timerState.togglePlay();
+  }}
 >
   <div>
     {#if timerState.isPlaying}

@@ -1,6 +1,6 @@
 <script lang='ts'>
   import { goto } from '$app/navigation';
-  import { base } from '$app/paths';
+  import { resolve } from '$app/paths';
   import ky from 'ky';
 
   import { athletesState } from '$lib/state/category-edit/athletes-state.svelte';
@@ -31,7 +31,7 @@
     }).json();
 
     reset();
-    goto(`${base}/categories/${newCategoryId}`);
+    goto(resolve(`/categories/${newCategoryId}`));
   }
 </script>
 

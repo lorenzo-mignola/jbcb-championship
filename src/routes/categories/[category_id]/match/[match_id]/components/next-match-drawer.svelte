@@ -3,9 +3,22 @@
 
   import { nextMatchesState } from '$lib/state/match/next-matches-state.svelte';
 
+  interface Props {
+    categoryId: string;
+  }
+
+  const { categoryId }: Props = $props();
+
+  function onOpenChange(detail: { open: boolean }) {
+    if (detail.open) {
+      nextMatchesState.loadNextMatches(categoryId);
+    } else {
+      nextMatchesState.resetNextMatches();
+    }
+  }
 </script>
 
-<Dialog>
+<Dialog onOpenChange={onOpenChange}>
   <Dialog.Trigger
     class='mt-2 btn w-full preset-filled btn-sm shadow-md'
     data-testId='drawer-next-matches'
@@ -32,7 +45,7 @@
           lg:grid-cols-3
         '>
           {#each nextMatchesState.nextMatches as nextMatch (nextMatch.id)}
-            <li>
+            <li class='list-none'>
               <div class='mx-2 mb-3 flex flex-col'>
                 <span class='local-judoka-next judoka-white'>{nextMatch.white?.name}</span>
                 <span class='local-judoka-next judoka-blue'>{nextMatch.blue?.name}</span>

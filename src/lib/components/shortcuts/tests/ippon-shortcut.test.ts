@@ -18,7 +18,7 @@ const data = {
 describe('ippon shortcut', () => {
   it.each([
     ['white', 'A'],
-    ['blue', 'H'],
+    ['blue', 'J'],
   ] as const)(
     'should set ippon for %s when "%s" is pressed',
     async (type, key) => {
@@ -30,13 +30,13 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('10');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('1 0 0');
     },
   );
 
   it.each([
     ['white', 'A'],
-    ['blue', 'H'],
+    ['blue', 'J'],
   ] as const)(
     'should not set ippon for %s when "%s" is pressed because button is disabled',
     async (type, key) => {
@@ -55,7 +55,7 @@ describe('ippon shortcut', () => {
 
       await user.keyboard(key);
 
-      expect(within(card).getByTestId('judoka-score').textContent).toBe('0');
+      expect(within(card).getByTestId('judoka-score').textContent).toBe('0 0 0');
     },
   );
 });

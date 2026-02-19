@@ -64,9 +64,16 @@ class OsaekomiState {
         return;
       }
 
-      if (this.timer === 10 || this.timer === 20) {
+      if (this.timer === 10) {
         untrack(() => {
           matchState.wazari(type);
+        });
+      }
+
+      if (this.timer === 20) {
+        untrack(() => {
+          matchState.removeWazari(type);
+          matchState.ippon(type);
         });
       }
     });

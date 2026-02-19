@@ -127,14 +127,16 @@ Quando viene assegnata la vittoria ad un atleta compare il bottone _Termina l'in
 | :---: | --------- |
 |   A   | Ippon     |
 |   S   | Waza-ari  |
-|   D   | Shido     |
-|   F   | Osae-komi |
+|   D   | Yuko      |
+|   G   | Osae-komi |
+|   Q   | Shido     |
 
 ### Judoka blu
 
 | Tasto | Azione    |
 | :---: | --------- |
-|   H   | Ippon     |
-|   J   | Waza-ari  |
-|   K   | Shido     |
-|   L   | Osae-komi |
+|   J   | Ippon     |
+|   K   | Waza-ari  |
+|   L   | Yuko      |
+|   H   | Osae-komi |
+|   P   | Shido     |
