@@ -25,6 +25,9 @@
   class:active
   {disabled}
   type='button'
-  onclick={action}>{@render children?.()}</button
+  onclick={(e) => {
+    (e.currentTarget as HTMLButtonElement).blur();
+    action?.();
+  }}>{@render children?.()}</button
 >
 {@render shortcut?.()}
