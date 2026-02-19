@@ -8,41 +8,43 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     sveltekit(),
-    SvelteKitPWA(
-      {
-        base: '/',
-        manifest: {
-          background_color: '#7f2f3b',
-          icons: [
-            {
-              sizes: '192x192',
-              src: '/192.png',
-              type: 'image/png',
-            },
-            {
-              sizes: '512x512',
-              src: '/512.png',
-              type: 'image/png',
-            },
-            {
-              purpose: 'any maskable',
-              sizes: '512x512',
-              src: '/512.png',
-              type: 'image/png',
-            },
-          ],
-          name: 'JBCB Championship',
-          short_name: 'JBCB Championship',
-          theme_color: '#7f2f3b',
-        },
-        scope: '/',
+    SvelteKitPWA({
+      base: '/',
+      devOptions: {
+        enabled: true,
       },
-    ),
+      manifest: {
+        background_color: '#7f2f3b',
+        display: 'standalone',
+        icons: [
+          {
+            sizes: '192x192',
+            src: '/192.png',
+            type: 'image/png',
+          },
+          {
+            sizes: '512x512',
+            src: '/512.png',
+            type: 'image/png',
+          },
+          {
+            purpose: 'any maskable',
+            sizes: '512x512',
+            src: '/512.png',
+            type: 'image/png',
+          },
+        ],
+        name: 'JBCB Championship',
+        scope: '/',
+        short_name: 'JBCB Championship',
+        start_url: '/',
+        theme_color: '#7f2f3b',
+      },
+      registerType: 'autoUpdate',
+      scope: '/',
+    }),
     devtoolsJson(),
   ],
-  resolve: {
-    conditions: ['browser', 'development'],
-  },
   test: {
     coverage: {
       exclude: ['src/**/.svelte-kit/*'],
