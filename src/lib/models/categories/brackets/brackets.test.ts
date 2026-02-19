@@ -259,6 +259,7 @@ describe('updateBrackets', () => {
       name: whiteFirst.name,
       shido: 0,
       wazari: 0,
+      yuko: 0,
     });
 
     expect(bracketsUpdated.rounds[1].winner[0].finalTime).toBeNull();
