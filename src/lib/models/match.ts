@@ -10,6 +10,7 @@ function createMatchJudoka(athlete: Judoka) {
     name: athlete.name,
     shido: 0,
     wazari: 0,
+    yuko: 0,
   };
 }
 

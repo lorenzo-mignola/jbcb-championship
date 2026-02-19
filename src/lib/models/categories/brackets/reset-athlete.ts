@@ -10,6 +10,7 @@ export function resetAthlete(
       ippon: 0,
       shido: 0,
       wazari: 0,
+      yuko: 0,
     }
     : undefined;
 }
