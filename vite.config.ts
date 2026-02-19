@@ -45,6 +45,9 @@ export default defineConfig({
     }),
     devtoolsJson(),
   ],
+  resolve: {
+    conditions: ['browser', 'development'],
+  },
   test: {
     coverage: {
       exclude: ['src/**/.svelte-kit/*'],
