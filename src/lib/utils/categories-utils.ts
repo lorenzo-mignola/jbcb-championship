@@ -1,3 +1,4 @@
+/* eslint-disable e18e/prefer-static-regex -- this is a util class */
 import type { Ord } from 'ramda';
 
 import {

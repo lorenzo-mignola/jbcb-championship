@@ -52,6 +52,7 @@ export default antfu(
   {
     files: ['*.md'],
     rules: {
+      'perfectionist/sort-imports': ['off'],
       'style/max-len': ['warn', { code: 300 }],
       'unicorn/filename-case': ['off'],
     },

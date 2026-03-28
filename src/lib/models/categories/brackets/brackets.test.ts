@@ -280,7 +280,7 @@ describe('updateBrackets', () => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
     const firstRound = brackets.rounds[0];
-    const lastMatch = firstRound.winner[firstRound.winner.length - 1];
+    const lastMatch = firstRound.winner.at(-1)!;
     const { white } = lastMatch;
     const winner = 'white';
 
@@ -295,7 +295,7 @@ describe('updateBrackets', () => {
     );
     const secondRound = bracketsUpdated.rounds[1];
     const lastMatchSecondRound
-      = secondRound.winner[secondRound.winner.length - 1];
+      = secondRound.winner.at(-1)!;
 
     expect(lastMatchSecondRound.blue!.id).toBe(white!.id);
   });
@@ -383,7 +383,7 @@ describe('updateBrackets', () => {
 
       const secondRoundUpdated = bracketsUpdated.rounds[1];
       const repechageMatch
-        = secondRoundUpdated.repechage[secondRoundUpdated.repechage.length - 1];
+        = secondRoundUpdated.repechage.at(-1)!;
       const repechageMatchInArray = bracketsUpdated.matches.find(
         match => match.id === repechageMatch.id,
       );
@@ -605,7 +605,7 @@ describe('currentMatch', () => {
     [athletes.slice(0, 24)],
   ])('should not get currentMatch because is last', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
-    const lastMatch = brackets.matches[brackets.matches.length - 1];
+    const lastMatch = brackets.matches.at(-1)!;
 
     const currentMatch = getCurrentMatch(brackets.matches, lastMatch.id);
 
