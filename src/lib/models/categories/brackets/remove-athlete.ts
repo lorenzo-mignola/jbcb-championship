@@ -10,7 +10,10 @@ export function removeAthlete<T extends Judoka | undefined>(notPicket: T[]) {
         athlete => athlete !== undefined,
       );
       undefinedAthletes.pop();
-      return [...notUndefinedAthletes, ...undefinedAthletes];
+      return [
+        ...notUndefinedAthletes,
+        ...undefinedAthletes,
+      ];
     }
 
     return notPicket.filter(athlete => athlete?.id !== whiteOrBlue.id);

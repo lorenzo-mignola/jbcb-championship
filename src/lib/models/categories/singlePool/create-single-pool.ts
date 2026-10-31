@@ -59,7 +59,9 @@ export function createSinglePool(
   const matches = createMatchesPool(athletes);
   return {
     athletes,
-    currentMatch: matches.length > 0 ? matches[0].id : null,
+    currentMatch: matches.length > 0
+      ? matches[0].id
+      : null,
     duration,
     matches,
     name,

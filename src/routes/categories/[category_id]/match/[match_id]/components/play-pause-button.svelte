@@ -1,12 +1,12 @@
 <script lang='ts'>
   import { onDestroy } from 'svelte';
 
-  import TimerShortcut from '$lib/components/shortcuts/timer-shortcut.svelte';
-  import Stop from '$lib/icons/pause.svelte';
-  import Play from '$lib/icons/play.svelte';
-  import { matchState } from '$lib/state/match/match-state.svelte';
-  import { osaekomiState } from '$lib/state/match/osaekomi-state.svelte';
-  import { timerState } from '$lib/state/match/timer-state.svelte';
+  import TimerShortcut from '#lib/components/shortcuts/timer-shortcut.svelte';
+  import Stop from '#lib/icons/pause.svelte';
+  import Play from '#lib/icons/play.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte';
+  import { osaekomiState } from '#lib/state/match/osaekomi-state.svelte';
+  import { timerState } from '#lib/state/match/timer-state.svelte';
 
   import { reset } from '../../../edit/reset';
 

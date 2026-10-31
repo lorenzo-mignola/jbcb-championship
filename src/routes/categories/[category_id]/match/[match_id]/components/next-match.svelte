@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import type { Match } from '$lib/types/match.type';
+  import type { Match } from '#lib/types/match.type';
 
   interface Props {
     nextMatch: Pick<Match, 'white' | 'blue' | 'id'> | undefined;

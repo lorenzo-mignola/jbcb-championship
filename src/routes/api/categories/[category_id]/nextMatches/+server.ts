@@ -3,7 +3,7 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { json } from '@sveltejs/kit';
 import { z } from 'zod';
 
-import { getCategory } from '$lib/db';
+import { getCategory } from '#lib/db';
 
 export const GET: RequestHandler = async ({ params }) => {
   const categoryId = z.string().parse(params.category_id);

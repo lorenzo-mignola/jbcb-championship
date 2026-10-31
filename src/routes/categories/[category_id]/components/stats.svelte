@@ -1,13 +1,13 @@
 <script lang='ts'>
   import { Accordion } from '@skeletonlabs/skeleton-svelte';
 
-  import type { Category } from '$lib/types/category.type';
+  import type { Category } from '#lib/types/category.type';
 
-  import Brackets from '$lib/components/brackets.svelte';
-  import Matches from '$lib/components/stats/matches.svelte';
-  import RankingDoublePool from '$lib/components/stats/ranking-double-pool.svelte';
-  import Ranking from '$lib/components/stats/ranking.svelte';
-  import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds';
+  import Brackets from '#lib/components/brackets.svelte';
+  import Matches from '#lib/components/stats/matches.svelte';
+  import RankingDoublePool from '#lib/components/stats/ranking-double-pool.svelte';
+  import Ranking from '#lib/components/stats/ranking.svelte';
+  import { mapFinalsToRounds } from '#lib/models/categories/doublePool/map-finals-to-rounds';
 
   interface Props {
     category: Category;

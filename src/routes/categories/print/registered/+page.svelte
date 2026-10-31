@@ -1,12 +1,12 @@
 <script lang='ts'>
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
   import { onMount } from 'svelte';
 
-  import AthleteList from '$lib/components/athlete-list.svelte';
-  import PrintButton from '$lib/components/print-button.svelte';
-  import { typeToLabel } from '$lib/state/category-edit/category-type-state.svelte.js';
-  import { isMobile } from '$lib/utils/mobile.js';
-  import { formatTimeString } from '$lib/utils/timer-utils.js';
+  import AthleteList from '#lib/components/athlete-list.svelte';
+  import PrintButton from '#lib/components/print-button.svelte';
+  import { typeToLabel } from '#lib/state/category-edit/category-type-state.svelte.js';
+  import { isMobile } from '#lib/utils/mobile.js';
+  import { formatTimeString } from '#lib/utils/timer-utils.js';
 
   const { data } = $props();
 

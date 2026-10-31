@@ -1,5 +1,5 @@
 <script>
-  import Print from '$lib/icons/print.svelte';
+  import Print from '#lib/icons/print.svelte';
 </script>
 
 <div class='print:hidden'>

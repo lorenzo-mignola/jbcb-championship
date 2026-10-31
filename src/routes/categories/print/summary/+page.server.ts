@@ -1,8 +1,8 @@
-import { PUBLIC_AUTO_PRINT } from '$env/static/public';
+import { PUBLIC_AUTO_PRINT } from '$app/env/public';
 import { pipe } from 'ramda';
 
-import { getAllCategories } from '$lib/db';
-import { sortCategories } from '$lib/utils/categories-utils';
+import { getAllCategories } from '#lib/db';
+import { sortCategories } from '#lib/utils/categories-utils';
 
 import type { PageServerLoad } from './$types';
 

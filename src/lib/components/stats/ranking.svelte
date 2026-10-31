@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import type { Category } from '$lib/types/category.type';
+  import type { Category } from '#lib/types/category.type';
 
-  import { getRanking } from '$lib/models/ranking/category';
+  import { getRanking } from '#lib/models/ranking/category';
 
   import Rank from './rank.svelte';
 

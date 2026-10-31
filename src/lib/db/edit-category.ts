@@ -58,7 +58,9 @@ export async function saveMatch(
   await categoriesCollection.doc(id).update({ ...categoryToUpdate });
 
   const currentLoop
-    = loop !== undefined ? loop - 1 : categoryUpdated.matches.length;
+    = loop !== undefined
+      ? loop - 1
+      : categoryUpdated.matches.length;
 
   if (
     category.type === 'brackets'

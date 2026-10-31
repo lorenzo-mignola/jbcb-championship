@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
 
   import type { Judoka } from '../types/judoka.type';
 
@@ -26,7 +26,9 @@
     showTitle = true,
   }: Props = $props();
 
-  const editPage = browser ? window.location.href.includes('/edit') : false;
+  const editPage = browser
+    ? window.location.href.includes('/edit')
+    : false;
   const edit = $derived(editPage && categoriesNotStartedState.length() > 0);
 </script>
 

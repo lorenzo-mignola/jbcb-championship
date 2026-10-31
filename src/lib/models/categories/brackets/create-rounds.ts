@@ -1,5 +1,5 @@
-import type { Judoka } from '$lib/types/judoka.type';
-import type { Rounds } from '$lib/types/rounds.type';
+import type { Judoka } from '#lib/types/judoka.type';
+import type { Rounds } from '#lib/types/rounds.type';
 
 import { getRandomElement } from '../../../utils/match-utils';
 import { createMatches } from './create-matches';

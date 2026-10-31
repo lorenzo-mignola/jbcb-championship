@@ -16,10 +16,14 @@ function createMatchJudoka(athlete: Judoka) {
 
 export function createMatch(white?: Judoka, blue?: Judoka): Match {
   return {
-    blue: blue ? createMatchJudoka(blue) : undefined,
+    blue: blue
+      ? createMatchJudoka(blue)
+      : undefined,
     finalTime: null,
     goldenScore: null,
     id: nanoid(),
-    white: white ? createMatchJudoka(white) : undefined,
+    white: white
+      ? createMatchJudoka(white)
+      : undefined,
   };
 }

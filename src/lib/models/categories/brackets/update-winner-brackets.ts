@@ -1,8 +1,8 @@
 import { produce } from 'immer';
 
-import type { BracketsCategory } from '$lib/types/category.type';
-import type { JudokaType, Match } from '$lib/types/match.type';
-import type { BracketRound } from '$lib/types/rounds.type';
+import type { BracketsCategory } from '#lib/types/category.type';
+import type { JudokaType, Match } from '#lib/types/match.type';
+import type { BracketRound } from '#lib/types/rounds.type';
 
 import { getOpponentType } from '../../../utils/judoka-utils';
 import { getMatchIndex, isWhiteOrBlueNext } from './find-round-and-match';
@@ -32,7 +32,9 @@ function getNextCoordinate(
       whiteOrBlue,
     }
     : {
-      match: isOddRound ? winnerMatches - 1 - match : match,
+      match: isOddRound
+        ? winnerMatches - 1 - match
+        : match,
       whiteOrBlue: 'white',
     };
 

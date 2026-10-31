@@ -19,10 +19,13 @@ const localStorageMock = (() => {
   };
 })();
 
-// @ts-expect-error - Testing in Node environment
-globalThis.localStorage = localStorageMock;
+Object.defineProperty(globalThis, 'localStorage', {
+  configurable: true,
+  value: localStorageMock,
+  writable: true,
+});
 
-vi.mock('$app/environment', () => ({
+vi.mock('$app/env', () => ({
   browser: true,
 }));
 

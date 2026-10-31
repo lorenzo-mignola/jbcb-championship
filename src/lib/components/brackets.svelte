@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import type { Rounds } from '$lib/types/rounds.type';
+  import type { Rounds } from '#lib/types/rounds.type';
 
   import RoundBrackets from './round-brackets.svelte';
 

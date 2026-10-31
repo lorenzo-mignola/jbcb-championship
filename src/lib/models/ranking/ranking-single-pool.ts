@@ -117,7 +117,9 @@ export function getRankingPool(matches: Match[], athletes: Judoka[]) {
     if (!match.finalTime) {
       return;
     }
-    const remainingTimeInWin = match.finalTime * (match.goldenScore ? -1 : 1);
+    const remainingTimeInWin = match.finalTime * (match.goldenScore
+      ? -1
+      : 1);
     athleteMap[winner.id].remainingTimeInWin += remainingTimeInWin;
   });
 

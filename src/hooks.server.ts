@@ -1,9 +1,9 @@
-import type { Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit/hooks';
 
-import { building } from '$app/environment';
+import { building } from '$app/env';
 import { svelteKitHandler } from 'better-auth/svelte-kit';
 
-import { auth } from '$lib/auth/auth.server';
+import { auth } from '#lib/auth/auth.server';
 
 import { isEmailAllowed } from './lib/db/allowed-account';
 

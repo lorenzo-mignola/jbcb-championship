@@ -1,8 +1,8 @@
 import { T } from 'ramda';
 
-import type { Judoka } from '$lib/types/judoka.type';
-import type { Match } from '$lib/types/match.type';
-import type { Rounds } from '$lib/types/rounds.type';
+import type { Judoka } from '#lib/types/judoka.type';
+import type { Match } from '#lib/types/match.type';
+import type { Rounds } from '#lib/types/rounds.type';
 
 import { getRandomElement } from '../../../utils/match-utils';
 import { createMatch } from '../../match';
@@ -17,7 +17,9 @@ function pickAthlete(
     : undefined;
   const athletesToPick = athletesNotPicket.filter(filterFn ?? T);
   const athlete = getRandomElement(
-    athletesToPick.length < 2 ? athletesNotPicket : athletesToPick,
+    athletesToPick.length < 2
+      ? athletesNotPicket
+      : athletesToPick,
   );
   const remain = removeAthlete(athletesNotPicket)(athlete);
   return { athlete, remain };

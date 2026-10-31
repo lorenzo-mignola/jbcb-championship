@@ -16,7 +16,9 @@
   '
   class:local-disabled={disabled}
   class:local-enabled={!disabled}
-  href={!disabled ? link : '/'}>{text}</a
+  href={!disabled
+    ? link
+    : '/'}>{text}</a
 >
 
 <style lang='postcss'>

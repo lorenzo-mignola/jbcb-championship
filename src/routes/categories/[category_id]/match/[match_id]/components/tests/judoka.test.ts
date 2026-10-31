@@ -1,12 +1,15 @@
 import { render, screen, within } from '@testing-library/svelte';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { matchState } from '$lib/state/match/match-state.svelte';
-import matchMock from '$tests/mock/match.json';
+import { matchState } from '#lib/state/match/match-state.svelte';
+import matchMock from '#tests/mock/match.json';
 
 import Judoka from '../judoka/judoka.svelte';
 
-describe.each([['white'], ['blue']] as const)('<Judoka /> of type => %s', (type) => {
+describe.each([
+  ['white'],
+  ['blue'],
+] as const)('<Judoka /> of type => %s', (type) => {
   beforeEach(() => {
     matchState.match = matchMock;
   });

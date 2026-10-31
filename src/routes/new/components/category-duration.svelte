@@ -1,10 +1,10 @@
 <script lang='ts'>
   import { Slider } from '@skeletonlabs/skeleton-svelte';
 
-  import Add from '$lib/icons/add.svelte';
-  import Subtract from '$lib/icons/subtract.svelte';
-  import { durationState } from '$lib/state/category-edit/duration-state.svelte';
-  import { formatTimeString } from '$lib/utils/timer-utils';
+  import Add from '#lib/icons/add.svelte';
+  import Subtract from '#lib/icons/subtract.svelte';
+  import { durationState } from '#lib/state/category-edit/duration-state.svelte';
+  import { formatTimeString } from '#lib/utils/timer-utils';
 
   const step = 30 * 10;
   const min = 1 * 60 * 10;
@@ -44,7 +44,7 @@
     </Slider>
     <span>
       <button
-        class='btn-icon btn-icon-sm preset-tonal-surface'
+        class='btn-icon preset-tonal-surface btn-icon-sm'
         disabled={durationState.duration === min}
         type='button'
         onclick={subtract}><Subtract /></button
@@ -55,7 +55,7 @@
     </p>
     <span>
       <button
-        class='btn-icon btn-icon-sm preset-tonal-surface'
+        class='btn-icon preset-tonal-surface btn-icon-sm'
         disabled={durationState.duration === max}
         type='button'
         onclick={add}><Add /></button

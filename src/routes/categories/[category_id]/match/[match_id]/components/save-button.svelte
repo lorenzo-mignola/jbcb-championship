@@ -3,15 +3,15 @@
   import { resolve } from '$app/paths';
   import ky from 'ky';
 
-  import type { Category } from '$lib/types/category.type';
-  import type { Match } from '$lib/types/match.type';
+  import type { Category } from '#lib/types/category.type';
+  import type { Match } from '#lib/types/match.type';
 
-  import LoadingSpinner from '$lib/components/loading-spinner.svelte';
-  import { getByeWinner } from '$lib/models/categories/brackets/auto-update-next-match';
-  import { isByeMatch } from '$lib/models/ranking/category';
-  import { localStorageMatchState } from '$lib/state/match/local-storage-match-state.svelte';
-  import { matchState } from '$lib/state/match/match-state.svelte';
-  import { toaster } from '$lib/state/utils/toaster-state';
+  import LoadingSpinner from '#lib/components/loading-spinner.svelte';
+  import { getByeWinner } from '#lib/models/categories/brackets/auto-update-next-match';
+  import { isByeMatch } from '#lib/models/ranking/category';
+  import { localStorageMatchState } from '#lib/state/match/local-storage-match-state.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte';
+  import { toaster } from '#lib/state/utils/toaster-state';
 
   import { reset } from '../../../edit/reset';
 
@@ -40,16 +40,27 @@
       }
       if (categoryUpdated.currentMatch) {
         reset();
-        goto(resolve(`/categories/${categoryUpdated.id}/match/${categoryUpdated.currentMatch}`), {
-          invalidateAll: true,
-        });
+        goto(
+          resolve('/categories/[category_id]/match/[match_id]', {
+            category_id: categoryUpdated.id,
+            match_id: categoryUpdated.currentMatch,
+          }),
+          {
+            invalidateAll: true,
+          },
+        );
         loading = false;
         return;
       }
       reset();
-      goto(resolve(`/categories/${categoryUpdated.id}`), {
-        invalidateAll: true,
-      });
+      goto(
+        resolve('/categories/[category_id]', {
+          category_id: categoryUpdated.id,
+        }),
+        {
+          invalidateAll: true,
+        },
+      );
     } catch (error) {
       console.error((error as { data: any }).data);
       toaster.error({

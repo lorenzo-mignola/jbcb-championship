@@ -10,7 +10,7 @@ export default antfu(
       'perfectionist/sort-imports': [
         'error',
         {
-          internalPattern: ['^\\$lib(/.*)?$', '^\\$tests(/.*)?$', '^\\$routes(/.*)?$'],
+          internalPattern: ['^#lib(/.*)?$', '^#tests(/.*)?$', '^#routes(/.*)?$'],
           newlinesBetween: 1,
           type: 'alphabetical',
         },
@@ -19,11 +19,25 @@ export default antfu(
       'perfectionist/sort-jsx-props': ['error'],
       'perfectionist/sort-objects': ['error'],
       'style/brace-style': ['error', '1tbs'],
-      'style/indent': ['error', 2, {
-        MemberExpression: 1,
-      }],
-      'style/max-len': ['warn', { code: 100 }],
-      'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+      'style/indent': [
+        'error',
+        2,
+        {
+          MemberExpression: 1,
+        },
+      ],
+      'style/max-len': [
+        'warn',
+        { code: 100 },
+      ],
+      'svelte/no-navigation-without-resolve': 'off',
+      'unicorn/filename-case': [
+        'error',
+        {
+          case: 'kebabCase',
+          checkDirectories: false,
+        },
+      ],
     },
     stylistic: {
       indent: 2,
@@ -40,7 +54,10 @@ export default antfu(
       ...betterTailwind.configs.recommended.rules,
       'better-tailwindcss/no-unknown-classes': [
         'error',
-        { detectComponentClasses: true, ignore: ['^local-.*'] },
+        {
+          detectComponentClasses: true,
+          ignore: ['^local-.*'],
+        },
       ],
     },
     settings: {
@@ -53,7 +70,6 @@ export default antfu(
     files: ['**/*.md'],
     rules: {
       'perfectionist/sort-imports': ['off'],
-      'style/max-len': ['warn', { code: 300 }],
       'unicorn/filename-case': ['off'],
     },
   },

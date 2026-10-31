@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import type { MatchJudoka } from '$lib/types/match.type';
+  import type { MatchJudoka } from '#lib/types/match.type';
 
   interface Props {
     judoka: MatchJudoka | undefined;

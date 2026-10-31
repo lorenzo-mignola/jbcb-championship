@@ -1,9 +1,9 @@
 import { map, pipe } from 'ramda';
 
-import type { Category } from '$lib/types/category.type';
+import type { Category } from '#lib/types/category.type';
 
-import { getAllCategories } from '$lib/db';
-import { sortCategories } from '$lib/utils/categories-utils';
+import { getAllCategories } from '#lib/db';
+import { sortCategories } from '#lib/utils/categories-utils';
 
 import type { PageServerLoad } from './$types';
 

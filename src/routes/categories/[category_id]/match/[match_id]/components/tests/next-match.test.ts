@@ -5,11 +5,11 @@ import userEvent from '@testing-library/user-event';
 import ky from 'ky';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { formatTimeString } from '$lib/utils/timer-utils';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER } from '$tests/util/constants';
+import { formatTimeString } from '#lib/utils/timer-utils';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
+import { ONE_SECOND_TIMER } from '#tests/util/constants';
 
 import Match from '../../+page.svelte';
 

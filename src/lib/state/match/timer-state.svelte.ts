@@ -65,7 +65,9 @@ class TimerState {
 
     this.#interval = setInterval(() => {
       if (this.#isPlaying) {
-        this.#timer = this.#isGoldenScore ? inc(this.#timer) : dec(this.#timer);
+        this.#timer = this.#isGoldenScore
+          ? inc(this.#timer)
+          : dec(this.#timer);
       }
     }, 100);
   };

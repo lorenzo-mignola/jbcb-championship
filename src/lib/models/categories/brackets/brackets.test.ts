@@ -44,16 +44,43 @@ const athletes: Judoka[] = [
 
 describe('createBrackets', () => {
   it.each([
-    [athletes.slice(0, 4), 3],
-    [athletes.slice(0, 8), 11],
-    [athletes.slice(0, 5), 11],
-    [athletes.slice(0, 7), 11],
-    [athletes.slice(0, 16), 27],
-    [athletes.slice(0, 10), 27],
-    [athletes.slice(0, 14), 27],
+    [
+      athletes.slice(0, 4),
+      3,
+    ],
+    [
+      athletes.slice(0, 8),
+      11,
+    ],
+    [
+      athletes.slice(0, 5),
+      11,
+    ],
+    [
+      athletes.slice(0, 7),
+      11,
+    ],
+    [
+      athletes.slice(0, 16),
+      27,
+    ],
+    [
+      athletes.slice(0, 10),
+      27,
+    ],
+    [
+      athletes.slice(0, 14),
+      27,
+    ],
     [athletes, 59],
-    [athletes.slice(0, 19), 59],
-    [athletes.slice(0, 24), 59],
+    [
+      athletes.slice(0, 19),
+      59,
+    ],
+    [
+      athletes.slice(0, 24),
+      59,
+    ],
   ])('should create matches in brackets', (athleteSlice, totalMatches) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -61,9 +88,18 @@ describe('createBrackets', () => {
   });
 
   it.each([
-    [athletes.slice(0, 4), 2],
-    [athletes.slice(0, 8), 4],
-    [athletes.slice(0, 16), 8],
+    [
+      athletes.slice(0, 4),
+      2,
+    ],
+    [
+      athletes.slice(0, 8),
+      4,
+    ],
+    [
+      athletes.slice(0, 16),
+      8,
+    ],
     [athletes, 16],
   ])(
     'should create matches for the first round',
@@ -83,10 +119,18 @@ describe('createBrackets', () => {
   );
 
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 16)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
     [athletes],
   ])(
     'should create matches for the first round with every athlete',
@@ -107,12 +151,30 @@ describe('createBrackets', () => {
   );
 
   it.each([
-    [athletes.slice(0, 5), 3],
-    [athletes.slice(0, 6), 2],
-    [athletes.slice(0, 7), 1],
-    [athletes.slice(0, 9), 7],
-    [athletes.slice(0, 11), 5],
-    [athletes.slice(0, 15), 1],
+    [
+      athletes.slice(0, 5),
+      3,
+    ],
+    [
+      athletes.slice(0, 6),
+      2,
+    ],
+    [
+      athletes.slice(0, 7),
+      1,
+    ],
+    [
+      athletes.slice(0, 9),
+      7,
+    ],
+    [
+      athletes.slice(0, 11),
+      5,
+    ],
+    [
+      athletes.slice(0, 15),
+      1,
+    ],
   ])(
     'should create brackets in with missing matches',
     (athleteSlice, missingMatch) => {
@@ -132,20 +194,48 @@ describe('createBrackets', () => {
   );
 
   it.each([
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 10)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 12)],
-    [athletes.slice(0, 17)],
-    [athletes.slice(0, 18)],
-    [athletes.slice(0, 19)],
-    [athletes.slice(0, 20)],
-    [athletes.slice(0, 21)],
-    [athletes.slice(0, 22)],
-    [athletes.slice(0, 23)],
-    [athletes.slice(0, 24)],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 6),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 10),
+    ],
+    [
+      athletes.slice(0, 11),
+    ],
+    [
+      athletes.slice(0, 12),
+    ],
+    [
+      athletes.slice(0, 17),
+    ],
+    [
+      athletes.slice(0, 18),
+    ],
+    [
+      athletes.slice(0, 19),
+    ],
+    [
+      athletes.slice(0, 20),
+    ],
+    [
+      athletes.slice(0, 21),
+    ],
+    [
+      athletes.slice(0, 22),
+    ],
+    [
+      athletes.slice(0, 23),
+    ],
+    [
+      athletes.slice(0, 24),
+    ],
   ])('should create brackets only odd match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -168,15 +258,33 @@ describe('createBrackets', () => {
 });
 describe('updateBrackets', () => {
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 6),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 11),
+    ],
+    [
+      athletes.slice(0, 15),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
   ])('should set winner second match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
@@ -207,15 +315,33 @@ describe('updateBrackets', () => {
   });
 
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 6),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 11),
+    ],
+    [
+      athletes.slice(0, 15),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
   ])('should set winner first match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const matchesSetLengths = brackets.matches.filter(
@@ -267,15 +393,33 @@ describe('updateBrackets', () => {
   });
 
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 6),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 11),
+    ],
+    [
+      athletes.slice(0, 15),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
   ])('should set winner last match', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -301,14 +445,30 @@ describe('updateBrackets', () => {
   });
 
   it.each([
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 6)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 11)],
-    [athletes.slice(0, 15)],
-    [athletes.slice(0, 16)],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 6),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 11),
+    ],
+    [
+      athletes.slice(0, 15),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
   ])('should set winner first match in second round', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -329,7 +489,15 @@ describe('updateBrackets', () => {
     expect(bracketsUpdated.rounds[2].winner[0].white!.id).toBe(white!.id);
   });
 
-  it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+  it.each([
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
+    [athletes],
+  ])(
     'should set loser first match',
     (athleteSlice) => {
       const brackets = createBrackets('test', athleteSlice, 0);
@@ -352,7 +520,15 @@ describe('updateBrackets', () => {
     },
   );
 
-  it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+  it.each([
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
+    [athletes],
+  ])(
     'should set loser second match',
     (athleteSlice) => {
       const brackets = createBrackets('test', athleteSlice, 0);
@@ -396,7 +572,15 @@ describe('updateBrackets', () => {
 });
 
 describe('updateLoserBrackets', () => {
-  it.each([[athletes.slice(0, 8)], [athletes.slice(0, 16)], [athletes]])(
+  it.each([
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
+    [athletes],
+  ])(
     'should send winner of loser round in repechage',
     (athleteSlice) => {
       const brackets = createBrackets('test', athleteSlice, 0);
@@ -438,7 +622,12 @@ describe('updateLoserBrackets', () => {
     },
   );
 
-  it.each([[athletes.slice(0, 16)], [athletes]])(
+  it.each([
+    [
+      athletes.slice(0, 16),
+    ],
+    [athletes],
+  ])(
     'should send winner of repechage round in next round loser',
     (athleteSlice) => {
       const brackets = createBrackets('test', athleteSlice, 0);
@@ -481,9 +670,15 @@ describe('updateLoserBrackets', () => {
 
 describe('update bye', () => {
   it.each([
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 17)],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 17),
+    ],
   ])('should handle bye match in winner', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -508,9 +703,15 @@ describe('update bye', () => {
   });
 
   it.each([
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 9)],
-    [athletes.slice(0, 17)],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 9),
+    ],
+    [
+      athletes.slice(0, 17),
+    ],
   ])('should handle bye match in loser', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
 
@@ -563,16 +764,34 @@ describe('update bye', () => {
 
 describe('currentMatch', () => {
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 16)],
-    [athletes.slice(0, 10)],
-    [athletes.slice(0, 14)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
+    [
+      athletes.slice(0, 10),
+    ],
+    [
+      athletes.slice(0, 14),
+    ],
     [athletes],
-    [athletes.slice(0, 19)],
-    [athletes.slice(0, 24)],
+    [
+      athletes.slice(0, 19),
+    ],
+    [
+      athletes.slice(0, 24),
+    ],
   ])('should update currentMatch', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const firstMatch = brackets.matches.find(
@@ -593,16 +812,34 @@ describe('currentMatch', () => {
   });
 
   it.each([
-    [athletes.slice(0, 4)],
-    [athletes.slice(0, 8)],
-    [athletes.slice(0, 5)],
-    [athletes.slice(0, 7)],
-    [athletes.slice(0, 16)],
-    [athletes.slice(0, 10)],
-    [athletes.slice(0, 14)],
+    [
+      athletes.slice(0, 4),
+    ],
+    [
+      athletes.slice(0, 8),
+    ],
+    [
+      athletes.slice(0, 5),
+    ],
+    [
+      athletes.slice(0, 7),
+    ],
+    [
+      athletes.slice(0, 16),
+    ],
+    [
+      athletes.slice(0, 10),
+    ],
+    [
+      athletes.slice(0, 14),
+    ],
     [athletes],
-    [athletes.slice(0, 19)],
-    [athletes.slice(0, 24)],
+    [
+      athletes.slice(0, 19),
+    ],
+    [
+      athletes.slice(0, 24),
+    ],
   ])('should not get currentMatch because is last', (athleteSlice) => {
     const brackets = createBrackets('test', athleteSlice, 0);
     const lastMatch = brackets.matches.at(-1)!;

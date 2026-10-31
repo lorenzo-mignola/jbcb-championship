@@ -7,7 +7,9 @@
 
   const custom = Boolean(queryTitle || queryMessage);
 
-  const emoji = page.status === 404 ? '🤷‍♂️' : '😢';
+  const emoji = page.status === 404
+    ? '🤷‍♂️'
+    : '😢';
 
   const header = page.status === 404
     ? 'Pagina non trovata'

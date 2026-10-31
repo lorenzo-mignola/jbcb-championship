@@ -141,7 +141,11 @@ describe('singlePool even', () => {
     expect(pool.matches).toHaveLength(15);
   });
 
-  it.each([[4], [5], [6]])(
+  it.each([
+    [4],
+    [5],
+    [6],
+  ])(
     'all athletes do the same numbers of match',
     (slice) => {
       const pool = createSinglePool(name, athletes.slice(0, slice), 0);

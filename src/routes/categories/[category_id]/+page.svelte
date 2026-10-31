@@ -1,11 +1,11 @@
 <script lang='ts'>
-  import AthleteList from '$lib/components/athlete-list.svelte';
-  import Back from '$lib/icons/back.svelte';
-  import Edit from '$lib/icons/edit.svelte';
-  import Next from '$lib/icons/next.svelte';
-  import Print from '$lib/icons/print.svelte';
-  import { isNotByeMatch } from '$lib/models/ranking/category';
-  import { formatTimeString } from '$lib/utils/timer-utils';
+  import AthleteList from '#lib/components/athlete-list.svelte';
+  import Back from '#lib/icons/back.svelte';
+  import Edit from '#lib/icons/edit.svelte';
+  import Next from '#lib/icons/next.svelte';
+  import Print from '#lib/icons/print.svelte';
+  import { isNotByeMatch } from '#lib/models/ranking/category';
+  import { formatTimeString } from '#lib/utils/timer-utils';
 
   import { tournamentState } from '../../../lib/state/settings/tournament-state.js';
   import Loading from './components/loading.svelte';
@@ -34,14 +34,14 @@
       '>
         {#if !started}
           <a
-            class='btn-icon btn preset-tonal-surface'
+            class='btn btn-icon preset-tonal-surface'
             href={`/categories/${category.id}/edit?tournament=${category.tournament || ''}`}
             title='Modifica'><Edit /></a
           >
         {/if}
 
         <a
-          class='btn-icon btn preset-tonal-surface'
+          class='btn btn-icon preset-tonal-surface'
           href={`/categories/${category.id}/print`}
           rel='noopener noreferrer'
           target='_blank'
@@ -73,7 +73,7 @@
 </div>
 
 <a
-  class='mt-8 btn preset-filled-secondary-500 btn-sm shadow-md'
+  class='mt-8 btn preset-filled-secondary-500 shadow-md btn-sm'
   href={`/categories?tournament=${tournamentState.tournament}`}
 >
   <span><Back /></span>

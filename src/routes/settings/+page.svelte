@@ -1,7 +1,7 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  import Delete from '$lib/icons/delete.svelte';
+  import Delete from '#lib/icons/delete.svelte';
 
   import { settingsState } from '../../lib/state/settings/settings-state.svelte';
   import { tournamentState } from '../../lib/state/settings/tournament-state';
@@ -35,7 +35,7 @@
         e.preventDefault();
         handleAdd();
       }}>
-      <div class='input-group grid-cols-[1fr_auto]'>
+      <div class='field-group grid-cols-[1fr_auto]'>
         <label class='label'>
           <input
             class='input rounded-r-none'
@@ -59,7 +59,7 @@
           {club}
           <button
             class='
-              btn-icon btn-icon-sm preset-filled-primary-500 text-white
+              btn-icon preset-filled-primary-500 text-white btn-icon-sm
               *:pointer-events-none
             '
             type='button'

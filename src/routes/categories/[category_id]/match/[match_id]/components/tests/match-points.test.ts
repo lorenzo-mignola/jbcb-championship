@@ -2,12 +2,12 @@ import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { matchState } from '$lib/state/match/match-state.svelte';
-import { getOpponentType } from '$lib/utils/judoka-utils';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER } from '$tests/util/constants';
+import { matchState } from '#lib/state/match/match-state.svelte';
+import { getOpponentType } from '#lib/utils/judoka-utils';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
+import { ONE_SECOND_TIMER } from '#tests/util/constants';
 
 import Match from '../../+page.svelte';
 
@@ -18,7 +18,10 @@ const data = {
   nextMatch: match2Mock,
 };
 
-describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop', (type) => {
+describe.each([
+  ['white'],
+  ['blue'],
+] as const)('point for judoka %s on timer stop', (type) => {
   it('should set 1 0 0 when ippon', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];
@@ -185,7 +188,10 @@ describe.each([['white'], ['blue']] as const)('point for judoka %s on timer stop
   });
 });
 
-describe.each([['white'], ['blue']] as const)('point for judoka %s on timer play', (type) => {
+describe.each([
+  ['white'],
+  ['blue'],
+] as const)('point for judoka %s on timer play', (type) => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
   });

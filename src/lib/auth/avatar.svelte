@@ -2,7 +2,7 @@
   import { Avatar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
   import { invalidateAll } from '$app/navigation';
 
-  import { signOut, useSession } from '$lib/auth/auth-client';
+  import { signOut, useSession } from '#lib/auth/auth-client';
 
   const session = useSession();
 
@@ -14,7 +14,7 @@
       <Avatar class='size-7'>
         <Avatar.Image
           title={$session.data.user.name}
-          src={`https://api.dicebear.com/9.x/shapes/svg?seed=${$session.data.user.email}`}
+          src={`https://api.dicebear.com/10.x/blobs/svg?seed=${$session.data.user.email}`}
           alt='small'
         />
         <Avatar.Fallback>{$session.data.user.name.substring(0, 1)}</Avatar.Fallback>

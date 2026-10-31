@@ -1,6 +1,6 @@
-import { PUBLIC_AUTO_PRINT } from '$env/static/public';
+import { PUBLIC_AUTO_PRINT } from '$app/env/public';
 
-import { getCategory } from '$lib/db';
+import { getCategory } from '#lib/db';
 
 import type { PageServerLoad } from './$types';
 

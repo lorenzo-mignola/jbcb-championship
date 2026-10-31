@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import type { Match } from '$lib/types/match.type';
+  import type { Match } from '#lib/types/match.type';
 
-  import Back from '$lib/icons/back.svelte';
+  import Back from '#lib/icons/back.svelte';
 
   import NextMatchDrawer from './next-match-drawer.svelte';
   import NextMatch from './next-match.svelte';

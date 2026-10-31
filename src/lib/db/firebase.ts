@@ -1,13 +1,11 @@
 import type { ServiceAccount } from 'firebase-admin/app';
 
-import { env } from '$env/dynamic/private';
+import { FIREBASE_SERVICE_ACCOUNT } from '$app/env/private';
 import { cert, getApps, initializeApp } from 'firebase-admin/app';
 import { getFirestore } from 'firebase-admin/firestore';
 
 import type { AllowedUser } from '../types/allowed-user.type';
 import type { Category } from '../types/category.type';
-
-const { FIREBASE_SERVICE_ACCOUNT } = env;
 
 export const CATEGORIES_COLLECTION = 'categories';
 export const ALLOWED_ACCOUNTS_COLLECTION = 'allowed_accounts';

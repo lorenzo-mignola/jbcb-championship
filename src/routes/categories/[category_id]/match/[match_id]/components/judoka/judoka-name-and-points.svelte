@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import type { MatchJudoka, Points } from '$lib/types/match.type';
+  import type { MatchJudoka, Points } from '#lib/types/match.type';
 
-  import { pointsToString } from '$lib/state/match/judoka-points-state.svelte';
+  import { pointsToString } from '#lib/state/match/judoka-points-state.svelte';
 
   interface Props {
     athlete: MatchJudoka | undefined;
@@ -18,7 +18,7 @@
       {#if athlete.shido === 3}
         <span class='mr-1' data-testid='shido-red'>🟥</span>
       {:else}
-        {#each { length: athlete.shido } as _}
+        {#each { length: athlete.shido } as _, i (i)}
           <span class='mr-1' data-testid='shido-yellow'>🟨</span>
         {/each}
       {/if}

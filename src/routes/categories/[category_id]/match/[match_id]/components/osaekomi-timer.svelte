@@ -1,9 +1,9 @@
 <script lang='ts'>
-  import type { JudokaType } from '$lib/types/match.type';
+  import type { JudokaType } from '#lib/types/match.type';
 
-  import Pause from '$lib/icons/pause.svelte';
-  import { osaekomiState } from '$lib/state/match/osaekomi-state.svelte';
-  import { timerState } from '$lib/state/match/timer-state.svelte';
+  import Pause from '#lib/icons/pause.svelte';
+  import { osaekomiState } from '#lib/state/match/osaekomi-state.svelte';
+  import { timerState } from '#lib/state/match/timer-state.svelte';
 
   interface Props {
     timer: number;

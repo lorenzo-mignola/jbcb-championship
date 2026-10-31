@@ -1,8 +1,8 @@
-import type { Category } from '$lib/types/category.type';
-import type { Match } from '$lib/types/match.type';
+import type { Category } from '#lib/types/category.type';
+import type { Match } from '#lib/types/match.type';
 
-import { getCategory } from '$lib/db';
-import { isNotByeMatch } from '$lib/models/ranking/category';
+import { getCategory } from '#lib/db';
+import { isNotByeMatch } from '#lib/models/ranking/category';
 
 import type { PageServerLoad } from './$types';
 

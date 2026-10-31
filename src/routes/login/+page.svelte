@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import Login from '$lib/auth/login.svelte';
+  import Login from '#lib/auth/login.svelte';
 </script>
 
 <div
@@ -16,6 +16,6 @@
 <style>
   .local-hero {
     background-color: #7f2f3b;
-    background-image: url('$lib/icons/hero.svg');
+    background-image: url('#lib/icons/hero.svg');
   }
 </style>

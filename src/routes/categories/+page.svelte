@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import Check from '$lib/icons/check.svelte';
+  import Check from '#lib/icons/check.svelte';
 
   import Search from '../../lib/icons/search.svelte';
 
@@ -16,13 +16,11 @@
     );
   });
 </script>
-<div class='mb-4 input-group grid-cols-[auto_1fr_auto]'>
-  <div class='ig-cell preset-tonal'>
+<div class='mb-4 field-group grid-cols-[auto_1fr_auto]'>
+  <div class='label preset-tonal'>
     <Search />
   </div>
-  <input placeholder='Cerca...' type='search' bind:value={searchValue} class='
-    ig-input
-  ' />
+  <input class='input' placeholder='Cerca...' type='search' bind:value={searchValue} />
 </div>
 
 <div class='flex flex-col gap-3'>

@@ -36,12 +36,20 @@ function isFinalMatch(category: DoublePoolCategory, matchId: string) {
 }
 
 function getWhiteAndBlueSemifinal(category: DoublePoolCategory, index: 0 | 1) {
-  const winnerPool = category.pools[index === 0 ? 'A' : 'B'];
+  const winnerPool = category.pools[index === 0
+    ? 'A'
+    : 'B'];
   const winnerPoolAthletes
-    = category.pools[index === 0 ? 'aAthletes' : 'bAthletes'];
-  const loserPool = category.pools[index === 0 ? 'B' : 'A'];
+    = category.pools[index === 0
+      ? 'aAthletes'
+      : 'bAthletes'];
+  const loserPool = category.pools[index === 0
+    ? 'B'
+    : 'A'];
   const loserPoolAthletes
-    = category.pools[index === 0 ? 'bAthletes' : 'aAthletes'];
+    = category.pools[index === 0
+      ? 'bAthletes'
+      : 'aAthletes'];
   const whiteId = getRankingPool(winnerPool, winnerPoolAthletes).find(
     rank => rank.rank === 1,
   )?.id;

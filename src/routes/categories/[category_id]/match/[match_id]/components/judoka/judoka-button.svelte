@@ -1,17 +1,17 @@
 <script lang='ts'>
-  import IpponShortcut from '$lib/components/shortcuts/ippon-shortcut.svelte';
-  import OsaekomiShortcut from '$lib/components/shortcuts/osaekomi-shortcut.svelte';
-  import ShidoShortcut from '$lib/components/shortcuts/shido-shortcut.svelte';
-  import WazariShortcut from '$lib/components/shortcuts/wazari-shortcut.svelte';
-  import YukoShortcut from '$lib/components/shortcuts/yuko-shortcut.svelte';
-  import HandRaisedBack from '$lib/icons/hand-raised-back.svelte';
-  import HandRaised from '$lib/icons/hand-raised.svelte';
-  import IndexPointing from '$lib/icons/index-pointing.svelte';
-  import PalmDown from '$lib/icons/palm-down.svelte';
-  import { matchState } from '$lib/state/match/match-state.svelte';
-  import { osaekomiState } from '$lib/state/match/osaekomi-state.svelte';
-  import { timerState } from '$lib/state/match/timer-state.svelte';
-  import { getOpponentType } from '$lib/utils/judoka-utils';
+  import IpponShortcut from '#lib/components/shortcuts/ippon-shortcut.svelte';
+  import OsaekomiShortcut from '#lib/components/shortcuts/osaekomi-shortcut.svelte';
+  import ShidoShortcut from '#lib/components/shortcuts/shido-shortcut.svelte';
+  import WazariShortcut from '#lib/components/shortcuts/wazari-shortcut.svelte';
+  import YukoShortcut from '#lib/components/shortcuts/yuko-shortcut.svelte';
+  import HandRaisedBack from '#lib/icons/hand-raised-back.svelte';
+  import HandRaised from '#lib/icons/hand-raised.svelte';
+  import IndexPointing from '#lib/icons/index-pointing.svelte';
+  import PalmDown from '#lib/icons/palm-down.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte';
+  import { osaekomiState } from '#lib/state/match/osaekomi-state.svelte';
+  import { timerState } from '#lib/state/match/timer-state.svelte';
+  import { getOpponentType } from '#lib/utils/judoka-utils';
 
   import PointButton from './point-button.svelte';
 

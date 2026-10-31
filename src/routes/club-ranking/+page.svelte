@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import PrintButton from '$lib/components/print-button.svelte';
+  import PrintButton from '#lib/components/print-button.svelte';
 
   const { data } = $props();
   const ranking = $derived(data.ranking);

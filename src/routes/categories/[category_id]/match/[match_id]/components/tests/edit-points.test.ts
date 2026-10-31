@@ -3,13 +3,13 @@ import userEvent from '@testing-library/user-event';
 import { produce } from 'immer';
 import { describe, expect, it } from 'vitest';
 
-import type { JudokaType } from '$lib/types/match.type';
+import type { JudokaType } from '#lib/types/match.type';
 
-import { matchState } from '$lib/state/match/match-state.svelte';
-import { getOpponentType } from '$lib/utils/judoka-utils';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
+import { matchState } from '#lib/state/match/match-state.svelte';
+import { getOpponentType } from '#lib/utils/judoka-utils';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
 
 import Match from '../../+page.svelte';
 
@@ -23,7 +23,10 @@ const mock = {
   nextMatch: match2Mock,
 };
 
-describe.each([['white'], ['blue']] as const)('point edit for judoka %s', (type) => {
+describe.each([
+  ['white'],
+  ['blue'],
+] as const)('point edit for judoka %s', (type) => {
   it('should not render edit button', () => {
     const { id } = mock.match[type];
     render(Match, {

@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import Edit from '$lib/icons/edit.svelte';
-  import { judokaPointsState } from '$lib/state/match/judoka-points-state.svelte';
-  import { matchState } from '$lib/state/match/match-state.svelte';
+  import Edit from '#lib/icons/edit.svelte';
+  import { judokaPointsState } from '#lib/state/match/judoka-points-state.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte';
 
   import JudokaButtonEdit from './judoka-button-edit.svelte';
   import JudokaButton from './judoka-button.svelte';
@@ -57,7 +57,7 @@
         {#if showEdit}
           <button
             class='
-              btn-icon btn-icon-sm text-inherit
+              btn-icon text-inherit btn-icon-sm
               md:btn-icon
             '
             class:active={edit}

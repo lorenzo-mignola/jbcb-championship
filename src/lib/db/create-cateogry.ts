@@ -33,6 +33,12 @@ export async function createCategory({
 }: Pick<Category, 'name' | 'athletes' | 'type' | 'duration' | 'tournament'>) {
   const doc = await db
     .collection(CATEGORIES_COLLECTION)
-    .add(generateCategory({ athletes, duration, name, tournament, type }));
+    .add(generateCategory({
+      athletes,
+      duration,
+      name,
+      tournament,
+      type,
+    }));
   return doc.id;
 }

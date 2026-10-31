@@ -1,9 +1,9 @@
 <script lang='ts'>
   import {
     localStorageMatchState,
-  } from '$lib/state/match/local-storage-match-state.svelte';
-  import { matchState } from '$lib/state/match/match-state.svelte.js';
-  import { timerState } from '$lib/state/match/timer-state.svelte.js';
+  } from '#lib/state/match/local-storage-match-state.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte.js';
+  import { timerState } from '#lib/state/match/timer-state.svelte.js';
 
   import Footer from './components/footer.svelte';
   import Judoka from './components/judoka/judoka.svelte';
@@ -25,7 +25,12 @@
   const isRepechage = $derived(matchState.match?.isRepechage || false);
 
   $effect(() => {
-    localStorageMatchState.initialize({ category, isMedalMatch, isRepechage, nextMatch });
+    localStorageMatchState.initialize({
+      category,
+      isMedalMatch,
+      isRepechage,
+      nextMatch,
+    });
   });
 
   $effect(() => {

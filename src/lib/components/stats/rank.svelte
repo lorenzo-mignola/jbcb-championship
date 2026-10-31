@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { getRankingIcon } from '$lib/models/ranking/category';
+  import { getRankingIcon } from '#lib/models/ranking/category';
 
   interface Props {
     club: string | undefined;

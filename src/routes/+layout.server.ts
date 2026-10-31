@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-import { isEmailAllowed } from '$lib/db/allowed-account';
+import { isEmailAllowed } from '#lib/db/allowed-account';
 
 import type { LayoutServerLoad } from './$types';
 

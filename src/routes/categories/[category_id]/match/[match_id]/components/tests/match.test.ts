@@ -2,11 +2,11 @@ import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { matchState } from '$lib/state/match/match-state.svelte';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import matc2hMock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER, TIME_CLOCK_MULTIPLIER } from '$tests/util/constants';
+import { matchState } from '#lib/state/match/match-state.svelte';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import matc2hMock from '#tests/mock/match2.json';
+import { ONE_SECOND_TIMER, TIME_CLOCK_MULTIPLIER } from '#tests/util/constants';
 
 import Match from '../../+page.svelte';
 
@@ -97,7 +97,9 @@ describe('end match', () => {
   });
 
   it('after 2 sec timer should show (categoryDuration - 2)', async () => {
-    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
+    const user = userEvent.setup({
+      advanceTimers: (ms: number) => vi.advanceTimersByTime(ms),
+    });
     render(Match, { data });
 
     // start play timer
@@ -112,7 +114,9 @@ describe('end match', () => {
   });
 
   it('when time is ended timer should be 00:00', async () => {
-    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
+    const user = userEvent.setup({
+      advanceTimers: (ms: number) => vi.advanceTimersByTime(ms),
+    });
     render(Match, { data });
 
     // start play timer
@@ -128,7 +132,9 @@ describe('end match', () => {
   });
 
   it('when time is ended should show play button', async () => {
-    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
+    const user = userEvent.setup({
+      advanceTimers: (ms: number) => vi.advanceTimersByTime(ms),
+    });
     render(Match, { data });
 
     // start play timer
@@ -143,10 +149,14 @@ describe('end match', () => {
     expect(within(playPauseButton).getByTestId('play-icon')).toBeInTheDocument();
   });
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'when time is ended and %s has 1 wazari is the winner',
     async (type) => {
-      const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
+      const user = userEvent.setup({
+        advanceTimers: (ms: number) => vi.advanceTimersByTime(ms),
+      });
       const { id } = data.match[type];
       render(Match, { data });
 
@@ -170,7 +180,9 @@ describe('end match', () => {
   );
 
   it('should not set winner when both has 1 wazari', async () => {
-    const user = userEvent.setup({ advanceTimers: (ms: number) => vi.advanceTimersByTime(ms) });
+    const user = userEvent.setup({
+      advanceTimers: (ms: number) => vi.advanceTimersByTime(ms),
+    });
     const { blue, white } = data.match;
     const whiteId = white.id;
     const blueId = blue.id;

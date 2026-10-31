@@ -1,7 +1,7 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  import { nextMatchesState } from '$lib/state/match/next-matches-state.svelte';
+  import { nextMatchesState } from '#lib/state/match/next-matches-state.svelte';
 
   interface Props {
     categoryId: string;
@@ -20,7 +20,7 @@
 
 <Dialog onOpenChange={onOpenChange}>
   <Dialog.Trigger
-    class='mt-2 btn w-full preset-filled btn-sm shadow-md'
+    class='mt-2 btn w-full preset-filled shadow-md btn-sm'
     data-testId='drawer-next-matches'
   >
     ⏭️ Prossimi incontri

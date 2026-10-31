@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import type { JudokaType, MatchJudoka } from '$lib/types/match.type';
+  import type { JudokaType, MatchJudoka } from '#lib/types/match.type';
 
-  import { matchState } from '$lib/state/match/match-state.svelte';
+  import { matchState } from '#lib/state/match/match-state.svelte';
 
   import PointButton from './point-button.svelte';
 

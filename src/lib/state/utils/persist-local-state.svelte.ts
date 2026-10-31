@@ -1,4 +1,4 @@
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 export class PersistLocalStore<T> {
   #value = $state<T>() as T;

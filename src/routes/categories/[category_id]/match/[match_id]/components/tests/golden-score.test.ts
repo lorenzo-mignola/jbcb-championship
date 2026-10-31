@@ -2,11 +2,11 @@ import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import { matchState } from '$lib/state/match/match-state.svelte';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER, TIME_CLOCK_MULTIPLIER } from '$tests/util/constants';
+import { matchState } from '#lib/state/match/match-state.svelte';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
+import { ONE_SECOND_TIMER, TIME_CLOCK_MULTIPLIER } from '#tests/util/constants';
 
 import Match from '../../+page.svelte';
 
@@ -61,7 +61,9 @@ describe('golden score', () => {
     });
   });
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'should set winner %s when wazari on golden score',
     async (type) => {
       const user = userEvent.setup();
@@ -80,7 +82,9 @@ describe('golden score', () => {
     },
   );
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'should set winner %s when yuko on golden score',
     async (type) => {
       const user = userEvent.setup();
@@ -101,7 +105,9 @@ describe('golden score', () => {
     },
   );
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'should set winner %s when wazari on golden score',
     async (type) => {
       const user = userEvent.setup();
@@ -122,7 +128,9 @@ describe('golden score', () => {
     },
   );
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'should set winner %s when wazari on golden score when score is 1-1',
     async (type) => {
       const user = userEvent.setup();
@@ -151,7 +159,9 @@ describe('golden score', () => {
     },
   );
 
-  it.each([['white', 'blue']] as const)(
+  it.each([
+    ['white', 'blue'],
+  ] as const)(
     'should set winner %s when ippon on golden score',
     async (type) => {
       const user = userEvent.setup();

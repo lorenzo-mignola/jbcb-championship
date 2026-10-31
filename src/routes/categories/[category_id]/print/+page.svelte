@@ -1,9 +1,9 @@
 <script lang='ts'>
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
   import { onMount } from 'svelte';
 
-  import PrintButton from '$lib/components/print-button.svelte';
-  import { isMobile } from '$lib/utils/mobile';
+  import PrintButton from '#lib/components/print-button.svelte';
+  import { isMobile } from '#lib/utils/mobile';
 
   import PrintCategory from '../../print/components/print-category.svelte';
 

@@ -1,4 +1,3 @@
-/* eslint-disable e18e/prefer-static-regex -- this is a util class */
 import type { Ord } from 'ramda';
 
 import {
@@ -13,9 +12,9 @@ import {
   when,
 } from 'ramda';
 
-import type { PoolCategory } from '$lib/types/category.type';
-import type { Judoka } from '$lib/types/judoka.type';
-import type { Match } from '$lib/types/match.type';
+import type { PoolCategory } from '#lib/types/category.type';
+import type { Judoka } from '#lib/types/judoka.type';
+import type { Match } from '#lib/types/match.type';
 
 import type { Category } from '../types/category.type';
 

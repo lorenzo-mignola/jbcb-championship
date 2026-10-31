@@ -4,10 +4,10 @@ import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
-import { ONE_SECOND_TIMER } from '$tests/util/constants';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
+import { ONE_SECOND_TIMER } from '#tests/util/constants';
 
 import { matchState } from '../../../../../../../lib/state/match/match-state.svelte';
 import Match from '../../+page.svelte';
@@ -39,7 +39,9 @@ async function setupOsaekomi(user: UserEvent, id: string) {
   };
 }
 
-describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
+describe.each([
+  ['white', 'blue'],
+] as const)('osaekomi for %s', (type) => {
   beforeEach(() => {
     vi.useFakeTimers({ shouldAdvanceTime: true });
   });

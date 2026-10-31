@@ -3,10 +3,10 @@ import type { RequestHandler } from '@sveltejs/kit';
 import { error, json } from '@sveltejs/kit';
 import { z } from 'zod';
 
-import type { Category } from '$lib/types/category.type';
-import type { Judoka } from '$lib/types/judoka.type';
+import type { Category } from '#lib/types/category.type';
+import type { Judoka } from '#lib/types/judoka.type';
 
-import { editCategory, getCategory } from '$lib/db';
+import { editCategory, getCategory } from '#lib/db';
 
 const pathAthleteSchema = z.object({
   athlete: z.string(),

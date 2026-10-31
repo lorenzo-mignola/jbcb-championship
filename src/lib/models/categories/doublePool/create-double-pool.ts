@@ -45,7 +45,11 @@ function getMatches(
       poolsMatch.push(bMatch);
     }
   }
-  return [...poolsMatch, ...semifinals, finalMatch];
+  return [
+    ...poolsMatch,
+    ...semifinals,
+    finalMatch,
+  ];
 }
 
 export function createDoublePool(

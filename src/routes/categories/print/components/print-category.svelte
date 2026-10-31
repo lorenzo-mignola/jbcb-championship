@@ -1,13 +1,13 @@
 <script lang='ts'>
-  import type { Category } from '$lib/types/category.type';
+  import type { Category } from '#lib/types/category.type';
 
-  import AthleteList from '$lib/components/athlete-list.svelte';
-  import Brackets from '$lib/components/brackets.svelte';
-  import RankingDoublePool from '$lib/components/stats/ranking-double-pool.svelte';
-  import Ranking from '$lib/components/stats/ranking.svelte';
-  import { mapFinalsToRounds } from '$lib/models/categories/doublePool/map-finals-to-rounds';
-  import { isNotByeMatch } from '$lib/models/ranking/category';
-  import { formatTimeString } from '$lib/utils/timer-utils';
+  import AthleteList from '#lib/components/athlete-list.svelte';
+  import Brackets from '#lib/components/brackets.svelte';
+  import RankingDoublePool from '#lib/components/stats/ranking-double-pool.svelte';
+  import Ranking from '#lib/components/stats/ranking.svelte';
+  import { mapFinalsToRounds } from '#lib/models/categories/doublePool/map-finals-to-rounds';
+  import { isNotByeMatch } from '#lib/models/ranking/category';
+  import { formatTimeString } from '#lib/utils/timer-utils';
 
   import PrintMatches from './print-matches.svelte';
 

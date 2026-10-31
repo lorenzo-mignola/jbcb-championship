@@ -1,5 +1,5 @@
-import { getAllEndedCategories } from '$lib/db';
-import { getClubRaking } from '$lib/models/ranking/club-ranking';
+import { getAllEndedCategories } from '#lib/db';
+import { getClubRaking } from '#lib/models/ranking/club-ranking';
 
 import type { PageServerLoad } from './$types';
 

@@ -1,10 +1,10 @@
 <script lang='ts'>
   import { Switch } from '@skeletonlabs/skeleton-svelte';
-  import { browser } from '$app/environment';
+  import { browser } from '$app/env';
   import { onMount } from 'svelte';
 
-  import PrintButton from '$lib/components/print-button.svelte';
-  import { isMobile } from '$lib/utils/mobile.js';
+  import PrintButton from '#lib/components/print-button.svelte';
+  import { isMobile } from '#lib/utils/mobile.js';
 
   import PrintCategoryRankingOnly from '../components/print-category-ranking-only.svelte';
   import PrintCategory from '../components/print-category.svelte';

@@ -3,7 +3,7 @@ import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
 import PlayPauseButton from
-  '$routes/categories/[category_id]/match/[match_id]/components/play-pause-button.svelte';
+  '#routes/categories/[category_id]/match/[match_id]/components/play-pause-button.svelte';
 
 import { osaekomiState } from '../../../state/match/osaekomi-state.svelte';
 

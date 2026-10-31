@@ -8,7 +8,10 @@ export async function getCategory(id: string): Promise<Category | undefined> {
   if (!category.exists) {
     return undefined;
   }
-  return { id: category.id, ...category.data() } as Category;
+  return {
+    id: category.id,
+    ...category.data(),
+  } as Category;
 }
 
 export async function getAllCategories(
@@ -21,7 +24,10 @@ export async function getAllCategories(
     return [];
   }
   return categories.docs.map(
-    category => ({ id: category.id, ...category.data() }) as Category,
+    category => ({
+      id: category.id,
+      ...category.data(),
+    }) as Category,
   );
 }
 
@@ -43,7 +49,10 @@ export async function getNotStartedCategory(
       const [firstMatch] = matches;
       return !firstMatch.winner;
     })
-    .map(category => ({ id: category.id, ...category.data() }) as Category);
+    .map(category => ({
+      id: category.id,
+      ...category.data(),
+    }) as Category);
 }
 
 export async function getAllEndedCategories(
@@ -63,6 +72,9 @@ export async function getAllEndedCategories(
   }
 
   return categories.docs.map(
-    category => ({ id: category.id, ...category.data() }) as Category,
+    category => ({
+      id: category.id,
+      ...category.data(),
+    }) as Category,
   );
 }

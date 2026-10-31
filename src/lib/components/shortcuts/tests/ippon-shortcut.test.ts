@@ -2,10 +2,10 @@ import { render, screen, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import { describe, expect, it } from 'vitest';
 
-import Match from '$routes/categories/[category_id]/match/[match_id]/+page.svelte';
-import categoryMock from '$tests/mock/category.json';
-import matchMock from '$tests/mock/match.json';
-import match2Mock from '$tests/mock/match2.json';
+import Match from '#routes/categories/[category_id]/match/[match_id]/+page.svelte';
+import categoryMock from '#tests/mock/category.json';
+import matchMock from '#tests/mock/match.json';
+import match2Mock from '#tests/mock/match2.json';
 
 const data = {
   category: categoryMock,

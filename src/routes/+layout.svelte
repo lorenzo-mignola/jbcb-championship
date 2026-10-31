@@ -5,8 +5,8 @@
   import { invalidateAll } from '$app/navigation';
   import { pwaInfo } from 'virtual:pwa-info';
 
-  import Reload from '$lib/icons/reload.svelte';
-  import { toaster } from '$lib/state/utils/toaster-state';
+  import Reload from '#lib/icons/reload.svelte';
+  import { toaster } from '#lib/state/utils/toaster-state';
 
   import Avatar from '../lib/auth/avatar.svelte';
   import LightSwitch from '../lib/components/light-switch.svelte';

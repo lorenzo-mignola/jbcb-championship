@@ -1,7 +1,7 @@
 <script lang='ts'>
-  import type { DoublePoolCategory } from '$lib/types/category.type';
+  import type { DoublePoolCategory } from '#lib/types/category.type';
 
-  import { poolToCategory } from '$lib/utils/categories-utils';
+  import { poolToCategory } from '#lib/utils/categories-utils';
 
   import Ranking from './ranking.svelte';
 

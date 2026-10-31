@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import type { Match } from '$lib/types/match.type';
+  import type { Match } from '#lib/types/match.type';
 
   import { isNotByeMatch } from '../../models/ranking/category';
   import { formatTime } from '../../utils/timer-utils';

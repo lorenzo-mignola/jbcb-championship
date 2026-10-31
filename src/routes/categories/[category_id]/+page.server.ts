@@ -1,4 +1,4 @@
-import { getCategory } from '$lib/db';
+import { getCategory } from '#lib/db';
 
 import type { PageServerLoad } from './$types';
 

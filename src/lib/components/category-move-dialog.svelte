@@ -57,7 +57,10 @@
       originalCategoryIdState.id = data.originalCategoryId;
 
       const editUrl = new URL(
-        resolve(`/categories/${data.originalCategoryId}/edit`),
+        resolve('/categories/[category_id]/edit', {
+          category_id: data.originalCategoryId,
+        }),
+        window.location.origin,
       );
       editUrl.searchParams.set('tournament', tournamentState.tournament);
 
