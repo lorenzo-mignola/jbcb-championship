@@ -60,7 +60,7 @@
 ### Prerequisites
 
 - **Node.js**: `v26.x` (configured in `.nvmrc` / `package.json`)
-- **Package Manager**: `pnpm` `v10.x`
+- **Package Manager**: `pnpm` `v12.x`
 
 ### Installation
 
