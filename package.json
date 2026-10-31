@@ -10,6 +10,7 @@
   },
   "scripts": {
     "dev": "vite dev",
+    "dev:env": "envsec -c jbcb-championship run -i 'vite dev'",
     "build": "vite build",
     "preview": "vite preview",
     "prepare": "husky",

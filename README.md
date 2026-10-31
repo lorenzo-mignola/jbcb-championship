@@ -1,142 +1,120 @@
 # JBCB Championship
 
-![Logo](static/android-chrome-512x512.png)
+<p align="center">
+  <img src="static/android-chrome-192x192.png" alt="JBCB Championship Logo" width="128" height="128" />
+</p>
 
-## Aprire l'app e configurare il torneo
+<p align="center">
+  <strong>Comprehensive digital tournament management and live scoreboard system for judo championships.</strong>
+</p>
 
-- Aprire il sito `https://jbcb-championship.vercel.app/`
-- Accedere alle **Impostazioni**
-- Inserire l'ID Torneo.
+<p align="center">
+  <a href="https://jbcb-championship.vercel.app/">Live Web Application</a>
+</p>
 
-## Aprire la pagina per i risultati
+---
 
-- Andare in **Impostazioni**
-- Cliccare su **Apri pagina**
-- Si dovrebbe aprire un nuovo tab
-- Spostare il nuovo tab sul beamer
-- Premere il bottone in basso a destra per mettere la pagina a schermo intero
+## 📖 Documentation Quick Links
 
-## Gestione delle categorie
+- 🇮🇹 **[Manuale Utente (Italiano)](./docs/manuale-utente.md)**: Guida operativa completa per ufficiali di gara e giudici di tavolo (configurazione torneo, conduzione incontri, cronometri, immobilizzazioni, scorciatoie da tastiera e report di stampa).
+- 🥋 **[Domain Glossary](./GLOSSARY.md)**: Canonical terminology and domain concepts for tournaments, judoka, scoring, and bracket models.
+- 🏛️ **[System Architecture](./docs/architecture.md)**: Detailed technical specifications, Firestore schemas, Svelte 5 reactive state engine, and tournament tie-breaking mathematics.
+- 📋 **[Architecture Decision Records (ADRs)](./docs/adr/0001-core-architecture-and-state-management.md)**: Consolidated architectural design decisions and trade-offs.
 
-### Visualizzare una categoria
+---
 
-- Cliccare su **Visualizza categorie**
-- Cercare o selezionare categoria
+## ✨ Features
 
-> :warning: Se non vengono visualizzate le categorie corrette bisogna andare in **Impostazioni** e configurare l'ID corretto
+- **Tournament & Category Formats**:
+  - **Single Pool**: Round-robin format implementing the Berger rotation algorithm.
+  - **Double Pool**: Two independent pools with crossover semifinals and final medal matches.
+  - **Double Elimination (2KO)**: Championship bracket with a full repechage tree and two bronze medal finals.
+- **Digital Match Scoreboard**:
+  - Zero-latency client-side scoring engine with `localStorage` state protection.
+  - Full adherence to the **IJF 2026 Rules** supporting **Ippon**, **Waza-ari**, and **Yuko**.
+  - Automatic escalation: 2 Waza-ari award _Waza-ari-awasete-ippon_; 3 Shido award _Hansoku-make_.
+  - Groundwork immobilization (_Osae-komi_) timer: automatic score progression (5s Yuko, 10s Waza-ari, 20s Ippon) with **Sonomama** / **Yoshi** support.
+  - Automatic **Golden Score** (sudden death overtime) when regulation expires tied.
+  - CH-fr (Swiss-French) keyboard shortcuts for rapid, distraction-free scorekeeping at the table.
+- **Standings & Tie-Breaking Engine**:
+  - Automated pool standing calculation based on match points, quality evaluation points, head-to-head clash, and cycle-of-beating victory times.
+  - Automated aggregate **Club Rankings** tracking medal tallies (Gold, Silver, Bronze) across the tournament.
+- **Reporting & Print Suite**:
+  - Dedicated print-optimized sheets for category check-in/weigh-in, category brackets, tournament overviews, and podium summaries.
 
-Da questa pagina si può possono visualizzare diverse informazioni:
+---
 
-- Atleti iscritti
-- Durata degli incontri
-- Classifica
-- Lista degli incontri con i rispettivi risultati
-- Per categorie con doppia pool: classifica delle singole pool e tabellone finali
-- Per categorie con doppia eliminazione: tabellone principale e tabellone di ripescaggio
+## 🛠️ Technology Stack
 
-<div style="page-break-after: always;"></div>
+- **Framework**: [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5 Runes](https://svelte.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [Skeleton UI v4](https://skeleton.dev/)
+- **Database**: [Google Cloud Firestore](https://firebase.google.com/docs/firestore) via [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
+- **Authentication**: [Better-Auth](https://www.better-auth.com/) with Google OAuth and Firestore email whitelist
+- **State & Immutability**: [Immer](https://immerjs.github.io/immer/) and [Ramda](https://ramdajs.com/)
+- **Validation**: [Zod](https://zod.dev/)
 
-### Visualizzare classifica
+---
 
-- Selezionare la categoria desiderata
-- La classifica è disponibile solo al termine della categoria
+## 🚀 Getting Started
 
-### Stampare
+### Prerequisites
 
-- Selezionare la categoria desiderata
-- Cliccare sul pulsante Stampa in alto a destra
-- Se la finestra di stampa non si apre automaticamente, premere il pulsante in alto nella pagina.
+- **Node.js**: `v24.x` (configured in `.npmrc` / `package.json`)
+- **Package Manager**: `pnpm` `v10.x`
 
-## Gestione incontri
+### Installation
 
-Dopo aver selezionato la categoria in alto a destra cliccare il bottone **Prossimo incontro**, se il bottone non è presente significa che la categoria è già terminata
+```bash
+# Clone the repository
+git clone https://github.com/lorenzo-mignola/jbcb-championship.git
+cd jbcb-championship
 
-### Avvio incontro
+# Install dependencies
+pnpm install
+```
 
-Premere il pulsante _play_. Premendo il pulsante _pausa_ il timer si blocca
+### Environment Configuration
 
-![play](./docs/assets/play.png)
+Copy the example environment configuration file:
 
-### Ippon
+```bash
+cp .env.example .env.local
+```
 
-Assegna la vittoria diretta e interrompe il timer dell'incontro
+Fill in your credentials:
 
-![ippon](./docs/assets/ippon.png)
+- `FIREBASE_SERVICE_ACCOUNT`: Stringified JSON of your Google Cloud Service Account with Firestore Admin permissions.
+- `BETTER_AUTH_SECRET`: Random 32+ character secret for session signing.
+- `BETTER_AUTH_URL`: Local URL (e.g. `http://localhost:5173`) or production deployment URL.
+- `GOOGLE_CLIENT_ID` / `GOOGLE_CLIENT_SECRET`: OAuth credentials from the Google Cloud Console.
 
-<div style="page-break-after: always;"></div>
+### Development Commands
 
-### Waza-ari
+```bash
+# Start local development server with HMR
+pnpm dev
 
-Dopo 2 waza-ari viene assegnata la vittoria. Se alla fine del tempo prestabilito uno dei due atleti ha 1 waza-ari viene assegnata la vittoria
+# Type check across Svelte and TypeScript files
+pnpm check
 
-![waza-ari](./docs/assets/waza-ari.png)
+# Run ESLint validation
+pnpm lint
 
-### Shido
+# Execute Vitest test suite
+pnpm test
 
-Dopo 3 shido viene assegnata la vittoria all'avversario. Per assegnare hansoku-make diretto premere 3 volte il pulsante per i shido
+# Run tests once without watch mode
+pnpm vitest run
 
-![shido](./docs/assets/shido.png)
+# Build production bundle
+pnpm build
 
-<div style="page-break-after: always;"></div>
+# Preview production build locally
+pnpm preview
+```
 
-### Osae-komi / Toketa
+---
 
-Questi pulsanti sono attivi solo mentre il timer dell'incontro è attivo. Quando viene premuto la prima volta viene attivato il timer per l'osae-komi, se premuto la seconda volta (toketa) il timer per l'osae-komi si interrompe.
-Dopo 10 secondi viene assegnato 1 waza-ari, dopo 20 viene assegnato l'ippon
+## 🔒 Security & Admin Access
 
-![osaekomi](./docs/assets/osaekomi.png)
-![toketa](./docs/assets/toketa.png)
-
-Se si preme il pulsante vicino al timer (sonomama) viene messo in pausa sia il timer dell'incontro che il timer dell'osae-komi. Premendo il play del timer entrambi i timer riprendono
-
-![sonomamma](./docs/assets/sonomamma.png)
-
-<div style="page-break-after: always;"></div>
-
-### Correggere punteggio
-
-A destra dei pulsanti per assegnare i punteggi è presente il bottone per correggere i punteggi (il bottone apparirà solo dopo aver assegnato almeno 1 punteggio)
-
-![edit](./docs/assets/edit.png)
-
-Dopo essere entrati in modalità "correzione" è possibile rimuovere dei punteggi assegnati. Se bisogna correggere più punteggi è necessario ripetere questa operazione più volte
-
-![remove](./docs/assets/remove.png)
-
-### Salvare l'incontro
-
-Quando viene assegnata la vittoria ad un atleta compare il bottone _Termina l'incontro_, premendo questo bottone l'incontro viene salvato e viene aperto il prossimo incontro della categoria (o si ritorna alla pagina della categoria se non ci sono altri incontri)
-
-![termina](./docs/assets/termina.png)
-
-> <p style="font-size: 2rem">❗Se si aggiorna la pagina o si ritorna alla categoria i dati non salvati andranno persi❗</p>
-
-## Scorciatoie da tastiera (layout CH-fr)
-
-> ❗I tasti sono con le lettere maiuscole. Per attivare la scorciatoia è necessario premere anche **shift** oppure attivare **caps lock** ❗
-
-### Generale
-
-| Tasto  | Azione           |
-| :----: | ---------------- |
-| Spazio | Play/pausa timer |
-
-### Judoka bianco
-
-| Tasto | Azione    |
-| :---: | --------- |
-|   A   | Ippon     |
-|   S   | Waza-ari  |
-|   D   | Yuko      |
-|   G   | Osae-komi |
-|   Q   | Shido     |
-
-### Judoka blu
-
-| Tasto | Azione    |
-| :---: | --------- |
-|   J   | Ippon     |
-|   K   | Waza-ari  |
-|   L   | Yuko      |
-|   H   | Osae-komi |
-|   P   | Shido     |
+Administrative features (creating categories, scoring matches, and editing entries) require an authenticated Google account whose email exists in the `allowed_accounts` Firestore collection. Unlisted accounts are automatically redirected to an access denied screen via `hooks.server.ts`.
