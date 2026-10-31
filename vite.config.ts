@@ -52,7 +52,9 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     sveltekit({
-      adapter: adapter(),
+      adapter: adapter({
+        runtime: 'nodejs26.x',
+      }),
       preprocess: vitePreprocess(),
     }),
     pwa,
