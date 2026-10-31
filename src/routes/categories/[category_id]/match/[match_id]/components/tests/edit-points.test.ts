@@ -126,6 +126,30 @@ describe.each([['white'], ['blue']] as const)('point edit for judoka %s', (type)
     ).toHaveLength(1);
   });
 
+  it('should have remove button "Yuko"', async () => {
+    const user = userEvent.setup();
+    const { id } = mock.match[type];
+    render(Match, {
+      data: produce(mock, (data) => {
+        data.match[type].yuko = 1;
+      }),
+    });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const editButton = within(card).getByTestId('edit-point');
+
+    await user.click(editButton);
+
+    expect(
+      within(card).getByRole('button', {
+        name: /Yuko/i,
+      }),
+    );
+    expect(
+      within(within(card).getByTestId('points-container')).queryAllByRole('button'),
+    ).toHaveLength(1);
+  });
+
   it('should have remove button "Shido"', async () => {
     const user = userEvent.setup();
     const { id } = mock.match[type];
@@ -192,6 +216,27 @@ describe.each([['white'], ['blue']] as const)('point edit for judoka %s', (type)
     await user.click(wazariButton);
 
     expect(matchState.match?.[type]?.wazari).toBe(0);
+  });
+
+  it('should remove "Yuko"', async () => {
+    const user = userEvent.setup();
+    const { id } = mock.match[type];
+    render(Match, {
+      data: produce(mock, (data) => {
+        data.match[type].yuko = 1;
+      }),
+    });
+
+    const card = screen.getByTestId(`judoka-card-${id}`);
+    const editButton = within(card).getByTestId('edit-point');
+    await user.click(editButton);
+
+    const yukoButton = within(card).getByRole('button', {
+      name: /Yuko/i,
+    });
+    await user.click(yukoButton);
+
+    expect(matchState.match?.[type]?.yuko).toBe(0);
   });
 
   it('should remove 2 "Wazari"', async () => {

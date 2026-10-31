@@ -12,12 +12,33 @@ const { FIREBASE_SERVICE_ACCOUNT } = env;
 export const CATEGORIES_COLLECTION = 'categories';
 export const ALLOWED_ACCOUNTS_COLLECTION = 'allowed_accounts';
 
-if (getApps().length === 0) {
-  const serviceAccount = JSON.parse(FIREBASE_SERVICE_ACCOUNT ?? '{}') as ServiceAccount;
+function getServiceAccount(): ServiceAccount | null {
+  if (!FIREBASE_SERVICE_ACCOUNT?.trim()) {
+    return null;
+  }
+  try {
+    const parsed = JSON.parse(FIREBASE_SERVICE_ACCOUNT) as ServiceAccount;
+    if (parsed && typeof parsed === 'object' && 'project_id' in parsed) {
+      return parsed;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
 
-  initializeApp({
-    credential: cert(serviceAccount),
-  });
+if (getApps().length === 0) {
+  const serviceAccount = getServiceAccount();
+
+  if (serviceAccount) {
+    initializeApp({
+      credential: cert(serviceAccount),
+    });
+  } else {
+    initializeApp({
+      projectId: 'jbcb-championship',
+    });
+  }
 }
 
 export const categoryConverter = {

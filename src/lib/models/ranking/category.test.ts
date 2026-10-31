@@ -16,6 +16,7 @@ import singleEven3 from '$tests/mock/single-pool-even3.json';
 import single from '$tests/mock/single-pool.json';
 
 import {
+  getEvaluationPoint,
   getRanking,
   getRankingBrackets,
   getRankingDoublePool,
@@ -54,6 +55,42 @@ describe('getRankingIcon', () => {
   });
 });
 
+describe('getEvaluationPoint', () => {
+  it('should return 10 for ippon', () => {
+    const winner = { id: '1', ippon: 1, name: 'A', shido: 0, wazari: 0, yuko: 0 };
+    expect(getEvaluationPoint(winner)).toBe(10);
+  });
+
+  it('should return 10 for two wazari', () => {
+    const winner = { id: '1', ippon: 0, name: 'A', shido: 0, wazari: 2, yuko: 0 };
+    expect(getEvaluationPoint(winner)).toBe(10);
+  });
+
+  it('should return 7 for one wazari', () => {
+    const winner = { id: '1', ippon: 0, name: 'A', shido: 0, wazari: 1, yuko: 0 };
+    expect(getEvaluationPoint(winner)).toBe(7);
+  });
+
+  it('should return 5 for yuko', () => {
+    const winner = { id: '1', ippon: 0, name: 'A', shido: 0, wazari: 0, yuko: 1 };
+    expect(getEvaluationPoint(winner)).toBe(5);
+  });
+
+  it('should return 0 when winner is missing or has no score', () => {
+    const winnerWithoutScore = {
+      id: '1',
+      ippon: 0,
+      name: 'A',
+      shido: 0,
+      wazari: 0,
+      yuko: 0,
+    };
+    expect(getEvaluationPoint(null)).toBe(0);
+    expect(getEvaluationPoint(undefined)).toBe(0);
+    expect(getEvaluationPoint(winnerWithoutScore)).toBe(0);
+  });
+});
+
 describe('getRankingPool', () => {
   it('should return ["Primo", "Secondo", "Terzo"]', () => {
     const ranking = getRanking(poolCategoryMock as PoolCategory);
@@ -62,6 +99,44 @@ describe('getRankingPool', () => {
       { evaluationPoint: 17, id: idPrimo, matchPoint: 4, rank: 1 },
       { evaluationPoint: 10, id: idSecondo, matchPoint: 2, rank: 2 },
       { evaluationPoint: 0, id: idTerzo, matchPoint: 0, rank: 3 },
+    ]);
+  });
+
+  it('should award 5 evaluation points for a win decided by yuko', () => {
+    const athletes: Judoka[] = [
+      { id: 'ath-1', name: 'Athlete 1' },
+      { id: 'ath-2', name: 'Athlete 2' },
+    ];
+    const matches: Match[] = [
+      {
+        blue: {
+          id: 'ath-2',
+          ippon: 0,
+          name: 'Athlete 2',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 1200,
+        goldenScore: false,
+        id: 'match-yuko',
+        white: {
+          id: 'ath-1',
+          ippon: 0,
+          name: 'Athlete 1',
+          shido: 0,
+          wazari: 0,
+          yuko: 1,
+        },
+        winner: 'white',
+      },
+    ];
+
+    const ranking = getRankingPool(matches, athletes);
+
+    expect(ranking).toStrictEqual([
+      { evaluationPoint: 5, id: 'ath-1', matchPoint: 2, rank: 1 },
+      { evaluationPoint: 0, id: 'ath-2', matchPoint: 0, rank: 2 },
     ]);
   });
 

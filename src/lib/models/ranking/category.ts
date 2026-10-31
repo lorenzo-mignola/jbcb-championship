@@ -9,7 +9,7 @@ import { getRankingPool } from './ranking-single-pool';
 
 export { getRankingBrackets } from './ranking-brackets';
 export { getRankingDoublePool } from './ranking-double-pool';
-export { getRankingPool } from './ranking-single-pool';
+export { getEvaluationPoint, getRankingPool } from './ranking-single-pool';
 
 export const isByeMatch = ({ blue, white }: Match) => !white || !blue;
 

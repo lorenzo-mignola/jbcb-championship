@@ -81,6 +81,27 @@ describe('golden score', () => {
   );
 
   it.each([['white', 'blue']] as const)(
+    'should set winner %s when yuko on golden score',
+    async (type) => {
+      const user = userEvent.setup();
+      const { id } = data.match[type];
+
+      await setupGoldenScore();
+
+      const card = screen.getByTestId(`judoka-card-${id}`);
+      const playPauseButton = screen.getByTestId<HTMLButtonElement>('play-pause');
+      const buttonYuko = within(card).getByRole<HTMLButtonElement>('button', {
+        name: /Yuko/i,
+      });
+
+      await user.click(buttonYuko);
+
+      expect(matchState.match?.winner).toBe(type);
+      expect(playPauseButton.classList).toContain('play');
+    },
+  );
+
+  it.each([['white', 'blue']] as const)(
     'should set winner %s when wazari on golden score',
     async (type) => {
       const user = userEvent.setup();

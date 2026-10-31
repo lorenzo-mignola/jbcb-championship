@@ -105,6 +105,22 @@ describe.each([['white', 'blue']] as const)('osaekomi for %s', (type) => {
     expect(screen.queryByTestId(`timer-osaekomi-${type}`)).not.toBeInTheDocument();
   });
 
+  it('after 5 seconds should have 1 yuko', async () => {
+    const user = userEvent.setup();
+    const { id } = data.match[type];
+    const { card } = await setupOsaekomi(user, id);
+
+    vi.advanceTimersByTime(5 * ONE_SECOND_TIMER);
+
+    await waitFor(() => {
+      expect(within(card).getByTestId('judoka-score')).toHaveTextContent('0 0 1');
+    });
+
+    await waitFor(() => {
+      expect(matchState.match?.[type]?.yuko).toBe(1);
+    });
+  });
+
   it('after 10 seconds should have 1 point', async () => {
     const user = userEvent.setup();
     const { id } = data.match[type];

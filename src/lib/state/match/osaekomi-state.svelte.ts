@@ -64,8 +64,15 @@ class OsaekomiState {
         return;
       }
 
+      if (this.timer === 5) {
+        untrack(() => {
+          matchState.yuko(type);
+        });
+      }
+
       if (this.timer === 10) {
         untrack(() => {
+          matchState.removeYuko(type);
           matchState.wazari(type);
         });
       }

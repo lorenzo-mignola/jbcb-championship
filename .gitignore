@@ -25,3 +25,6 @@ vite.config.ts.timestamp-*
 
 # cert
 cert
+
+# local tools
+.codegraph

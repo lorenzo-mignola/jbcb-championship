@@ -2,7 +2,7 @@ import { descend, prop, sortWith } from 'ramda';
 
 import type { RankingAthlete } from '../../types/category.type';
 import type { Judoka } from '../../types/judoka.type';
-import type { Match, MatchWithWinner } from '../../types/match.type';
+import type { Match, MatchJudoka, MatchWithWinner } from '../../types/match.type';
 
 import { getOpponentType } from '../../utils/judoka-utils';
 
@@ -75,6 +75,22 @@ function isCircleOfBeating(allRankings: RankingWithEven[]) {
   };
 }
 
+export function getEvaluationPoint(winner?: MatchJudoka | null): number {
+  if (!winner) {
+    return 0;
+  }
+  if (winner.ippon === 1 || winner.wazari === 2) {
+    return 10;
+  }
+  if (winner.wazari === 1) {
+    return 7;
+  }
+  if ((winner.yuko ?? 0) > 0) {
+    return 5;
+  }
+  return 0;
+}
+
 export function getRankingPool(matches: Match[], athletes: Judoka[]) {
   const athleteMap: Record<
     string,
@@ -96,7 +112,7 @@ export function getRankingPool(matches: Match[], athletes: Judoka[]) {
       return;
     }
     athleteMap[winner.id].matchPoint += 2;
-    const evaluationPoint = winner.ippon === 1 || winner.wazari === 2 ? 10 : 7;
+    const evaluationPoint = getEvaluationPoint(winner);
     athleteMap[winner.id].evaluationPoint += evaluationPoint;
     if (!match.finalTime) {
       return;

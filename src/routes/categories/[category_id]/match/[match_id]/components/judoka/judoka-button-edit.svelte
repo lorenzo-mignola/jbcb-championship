@@ -23,6 +23,11 @@
     toggleEdit();
   };
 
+  const removeYuko = () => {
+    matchState.removeYuko(type);
+    toggleEdit();
+  };
+
   const removeShido = () => {
     matchState.removeShido(type);
     toggleEdit();
@@ -39,6 +44,12 @@
   <PointButton
     action={removeWazari}
     active>🚫 Waza-ari</PointButton
+  >
+{/if}
+{#if athlete?.yuko}
+  <PointButton
+    action={removeYuko}
+    active>🚫 Yuko</PointButton
   >
 {/if}
 {#if athlete?.shido}

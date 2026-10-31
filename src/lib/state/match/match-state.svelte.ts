@@ -72,6 +72,20 @@ class MatchState {
     }
   }
 
+  removeYuko(type: JudokaType) {
+    const judoka = this.#getJudokaByType(type);
+    if (!judoka) {
+      return;
+    }
+    const yuko = judoka.yuko ?? 0;
+    if (yuko > 0) {
+      judoka.yuko = yuko - 1;
+    }
+    if (this.match?.winner) {
+      this.match.winner = undefined;
+    }
+  }
+
   removeShido(type: JudokaType) {
     const judoka = this.#getJudokaByType(type);
     if (!judoka) {
@@ -166,6 +180,41 @@ class MatchState {
     return wazari > wazariOpponent;
   }
 
+  #isWinnerByYuko(type: JudokaType) {
+    const match = this.match;
+    if (!match) {
+      return false;
+    }
+
+    const opponentType = getOpponentType(type);
+    if (!opponentType) {
+      return false;
+    }
+    const judoka = match[type];
+    const opponent = match[opponentType];
+    if (!judoka || !opponent) {
+      return false;
+    }
+
+    if (judoka.ippon > 0 || opponent.ippon > 0) {
+      return false;
+    }
+
+    const wazari = judoka.wazari ?? 0;
+    const wazariOpponent = opponent.wazari ?? 0;
+    if (wazari !== wazariOpponent) {
+      return false;
+    }
+
+    const yuko = judoka.yuko ?? 0;
+    const yukoOpponent = opponent.yuko ?? 0;
+    if (yuko === 0) {
+      return false;
+    }
+
+    return yuko > yukoOpponent;
+  }
+
   watchWinnerOrLoser(type: JudokaType) {
     $effect(() => {
       const match = this.match;
@@ -184,7 +233,10 @@ class MatchState {
       const isOverTimer = osaekomiState.isExtraTime
         || timerState.isGoldenScore
         || timerState.timer === 0;
-      if (isOverTimer && this.#isWinnerByWazari(type)) {
+      if (
+        isOverTimer
+        && (this.#isWinnerByWazari(type) || this.#isWinnerByYuko(type))
+      ) {
         untrack(() => {
           this.#winner(type);
           timerState.reset();
