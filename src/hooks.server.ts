@@ -21,8 +21,13 @@ export const handle: Handle = async ({ event, resolve }) => {
     // Better-Auth database is unreachable (e.g. missing credentials in local dev)
   }
 
-  // Protect API routes (except /api/auth/*)
-  if (event.url.pathname.startsWith('/api/') && !event.url.pathname.startsWith('/api/auth/')) {
+  // Protect API routes (except /api/auth/*) and Remote Functions
+  const isApiRoute
+    = event.url.pathname.startsWith('/api/')
+      && !event.url.pathname.startsWith('/api/auth/');
+  const isRemoteFunction = event.isRemoteRequest;
+
+  if (isApiRoute || isRemoteFunction) {
     let isAllowed = false;
     try {
       isAllowed = await isEmailAllowed(event.locals.user?.email || '');

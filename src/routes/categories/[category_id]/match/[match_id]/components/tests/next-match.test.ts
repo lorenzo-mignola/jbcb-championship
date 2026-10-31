@@ -1,10 +1,8 @@
-import type { MockedFunction } from 'vitest';
-
 import { render, screen, waitFor, within } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
-import ky from 'ky';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
+import { saveMatchCommand } from '#lib/remote/categories.remote';
 import { formatTimeString } from '#lib/utils/timer-utils';
 import categoryMock from '#tests/mock/category.json';
 import matchMock from '#tests/mock/match.json';
@@ -13,7 +11,9 @@ import { ONE_SECOND_TIMER } from '#tests/util/constants';
 
 import Match from '../../+page.svelte';
 
-vi.mock('ky');
+vi.mock('#lib/remote/categories.remote', () => ({
+  saveMatchCommand: vi.fn(),
+}));
 vi.mock('$app/navigation', () => ({
   goto: vi.fn(),
 }));
@@ -35,14 +35,10 @@ describe('next match', () => {
   });
 
   it('should reset timer', async () => {
-    const mockedKy = vi.mocked(ky);
-    const mockPatch = mockedKy.patch as unknown as MockedFunction<any>;
-
-    mockPatch.mockReturnValueOnce({
-      json: vi.fn().mockResolvedValueOnce({
-        ...categoryMock,
-        currentMatch: match2Mock.id,
-      }),
+    const mockSaveMatch = vi.mocked(saveMatchCommand);
+    mockSaveMatch.mockResolvedValueOnce({
+      ...categoryMock,
+      currentMatch: match2Mock.id,
     } as any);
 
     const user = userEvent.setup();

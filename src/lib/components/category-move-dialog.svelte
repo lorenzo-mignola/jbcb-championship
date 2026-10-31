@@ -9,7 +9,8 @@
   } from '@skeletonlabs/skeleton-svelte';
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
-  import ky from 'ky';
+
+  import { moveJudokaCommand } from '#lib/remote/judoka.remote';
 
   import {
     originalCategoryIdState,
@@ -37,21 +38,16 @@
   const toaster = createToaster();
 
   async function onFormSubmit() {
-    if (!newCategoryId.length) {
+    if (!newCategoryId.length || !newCategoryId[0]) {
       return;
     }
 
     try {
-      const data = await ky.patch<{ originalCategoryId: string; newCategoryId: string }>(
-        '/api/athletes',
-        {
-          json: {
-            athlete: athleteId,
-            newCategory: newCategoryId,
-            originalCategory: originalCategoryIdState.id,
-          },
-        },
-      ).json();
+      const data = await moveJudokaCommand({
+        judokaId: athleteId,
+        newCategoryId: newCategoryId[0],
+        originalCategoryId: originalCategoryIdState.id,
+      });
 
       closeDialog();
       originalCategoryIdState.id = data.originalCategoryId;
@@ -71,7 +67,7 @@
     } catch (error) {
       toaster.error({ title: 'Errore durante la modifica delle categorie' });
 
-      console.error((error as { data: any }).data);
+      console.error(error);
     }
   }
 </script>

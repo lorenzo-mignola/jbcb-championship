@@ -1,19 +1,29 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
 
-  import { nextMatchesState } from '#lib/state/match/next-matches-state.svelte';
+  import type { Match } from '#lib/types/match.type';
+
+  import LoadingSpinner from '#lib/components/loading-spinner.svelte';
+  import { getNextMatchesQuery } from '#lib/remote/categories.remote';
 
   interface Props {
     categoryId: string;
   }
 
   const { categoryId }: Props = $props();
+  let matches = $state<Match[]>([]);
+  let loading = $state(false);
 
-  function onOpenChange(detail: { open: boolean }) {
+  async function onOpenChange(detail: { open: boolean }) {
     if (detail.open) {
-      nextMatchesState.loadNextMatches(categoryId);
+      loading = true;
+      try {
+        matches = await getNextMatchesQuery(categoryId);
+      } finally {
+        loading = false;
+      }
     } else {
-      nextMatchesState.resetNextMatches();
+      matches = [];
     }
   }
 </script>
@@ -40,28 +50,26 @@
           </Dialog.Title>
         </header>
 
-        <article class='
-          col-auto mt-3 grid
-          lg:grid-cols-3
-        '>
-          {#each nextMatchesState.nextMatches as nextMatch (nextMatch.id)}
-            <li class='list-none'>
-              <div class='mx-2 mb-3 flex flex-col'>
-                <span class='local-judoka-next judoka-white'>{nextMatch.white?.name}</span>
-                <span class='local-judoka-next judoka-blue'>{nextMatch.blue?.name}</span>
-              </div>
-            </li>
-          {/each}
-        </article>
+        {#if loading}
+          <div class='flex justify-center p-4'>
+            <LoadingSpinner />
+          </div>
+        {:else}
+          <article class='
+            col-auto mt-3 grid
+            lg:grid-cols-3
+          '>
+            {#each matches as nextMatch (nextMatch.id)}
+              <li class='list-none'>
+                <div class='mx-2 mb-3 flex flex-col'>
+                  <span class='judoka-white mb-1 rounded-sm p-1'>{nextMatch.white?.name}</span>
+                  <span class='judoka-blue mb-1 rounded-sm p-1'>{nextMatch.blue?.name}</span>
+                </div>
+              </li>
+            {/each}
+          </article>
+        {/if}
       </Dialog.Content>
     </Dialog.Positioner>
   </Portal>
 </Dialog>
-
-<style lang='postcss'>
-  @reference "tailwindcss";
-
-  .local-judoka-next {
-    @apply mb-1 rounded-sm p-1;
-  }
-</style>

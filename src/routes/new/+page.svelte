@@ -1,8 +1,8 @@
 <script lang='ts'>
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
-  import ky from 'ky';
 
+  import { createCategoryCommand } from '#lib/remote/categories.remote';
   import { athletesState } from '#lib/state/category-edit/athletes-state.svelte';
   import { categoryNameState } from '#lib/state/category-edit/category-name-state.svelte';
   import { categoryTypeState } from '#lib/state/category-edit/category-type-state.svelte';
@@ -20,15 +20,13 @@
     if (!categoryNameState.name || !categoryTypeState.type) {
       return;
     }
-    const newCategoryId = await ky.post<string>('/api/categories', {
-      json: {
-        athletes: athletesState.athletes,
-        duration: durationState.duration,
-        name: categoryNameState.name.trim(),
-        tournament: tournamentState.tournament,
-        type: categoryTypeState.type,
-      },
-    }).json();
+    const newCategoryId = await createCategoryCommand({
+      athletes: athletesState.athletes,
+      duration: durationState.duration,
+      name: categoryNameState.name.trim(),
+      tournament: tournamentState.tournament,
+      type: categoryTypeState.type,
+    });
 
     reset();
     goto(resolve('/categories/[category_id]', { category_id: newCategoryId }));

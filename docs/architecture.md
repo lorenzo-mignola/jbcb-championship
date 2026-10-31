@@ -20,14 +20,14 @@ flowchart TD
     end
 
     subgraph Server["SvelteKit Server Runtime (Vercel Serverless)"]
-        Hooks["hooks.server.ts\n(Session & Whitelist Guard)"]
+        Hooks["hooks.server.ts\n(Session, Whitelist & Remote Request Guard)"]
         AuthRouter["Better-Auth Engine\n(Google OAuth)"]
-        APIRoutes["API Endpoints\n(/api/categories, /api/athletes)"]
+        RemoteFunctions["Remote Functions (.remote.ts)\n(command: create, edit, saveMatch, moveJudoka\nquery: getNextMatches)"]
         AdminSDK["Firebase Admin SDK\n(Firestore Driver)"]
 
-        Hooks --> APIRoutes
+        Hooks --> RemoteFunctions
         Hooks --> AuthRouter
-        APIRoutes --> AdminSDK
+        RemoteFunctions --> AdminSDK
         AuthRouter --> AdminSDK
     end
 
@@ -41,7 +41,7 @@ flowchart TD
         AdminSDK <--> AuthCol
     end
 
-    MSE -. "POST / PUT Match Result" .-> APIRoutes
+    UI -. "RPC Remote Function Calls" .-> RemoteFunctions
 ```
 
 ---

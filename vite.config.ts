@@ -55,6 +55,9 @@ export default defineConfig({
       adapter: adapter({
         runtime: 'nodejs26.x',
       }),
+      experimental: {
+        remoteFunctions: true,
+      },
       preprocess: vitePreprocess(),
     }),
     pwa,
