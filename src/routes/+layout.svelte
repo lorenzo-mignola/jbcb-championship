@@ -2,7 +2,8 @@
   import './layout.css';
 
   import { AppBar, Toast } from '@skeletonlabs/skeleton-svelte';
-  import { invalidateAll } from '$app/navigation';
+  import { refreshAll } from '$app/navigation';
+  import { resolve } from '$app/paths';
   import { pwaInfo } from 'virtual:pwa-info';
 
   import Reload from '#lib/icons/reload.svelte';
@@ -28,7 +29,7 @@
 '>
   <AppBar.Toolbar class='flex'>
     <AppBar.Lead>
-      <a href='/'><h1 class='
+      <a href={resolve('/')}><h1 class='
         text-xl font-bold
         md:text-3xl
       '>{title}</h1></a>
@@ -44,7 +45,7 @@
         type='button'
         onclick={async (event) => {
           event.preventDefault();
-          await invalidateAll();
+          await refreshAll();
         }}><Reload /></button
       >
       <LightSwitch />

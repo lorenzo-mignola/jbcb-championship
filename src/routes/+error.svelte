@@ -1,5 +1,6 @@
 <script>
   import { Accordion } from '@skeletonlabs/skeleton-svelte';
+  import { resolve } from '$app/paths';
   import { page } from '$app/state';
 
   const queryMessage = page.url.searchParams.get('message');
@@ -50,4 +51,4 @@
   </Accordion>
 </div>
 
-<a class='btn preset-filled-secondary-500 shadow-sm' href='/'>🏠 Torna alla home</a>
+<a class='btn preset-filled-secondary-500 shadow-sm' href={resolve('/')}>🏠 Torna alla home</a>

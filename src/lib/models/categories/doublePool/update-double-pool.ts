@@ -108,7 +108,7 @@ function updatePoolMatch(category: DoublePoolCategory, matchUpdated: Match) {
   };
 
   if (isNextMatchSemifinal) {
-    categoryUpdated.semifinals = updateSemifinals(category);
+    categoryUpdated.semifinals = updateSemifinals(categoryUpdated);
     const firstSemifinalMatchIndex = categoryUpdated.matches.length - 3;
     const secondSemifinalMatchIndex = categoryUpdated.matches.length - 2;
     categoryUpdated.matches = categoryUpdated.matches.map((match, index) => {
@@ -160,8 +160,11 @@ function updateSemiFinalMatch(
       = categoryUpdated.semifinals[0][categoryUpdated.semifinals[0].winner!];
     const winnerSecondSemi
       = categoryUpdated.semifinals[1][categoryUpdated.semifinals[1].winner!];
-    categoryUpdated.finalMatch.white = resetAthlete(winnerFirstSemi);
-    categoryUpdated.finalMatch.blue = resetAthlete(winnerSecondSemi);
+    categoryUpdated.finalMatch = {
+      ...categoryUpdated.finalMatch,
+      blue: resetAthlete(winnerSecondSemi),
+      white: resetAthlete(winnerFirstSemi),
+    };
     categoryUpdated.matches = categoryUpdated.matches.map((match) => {
       if (match.id !== categoryUpdated.finalMatch.id) {
         return match;

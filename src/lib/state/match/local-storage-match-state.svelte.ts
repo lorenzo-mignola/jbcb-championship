@@ -46,6 +46,10 @@ class LocalStorageMatchState {
     return this.#localStorageMatch.current;
   }
 
+  set match(match: Match) {
+    this.#localStorageMatch.current = match;
+  }
+
   get categoryName() {
     return this.#localStorageCategoryName.current;
   }
@@ -105,7 +109,10 @@ class LocalStorageMatchState {
     this.#localStorageMatchType.current = null;
   }
 
-  initialize({ category, isMedalMatch, isRepechage, nextMatch }: InitializeArguments) {
+  initialize({ category, isMedalMatch, isRepechage, match, nextMatch }: InitializeArguments) {
+    if (match) {
+      this.#localStorageMatch.current = match;
+    }
     this.#localStorageMatchType.current = this.#getMatchType(isMedalMatch, isRepechage);
     this.#localStorageCategoryName.current = category?.name || '';
     this.#localStorageNextMatch.current = this.#getMatchInfo(nextMatch);

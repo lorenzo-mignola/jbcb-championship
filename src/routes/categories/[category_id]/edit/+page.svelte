@@ -1,8 +1,8 @@
 <script lang='ts'>
   import { goto } from '$app/navigation';
   import { resolve } from '$app/paths';
-  import ky from 'ky';
 
+  import { editCategoryCommand } from '#lib/remote/categories.remote';
   import { athletesState } from '#lib/state/category-edit/athletes-state.svelte.js';
   import { categoryNameState } from '#lib/state/category-edit/category-name-state.svelte.js';
   import { categoryTypeState } from '#lib/state/category-edit/category-type-state.svelte.js';
@@ -38,20 +38,21 @@
     }
 
     try {
-      const idNewCategory = await ky.patch<string>(`/api/categories/${category.id}`, {
-        json: {
+      const idNewCategory = await editCategoryCommand({
+        category: {
           athletes: athletesState.athletes,
           duration: durationState.duration,
           name: categoryNameState.name.trim(),
           tournament: tournamentState.tournament,
           type: categoryTypeState.type,
         },
-      }).json();
+        categoryId: category.id,
+      });
 
       reset();
       goto(resolve('/categories/[category_id]', { category_id: idNewCategory }));
     } catch (error) {
-      console.error((error as { data: any }).data);
+      console.error(error);
       toaster.error({ title: 'Errore durante il salvataggio delle modifiche' });
     }
   }

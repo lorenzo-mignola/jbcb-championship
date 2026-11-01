@@ -33,9 +33,11 @@
         <th class='judoka-white'>Nome</th>
         <th class='judoka-white'>Ippon</th>
         <th class='judoka-white'>Waza-ari</th>
+        <th class='judoka-white'>Yuko</th>
         <th class='judoka-white'>Shido</th>
         <th class='judoka-blue'>Ippon</th>
         <th class='judoka-blue'>Waza-ari</th>
+        <th class='judoka-blue'>Yuko</th>
         <th class='judoka-blue'>Shido</th>
         <th class='judoka-blue'>Nome</th>
         <th class='text-center'>Tempo</th>
@@ -57,9 +59,11 @@
           >
           <td class='judoka-white'>{match.white?.ippon || ''}</td>
           <td class='judoka-white'>{match.white?.wazari || ''}</td>
+          <td class='judoka-white'>{match.white?.yuko || ''}</td>
           <td class='judoka-white'>{match.white?.shido || ''}</td>
           <td class='judoka-blue'>{match.blue?.ippon || ''}</td>
           <td class='judoka-blue'>{match.blue?.wazari || ''}</td>
+          <td class='judoka-blue'>{match.blue?.yuko || ''}</td>
           <td class='judoka-blue'>{match.blue?.shido || ''}</td>
           <td class='judoka-blue' class:font-extrabold={match.winner === 'blue'}
           >{match.blue?.name ?? ''}</td

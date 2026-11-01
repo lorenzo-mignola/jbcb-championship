@@ -1,6 +1,5 @@
 import { dec, inc } from 'ramda';
 
-import { getSeconds } from '../../utils/timer-utils';
 import { localStorageMatchState } from './local-storage-match-state.svelte';
 import { osaekomiState } from './osaekomi-state.svelte';
 
@@ -108,9 +107,9 @@ class TimerState {
       }
     });
 
-    const seconds = $derived(getSeconds(this.timer));
+    const roundedTimer = $derived(Math.floor(this.timer / 10) * 10);
     $effect(() => {
-      localStorageMatchState.time = seconds;
+      localStorageMatchState.time = roundedTimer;
     });
 
     $effect(() => {

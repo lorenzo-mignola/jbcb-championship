@@ -53,12 +53,14 @@ La pagina dell'incontro funge da **tabellone elettronico digitale** (scoreboard)
 - Premere il pulsante centrale **Play** (o la barra spaziatrice da tastiera) per avviare il timer.
 - Premere il pulsante **Pausa** per fermare il tempo di gara.
 
-### Assegnazione dei punteggi tecnici (Regole Ufficiali IJF)
+### Assegnazione dei punteggi tecnici (Regole Ufficiali IJF 2025+)
+
+Il motore di gara è interamente allineato al **Regolamento Arbitrale Ufficiale IJF 2025+ (International Judo Federation)**.
 
 I punteggi possono essere assegnati premendo i pulsanti a schermo o tramite scorciatoie da tastiera:
 
 - **Ippon**:
-  - Assegna la vittoria immediata del combattimento e interrompe automaticamente il cronometro.
+  - Assegna la vittoria immediata del combattimento (_Sore-made_) e interrompe automaticamente tutti i cronometri.
 - **Waza-ari**:
   - Assegna mezzo punto tecnico.
   - Al raggiungimento del secondo Waza-ari da parte dello stesso atleta (_Waza-ari-awasete-ippon_), il sistema assegna automaticamente la vittoria per Ippon e ferma il cronometro.
@@ -67,23 +69,26 @@ I punteggi possono essere assegnati premendo i pulsanti a schermo o tramite scor
   - Assegna il terzo livello di punteggio tecnico (minore).
   - Più Yuko **non** si sommano per formare un Waza-ari o un Ippon.
   - Alla scadenza del tempo regolamentare, se gli atleti sono in parità di Waza-ari, l'atleta con più Yuko vince l'incontro.
-  - Durante il Golden Score, qualsiasi punteggio tecnico (incluso il singolo Yuko) assegna la vittoria immediata.
+  - Durante il Golden Score, qualsiasi punteggio tecnico (incluso il singolo Yuko) assegna la vittoria immediata (_Sore-made_).
 - **Shido (Sanzioni)**:
-  - Al primo e al secondo Shido viene visualizzato un cartellino giallo sul tabellone.
+  - Al primo e al secondo Shido viene visualizzato un cartellino giallo sul tabellone. Gli Shido non decidono la parità allo scadere del tempo regolamentare.
   - Al terzo Shido dello stesso atleta viene assegnata la squalifica (_Hansoku-make_), visualizzato il cartellino rosso e attribuita automaticamente la vittoria all'avversario per Ippon.
 
-### Gestione Immobilizzazioni (_Osae-komi_)
+### Gestione Immobilizzazioni (_Osae-komi_) — Regole IJF 2025+
 
 I pulsanti di immobilizzazione sono attivi esclusivamente mentre il cronometro dell'incontro è in movimento:
 
 1. Quando il controllo a terra ha inizio, premere **Osae-komi** (sotto l'atleta attaccante). Il pulsante si trasforma in **Toketa** e il cronometro dedicato dell'osaekomi inizia a scorrere.
-2. **Soglie automatiche di punteggio**:
-   - A **5 secondi**: il sistema assegna automaticamente **1 Yuko**.
-   - A **10 secondi**: il sistema rimuove lo Yuko dell'immobilizzazione e assegna **1 Waza-ari**.
+2. **Soglie automatiche di punteggio (IJF 2025+)**:
+   - A **5 secondi**: il sistema assegna automaticamente **1 Yuko**. Se l'incontro si trova in **Golden Score**, il raggiungimento di 5s assegna la vittoria immediata (_Sore-made_).
+   - A **10 secondi**: il sistema rimuove lo Yuko dell'immobilizzazione e assegna **1 Waza-ari**. Se l'atleta aveva già un Waza-ari a tabellone, a 10s scatta immediatamente la vittoria per _Waza-ari-awasete-ippon_.
    - A **20 secondi**: il sistema rimuove il Waza-ari e assegna **Ippon**, decretando la vittoria dell'incontro e fermando entrambi i timer.
-3. Se l'avversario esce dal controllo prima del tempo, premere **Toketa**: il timer dell'osaekomi si arresta e il punteggio acquisito fino a quel momento (es. Yuko a 5-9 secondi) rimane valido a tabellone.
-4. **Sonomama / Yoshi**: Premendo la pausa del cronometro principale durante un osae-komi, entrambi i cronometri vengono congelati. Premendo nuovamente Play, entrambi i conteggi riprendono sincronizzati.
-5. **Osaekomi a fine tempo (Tempo supplementare di controllo)**: Se il tempo regolamentare dell'incontro si azzera mentre un'azione di Osae-komi è in corso, il cronometro di immobilizzazione continua a scorrere fino al raggiungimento del punteggio o alla chiamata di Toketa.
+3. Se l'avversario esce dal controllo prima del tempo, premere **Toketa**: il timer dell'osaekomi si arresta e il punteggio acquisito fino a quel momento (es. Yuko a 5–9 secondi) rimane valido a tabellone.
+4. **Mate vs Sonomama / Yoshi**:
+   - **Mate (Stop generale)**: Premendo il pulsante **Pausa principale** (o la barra spaziatrice), il cronometro di gara si arresta e l'eventuale immobilizzazione attiva viene interrotta e azzerata (salvo in tempo supplementare di immobilizzazione).
+   - **Sonomama (Congelamento a terra)**: Quando l'arbitro chiama _Sonomama_, premere l'apposito **pulsante Pausa dedicato situato accanto al cronometro dell'Osae-komi**. Questa azione congela simultaneamente sia il tempo di gara sia il conteggio dell'immobilizzazione senza cancellare il tempo acquisito.
+   - **Yoshi (Riavvio)**: Alla chiamata di _Yoshi_, premere il pulsante **Play principale** (o la barra spaziatrice): entrambi i cronometri ripartono sincronizzati mantenendo il controllo a terra.
+5. **Osaekomi a fine tempo (Tempo supplementare di controllo)**: Se il tempo regolamentare dell'incontro si azzera (`0:00`) mentre un'azione di Osae-komi è in corso, il cronometro di immobilizzazione continua a scorrere senza interruzione arbitraria fino al raggiungimento del punteggio o alla chiamata di Toketa.
 
 ### Golden Score (Tempo Supplementare / Sudden Death)
 

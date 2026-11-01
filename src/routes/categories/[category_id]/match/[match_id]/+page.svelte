@@ -19,6 +19,7 @@
 
     return () => {
       matchState.match = undefined;
+      localStorageMatchState.resetStorageMatch();
     };
   });
 
@@ -29,6 +30,7 @@
       category,
       isMedalMatch,
       isRepechage,
+      match: matchState.match,
       nextMatch,
     });
   });

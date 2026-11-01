@@ -31,9 +31,10 @@
   - **Double Elimination (2KO)**: Championship bracket with a full repechage tree and two bronze medal finals.
 - **Digital Match Scoreboard**:
   - Zero-latency client-side scoring engine with `localStorage` state protection.
-  - Full adherence to the **IJF 2026 Rules** supporting **Ippon**, **Waza-ari**, and **Yuko**.
+  - Full adherence to the **IJF 2025+ Refereeing Rules** supporting **Ippon**, **Waza-ari**, and **Yuko**.
   - Automatic escalation: 2 Waza-ari award _Waza-ari-awasete-ippon_; 3 Shido award _Hansoku-make_.
-  - Groundwork immobilization (_Osae-komi_) timer: automatic score progression (5s Yuko, 10s Waza-ari, 20s Ippon) with **Sonomama** / **Yoshi** support.
+  - Groundwork immobilization (_Osae-komi_) timer with 2025+ thresholds (5–9s Yuko, 10–19s Waza-ari, 20s Ippon) and **Sonomama** / **Yoshi** support.
+  - Immediate Golden Score Osae-komi victory at 5s (_Sore-made!_).
   - Automatic **Golden Score** (sudden death overtime) when regulation expires tied.
   - CH-fr (Swiss-French) keyboard shortcuts for rapid, distraction-free scorekeeping at the table.
 - **Standings & Tie-Breaking Engine**:
@@ -42,12 +43,31 @@
 - **Reporting & Print Suite**:
   - Dedicated print-optimized sheets for category check-in/weigh-in, category brackets, tournament overviews, and podium summaries.
 
+### 🥋 IJF 2025+ Refereeing Rules Compliance
+
+The match engine implements the official **International Judo Federation (IJF) 2025+ Refereeing Rules**:
+
+- **Technical Scores**:
+  - **Ippon**: Instant match victory (_Sore-made_). Stops all clocks.
+  - **Waza-ari**: Half-point. Two Waza-ari award _Waza-ari-awasete-ippon_ and instant victory.
+  - **Yuko**: Minor technical score. Does not accumulate into Waza-ari. Decides match victory if Waza-ari are equal at the end of regulation time.
+- **Groundwork Hold (_Osae-komi_)**:
+  - `5–9 seconds`: Awards **Yuko**.
+  - `10–19 seconds`: Awards **Waza-ari** (or _Ippon_ if the judoka already holds a previous Waza-ari).
+  - `20 seconds`: Awards **Ippon** (_Sore-made_).
+  - **Golden Score Hold**: During Golden Score, reaching 5 seconds (_Yuko_) immediately ends the contest in victory.
+  - **Osae-komi Extra Time**: If regulation time expires (`0:00`) during an active hold, the match continues until _Toketa_ (escape) or _Ippon_.
+  - **_Mate_ vs _Sonomama_ / _Yoshi_**: The main Pause button acts as _Mate_ (pausing the match and resetting active groundwork). For _Sonomama_, the dedicated pause button on the hold timer freezes both clocks without losing hold progress; resuming with the main Play button acts as _Yoshi_ restarting both.
+- **Penalties (_Shido_)**:
+  - 1st & 2nd Shido are recorded as warnings without deciding regulation ties.
+  - 3rd Shido triggers immediate disqualification (_Hansoku-make_), awarding Ippon to the opponent.
+
 ---
 
 ## 🛠️ Technology Stack
 
-- **Framework**: [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5 Runes](https://svelte.dev/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [Skeleton UI v4](https://skeleton.dev/)
+- **Framework**: [SvelteKit 3](https://kit.svelte.dev/) with [Svelte 5 Runes](https://svelte.dev/)
+- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/) & [Skeleton UI v5](https://skeleton.dev/)
 - **Database**: [Google Cloud Firestore](https://firebase.google.com/docs/firestore) via [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup)
 - **Authentication**: [Better-Auth](https://www.better-auth.com/) with Google OAuth and Firestore email whitelist
 - **State & Immutability**: [Immer](https://immerjs.github.io/immer/) and [Ramda](https://ramdajs.com/)

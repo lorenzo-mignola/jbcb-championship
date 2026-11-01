@@ -9,15 +9,31 @@ export class PersistLocalStore<T> {
     this.#value = value;
 
     if (browser) {
-      const item = localStorage.getItem(key);
-      if (item) {
-        this.#value = this.#deserialize(item);
+      try {
+        const item = localStorage.getItem(key);
+        if (item) {
+          this.#value = this.#deserialize(item);
+        }
+      } catch {
+        // localStorage might be unavailable or restricted
       }
+
+      window.addEventListener('storage', (event) => {
+        if (event.key === this.#key && event.newValue !== null) {
+          this.#value = this.#deserialize(event.newValue);
+        }
+      });
     }
 
     $effect.root(() => {
       $effect(() => {
-        localStorage.setItem(this.#key, this.#serialize(this.#value));
+        if (browser) {
+          try {
+            localStorage.setItem(this.#key, this.#serialize(this.#value));
+          } catch {
+            // handle quota exceeded or private mode
+          }
+        }
       });
       return () => { };
     });

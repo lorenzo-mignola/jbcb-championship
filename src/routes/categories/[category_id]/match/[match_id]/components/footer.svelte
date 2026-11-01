@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import { resolve } from '$app/paths';
+
   import type { Match } from '#lib/types/match.type';
 
   import Back from '#lib/icons/back.svelte';
@@ -23,7 +25,10 @@
     md:block
   '>
     <div>
-      <a class='btn preset-filled-secondary-500 shadow-md' href={`/categories/${categoryId}`}>
+      <a
+        class='btn preset-filled-secondary-500 shadow-md'
+        href={resolve('/categories/[category_id]', { category_id: categoryId })}
+      >
         <span><Back /></span>
         <span>Visualizza categoria</span>
       </a>

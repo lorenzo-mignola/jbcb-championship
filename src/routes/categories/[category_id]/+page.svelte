@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import { resolve } from '$app/paths';
+
   import AthleteList from '#lib/components/athlete-list.svelte';
   import Back from '#lib/icons/back.svelte';
   import Edit from '#lib/icons/edit.svelte';
@@ -35,21 +37,28 @@
         {#if !started}
           <a
             class='btn btn-icon preset-tonal-surface'
-            href={`/categories/${category.id}/edit?tournament=${category.tournament || ''}`}
+            href={`${resolve('/categories/[category_id]/edit', {
+              category_id: category.id,
+            })}?tournament=${category.tournament || ''}`}
             title='Modifica'><Edit /></a
           >
         {/if}
 
         <a
           class='btn btn-icon preset-tonal-surface'
-          href={`/categories/${category.id}/print`}
+          href={resolve('/categories/[category_id]/print', { category_id: category.id })}
           rel='noopener noreferrer'
           target='_blank'
           title='Stampa'><Print /></a
         >
 
         {#if category.currentMatch}
-          <a href={`/categories/${category.id}/match/${category.currentMatch}`}>
+          <a
+            href={resolve('/categories/[category_id]/match/[match_id]', {
+              category_id: category.id,
+              match_id: category.currentMatch,
+            })}
+          >
             <button class='
               btn preset-filled-primary-500 shadow-md
               md:btn-lg
@@ -74,7 +83,7 @@
 
 <a
   class='mt-8 btn preset-filled-secondary-500 shadow-md btn-sm'
-  href={`/categories?tournament=${tournamentState.tournament}`}
+  href={`${resolve('/categories')}?tournament=${tournamentState.tournament}`}
 >
   <span><Back /></span>
   <span>Tutte le categorie</span>

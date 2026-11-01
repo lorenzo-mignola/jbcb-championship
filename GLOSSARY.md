@@ -54,7 +54,9 @@ _Avoid_: First fighter, home competitor
 The judoka designated as the second competitor on the draw sheet, wearing or tied with a blue sash/belt.
 _Avoid_: Second fighter, away competitor
 
-## Scoring & Penalties
+## Scoring & Penalties (IJF 2025+ Rules)
+
+All scoring criteria, immobilization thresholds, and penalty escalations adhere to the official **International Judo Federation (IJF) 2025+ Refereeing Rules**.
 
 **Ippon**:
 The highest score in judo, which immediately awards victory and concludes the match.
@@ -90,6 +92,10 @@ _Avoid_: Main clock, stop watch
 An immobilization timer tracking a valid ground hold applied by one judoka against the other.
 _Avoid_: Hold-down, pin clock
 
+**Osae-komi Extra Time**:
+The continuation of a match past zero on the Match Timer while an Osae-komi is active, lasting until the hold achieves Ippon or Waza-ari-awasete-ippon or is broken by Toketa.
+_Avoid_: Hold overtime, pin extension
+
 **Toketa**:
 The command and state indicating that an opponent has escaped an active hold-down, stopping the immobilization clock.
 _Avoid_: Hold broken, pin break
@@ -103,7 +109,7 @@ The command resuming both the match countdown and the immobilization clock after
 _Avoid_: Resume, fight on
 
 **Golden Score**:
-Sudden-death overtime initiated when regulation time expires with identical technical scores, won by the first score or penalty.
+Sudden-death overtime initiated when regulation time expires with identical technical scores, won immediately by the first technical score (including a 5-second Yuko immobilization) or direct/accumulated Hansoku-make.
 _Avoid_: Overtime, sudden death
 
 ## Standings & Tie-Breaking
@@ -117,8 +123,16 @@ Quality score points awarded for victories (10 for Ippon or Hansoku-make, 7 for 
 _Avoid_: Quality points, technique points
 
 **Circle of Beating**:
-A cyclic tie among three or more judoka where A beats B, B beats C, and C beats A with equal match points and evaluation points, broken by remaining contest victory time.
+A cyclic tie among three or more judoka with equal Match Points and Evaluation Points where each judoka defeated another in the tied group, broken by Remaining Time in Win among the tied judoka.
 _Avoid_: Circular tie, three-way tie
+
+**Remaining Time in Win**:
+The net remaining contest time accumulated across victories within a tied group—positive for remaining regulation time and negative for elapsed Golden Score time—used to break a Circle of Beating.
+_Avoid_: Fight duration, total match time
+
+**Podium**:
+The medal classification of a completed category, awarding one Gold (1st), one Silver (2nd), and two Bronze (3rd ex-aequo) medals across all category formats.
+_Avoid_: Top three, single bronze
 
 **Club Ranking**:
 The aggregate tournament medal table ranking clubs by total Gold, Silver, and Bronze medals won across all categories.

@@ -1,3 +1,4 @@
+import { error } from '@sveltejs/kit';
 import { equals, filter, map, not, pick, pipe, prop } from 'ramda';
 
 import type { Category } from '#lib/types/category.type';
@@ -10,8 +11,12 @@ import type { PageServerLoad } from './$types';
 export const load: PageServerLoad = async ({ params, url }) => {
   const categoryId = params.category_id;
   const category = await getCategory(categoryId);
-  const tournament = url.searchParams.get('tournament');
 
+  if (!category) {
+    error(404, 'Categoria non trovata');
+  }
+
+  const tournament = url.searchParams.get('tournament');
   const notStartedCategories = await getNotStartedCategory(tournament ?? '');
 
   return {

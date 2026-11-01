@@ -20,6 +20,7 @@
       <th>Nome</th>
       <th class='text-center'>Ippon</th>
       <th class='text-center'>Waza-ari</th>
+      <th class='text-center'>Yuko</th>
       <th class='text-center'>Shido</th>
       <th class='text-center'>Tempo</th>
     </tr>
