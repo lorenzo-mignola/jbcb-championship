@@ -19,6 +19,13 @@
 
   let edit = $state(false);
 
+  $effect(() => {
+    // Reset edit mode when match or athlete changes
+    if (athlete?.id) {
+      edit = false;
+    }
+  });
+
   const toggleEdit = () => {
     edit = !edit;
   };

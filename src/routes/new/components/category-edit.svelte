@@ -12,7 +12,7 @@
   import NewAthlete from './new-athlete.svelte';
 
   interface Props {
-    handleClick: () => void;
+    handleClick: () => Promise<void> | void;
     labelButton: Snippet;
   }
 
@@ -47,9 +47,13 @@
   '
   disabled={!canClick || loading}
   type='submit'
-  onclick={() => {
+  onclick={async () => {
     loading = true;
-    handleClick();
+    try {
+      await handleClick();
+    } finally {
+      loading = false;
+    }
   }}
 >
   {@render labelButton()}

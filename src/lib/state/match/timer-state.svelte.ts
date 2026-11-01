@@ -31,7 +31,7 @@ class TimerState {
 
   set duration(duration: number) {
     this.#duration = duration;
-    this.#timer = duration;
+    this.reset();
   }
 
   freezeTimer() {

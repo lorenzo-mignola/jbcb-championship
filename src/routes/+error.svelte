@@ -3,20 +3,20 @@
   import { resolve } from '$app/paths';
   import { page } from '$app/state';
 
-  const queryMessage = page.url.searchParams.get('message');
-  const queryTitle = page.url.searchParams.get('title');
+  const queryMessage = $derived(page.url.searchParams.get('message'));
+  const queryTitle = $derived(page.url.searchParams.get('title'));
 
-  const custom = Boolean(queryTitle || queryMessage);
+  const custom = $derived(Boolean(queryTitle || queryMessage));
 
-  const emoji = page.status === 404
+  const emoji = $derived(page.status === 404
     ? '🤷‍♂️'
-    : '😢';
+    : '😢');
 
-  const header = page.status === 404
+  const header = $derived(page.status === 404
     ? 'Pagina non trovata'
-    : 'C\'è stato un errore nell\'applicazione';
+    : 'C\'è stato un errore nell\'applicazione');
 
-  const displayMessage = page.error?.message || 'Si è verificato un errore sconosciuto';
+  const displayMessage = $derived(page.error?.message || 'Si è verificato un errore sconosciuto');
 </script>
 
 <div class='flex items-center justify-center'>

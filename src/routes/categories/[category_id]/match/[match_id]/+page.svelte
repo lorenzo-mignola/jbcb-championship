@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import { onDestroy } from 'svelte';
+
   import {
     localStorageMatchState,
   } from '#lib/state/match/local-storage-match-state.svelte';
@@ -15,12 +17,18 @@
   const { category, isMedalMatch, match: matchData, nextMatch } = $derived(data);
 
   $effect(() => {
-    matchState.match = matchData;
+    matchState.match = matchData
+      ? JSON.parse(JSON.stringify(matchData))
+      : undefined;
+    if (category?.duration) {
+      timerState.duration = category.duration;
+    }
+  });
 
-    return () => {
-      matchState.match = undefined;
-      localStorageMatchState.resetStorageMatch();
-    };
+  onDestroy(() => {
+    matchState.match = undefined;
+    localStorageMatchState.resetStorageMatch();
+    timerState.reset();
   });
 
   const isRepechage = $derived(matchState.match?.isRepechage || false);
@@ -30,15 +38,11 @@
       category,
       isMedalMatch,
       isRepechage,
-      match: matchState.match,
+      match: matchState.match
+        ? $state.snapshot(matchState.match)
+        : undefined,
       nextMatch,
     });
-  });
-
-  $effect(() => {
-    if (category?.duration) {
-      timerState.duration = category.duration;
-    }
   });
 
   const athleteType = ['white', 'blue'] as const;

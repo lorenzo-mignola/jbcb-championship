@@ -6,7 +6,7 @@
 <div>
   <button
     class='btn preset-filled-surface-950-50'
-    on:click={() => signInWithGoogle()}
+    onclick={() => signInWithGoogle()}
   >
     Usa account Google
     <GoogleIcon class='ml-2' />

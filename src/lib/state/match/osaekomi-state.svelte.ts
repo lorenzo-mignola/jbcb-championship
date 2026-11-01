@@ -31,6 +31,9 @@ class OsaekomiState {
   }
 
   startOsaekomi() {
+    if (this.#interval !== null) {
+      clearInterval(this.#interval);
+    }
     this.#isPlaying = true;
 
     this.#interval = setInterval(() => {

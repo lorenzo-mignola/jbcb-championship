@@ -6,10 +6,6 @@
   import { categoriesNotStartedState } from '../state/utils/categories-not-started-state.svelte';
   import MoveButton from './move-button.svelte';
 
-  interface $$Slots {
-    icon: Record<string, never>;
-  }
-
   interface Props {
     athletes: Judoka[];
     icon?: import('svelte').Snippet;

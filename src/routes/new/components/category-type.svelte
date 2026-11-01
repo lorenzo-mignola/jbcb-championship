@@ -12,13 +12,16 @@
     if (categoryTypeState.type === 'double_pool' && athletesCount < 4) {
       categoryTypeState.type = null;
     }
+    if (categoryTypeState.type === 'pool' && athletesCount < 2) {
+      categoryTypeState.type = null;
+    }
   });
 </script>
 
 <div>
   <h2 class='h4'>Tipo di categoria</h2>
   <div class='mt-3 flex w-full rounded-lg preset-filled'>
-    <CategoryTypeButton value='pool' />
+    <CategoryTypeButton disabled={athletesCount < 2} value='pool' />
     <CategoryTypeButton disabled={athletesCount < 4} value='double_pool' />
     <CategoryTypeButton disabled={athletesCount < 6} value='brackets' />
   </div>

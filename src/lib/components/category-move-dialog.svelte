@@ -1,10 +1,8 @@
 <script lang='ts'>
   import {
-    createToaster,
     Dialog,
     Listbox,
     Portal,
-    Toast,
     useListCollection,
   } from '@skeletonlabs/skeleton-svelte';
   import { goto } from '$app/navigation';
@@ -17,6 +15,7 @@
   } from '../state/category-edit/original-cateogry-id-state.svelte';
   import { tournamentState } from '../state/settings/tournament-state';
   import { categoriesNotStartedState } from '../state/utils/categories-not-started-state.svelte';
+  import { toaster } from '../state/utils/toaster-state';
 
   interface Props {
     athleteId: string;
@@ -34,8 +33,6 @@
   );
 
   let newCategoryId = $state<string[]>([]);
-
-  const toaster = createToaster();
 
   async function onFormSubmit() {
     if (!newCategoryId.length || !newCategoryId[0]) {
@@ -128,15 +125,3 @@
     </Dialog.Content>
   </Dialog.Positioner>
 </Portal>
-
-<Toast.Group {toaster}>
-  {#snippet children(toast)}
-    <Toast {toast}>
-      <Toast.Message>
-        <Toast.Title>{toast.title}</Toast.Title>
-        <Toast.Description>{toast.description}</Toast.Description>
-      </Toast.Message>
-      <Toast.CloseTrigger />
-    </Toast>
-  {/snippet}
-</Toast.Group>

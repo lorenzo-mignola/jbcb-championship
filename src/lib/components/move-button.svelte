@@ -16,5 +16,7 @@
   <Dialog.Trigger class='mr-2 btn-icon preset-outlined-secondary-500' title='Sposta' type='button'>
     <MoveIcon />
   </Dialog.Trigger>
-  <CategoryMoveDialog {athleteId} closeDialog={() => open = false} />
+  {#if open}
+    <CategoryMoveDialog {athleteId} closeDialog={() => open = false} />
+  {/if}
 </Dialog>

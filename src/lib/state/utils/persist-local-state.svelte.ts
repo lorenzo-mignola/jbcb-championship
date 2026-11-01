@@ -3,6 +3,7 @@ import { browser } from '$app/env';
 export class PersistLocalStore<T> {
   #value = $state<T>() as T;
   #key = '';
+  #isReceivingStorageEvent = false;
 
   constructor(key: string, value: T) {
     this.#key = key;
@@ -20,6 +21,7 @@ export class PersistLocalStore<T> {
 
       window.addEventListener('storage', (event) => {
         if (event.key === this.#key && event.newValue !== null) {
+          this.#isReceivingStorageEvent = true;
           this.#value = this.#deserialize(event.newValue);
         }
       });
@@ -27,9 +29,14 @@ export class PersistLocalStore<T> {
 
     $effect.root(() => {
       $effect(() => {
+        const serialized = this.#serialize(this.#value);
+        if (this.#isReceivingStorageEvent) {
+          this.#isReceivingStorageEvent = false;
+          return;
+        }
         if (browser) {
           try {
-            localStorage.setItem(this.#key, this.#serialize(this.#value));
+            localStorage.setItem(this.#key, serialized);
           } catch {
             // handle quota exceeded or private mode
           }
