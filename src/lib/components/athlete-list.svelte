@@ -1,5 +1,5 @@
 <script lang='ts'>
-  import { browser } from '$app/env';
+  import { page } from '$app/state';
 
   import type { Judoka } from '../types/judoka.type';
 
@@ -26,10 +26,8 @@
     showTitle = true,
   }: Props = $props();
 
-  const editPage = browser
-    ? window.location.href.includes('/edit')
-    : false;
-  const edit = $derived(editPage && categoriesNotStartedState.length() > 0);
+  const isEdit = $derived(page.url.pathname.includes('/edit'));
+  const edit = $derived(isEdit && categoriesNotStartedState.length() > 0);
 </script>
 
 {#if showTitle && athletes.length > 0}

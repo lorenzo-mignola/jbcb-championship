@@ -5,7 +5,7 @@ import { isByeMatch } from '../../ranking/category';
 
 export function needSkipMatch(category: Category) {
   if (!category.currentMatch) {
-    return;
+    return false;
   }
 
   const nextMatch = category.matches.find(

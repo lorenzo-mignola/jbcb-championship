@@ -19,7 +19,7 @@ function sortByDirect(a: RankingWithEven, b: RankingWithEven) {
   if (aIsWinnerDirect) {
     return -1;
   }
-  const bIsWinnerDirect = a.opponentWin.includes(b.id);
+  const bIsWinnerDirect = b.opponentWin.includes(a.id);
   if (bIsWinnerDirect) {
     return 1;
   }
@@ -37,7 +37,7 @@ function isCircle(getLoserFn: (id: string) => RankingWithEven | undefined) {
     (id: string, opponentId: string) => {
       const losers = getLoserFn(id);
       if (!losers) {
-        return;
+        return false;
       }
       if (
         losers.evaluationPoint !== evaluationPoints

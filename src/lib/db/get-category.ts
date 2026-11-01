@@ -46,8 +46,7 @@ export async function getNotStartedCategory(
       if (matches.length === 0) {
         return true;
       }
-      const [firstMatch] = matches;
-      return !firstMatch.winner;
+      return !matches.some(match => Boolean(match.winner));
     })
     .map(category => ({
       id: category.id,

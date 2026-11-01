@@ -87,21 +87,27 @@
           </Dialog.Title>
         </header>
         <Dialog.Description>
-          <Listbox
-            class='rounded-container'
-            {collection}
-            value={newCategoryId}
-            onValueChange={details => newCategoryId = details.value}
-          >
-            <Listbox.Content>
-              {#each collection.items as item (item.id)}
-                <Listbox.Item {item}>
-                  <Listbox.ItemText>{item.name}</Listbox.ItemText>
-                  <Listbox.ItemIndicator />
-                </Listbox.Item>
-              {/each}
-            </Listbox.Content>
-          </Listbox>
+          {#if collection.items.length > 0}
+            <Listbox
+              class='rounded-container'
+              {collection}
+              value={newCategoryId}
+              onValueChange={details => newCategoryId = details.value}
+            >
+              <Listbox.Content>
+                {#each collection.items as item (item.id)}
+                  <Listbox.Item {item}>
+                    <Listbox.ItemText>{item.name}</Listbox.ItemText>
+                    <Listbox.ItemIndicator />
+                  </Listbox.Item>
+                {/each}
+              </Listbox.Content>
+            </Listbox>
+          {:else}
+            <p class='py-4 text-center text-surface-600-400 italic'>
+              Nessuna altra categoria non iniziata disponibile
+            </p>
+          {/if}
         </Dialog.Description>
 
         <footer class='flex justify-end gap-2'>

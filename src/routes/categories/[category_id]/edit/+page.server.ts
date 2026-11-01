@@ -16,8 +16,8 @@ export const load: PageServerLoad = async ({ params, url }) => {
     error(404, 'Categoria non trovata');
   }
 
-  const tournament = url.searchParams.get('tournament');
-  const notStartedCategories = await getNotStartedCategory(tournament ?? '');
+  const tournament = url.searchParams.get('tournament') || category.tournament || '';
+  const notStartedCategories = await getNotStartedCategory(tournament);
 
   return {
     category,

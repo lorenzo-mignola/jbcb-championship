@@ -330,6 +330,174 @@ describe('getRankingPool', () => {
       },
     ]);
   });
+
+  it('should rank winner of direct match higher when points are tied', () => {
+    const athletes = [
+      { club: 'Club A', id: 'A', name: 'Athlete A' },
+      { club: 'Club B', id: 'B', name: 'Athlete B' },
+      { club: 'Club C', id: 'C', name: 'Athlete C' },
+      { club: 'Club D', id: 'D', name: 'Athlete D' },
+    ];
+
+    // Both A and B end with 4 match points and 20 evaluation points.
+    // Direct confrontation: B beats A.
+    // B must be ranked ahead of A.
+    const matches: Match[] = [
+      {
+        blue: {
+          club: 'Club A',
+          id: 'A',
+          ippon: 0,
+          name: 'Athlete A',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm1',
+        white: {
+          club: 'Club B',
+          id: 'B',
+          ippon: 1,
+          name: 'Athlete B',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // B beats A by Ippon (B: +2 pts, +10 eval)
+      },
+      {
+        blue: {
+          club: 'Club C',
+          id: 'C',
+          ippon: 0,
+          name: 'Athlete C',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm2',
+        white: {
+          club: 'Club A',
+          id: 'A',
+          ippon: 1,
+          name: 'Athlete A',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // A beats C by Ippon (A: +2 pts, +10 eval)
+      },
+      {
+        blue: {
+          club: 'Club D',
+          id: 'D',
+          ippon: 0,
+          name: 'Athlete D',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm3',
+        white: {
+          club: 'Club A',
+          id: 'A',
+          ippon: 1,
+          name: 'Athlete A',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // A beats D by Ippon (A: +2 pts, +10 eval -> total 4 pts, 20 eval)
+      },
+      {
+        blue: {
+          club: 'Club C',
+          id: 'C',
+          ippon: 0,
+          name: 'Athlete C',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm4',
+        white: {
+          club: 'Club B',
+          id: 'B',
+          ippon: 1,
+          name: 'Athlete B',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // B beats C by Ippon (B: +2 pts, +10 eval -> total 4 pts, 20 eval)
+      },
+      {
+        blue: {
+          club: 'Club B',
+          id: 'B',
+          ippon: 0,
+          name: 'Athlete B',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm5',
+        white: {
+          club: 'Club D',
+          id: 'D',
+          ippon: 1,
+          name: 'Athlete D',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // D beats B by Ippon (B loses)
+      },
+      {
+        blue: {
+          club: 'Club D',
+          id: 'D',
+          ippon: 0,
+          name: 'Athlete D',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        finalTime: 120,
+        goldenScore: false,
+        id: 'm6',
+        white: {
+          club: 'Club C',
+          id: 'C',
+          ippon: 1,
+          name: 'Athlete C',
+          shido: 0,
+          wazari: 0,
+          yuko: 0,
+        },
+        winner: 'white', // C beats D by Ippon
+      },
+    ];
+
+    const actual = getRankingPool(matches, athletes);
+
+    const rankB = actual.find(r => r.id === 'B')?.rank;
+    const rankA = actual.find(r => r.id === 'A')?.rank;
+
+    expect(rankB).toBeDefined();
+    expect(rankA).toBeDefined();
+    expect(rankB!).toBeLessThan(rankA!);
+  });
 });
 
 describe('getRankingBrackets', () => {

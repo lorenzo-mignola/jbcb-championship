@@ -16,8 +16,7 @@
   const { data } = $props();
   const category = $derived(data.category);
   const matches = $derived(category?.matches.filter(isNotByeMatch) || []);
-  const firstMatch = $derived(matches[0]);
-  const started = $derived(Boolean(firstMatch?.winner));
+  const started = $derived(matches.some(match => Boolean(match.winner)));
 </script>
 
 <div>
@@ -39,7 +38,7 @@
             class='btn btn-icon preset-tonal-surface'
             href={`${resolve('/categories/[category_id]/edit', {
               category_id: category.id,
-            })}?tournament=${category.tournament || ''}`}
+            })}?tournament=${category.tournament || tournamentState.tournament || ''}`}
             title='Modifica'><Edit /></a
           >
         {/if}
