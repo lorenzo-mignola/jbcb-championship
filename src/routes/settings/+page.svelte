@@ -1,5 +1,6 @@
 <script lang='ts'>
   import { Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
+  import { resolve } from '$app/paths';
 
   import Delete from '#lib/icons/delete.svelte';
 
@@ -83,7 +84,7 @@
     </label>
     <a
       class='btn preset-outlined'
-      href={`/categories/print?tournament=${tournamentState.tournament}`}
+      href={`${resolve('/categories/print')}?tournament=${tournamentState.tournament}`}
       rel='noopener noreferrer'
       target='_blank'>🖨️ Stampa tutte le categorie</a
     >
@@ -91,7 +92,7 @@
 
   <div>
     <h3 class='h3'>Visualizzazione incontro</h3>
-    <a class='btn preset-outlined' href='/view' target='_blank'>🤝 Apri pagina</a>
+    <a class='btn preset-outlined' href={resolve('/view')} target='_blank'>🤝 Apri pagina</a>
   </div>
 
   <div>

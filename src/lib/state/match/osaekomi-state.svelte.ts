@@ -52,6 +52,7 @@ class OsaekomiState {
     this.#isExtraTime = false;
     this.type = null;
     this.#timer = 0;
+    localStorageMatchState.osaekomiTime = 0;
     localStorageMatchState.osaekomiType = '';
     if (this.#interval !== null) {
       clearInterval(this.#interval);

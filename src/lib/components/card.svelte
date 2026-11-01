@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import { resolve } from '$app/paths';
+
   interface Props {
     disabled?: boolean;
     link: string;
@@ -18,7 +20,7 @@
   class:local-enabled={!disabled}
   href={!disabled
     ? link
-    : '/'}>{text}</a
+    : resolve('/')}>{text}</a
 >
 
 <style lang='postcss'>

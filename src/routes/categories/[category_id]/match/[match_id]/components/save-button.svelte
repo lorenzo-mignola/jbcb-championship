@@ -41,7 +41,7 @@
             match_id: categoryUpdated.currentMatch,
           }),
           {
-            invalidateAll: true,
+            refreshAll: true,
           },
         );
         loading = false;
@@ -53,7 +53,7 @@
           category_id: categoryUpdated.id,
         }),
         {
-          invalidateAll: true,
+          refreshAll: true,
         },
       );
     } catch (error) {

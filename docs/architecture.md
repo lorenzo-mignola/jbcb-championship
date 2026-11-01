@@ -48,8 +48,8 @@ flowchart TD
 
 ## 2. Technology Stack
 
-- **Application Framework**: [SvelteKit 2](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) utilizing runes (`$state`, `$derived`, `$effect`, `$props`).
-- **Styling & UI Components**: [Tailwind CSS v4](https://tailwindcss.com/) alongside [Skeleton UI v4](https://skeleton.dev/) (`@skeletonlabs/skeleton`, `@skeletonlabs/skeleton-svelte`).
+- **Application Framework**: [SvelteKit 3](https://kit.svelte.dev/) with [Svelte 5](https://svelte.dev/) utilizing runes (`$state`, `$derived`, `$effect`, `$props`).
+- **Styling & UI Components**: [Tailwind CSS v4](https://tailwindcss.com/) alongside [Skeleton UI v5](https://skeleton.dev/) (`@skeletonlabs/skeleton`, `@skeletonlabs/skeleton-svelte`).
 - **Database & Persistence**: [Firebase Admin SDK](https://firebase.google.com/docs/admin/setup) interacting directly with Google Cloud Firestore in native mode.
 - **Authentication**: [Better-Auth](https://www.better-auth.com/) configured with the `better-auth-firestore` adapter and Google Social OAuth provider.
 - **State Manipulation & Utilities**:
@@ -147,18 +147,18 @@ Match execution operates as a dedicated client-side state machine. Because score
 3. **`OsaekomiState` (`src/lib/state/match/osaekomi-state.svelte.ts`)**:
    - Manages the active pin clock running at 1-second intervals.
    - Escalates points automatically:
-     - **5s**: awards `Yuko`.
-     - **10s**: revokes Yuko and awards `Waza-ari`.
+     - **5s**: awards `Yuko`. In **Golden Score**, reaching 5s ends the contest immediately (_Sore-made_).
+     - **10s**: revokes Yuko and awards `Waza-ari` (or `Ippon` if the judoka already has a previous `Waza-ari`).
      - **20s**: revokes Waza-ari and awards `Ippon` (halting the match).
-   - Supports **Sonomama / Yoshi** (freezing both timer clocks together) and **Extra Time** (allowing a pin to finish if regulation time expires while hold is active).
+   - Supports **Mate** (main pause resetting unfinalized groundwork), **Sonomama / Yoshi** (dedicated hold timer pause freezing both clocks together without losing hold time, and resuming both on play), and **Extra Time** (allowing a pin to finish if regulation time expires while hold is active).
 4. **`localStorageMatchState` (`src/lib/state/match/local-storage-match-state.svelte.ts`)**:
    - Synchronizes live match state, scores, and active times to browser storage, preventing catastrophic data loss during accidental reloads.
 
 ---
 
-## 5. Scoring & Victory Hierarchy (IJF 2026 Rules)
+## 5. Scoring & Victory Hierarchy (IJF 2025+ Rules)
 
-The software implements the official International Judo Federation scoring system effective from 01.01.2026:
+The software implements the official International Judo Federation (IJF) scoring system under the 2025+ refereeing rules:
 
 ### Regulation Time Evaluation
 
@@ -169,11 +169,11 @@ The software implements the official International Judo Federation scoring syste
 2. **Expiration of Regulation Time (`timer === 0`)**:
    - Athlete with more `Waza-ari` wins.
    - If `Waza-ari` are tied (e.g. 0-0 or 1-1), athlete with more `Yuko` wins.
-   - If both `Waza-ari` and `Yuko` are equal, match enters **Golden Score**.
+   - If both `Waza-ari` and `Yuko` are equal, match enters **Golden Score**. 1st and 2nd Shido do not break regulation ties.
 
 ### Golden Score Evaluation
 
-- The first athlete to score **any technical score** (1 `Yuko`, 1 `Waza-ari`, or 1 `Ippon`) or whose opponent receives a 3rd `Shido` immediately wins.
+- The first athlete to score **any technical score** (1 `Yuko`, 1 `Waza-ari`, or 1 `Ippon`) or whose opponent receives a 3rd `Shido` immediately wins (_Sore-made_). An immobilization hold reaching 5 seconds awards Yuko and ends the contest immediately.
 
 ---
 

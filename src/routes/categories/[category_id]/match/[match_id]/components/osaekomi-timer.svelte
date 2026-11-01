@@ -14,6 +14,9 @@
   const { timer, type, view }: Props = $props();
 
   $effect(() => {
+    if (view) {
+      return;
+    }
     osaekomiState.startOsaekomi();
 
     return () => {
@@ -22,7 +25,7 @@
   });
 
   $effect(() => {
-    if (type) {
+    if (type && !view) {
       osaekomiState.watchOsaekomi(type);
     }
   });

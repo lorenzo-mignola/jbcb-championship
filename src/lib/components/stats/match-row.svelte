@@ -12,6 +12,7 @@
 <td class:font-extrabold={winner}>{judoka?.name ?? '-'}</td>
 <td class='text-center'>{judoka?.ippon || ''}</td>
 <td class='text-center'>{judoka?.wazari || ''}</td>
+<td class='text-center'>{judoka?.yuko || ''}</td>
 <td class='text-center'>{judoka?.shido || ''}</td>
 
 <style lang='postcss'>

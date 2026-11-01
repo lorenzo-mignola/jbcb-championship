@@ -61,7 +61,7 @@
       editUrl.searchParams.set('tournament', tournamentState.tournament);
 
       await goto(editUrl, {
-        invalidateAll: true,
+        refreshAll: true,
         replaceState: true,
       });
     } catch (error) {

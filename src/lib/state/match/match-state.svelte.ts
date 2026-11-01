@@ -55,7 +55,9 @@ class MatchState {
     if (!judoka) {
       return;
     }
-    judoka.ippon -= 1;
+    if (judoka.ippon > 0) {
+      judoka.ippon -= 1;
+    }
     if (this.match?.winner) {
       this.match.winner = undefined;
     }
@@ -66,7 +68,9 @@ class MatchState {
     if (!judoka) {
       return;
     }
-    judoka.wazari -= 1;
+    if (judoka.wazari > 0) {
+      judoka.wazari -= 1;
+    }
     if (this.match?.winner) {
       this.match.winner = undefined;
     }
@@ -91,9 +95,13 @@ class MatchState {
     if (!judoka) {
       return;
     }
-    judoka.shido -= 1;
+    const previousShido = judoka.shido;
+    if (judoka.shido > 0) {
+      judoka.shido -= 1;
+    }
     const opponentType = getOpponentType(type);
-    if (this.match?.winner === opponentType) {
+    // If shido drops from 3 to 2, reverse disqualification Hansoku-make
+    if (previousShido === 3 && this.match?.winner === opponentType) {
       this.removeIppon(opponentType);
     }
   }
@@ -139,6 +147,7 @@ class MatchState {
       match[opponentType].ippon = 1;
       match.winner = opponentType;
       match.finalTime = timerState.timer;
+      match.goldenScore = timerState.isGoldenScore;
     });
 
     this.match = matchUpdated;

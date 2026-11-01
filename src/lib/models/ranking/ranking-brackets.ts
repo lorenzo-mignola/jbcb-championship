@@ -8,12 +8,16 @@ export function getRankingBrackets(matches: Match[]) {
     return [];
   }
   const goldFinal = matches[lastMatchIndex];
-  const firstBronzeFinal = matches[lastMatchIndex - 1];
-  const secondBronzeFinal = matches[lastMatchIndex - 2];
+  const firstBronzeFinal = lastMatchIndex >= 1
+    ? matches[lastMatchIndex - 1]
+    : undefined;
+  const secondBronzeFinal = lastMatchIndex >= 2
+    ? matches[lastMatchIndex - 2]
+    : undefined;
 
   const ranking = [];
 
-  if (goldFinal.winner) {
+  if (goldFinal?.winner) {
     ranking.push({
       id: goldFinal[goldFinal.winner]?.id,
       rank: 1,
@@ -24,7 +28,7 @@ export function getRankingBrackets(matches: Match[]) {
     });
   }
 
-  if (firstBronzeFinal.winner) {
+  if (firstBronzeFinal?.winner) {
     ranking.push({
       id: firstBronzeFinal[firstBronzeFinal.winner]?.id,
       rank: 3,
@@ -34,7 +38,7 @@ export function getRankingBrackets(matches: Match[]) {
       rank: 5,
     });
   }
-  if (secondBronzeFinal.winner) {
+  if (secondBronzeFinal?.winner) {
     ranking.push({
       id: secondBronzeFinal[secondBronzeFinal.winner]?.id,
       rank: 3,

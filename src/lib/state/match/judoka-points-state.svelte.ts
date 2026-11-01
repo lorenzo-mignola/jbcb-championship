@@ -15,7 +15,7 @@ export function pointsToString(points: Points) {
   return [ippon, wazari, yuko].map(toString).filter(Boolean).join(' ');
 }
 
-function getPoints(athlete?: MatchJudoka): Points {
+export function getPoints(athlete?: MatchJudoka): Points {
   return {
     ippon: athlete?.ippon ?? defaultPoints.ippon,
     wazari: athlete?.wazari ?? defaultPoints.wazari,

@@ -53,4 +53,8 @@ export const allowedUserConverter = {
 
 export const db = getFirestore();
 
-db.settings({ ignoreUndefinedProperties: true });
+try {
+  db.settings({ ignoreUndefinedProperties: true });
+} catch {
+  // Settings may already be locked if Firestore was initialized previously (e.g., during HMR)
+}

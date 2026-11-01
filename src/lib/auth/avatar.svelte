@@ -1,11 +1,10 @@
 <script lang='ts'>
   import { Avatar, Dialog, Portal } from '@skeletonlabs/skeleton-svelte';
-  import { invalidateAll } from '$app/navigation';
+  import { refreshAll } from '$app/navigation';
 
   import { signOut, useSession } from '#lib/auth/auth-client';
 
   const session = useSession();
-
 </script>
 
 {#if $session.data?.user}
@@ -14,8 +13,9 @@
       <Avatar class='size-7'>
         <Avatar.Image
           title={$session.data.user.name}
-          src={`https://api.dicebear.com/10.x/blobs/svg?seed=${$session.data.user.email}`}
-          alt='small'
+          src={$session.data.user.image
+            || `https://api.dicebear.com/10.x/blobs/svg?seed=${$session.data.user.id}`}
+          alt={$session.data.user.name}
         />
         <Avatar.Fallback>{$session.data.user.name.substring(0, 1)}</Avatar.Fallback>
       </Avatar>
@@ -35,10 +35,16 @@
             Attualmente sei autenticato con l'email <strong>{$session.data.user.email}</strong>.
           </Dialog.Description>
           <footer class='flex justify-end gap-2'>
-            <button type='button' class='btn preset-tonal' onclick={async () => {
-              await signOut();
-              await invalidateAll();
-            }}>Logout</button>
+            <button
+              type='button'
+              class='btn preset-tonal'
+              onclick={async () => {
+                await signOut();
+                await refreshAll();
+              }}
+            >
+              Logout
+            </button>
             <Dialog.CloseTrigger class='btn preset-filled'>Chiudi</Dialog.CloseTrigger>
           </footer>
         </Dialog.Content>

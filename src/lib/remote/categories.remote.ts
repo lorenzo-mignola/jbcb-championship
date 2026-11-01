@@ -11,7 +11,23 @@ const CategoryInputSchema = CategoryBaseSchema.pick({
   name: true,
   tournament: true,
   type: true,
-});
+}).refine(
+  (data) => {
+    if (data.type === 'pool') {
+      return data.athletes.length >= 2;
+    }
+    if (data.type === 'double_pool') {
+      return data.athletes.length >= 4;
+    }
+    if (data.type === 'brackets') {
+      return data.athletes.length >= 3;
+    }
+    return true;
+  },
+  {
+    message: 'Numero insufficiente di atleti per la categoria',
+  },
+);
 
 const EditCategoryInputSchema = z.object({
   category: CategoryInputSchema,

@@ -1,4 +1,6 @@
 <script>
+  import { resolve } from '$app/paths';
+
   import Card from '#lib/components/card.svelte';
   import Settings from '#lib/icons/settings.svelte';
   import { tournamentState } from '#lib/state/settings/tournament-state';
@@ -6,20 +8,20 @@
 
 <div class='local-home-container'>
   <Card
-    link='/new'
+    link={resolve('/new')}
     text='✨ Crea categoria ✨'
   />
   <Card
-    link={`/categories?tournament=${tournamentState.tournament}`}
+    link={`${resolve('/categories')}?tournament=${tournamentState.tournament}`}
     text='💪 Visualizza categorie 💪'
   />
   <Card
     disabled={!tournamentState.tournament}
-    link='/print'
+    link={resolve('/print')}
     text='🖨️ Stampa 🖨'
   />
 
-  <a class='local-settings btn preset-outlined-primary-500' href='/settings'>
+  <a class='local-settings btn preset-outlined-primary-500' href={resolve('/settings')}>
     <span><Settings /></span>
     <span>Impostazioni</span>
   </a>

@@ -1,4 +1,6 @@
 <script lang='ts'>
+  import { resolve } from '$app/paths';
+
   import Check from '#lib/icons/check.svelte';
 
   import Search from '../../lib/icons/search.svelte';
@@ -28,7 +30,7 @@
     <a
       data-sveltekit-preload-code='hover'
       data-sveltekit-preload-data='tap'
-      href={`/categories/${category.id}`}
+      href={resolve('/categories/[category_id]', { category_id: category.id })}
     >
       <button
         class='btn w-full card p-4 text-xl'

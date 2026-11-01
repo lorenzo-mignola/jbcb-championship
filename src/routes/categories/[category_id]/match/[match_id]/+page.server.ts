@@ -1,3 +1,5 @@
+import { error } from '@sveltejs/kit';
+
 import type { Category } from '#lib/types/category.type';
 import type { Match } from '#lib/types/match.type';
 
@@ -6,25 +8,19 @@ import { isNotByeMatch } from '#lib/models/ranking/category';
 
 import type { PageServerLoad } from './$types';
 
-type Output
-  = | {
-    category: undefined;
-  }
-  | {
-    category: Pick<Category, 'name' | 'duration'> & { id: string };
-    match: Match;
-    nextMatch: Match | undefined;
-    isMedalMatch: boolean;
-  };
+interface Output {
+  category: Pick<Category, 'name' | 'duration'> & { id: string };
+  isMedalMatch: boolean;
+  match: Match;
+  nextMatch: Match | undefined;
+}
 
 export const load: PageServerLoad = async ({ params }): Promise<Output> => {
   const { category_id, match_id } = params;
   const category = await getCategory(category_id);
 
   if (!category) {
-    return {
-      category,
-    };
+    error(404, 'Categoria non trovata');
   }
 
   const matchIndex = category.matches.findIndex(
@@ -32,9 +28,7 @@ export const load: PageServerLoad = async ({ params }): Promise<Output> => {
   );
 
   if (matchIndex === -1) {
-    return {
-      category: undefined,
-    };
+    error(404, 'Incontro non trovato');
   }
 
   const isMedalMatch

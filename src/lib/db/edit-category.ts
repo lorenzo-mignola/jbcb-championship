@@ -8,13 +8,11 @@ import {
 import { updateBrackets } from '../models/categories/brackets/update-brackets';
 import { updateDoublePool } from '../models/categories/doublePool/update-double-pool';
 import { updateSinglePool } from '../models/categories/singlePool/update-single-pool';
+import { isNotByeMatch } from '../models/ranking/category';
 import { categoriesCollection } from './categories-collection';
-import { createCategory } from './create-cateogry';
+import { generateCategory } from './create-cateogry';
+import { db } from './firebase';
 import { getCategory } from './get-category';
-
-function removeCategory(id: string) {
-  return categoriesCollection.doc(id).delete();
-}
 
 export async function editCategory(
   categoryId: string,
@@ -23,10 +21,63 @@ export async function editCategory(
     'name' | 'athletes' | 'type' | 'duration' | 'tournament'
   >,
 ) {
-  const newId = await createCategory(categoryEdit);
-  await removeCategory(categoryId);
+  const categoryRef = categoriesCollection.doc(categoryId);
 
-  return newId;
+  await db.runTransaction(async (transaction) => {
+    const category = await transaction.get(categoryRef);
+    if (!category.exists) {
+      throw new Error(`Category ${categoryId} not found`);
+    }
+
+    const categoryData = category.data();
+    const existingCategory = {
+      id: category.id,
+      ...categoryData,
+    } as Category;
+
+    const hasCompletedMatches = existingCategory.matches
+      .filter(isNotByeMatch)
+      .some(match => Boolean(match.winner));
+
+    const isStructuralChange = getIsStructuralChange(existingCategory, categoryEdit);
+
+    if (hasCompletedMatches && isStructuralChange) {
+      throw new Error(
+        'Cannot change athletes or category type after matches have been played',
+      );
+    }
+
+    if (hasCompletedMatches) {
+      transaction.update(categoryRef, {
+        duration: categoryEdit.duration,
+        name: categoryEdit.name,
+        tournament: categoryEdit.tournament,
+      });
+    } else {
+      const regenerated = generateCategory(categoryEdit);
+      transaction.set(categoryRef, regenerated);
+    }
+  });
+
+  return categoryId;
+}
+
+function getIsStructuralChange(
+  existingCategory: Category,
+  categoryEdit: Pick<Category, 'type' | 'athletes' | 'name' | 'duration' | 'tournament'>,
+) {
+  const athleteIdsBefore = existingCategory.athletes
+    .map(athlete => athlete.id)
+    .sort()
+    .join(',');
+
+  const athleteIdsAfter = categoryEdit.athletes
+    .map(athlete => athlete.id)
+    .sort()
+    .join(',');
+
+  return existingCategory.type !== categoryEdit.type
+    || athleteIdsBefore !== athleteIdsAfter;
 }
 
 function updateCategory(category: Category, matchUpdated: Match) {
